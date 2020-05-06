@@ -4,59 +4,31 @@ public class Weapon extends Item {
     private int attackPower;
     private int attackBonus;
     private int attackDistance;
-    private boolean diagonallyAttack;
+    private boolean attackDiagonally;
     private boolean twoHanded;
 
-    public static class Builder {
-        private String weaponName;
-        private String weaponDescription;
-        private int attackPower;
-        private int attackBonus;
-        private int attackDistance;
-        private boolean diagonallyAttack;
-        private boolean twoHanded;
-        private int weaponDurability;
+    public Weapon(String name, String description, int weaponDurability) {
+        super(name, description, weaponDurability);
+    }
 
-        public Builder() {}
+    public void setAttackBonus(int attackBonus) {
+        this.attackBonus = attackBonus;
+    }
 
-        public Builder setWeaponName(String weaponName) {
-            this.weaponName = weaponName;
-            return this;
-        }
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
+    }
 
-        public Builder setWeaponDescription(String weaponDescription) {
-            this.weaponDescription =  weaponDescription;
-            return this;
-        }
+    public void setAttackDistance(int attackDistance) {
+        this.attackDistance = attackDistance;
+    }
 
-        public Builder setAttackPower(int attackPower) {
-            this.attackPower = attackPower;
-            return this;
-        }
+    public void setAttackDiagonally(boolean attackDiagonally) {
+        this.attackDiagonally = attackDiagonally;
+    }
 
-        public Builder setAttackDistance(int attackDistance) {
-            this.attackDistance = attackDistance;
-            return this;
-        }
-
-        public Builder setDiagonallyAttack(boolean diagonallyAttack) {
-            this.diagonallyAttack = diagonallyAttack;
-            return this;
-        }
-
-        public Builder setAsTwoHandedWeapon(boolean twoHanded) {
-            this.twoHanded = twoHanded;
-            return this;
-        }
-
-        public Builder setWeaponDurability(int weaponDurability) {
-            this.weaponDurability = weaponDurability;
-            return this;
-        }
-
-        public Weapon build() {
-            return new Weapon(this);
-        }
+    public void setTwoHanded(boolean twoHanded) {
+        this.twoHanded = twoHanded;
     }
 
     public int getAttackPower() {
@@ -71,20 +43,11 @@ public class Weapon extends Item {
         return attackDistance;
     }
 
-    public boolean canDiagonallyAttack() {
-        return diagonallyAttack;
+    public boolean canAttackDiagonally() {
+        return attackDiagonally;
     }
 
     public boolean isTwoHanded() {
         return twoHanded;
-    }
-
-    private Weapon(Builder builder) {
-        super(builder.weaponName, builder.weaponDescription, builder.weaponDurability);
-        this.attackPower = builder.attackPower;
-        this.attackBonus = builder.attackBonus;
-        this.attackDistance = builder.attackDistance;
-        this.diagonallyAttack = builder.diagonallyAttack;
-        this.twoHanded = builder.twoHanded;
     }
 }
