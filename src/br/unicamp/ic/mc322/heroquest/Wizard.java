@@ -6,7 +6,7 @@ public class Wizard extends Hero {
         super();
         attackDice = 1;
         defenseDice = 2;
-        bodyPoints = 4;
+        maxBodyPoints = curBodyPoints =  4;
         mindPoints = 6;
         equipWeapon(new Dagger());
     }

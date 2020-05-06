@@ -1,6 +1,15 @@
 package br.unicamp.ic.mc322.heroquest;
 
 public class Skill {
-    ActionType type;
+    SkillType type;
+    Action action;
     int intensity;
+
+    SkillType getType(){
+        return type;
+    }
+
+    Action getAction(){
+        return action;
+    }
 }

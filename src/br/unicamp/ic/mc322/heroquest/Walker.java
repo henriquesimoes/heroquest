@@ -4,18 +4,107 @@ import java.util.LinkedHashMap;
 
 public abstract class Walker {
     protected Weapon leftWeapon, rightWeapon;
-    protected int bodyPoints, mindPoints, attackDice, moveDice, defenseDice, bonusAttackDice;
+    protected Armor armor;
+    protected int maxBodyPoints, curBodyPoints, mindPoints, attackDice, moveDice, defenseDice, bonusAttackDice, bonusDefenseDice;
     protected LinkedHashMap < Skill, Integer > skills;
+    protected CombatDice combatDice;
     protected Knapsack knapsack;
 
     Walker(){
+        combatDice = new CombatDice();
         knapsack = new Knapsack();
-        skills = new LinkedHashMap < Skill, Integer >();
+        skills = new LinkedHashMap <>();
         moveDice = 2;
     }
 
+    private void useItemOfSkill(Skill skill){
+        CollectableItem item = skill.getItem();
+        item.use();
+        if(item.isDestroy())
+            destroyItem(item);
+    }
+
+    public void executeAction(Action action, int intensity){
+        switch (action){
+            case DAMAGE:
+                decreaseBodyPoints(intensity);
+                break;
+            case HEALING:
+                restoreBodyPoints(intensity);
+                break;
+        }
+    }
+
+    public boolean isAlive(){
+        return curBodyPoints > 0;
+    }
+
+    public int getIntensitySkill(Skill skill){
+        switch (skill.getClass()){
+            case HEALING:
+                // TODO: implement amount of points of life restored
+                break;
+            case ATTACK:
+                // TODO: implement amount of damage
+            default:
+                //fatal error;
+                break;
+        }
+        return 0; // only for the compiler not complain
+    }
+
+    /**
+     * @param skill
+     * @return if the skill was executed with success
+     */
+    public boolean tryUseSkill(Skill skill){
+
+        useItemOfSkill(skill);
+
+        switch(skill.getType()){
+            case MAGIC:
+                // TODO: implement chance of magic skill are used with success
+                break;
+            case PHYSICAL:
+                // TODO: implement chance of magic skill are used with success
+                break;
+            default:
+                //fatal error;
+                break;
+        }
+
+        return false; // only for the compiler not complain
+    }
+
+    public boolean skillHasTarget(Skill skill){
+        switch (skill.getAction()){
+            case DAMAGE:
+                return true;
+            case HEALING:
+                return false;
+        }
+        return false; // only for the compiler not complain
+    }
+
+    // erase the item of the inventory
+    private void destroyItem(CollectableItem item){
+        if(leftWeapon != null && leftWeapon.equals(item))
+            unequipWeapon((Weapon)item);
+        if(rightWeapon != null && rightWeapon.equals(item))
+            unequipWeapon((Weapon)item);
+        knapsack.remove(item);
+    }
+
+    private void restoreBodyPoints(int delta){
+        curBodyPoints = Math.min(curBodyPoints + delta, maxBodyPoints);
+    }
+
+    private void decreaseBodyPoints(int delta){
+        curBodyPoints = Math.max(curBodyPoints - delta, 0);
+    }
+
     protected void equipWeapon(Weapon weapon){
-        if(weapon.isTwoHand()){
+        if(weapon.isTwoHanded()){
             storeLeftWeapon();
             storeRightWeapon();
             leftWeapon = weapon;
@@ -29,26 +118,24 @@ public abstract class Walker {
             }
         }
 
-        Integer oldAmount = skills.get(weapon);
-        skills.remove(weapon);
+        Integer oldAmount = skills.remove(weapon);
 
         Integer curAmount = oldAmount == null ? 1 : oldAmount + 1;
 
         skills.put(weapon.getSkill(), curAmount);
-        bonusAttackDice += weapon.getBonusAttack();
+        bonusAttackDice += weapon.getAttackBonus();
     }
 
     private void unequipWeapon(Weapon weapon){
         knapsack.put(weapon);
 
-        Integer curAmount = skills.get(weapon);
-        skills.remove(weapon.getSkill());
+        Integer curAmount = skills.remove(weapon);
 
         curAmount --;
         if(curAmount != 0)
             skills.put(weapon.getSkill(), curAmount);
 
-        bonusAttackDice -= weapon.getBonusAttack();
+        bonusAttackDice -= weapon.getAttackBonus();
     }
 
     protected void storeLeftWeapon(){
@@ -63,5 +150,14 @@ public abstract class Walker {
             unequipWeapon(rightWeapon);
             rightWeapon = null;
         }
+    }
+
+    protected void equipArmor(Armor nextArmor){
+        if(armor != null)
+            knapsack.put(armor);
+        bonusDefenseDice -= armor.getDefenceBonus();
+
+        armor = nextArmor;
+        bonusAttackDice += nextArmor.getDefenceBonus();
     }
 }

@@ -1,4 +1,5 @@
 package br.unicamp.ic.mc322.heroquest;
 
-public class CollectableItems {
+public enum Action {
+    HEALING, DAMAGE;
 }

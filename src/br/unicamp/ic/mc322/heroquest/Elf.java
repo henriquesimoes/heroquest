@@ -6,7 +6,7 @@ public class Elf extends Hero {
         super();
         attackDice = 2;
         defenseDice = 2;
-        bodyPoints = 6;
+        maxBodyPoints = curBodyPoints =  6;
         mindPoints = 4;
         equipWeapon(new ShortSword());
     }

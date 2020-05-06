@@ -6,7 +6,7 @@ public class Barbarian extends Hero {
         super();
         attackDice = 3;
         defenseDice = 2;
-        bodyPoints = 8;
+        maxBodyPoints = curBodyPoints = 8;
         mindPoints = 2;
         equipWeapon(new LongSword());
     }
