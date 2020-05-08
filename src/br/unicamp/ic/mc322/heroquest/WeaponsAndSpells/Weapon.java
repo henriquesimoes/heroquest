@@ -1,22 +1,17 @@
 package br.unicamp.ic.mc322.heroquest.WeaponsAndSpells;
 
 public class Weapon extends Item {
-    private int attackPower;
-    private int attackBonus;
+   private int attackBonus;
     private int attackDistance;
     private boolean attackDiagonally;
     private boolean twoHanded;
 
-    public Weapon(String name, String description, int weaponDurability) {
-        super(name, description, weaponDurability);
+    public Weapon(String name, String description, int weaponDurability, int goldCoinsValue) {
+        super(name, description, weaponDurability, goldCoinsValue);
     }
 
     public void setAttackBonus(int attackBonus) {
         this.attackBonus = attackBonus;
-    }
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
     }
 
     public void setAttackDistance(int attackDistance) {
@@ -29,10 +24,6 @@ public class Weapon extends Item {
 
     public void setTwoHanded(boolean twoHanded) {
         this.twoHanded = twoHanded;
-    }
-
-    public int getAttackPower() {
-        return attackPower;
     }
 
     public int getAttackBonus() {
