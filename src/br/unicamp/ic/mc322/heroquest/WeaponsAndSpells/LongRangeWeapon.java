@@ -14,9 +14,4 @@ public class LongRangeWeapon extends Weapon {
     public int getThrowDistance() {
         return throwDistance;
     }
-
-    public void throwWeapon() {
-        /** TODO
-         * DECIDIR COMO VÃO FUNCIONAR OS LANÇAMENTOS*/
-    }
 }
