@@ -1,4 +1,6 @@
-package br.unicamp.ic.mc322.heroquest.WeaponsAndSpells;
+package br.unicamp.ic.mc322.heroquest.item.weapons;
+
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
 
 public class LongRangeWeapon extends Weapon {
     public int throwDistance;

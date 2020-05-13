@@ -1,6 +1,6 @@
-package br.unicamp.ic.mc322.heroquest.WeaponsAndSpells.Armory;
+package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.WeaponsAndSpells.LongRangeWeapon;
+import br.unicamp.ic.mc322.heroquest.item.weapons.LongRangeWeapon;
 
 public class Crossbow extends LongRangeWeapon {
     private static final String description = "Crossbow gives you a bonus of 3 combat dices." +

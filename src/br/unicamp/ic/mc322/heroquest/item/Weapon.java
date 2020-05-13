@@ -1,6 +1,6 @@
-package br.unicamp.ic.mc322.heroquest.WeaponsAndSpells;
+package br.unicamp.ic.mc322.heroquest.item;
 
-public class Weapon extends Item {
+public class Weapon extends DurableItem {
    private int attackBonus;
     private int attackDistance;
     private boolean attackDiagonally;
