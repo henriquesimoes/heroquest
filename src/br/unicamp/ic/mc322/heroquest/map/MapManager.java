@@ -1,21 +1,23 @@
 package br.unicamp.ic.mc322.heroquest.map;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.generator.MapGenerator;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapLoader;
-import br.unicamp.ic.mc322.heroquest.map.view.Viewer;
 
 public class MapManager {
-    private Map map;
+    private MapLoader loader;
+    private MapGenerator generator;
 
-    public void setMap(String name) {
-        MapLoader loader = new MapLoader();
-
-        this.map = loader.load(name);
+    public MapManager() {
+        loader = new MapLoader();
+        generator = new MapGenerator();
     }
 
-    public void displayMap() {
-        Viewer view = new Viewer(map);
+    public Map load(String name) {
+        return loader.load(name);
+    }
 
-        view.display();
+    public Map generate() {
+        return generator.generate();
     }
 }
