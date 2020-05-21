@@ -2,35 +2,56 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.Armor;
 import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.SpellCard;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.skill.MagicSkill;
+import br.unicamp.ic.mc322.heroquest.skill.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.skill.Skill;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
+import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
+import br.unicamp.ic.mc322.heroquest.util.dice.Dice;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
+import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 
 public abstract class Walker {
     protected Weapon leftWeapon, rightWeapon;
     protected Armor armor;
-    protected int maxBodyPoints, curBodyPoints, mindPoints, attackDice, moveDice, defenseDice, bonusAttackDice, bonusDefenseDice;
-    protected LinkedHashMap <Skill, Integer > skills;
+    protected int maxBodyPoints, curBodyPoints, mindPoints, attackDice, moveDice, defenseDice, bonusDefenseDice;
+    protected ArrayList< Pair < PhysicalSkill, Integer > > physicalSkills;
+    protected ArrayList< Pair < MagicSkill, Integer > > magicSkills;
     protected CombatDice combatDice;
     protected RedDice redDice;
+    protected Dice magicDice;
     protected Knapsack knapsack;
 
     Walker(){
         redDice = new RedDice();
         combatDice = new CombatDice();
+        magicDice = new Dice(6);
         knapsack = new Knapsack();
-        skills = new LinkedHashMap <>();
+        physicalSkills = new ArrayList<>();
+        magicSkills = new ArrayList<>();
         moveDice = 2;
     }
 
-    private void useItemOfSkill(Skill skill){
-        CollectableItem item = skill.getItem();
-        item.use();
-        if(item.isDestroy())
-            destroyItem(item);
+    public ArrayList<String> getListPhysicalSkills(){
+        ArrayList<String> listName = new ArrayList<>();
+        for(Pair<PhysicalSkill, Integer> pair : physicalSkills){
+            PhysicalSkill skill = pair.getKey();
+            listName.add(skill.getName());
+        }
+        return listName;
+    }
+
+    public ArrayList<String> getListMagicSkills(){
+        ArrayList<String> listName = new ArrayList<>();
+        for(Pair<MagicSkill, Integer> pair : magicSkills){
+            MagicSkill skill = pair.getKey();
+            listName.add(skill.getName());
+        }
+        return listName;
     }
 
     public void executeAction(Action action, int intensity){
@@ -48,41 +69,48 @@ public abstract class Walker {
         return curBodyPoints > 0;
     }
 
-    public int getIntensitySkill(Skill skill){
-        switch (skill.getAction()){
-            case HEALING:
-                // TODO: implement amount of points of life restored
-                break;
-            case DAMAGE:
-                // TODO: implement amount of damage
-            default:
-                //fatal error;
-                break;
-        }
-        return 0; // only for the compiler not complain
+    public int getIntensitySkill(MagicSkill skill){
+        return skill.getIntensity(magicDice.rollIndex());
     }
 
-    /**
-     * @param skill
-     * @return if the skill was executed with success
-     */
-    public boolean tryUseSkill(Skill skill){
+    public int getIntensitySkill(PhysicalSkill skill){
+        int intensity = 0;
+        Weapon weapon = (Weapon)skill.getItem();
+        int totalAttack = attackDice + weapon.getAttackBonus();
 
-        useItemOfSkill(skill);
+        for(int times = 0; times < totalAttack; times++)
+            if(combatDice.roll() == CombatDiceFace.SKULL)
+                intensity++;
+        return intensity;
+    }
 
-        switch(skill.getType()){
-            case MAGIC:
-                // TODO: implement chance of magic skill are used with success
-                break;
-            case PHYSICAL:
-                // TODO: implement chance of magic skill are used with success
-                break;
-            default:
-                //fatal error;
-                break;
-        }
+    public int usePhysicalSkill(int index, boolean useInYourSelf){
+        PhysicalSkill skill = physicalSkills.get(index).getKey();
+        int intensity = getIntensitySkill(skill);
+        if(useInYourSelf)
+            executeAction(skill.getAction(), intensity);
+        useSkill(skill);
+        return intensity;
+    }
 
-        return false; // only for the compiler not complain
+    public int useMagicSkill(int index, boolean useInYourSelf){
+        MagicSkill skill = magicSkills.get(index).getKey();
+        boolean sucessUse = tryUseMagicSkill();
+        int intensity = sucessUse ? getIntensitySkill(skill) : 0;
+        if(sucessUse && useInYourSelf)
+            executeAction(skill.getAction(), intensity);
+        useSkill(skill);
+        return intensity;
+    }
+
+    private boolean tryUseMagicSkill(){
+        return magicDice.rollIndex() <= mindPoints;
+    }
+
+    public void useSkill(Skill skill){
+        CollectableItem item = skill.getItem();
+        if(item.isDestroy())
+            destroyItem(item);
     }
 
     public boolean skillHasTarget(Skill skill){
@@ -103,6 +131,9 @@ public abstract class Walker {
             unequipWeapon((Weapon)item);
         if (armor != null && armor.equals(item))
             unequipArmor();
+        if (item instanceof SpellCard)
+            removeSkillSpellCard((SpellCard)item);
+
         knapsack.remove(item);
     }
 
@@ -129,24 +160,42 @@ public abstract class Walker {
             }
         }
 
-        Integer oldAmount = skills.remove(weapon);
+        ArrayList<PhysicalSkill> skills = weapon.getSkills();
 
-        Integer curAmount = oldAmount == null ? 1 : oldAmount + 1;
+        for(PhysicalSkill skill : skills){
+            // TODO: test if this really work
+            int index = physicalSkills.indexOf(new Pair<PhysicalSkill, Integer>(skill, 0));
 
-        skills.put(weapon.getSkill(), curAmount);
-        bonusAttackDice += weapon.getAttackBonus();
+            if(index == -1){
+                physicalSkills.add(new Pair<>(skill, 1));
+            }else{
+                Pair<PhysicalSkill, Integer> pair = physicalSkills.get(index);
+                pair.setValue(pair.getValue() + 1);
+            }
+        }
     }
 
     private void unequipWeapon(Weapon weapon){
         knapsack.put(weapon);
 
-        Integer curAmount = skills.remove(weapon);
+        ArrayList<PhysicalSkill> skills = weapon.getSkills();
 
-        curAmount --;
-        if(curAmount != 0)
-            skills.put(weapon.getSkill(), curAmount);
+        for(PhysicalSkill skill : skills){
+            // TODO: test if this really work
+            int index = physicalSkills.indexOf(new Pair<PhysicalSkill, Integer>(skill, 0));
 
-        bonusAttackDice -= weapon.getAttackBonus();
+            if(index == -1){
+                System.out.println("Fatal Error");
+                System.exit(1);
+            }else{
+                Pair<PhysicalSkill, Integer> pair = physicalSkills.get(index);
+                if(pair.getValue() == 1){
+                    physicalSkills.remove(index);
+                }else{
+                    pair.setValue(pair.getValue() - 1);
+                }
+            }
+        }
     }
 
     protected void storeLeftWeapon(){
@@ -168,13 +217,50 @@ public abstract class Walker {
             unequipArmor();
 
         armor = nextArmor;
-        bonusAttackDice += nextArmor.getDefenceBonus();
+        bonusDefenseDice += nextArmor.getDefenceBonus();
     }
 
     protected void unequipArmor(){
         if(armor != null){
             knapsack.put(armor);
             bonusDefenseDice -= armor.getDefenceBonus();
+        }
+    }
+
+    protected void removeSkillSpellCard(SpellCard card){
+        MagicSkill skill = card.getSkill();
+        // TODO: test if this really work
+        int index = magicSkills.indexOf(new Pair<MagicSkill, Integer>(skill, 0));
+
+        if(index == -1){
+            System.out.println("Fatal Error");
+            System.exit(1);
+        }else{
+            Pair<MagicSkill, Integer> pair = magicSkills.get(index);
+            if(pair.getValue() == 1)
+                magicSkills.remove(index);
+            else
+                pair.setValue(pair.getValue() - 1);
+        }
+    }
+
+    protected void addSkillSpellCard(SpellCard card){
+        MagicSkill skill = card.getSkill();
+        // TODO: test if this really work
+        int index = magicSkills.indexOf(new Pair<MagicSkill, Integer>(skill, 0));
+
+        if(index == -1){
+            magicSkills.add(new Pair<>(skill, 1));
+        }else{
+            Pair<MagicSkill, Integer> pair = magicSkills.get(index);
+            pair.setValue(pair.getValue() + 1);
+        }
+    }
+
+    protected void collectItem(CollectableItem item){
+        knapsack.put(item);
+        if(item instanceof SpellCard){
+            addSkillSpellCard((SpellCard)item);
         }
     }
 }
