@@ -8,9 +8,11 @@ public abstract class Walker {
     protected int maxBodyPoints, curBodyPoints, mindPoints, attackDice, moveDice, defenseDice, bonusAttackDice, bonusDefenseDice;
     protected LinkedHashMap < Skill, Integer > skills;
     protected CombatDice combatDice;
+    protected RedDice redDice;
     protected Knapsack knapsack;
 
     Walker(){
+        redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
         skills = new LinkedHashMap <>();
@@ -40,11 +42,11 @@ public abstract class Walker {
     }
 
     public int getIntensitySkill(Skill skill){
-        switch (skill.getClass()){
+        switch (skill.getAction()){
             case HEALING:
                 // TODO: implement amount of points of life restored
                 break;
-            case ATTACK:
+            case DAMAGE:
                 // TODO: implement amount of damage
             default:
                 //fatal error;
@@ -88,10 +90,12 @@ public abstract class Walker {
 
     // erase the item of the inventory
     private void destroyItem(CollectableItem item){
-        if(leftWeapon != null && leftWeapon.equals(item))
+        if (leftWeapon != null && leftWeapon.equals(item))
             unequipWeapon((Weapon)item);
-        if(rightWeapon != null && rightWeapon.equals(item))
+        if (rightWeapon != null && rightWeapon.equals(item))
             unequipWeapon((Weapon)item);
+        if (armor != null && armor.equals(item))
+            unequipArmor();
         knapsack.remove(item);
     }
 
@@ -154,10 +158,16 @@ public abstract class Walker {
 
     protected void equipArmor(Armor nextArmor){
         if(armor != null)
-            knapsack.put(armor);
-        bonusDefenseDice -= armor.getDefenceBonus();
+            unequipArmor();
 
         armor = nextArmor;
         bonusAttackDice += nextArmor.getDefenceBonus();
+    }
+
+    protected void unequipArmor(){
+        if(armor != null){
+            knapsack.put(armor);
+            bonusDefenseDice -= armor.getDefenceBonus();
+        }
     }
 }
