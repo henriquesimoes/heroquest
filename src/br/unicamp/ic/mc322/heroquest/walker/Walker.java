@@ -1,4 +1,11 @@
-package br.unicamp.ic.mc322.heroquest;
+package br.unicamp.ic.mc322.heroquest.walker;
+
+import br.unicamp.ic.mc322.heroquest.item.Armor;
+import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.skill.Skill;
+import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
+import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 
 import java.util.LinkedHashMap;
 
@@ -6,7 +13,7 @@ public abstract class Walker {
     protected Weapon leftWeapon, rightWeapon;
     protected Armor armor;
     protected int maxBodyPoints, curBodyPoints, mindPoints, attackDice, moveDice, defenseDice, bonusAttackDice, bonusDefenseDice;
-    protected LinkedHashMap < Skill, Integer > skills;
+    protected LinkedHashMap <Skill, Integer > skills;
     protected CombatDice combatDice;
     protected RedDice redDice;
     protected Knapsack knapsack;

@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest;
+package br.unicamp.ic.mc322.heroquest.walker.hero;
 
 public class Barbarian extends Hero {
 
