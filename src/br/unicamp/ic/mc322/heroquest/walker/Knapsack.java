@@ -11,14 +11,18 @@ public class Knapsack {
         items = new LinkedHashMap <>();
     }
 
-    void put(CollectableItem item){
+    public void put(CollectableItem item){
         Integer oldAmount = items.get(item);
         Integer curAmount = oldAmount == null ? 1 : oldAmount + 1;
         items.put(item, curAmount);
     }
 
-    void remove(CollectableItem item){
+    public void remove(CollectableItem item){
         Integer curAmount = items.remove(item);
+        if(curAmount == null){
+            System.out.println("Fatal Error: Try remove an item that not exists");
+            System.exit(1);
+        }
         curAmount --;
         if(curAmount > 0)
             items.put(item, curAmount);

@@ -2,14 +2,13 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.Armor;
 import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
-import br.unicamp.ic.mc322.heroquest.item.SpellCard;
+import br.unicamp.ic.mc322.heroquest.item.spellcard.SpellCard;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.skill.MagicSkill;
 import br.unicamp.ic.mc322.heroquest.skill.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.skill.Skill;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
-import br.unicamp.ic.mc322.heroquest.util.dice.Dice;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
@@ -23,13 +22,11 @@ public abstract class Walker {
     protected ArrayList<Pair<MagicSkill, Integer>> magicSkills;
     protected CombatDice combatDice;
     protected RedDice redDice;
-    protected Dice magicDice;
     protected Knapsack knapsack;
 
-    Walker() {
+    public Walker() {
         redDice = new RedDice();
         combatDice = new CombatDice();
-        magicDice = new Dice(6);
         knapsack = new Knapsack();
         physicalSkills = new ArrayList<>();
         magicSkills = new ArrayList<>();
@@ -58,34 +55,17 @@ public abstract class Walker {
         return listName;
     }
 
-    public abstract int getIntensityOfDefensePhysical();
+    public int getLimitPosInMoviment(){
+        int numPos = 0;
 
-    public void executeAction(Action action, int intensity) {
-        switch (action) {
-            case DEFENDMAGIC:
-                boolean sucessDefend = tryUseMagicalMoviment();
-                if(!sucessDefend)
-                    decreaseBodyPoints(intensity);
-                break;
+        for(int i = 0; i < moveDice; i++)
+            numPos += redDice.rollIndex();
 
-            case DEFENDPHYSICAL:
-                int intensityDefence = getIntensityOfDefensePhysical();
-                if(intensityDefence < intensity)
-                    decreaseBodyPoints(intensity);
-                break;
-
-            case HEALING:
-                restoreBodyPoints(intensity);
-                break;
-        }
-    }
-
-    public boolean isAlive() {
-        return curBodyPoints > 0;
+        return numPos;
     }
 
     public int getIntensitySkill(MagicSkill skill) {
-        return skill.getIntensity(magicDice.rollIndex());
+        return skill.getIntensity(redDice.rollIndex());
     }
 
     public int getIntensitySkill(PhysicalSkill skill) {
@@ -100,6 +80,11 @@ public abstract class Walker {
         return intensity;
     }
 
+    /**
+     * @param index - index of skill in the ArrayList
+     * @param useInYourSelf - indicate if walker must apply the skill in yourself
+     * @return intensity of the skill used
+     */
     public int usePhysicalSkill(int index, boolean useInYourSelf) {
         PhysicalSkill skill = physicalSkills.get(index).getKey();
 
@@ -112,6 +97,11 @@ public abstract class Walker {
         return intensity;
     }
 
+    /**
+     * @param index - index of skill in the ArrayList
+     * @param useInYourSelf - indicate if walker must apply the skill in yourself
+     * @return intensity of the skill used
+     */
     public int useMagicSkill(int index, boolean useInYourSelf) {
         MagicSkill skill = magicSkills.get(index).getKey();
 
@@ -127,9 +117,38 @@ public abstract class Walker {
     }
 
     private boolean tryUseMagicalMoviment() {
-        return magicDice.rollIndex() <= mindPoints;
+        return redDice.rollIndex() <= mindPoints;
     }
 
+    public abstract int getIntensityOfDefensePhysical();
+
+    public void executeAction(Action action, int intensity) {
+        switch (action) {
+            case DEFENDMAGIC:
+                boolean sucessDefend = tryUseMagicalMoviment();
+                if(!sucessDefend)
+                    decreaseBodyPoints(intensity);
+                break;
+
+            case DEFENDPHYSICAL:
+                int intensityDefence = getIntensityOfDefensePhysical();
+                if(intensityDefence < intensity)
+                    decreaseBodyPoints(intensity - intensityDefence);
+                break;
+
+            case HEALING:
+                restoreBodyPoints(intensity);
+                break;
+        }
+    }
+
+    public boolean isAlive() {
+        return curBodyPoints > 0;
+    }
+
+    /**
+     * performs the effect of wear due to the use of the skill
+     */
     public void useSkill(Skill skill) {
         skill.use();
 
@@ -160,6 +179,7 @@ public abstract class Walker {
         if (armor != null && armor.equals(item))
             unequipArmor();
 
+        // TODO: check if is possible to do this without instanceof
         if (item instanceof SpellCard)
             removeSkillSpellCard((SpellCard) item);
 
@@ -175,6 +195,8 @@ public abstract class Walker {
     }
 
     protected void equipWeapon(Weapon weapon) {
+        knapsack.remove(weapon);
+
         if (weapon.isTwoHanded()) {
             storeLeftWeapon();
             storeRightWeapon();
@@ -294,6 +316,7 @@ public abstract class Walker {
     protected void collectItem(CollectableItem item) {
         knapsack.put(item);
 
+        // TODO: check if is possible to do this without instanceof
         if (item instanceof SpellCard)
             addSkillSpellCard((SpellCard) item);
     }

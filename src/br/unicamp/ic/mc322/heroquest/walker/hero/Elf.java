@@ -1,5 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
+
 public class Elf extends Hero {
 
     Elf(){
@@ -8,6 +10,11 @@ public class Elf extends Hero {
         defenseDice = 2;
         maxBodyPoints = curBodyPoints =  6;
         mindPoints = 4;
-        equipWeapon(new ShortSword());
+
+        Weapon curWeapon = new ShortSword();
+        knapsack.put(curWeapon);
+        equipWeapon(curWeapon);
+
+        knapsack.put(new SimpleHealCard());
     }
 }

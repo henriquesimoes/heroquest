@@ -1,5 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
+
 public class Barbarian extends Hero {
 
     Barbarian(){
@@ -8,6 +10,10 @@ public class Barbarian extends Hero {
         defenseDice = 2;
         maxBodyPoints = curBodyPoints = 8;
         mindPoints = 2;
-        equipWeapon(new LongSword());
+
+        Weapon curWeapon = new LongSword();
+        knapsack.put(curWeapon);
+
+        equipWeapon(curWeapon);
     }
 }
