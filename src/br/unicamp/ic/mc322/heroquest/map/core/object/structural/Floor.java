@@ -22,6 +22,6 @@ public class Floor extends FixedObject {
 
     @Override
     public ObjectView getRepresentation() {
-        return new ObjectView("~");
+        return new ObjectView(" ");
     }
 }

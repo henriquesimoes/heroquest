@@ -2,8 +2,8 @@ package br.unicamp.ic.mc322.heroquest.map.core.object;
 
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 
-public abstract class MovableObject extends MapObject {
-    public MovableObject(Coordinate position) {
+public abstract class Walker extends MapObject {
+    public Walker(Coordinate position) {
         super(position);
     }
 

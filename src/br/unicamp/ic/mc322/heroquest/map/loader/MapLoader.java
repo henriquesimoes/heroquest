@@ -1,32 +1,82 @@
 package br.unicamp.ic.mc322.heroquest.map.loader;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.map.core.MapConfiguration;
+import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.core.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Floor;
+import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Wall;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class MapLoader {
+    private Path base;
 
-    public Map load(String name) {
-        /**
-         * TODO: Include map loading from file.
-         */
+    // TODO: use application general configuration handler to get resources path.
+    private static final String MAPS_PATH = "resources/maps";
 
-        // Create fake testing map
-        MapConfiguration config = new MapConfiguration();
+    public MapLoader() {
+        this.base = Paths.get(MAPS_PATH).toAbsolutePath();
+    }
 
-        config.setDimension(new Dimension(10, 10));
+    public Map load(String filename) throws FileNotFoundException, CorruptedConfigurationFileException {
+        File config = new File(base.resolve(filename).toUri());
 
-        for (int i = 0; i < 10; i++)
-            for (int j = 0; j < 10; j++) {
-                Coordinate coor = new Coordinate(j, i);
-                MapObject obj = new Floor(coor);
+        if (!config.exists())
+            throw new FileNotFoundException();
 
-                config.addObject(obj);
+        Scanner scanner = new Scanner(config);
+        scanner.useDelimiter("\n");
+        MapStructure mapStructure = readStructure(scanner);
+
+        return new Map(mapStructure);
+    }
+
+    private MapStructure readStructure(Scanner scanner) throws CorruptedConfigurationFileException {
+        MapStructure structure = new MapStructure();
+
+        int currentHeight = 0, width = 0;
+
+        while (scanner.hasNext()) {
+            String line = scanner.next();
+            int size = line.length();
+
+            if (width == 0)
+                width = size;
+            else if (size != width)
+                throw new CorruptedConfigurationFileException("Number of columns is inconsistent...");
+
+            for (int j = 0; j < width; j++) {
+                Coordinate coordinate = new Coordinate(j, currentHeight);
+
+                MapObject obj = parseObject(line.charAt(j), coordinate);
+
+                structure.add(obj);
             }
 
-        return new Map(config);
+            currentHeight++;
+        }
+
+        structure.setDimension(new Dimension(width, currentHeight));
+
+        return structure;
+    }
+
+    private MapObject parseObject(char representation, Coordinate coordinate)
+            throws CorruptedConfigurationFileException {
+        switch (representation) {
+            case ' ':
+                return new Floor(coordinate);
+            case '#':
+                return new Wall(coordinate);
+            default:
+                throw new CorruptedConfigurationFileException(
+                        String.format("Invalid char `%c` found on map configuration file", representation));
+        }
     }
 }

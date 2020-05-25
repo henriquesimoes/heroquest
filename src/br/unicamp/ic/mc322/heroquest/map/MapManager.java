@@ -2,7 +2,10 @@ package br.unicamp.ic.mc322.heroquest.map;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.generator.MapGenerator;
+import br.unicamp.ic.mc322.heroquest.map.loader.CorruptedConfigurationFileException;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapLoader;
+
+import java.io.FileNotFoundException;
 
 public class MapManager {
     private MapLoader loader;
@@ -13,7 +16,7 @@ public class MapManager {
         generator = new MapGenerator();
     }
 
-    public Map load(String name) {
+    public Map load(String name) throws FileNotFoundException, CorruptedConfigurationFileException {
         return loader.load(name);
     }
 
