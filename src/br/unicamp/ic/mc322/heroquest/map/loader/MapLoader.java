@@ -40,7 +40,8 @@ public class MapLoader {
     private MapStructure readStructure(Scanner scanner) throws CorruptedConfigurationFileException {
         MapStructure structure = new MapStructure();
 
-        int currentHeight = 0, width = 0;
+        Coordinate origin = Coordinate.getOrigin();
+        int dy = 0, width = 0;
 
         while (scanner.hasNext()) {
             String line = scanner.next();
@@ -51,15 +52,15 @@ public class MapLoader {
             else if (size != width)
                 throw new CorruptedConfigurationFileException("Number of columns is inconsistent...");
 
-            for (int j = 0; j < width; j++) {
-                Coordinate coordinate = new Coordinate(currentHeight, j);
+            for (int dx = 0; dx < width; dx++) {
+                Coordinate coordinate = Coordinate.shift(origin, dx, dy);
 
-                StructuralObject obj = parseObject(line.charAt(j), coordinate);
+                StructuralObject obj = parseObject(line.charAt(dx), coordinate);
 
                 structure.add(obj);
             }
 
-            currentHeight++;
+            dy++;
         }
 
         return structure;

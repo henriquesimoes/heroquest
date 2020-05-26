@@ -47,6 +47,13 @@ public class Coordinate {
         return Objects.hash(x, y);
     }
 
+    public boolean inside(Dimension dimension) {
+        Coordinate origin = getOrigin();
+
+        return origin.getX() <= this.getX() && this.getX() < dimension.getWidth()
+                && origin.getY() <= this.getY() && this.getY() < dimension.getHeight();
+    }
+
     public static Coordinate getOrigin() {
         return new Coordinate(0, 0);
     }

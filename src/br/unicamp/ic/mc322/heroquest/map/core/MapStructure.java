@@ -30,13 +30,9 @@ public class MapStructure {
         objects.put(position, object);
         room.put(position, object.belongsToARoom() ? UNDEFINED_ROOM : OUTSIDE_ROOM);
 
-        if (position.getX() >= dimension.getHeight() || position.getY() >= dimension.getWidth()) {
-            Dimension updated = new Dimension(
-                    Math.max(position.getY() + 1, dimension.getWidth()),
-                    Math.max(position.getX() + 1, dimension.getHeight()));
-
-            dimension = updated;
-        }
+        if (!position.inside(dimension))
+            // Update is done by creating a new reference, since the dimension must be immutable for other modules
+            dimension = dimension.fit(position);
     }
 
     public Dimension getDimension() {

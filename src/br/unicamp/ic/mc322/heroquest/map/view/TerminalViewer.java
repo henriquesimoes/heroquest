@@ -15,10 +15,10 @@ public class TerminalViewer implements Viewer {
 
         Coordinate origin = Coordinate.getOrigin();
 
-        for (int dx = 0; dx < dimension.getHeight(); dx++) {
+        for (int dy = 0; dy < dimension.getHeight(); dy++) {
             // TODO: encapsulate rows creation
 
-            for (int dy = 0; dy < dimension.getWidth(); dy++) {
+            for (int dx = 0; dx < dimension.getWidth(); dx++) {
                 Coordinate coor = Coordinate.shift(origin, dx, dy);
 
                 ObjectView view = map.getStructureRepresentationAt(coor);

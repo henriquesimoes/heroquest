@@ -16,4 +16,16 @@ public class Dimension {
     public int getHeight() {
         return height;
     }
+
+    /**
+     * Creates a new dimension which includes the given position, based
+     * on this dimension.
+     * @param position Position to be included
+     * @return New dimension
+     */
+    public Dimension fit(Coordinate position) {
+        return new Dimension(
+                Math.max(position.getX() + 1, this.getWidth()),
+                Math.max(position.getY() + 1, this.getHeight()));
+    }
 }
