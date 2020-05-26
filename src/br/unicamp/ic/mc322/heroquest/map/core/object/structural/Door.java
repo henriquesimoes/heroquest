@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.core.object.structural;
 
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.object.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.core.object.Walker;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class Door extends FixedObject {
@@ -19,16 +20,14 @@ public class Door extends FixedObject {
     }
 
     @Override
-    public void interact() {
-        /**
-         * TODO: Implement interaction with doors
-         */
+    public void interact(Walker walker) {
+        // TODO: restrict monsters ability to interact with doors
+
+        opened = !opened;
     }
 
     @Override
     public ObjectView getRepresentation() {
-        // TODO: let representation be in function of `opened`.
-
-        return new ObjectView("D");
+        return new ObjectView(opened ? " " : "D");
     }
 }

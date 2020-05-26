@@ -5,6 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.core.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Wall;
 
@@ -74,6 +75,8 @@ public class MapLoader {
                 return new Floor(coordinate);
             case '#':
                 return new Wall(coordinate);
+            case 'D':
+                return new Door(coordinate);
             default:
                 throw new CorruptedConfigurationFileException(
                         String.format("Invalid char `%c` found on map configuration file", representation));

@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.core.object.fixed;
 
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.object.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.core.object.Walker;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class Chest extends FixedObject {
@@ -21,10 +22,11 @@ public class Chest extends FixedObject {
     }
 
     @Override
-    public void interact() {
+    public void interact(Walker agent) {
         /**
          * TODO: Implement opening interaction with chest
          */
+        return;
     }
 
     @Override

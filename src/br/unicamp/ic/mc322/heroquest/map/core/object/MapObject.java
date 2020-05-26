@@ -16,6 +16,6 @@ public abstract class MapObject {
 
     public abstract boolean isMovable();
     public abstract boolean isWalkOverable();
-    public abstract void interact();
+    public abstract void interact(Walker agent);
     public abstract ObjectView getRepresentation();
 }
