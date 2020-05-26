@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.item;
+package br.unicamp.ic.mc322.heroquest.item.baseitems;
 
 public class Item {
     private String itemName;

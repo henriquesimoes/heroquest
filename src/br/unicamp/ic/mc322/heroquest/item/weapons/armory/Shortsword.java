@@ -1,6 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.AttackEnemy;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.AttackEnemyInLongDistanceRange;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class Shortsword extends Weapon {
     private static final String description = "Shortsword gives you a bonus of 2 combat dice." +
@@ -9,9 +11,10 @@ public class Shortsword extends Weapon {
 
     public Shortsword() {
         super("Short sword", description, 3, 150);
-        super.setAttackDistance(1);
-        super.setAttackBonus(2);
-        super.setTwoHanded(false);
-        super.setAttackDiagonally(false);
+
+        setAttackBonus(2);
+        setTwoHanded(false);
+        setAttackDiagonally(false);
+        setNewSkill(new AttackEnemy("Golpear", this, 1));
     }
 }
