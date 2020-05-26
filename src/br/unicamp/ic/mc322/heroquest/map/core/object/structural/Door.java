@@ -5,13 +5,18 @@ import br.unicamp.ic.mc322.heroquest.map.core.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.core.object.Walker;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
-public class Door extends FixedObject {
+public class Door extends StructuralObject {
     private boolean opened;
 
     public Door(Coordinate position) {
         super(position);
 
         opened = false;
+    }
+
+    @Override
+    public boolean belongsToARoom() {
+        return false;
     }
 
     @Override

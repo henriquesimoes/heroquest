@@ -19,6 +19,18 @@ public class Coordinate {
         return y;
     }
 
+    public Coordinate[] getNeighborCoordinates() {
+        int dx[] = {0, 0, 1, -1};
+        int dy[] = {1, -1, 0, 0};
+
+        Coordinate[] neighbors = new Coordinate[dx.length];
+
+        for (int i = 0; i < dx.length; i++)
+            neighbors[i] = new Coordinate(x + dx[i], y + dy[i]);
+
+        return neighbors;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Coordinate) {
@@ -33,5 +45,13 @@ public class Coordinate {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    public static Coordinate getOrigin() {
+        return new Coordinate(0, 0);
+    }
+
+    public static Coordinate shift(Coordinate reference, int dx, int dy) {
+        return new Coordinate(reference.x + dx, reference.y + dy);
     }
 }

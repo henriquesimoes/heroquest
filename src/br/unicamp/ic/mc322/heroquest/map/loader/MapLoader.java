@@ -3,10 +3,9 @@ package br.unicamp.ic.mc322.heroquest.map.loader;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.core.geom.Dimension;
-import br.unicamp.ic.mc322.heroquest.map.core.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Floor;
+import br.unicamp.ic.mc322.heroquest.map.core.object.structural.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Wall;
 
 import java.io.File;
@@ -53,9 +52,9 @@ public class MapLoader {
                 throw new CorruptedConfigurationFileException("Number of columns is inconsistent...");
 
             for (int j = 0; j < width; j++) {
-                Coordinate coordinate = new Coordinate(j, currentHeight);
+                Coordinate coordinate = new Coordinate(currentHeight, j);
 
-                MapObject obj = parseObject(line.charAt(j), coordinate);
+                StructuralObject obj = parseObject(line.charAt(j), coordinate);
 
                 structure.add(obj);
             }
@@ -63,12 +62,10 @@ public class MapLoader {
             currentHeight++;
         }
 
-        structure.setDimension(new Dimension(width, currentHeight));
-
         return structure;
     }
 
-    private MapObject parseObject(char representation, Coordinate coordinate)
+    private StructuralObject parseObject(char representation, Coordinate coordinate)
             throws CorruptedConfigurationFileException {
         switch (representation) {
             case ' ':

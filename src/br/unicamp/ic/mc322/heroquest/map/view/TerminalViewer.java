@@ -13,13 +13,15 @@ public class TerminalViewer implements Viewer {
 
         builder.append("Displaying map...\n\n");
 
-        for (int i = 0; i < dimension.getHeight(); i++) {
+        Coordinate origin = Coordinate.getOrigin();
+
+        for (int dx = 0; dx < dimension.getHeight(); dx++) {
             // TODO: encapsulate rows creation
 
-            for (int j = 0; j < dimension.getWidth(); j++) {
-                Coordinate coor = new Coordinate(j, i);
+            for (int dy = 0; dy < dimension.getWidth(); dy++) {
+                Coordinate coor = Coordinate.shift(origin, dx, dy);
 
-                ObjectView view = map.get(coor).getRepresentation();
+                ObjectView view = map.getStructureRepresentationAt(coor);
 
                 builder.append(view);
             }
