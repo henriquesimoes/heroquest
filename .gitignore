@@ -1,8 +1,8 @@
-# Ignore bytecode files
-**/*.class
+# Ignore IntelliJ output folder
+out/
 
 # Ignore IntelliJ configuration files
 .idea/
 
 # Ignore project configuration file
-project.iml
+*.iml
