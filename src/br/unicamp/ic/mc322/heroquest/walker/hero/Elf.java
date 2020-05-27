@@ -1,7 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
-
 public class Elf extends Hero {
 
     Elf(){

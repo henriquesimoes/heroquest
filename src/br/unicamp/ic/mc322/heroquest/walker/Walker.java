@@ -1,12 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.Armor;
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
-import br.unicamp.ic.mc322.heroquest.item.spellcard.SpellCard;
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
-import br.unicamp.ic.mc322.heroquest.skill.MagicSkill;
-import br.unicamp.ic.mc322.heroquest.skill.PhysicalSkill;
-import br.unicamp.ic.mc322.heroquest.skill.Skill;
+import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.PhysicalSkill;
+import br.unicamp.ic.mc322.heroquest.item.spells.MagicSkill;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
@@ -14,10 +13,13 @@ import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
 import java.util.ArrayList;
 
+import static br.unicamp.ic.mc322.heroquest.walker.Action.DAMAGE;
+import static br.unicamp.ic.mc322.heroquest.walker.Action.HEALING;
+
 public abstract class Walker {
     protected Weapon leftWeapon, rightWeapon;
     protected Armor armor;
-    protected int maxBodyPoints, curBodyPoints, mindPoints, attackDice, moveDice, defenseDice, bonusDefenseDice;
+    protected int maxBodyPoints, currentBodyPoints, mindPoints, attackDice, moveDice, defenseDice, bonusDefenseDice;
     protected ArrayList<Pair<PhysicalSkill, Integer>> physicalSkills;
     protected ArrayList<Pair<MagicSkill, Integer>> magicSkills;
     protected CombatDice combatDice;
@@ -33,29 +35,29 @@ public abstract class Walker {
         moveDice = 2;
     }
 
-    public ArrayList<String> getListPhysicalSkills() {
+    public ArrayList<String> getPhysicalSkillsList() {
         ArrayList<String> listName = new ArrayList<>();
 
         for (Pair<PhysicalSkill, Integer> pair : physicalSkills) {
             PhysicalSkill skill = pair.getKey();
-            listName.add(skill.getName());
+            listName.add(skill.getSkillName());
         }
 
         return listName;
     }
 
-    public ArrayList<String> getListMagicSkills() {
+    public ArrayList<String> getMagicSkillsList() {
         ArrayList<String> listName = new ArrayList<>();
 
         for (Pair<MagicSkill, Integer> pair : magicSkills) {
             MagicSkill skill = pair.getKey();
-            listName.add(skill.getName());
+            listName.add(skill.getSkillName());
         }
 
         return listName;
     }
 
-    public int getLimitPosInMoviment(){
+    public int getLimitPositionInMovement(){
         int numPos = 0;
 
         for(int i = 0; i < moveDice; i++)
@@ -64,13 +66,13 @@ public abstract class Walker {
         return numPos;
     }
 
-    public int getIntensitySkill(MagicSkill skill) {
+    public int getSkillIntensity(MagicSkill skill) {
         return skill.getIntensity(redDice.rollIndex());
     }
 
-    public int getIntensitySkill(PhysicalSkill skill) {
+    public int getSkillIntensity(PhysicalSkill skill) {
         int intensity = 0;
-        Weapon weapon = (Weapon) skill.getItem();
+        Weapon weapon = (Weapon) skill.getSkilledItem();
         int totalAttack = attackDice + weapon.getAttackBonus();
 
         for (int times = 0; times < totalAttack; times++)
@@ -88,7 +90,7 @@ public abstract class Walker {
     public int usePhysicalSkill(int index, boolean useInYourSelf) {
         PhysicalSkill skill = physicalSkills.get(index).getKey();
 
-        int intensity = getIntensitySkill(skill);
+        int intensity = getSkillIntensity(skill);
         if (useInYourSelf)
             executeAction(skill.getAction(), intensity);
 
@@ -105,9 +107,9 @@ public abstract class Walker {
     public int useMagicSkill(int index, boolean useInYourSelf) {
         MagicSkill skill = magicSkills.get(index).getKey();
 
-        boolean sucessUse = tryUseMagicalMoviment();
+        boolean sucessUse = tryUseMagicalMovement();
 
-        int intensity = sucessUse ? getIntensitySkill(skill) : 0;
+        int intensity = sucessUse ? getSkillIntensity(skill) : 0;
         if (sucessUse && useInYourSelf)
             executeAction(skill.getAction(), intensity);
 
@@ -116,22 +118,22 @@ public abstract class Walker {
         return intensity;
     }
 
-    private boolean tryUseMagicalMoviment() {
+    private boolean tryUseMagicalMovement() {
         return redDice.rollIndex() <= mindPoints;
     }
 
-    public abstract int getIntensityOfDefensePhysical();
+    public abstract int getIntensityOfPhysicalDefense();
 
     public void executeAction(Action action, int intensity) {
         switch (action) {
             case DEFENDMAGIC:
-                boolean sucessDefend = tryUseMagicalMoviment();
+                boolean sucessDefend = tryUseMagicalMovement();
                 if(!sucessDefend)
                     decreaseBodyPoints(intensity);
                 break;
 
             case DEFENDPHYSICAL:
-                int intensityDefence = getIntensityOfDefensePhysical();
+                int intensityDefence = getIntensityOfPhysicalDefense();
                 if(intensityDefence < intensity)
                     decreaseBodyPoints(intensity - intensityDefence);
                 break;
@@ -143,14 +145,14 @@ public abstract class Walker {
     }
 
     public boolean isAlive() {
-        return curBodyPoints > 0;
+        return currentBodyPoints > 0;
     }
 
     /**
      * performs the effect of wear due to the use of the skill
      */
     public void useSkill(Skill skill) {
-        skill.use();
+        skill.useSkill();
 
         CollectableItem item = skill.getItem();
         if (item.isDestroy())
@@ -187,11 +189,11 @@ public abstract class Walker {
     }
 
     private void restoreBodyPoints(int delta) {
-        curBodyPoints = Math.min(curBodyPoints + delta, maxBodyPoints);
+        currentBodyPoints = Math.min(currentBodyPoints + delta, maxBodyPoints);
     }
 
     private void decreaseBodyPoints(int delta) {
-        curBodyPoints = Math.max(curBodyPoints - delta, 0);
+        currentBodyPoints = Math.max(currentBodyPoints - delta, 0);
     }
 
     protected void equipWeapon(Weapon weapon) {

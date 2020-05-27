@@ -1,7 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.walker.monster;
 
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
-
 public class CommonSkeleton extends Skeleton {
 
     CommonSkeleton(){
