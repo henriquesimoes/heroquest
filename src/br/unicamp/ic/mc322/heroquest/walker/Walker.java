@@ -15,7 +15,7 @@ import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import java.util.ArrayList;
 
 public abstract class Walker extends MapObject {
-    protected Coordinate position;
+    protected Team team;
     protected String name;
     protected Weapon leftWeapon, rightWeapon;
     protected Armor armor;
@@ -211,18 +211,8 @@ public abstract class Walker extends MapObject {
         return name;
     }
 
-
     public ArrayList<CollectableItem> getItems() {
         return knapsack.getItems();
-    }
-
-    public Coordinate getPosition(){
-        return position;
-    }
-
-    @Override
-    public boolean isMovable() {
-        return true;
     }
 
     @Override
@@ -230,5 +220,11 @@ public abstract class Walker extends MapObject {
         return false;
     }
 
-    public abstract void move();
+    public boolean isEnemy(Walker walker){
+        return this.team != walker.team;
+    }
+
+    public boolean isFriend(Walker walker){
+        return this.team == walker.team;
+    }
 }

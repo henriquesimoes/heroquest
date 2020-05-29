@@ -62,4 +62,13 @@ public class Map {
     public ArrayList<Coordinate> getPositionsWithDistanceUp(int limitPositionInMove) {
         return null;
     }
+
+    public ArrayList<Walker> getWalkersOfTheFourDirections() {
+    }
+
+    public ArrayList<Walker> getWalkersOfTheAdjacentPositions() {
+    }
+
+    public ArrayList<Walker> getAllWalkersInRadiusOf(Walker target, int radius) {
+    }
 }

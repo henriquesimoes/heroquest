@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class MapObject {
-    private Coordinate position;
+    protected Coordinate position;
 
     public MapObject(Coordinate position) {
         this.position = position;
@@ -15,7 +15,10 @@ public abstract class MapObject {
         return position;
     }
 
-    public abstract boolean isMovable();
+    public void setPosition(Coordinate position) {
+        this.position = position;
+    }
+
     public abstract boolean isWalkOverable();
     public abstract void interact(Walker agent);
     public abstract ObjectView getRepresentation();
