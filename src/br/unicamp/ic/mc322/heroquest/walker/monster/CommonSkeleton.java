@@ -6,7 +6,7 @@ public class CommonSkeleton extends Skeleton {
         super();
         attackDice = 2;
         defenseDice = 2;
-        maxBodyPoints = curBodyPoints = 2;
+        maxBodyPoints = currentBodyPoints = 2;
         mindPoints = 1;
         // TODO:: See how the skeleton generate your weapon
         knapsack.put(weapon);

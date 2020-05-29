@@ -1,5 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
+import br.unicamp.ic.mc322.heroquest.item.spells.Fireball;
+import br.unicamp.ic.mc322.heroquest.item.spells.MagicMissile;
+import br.unicamp.ic.mc322.heroquest.item.spells.Teleport;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Dagger;
+
 public class Wizard extends Hero {
 
     Wizard(){
@@ -9,7 +15,7 @@ public class Wizard extends Hero {
 
         attackDice = 1;
         defenseDice = 2;
-        maxBodyPoints = curBodyPoints =  4;
+        maxBodyPoints = currentBodyPoints =  4;
         mindPoints = 6;
 
         Weapon curWeapon = new Dagger();
@@ -20,9 +26,9 @@ public class Wizard extends Hero {
             knapsack.put(new Dagger());
 
         for (int i = 0; i < numInitialMagicMissile; i++)
-            knapsack.put(new MagicMissileCard());
+            addMagicSkill(new MagicMissile());
 
-        knapsack.put(new FireballCard());
-        knapsack.put(new TeleportCard());
+        addMagicSkill(new Fireball());
+        addMagicSkill(new Teleport());
     }
 }

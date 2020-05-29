@@ -1,6 +1,12 @@
 package br.unicamp.ic.mc322.heroquest.item.skills;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.core.visibleMap.VisibleMap;
+import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
+
+import java.util.ArrayList;
 
 public class Skill {
     private String skillName;
@@ -21,7 +27,8 @@ public class Skill {
         return skilledItem;
     }
 
-    public void useSkill() {
+    public boolean useSkill(Walker walker) {
+        return false;
     }
 
     public String getSkillName() {
@@ -34,5 +41,8 @@ public class Skill {
 
     public int getSkillIntensity() {
         return skillIntensity;
+    }
+
+    public ArrayList<Pair<Walker, Coordinate>> getTargets(VisibleMap visibleMap) {
     }
 }

@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker.monster;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class Monster extends Walker {
+public abstract class Monster extends Walker {
     @Override
     public int getIntensityOfDefensePhysical(){
         int totalDefense = defenseDice + bonusDefenseDice;
