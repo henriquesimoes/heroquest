@@ -14,7 +14,7 @@ public class MapStructure {
     private int numberOfRooms;
 
     private static final int UNDEFINED_ROOM = -1;
-    public static final int OUTSIDE_ROOM = -2;
+    private static final int OUTSIDE_ROOM = -2;
 
     public MapStructure() {
         objects = new HashMap<>();
@@ -47,11 +47,11 @@ public class MapStructure {
         Coordinate origin = Coordinate.getOrigin();
 
         int id = 0;
-        for (int dx = 0; dx < dimension.getHeight(); dx++)
-            for (int dy = 0; dy < dimension.getWidth(); dy++) {
+        for (int dy = 0; dy < dimension.getHeight(); dy++)
+            for (int dx = 0; dx < dimension.getWidth(); dx++) {
                 Coordinate current = Coordinate.shift(origin, dx, dy);
 
-                if (room.getOrDefault(room, OUTSIDE_ROOM) == UNDEFINED_ROOM)
+                if (room.getOrDefault(current, OUTSIDE_ROOM) == UNDEFINED_ROOM)
                     fillRoom(current, id++);
             }
 
@@ -63,17 +63,20 @@ public class MapStructure {
     }
 
     /**
-     * Returns the room ID when the a valid position is provided.
-     * A given position may be valid but still not belong to a room.
-     *
-     * Use the `OUTSIDE_ROOM` constant to check whether that's the case.
+     * Returns the room id when the a valid position is provided.
+     * Note that a given position may be valid but still not belong to a room.
      *
      * @param coordinate Position whose room ID is requested
-     * @return room ID or OUTSIDE_ROOM constant otherwise
+     * @return Room identification
+     * @throws OutsideRoomException When a coordinate is outside the map or does not belong to a room
      */
-    public int getRoomAt(Coordinate coordinate) {
-        // TODO: Use exception to warn about outside position
-        return room.getOrDefault(coordinate, OUTSIDE_ROOM);
+    public int getRoomIdAt(Coordinate coordinate) throws OutsideRoomException {
+        int id = room.getOrDefault(coordinate, OUTSIDE_ROOM);
+
+        if (id == OUTSIDE_ROOM)
+            throw new OutsideRoomException();
+
+        return id;
     }
 
     public boolean isValid() {
@@ -96,7 +99,7 @@ public class MapStructure {
 
         for (Coordinate neighbor : start.getNeighborCoordinates()) {
             if (room.getOrDefault(neighbor, OUTSIDE_ROOM) == UNDEFINED_ROOM)
-                fillRoom(start, id);
+                fillRoom(neighbor, id);
         }
     }
 }
