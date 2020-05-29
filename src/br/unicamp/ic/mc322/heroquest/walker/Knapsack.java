@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class Knapsack {
@@ -26,5 +27,14 @@ public class Knapsack {
         curAmount --;
         if(curAmount > 0)
             items.put(item, curAmount);
+    }
+
+    public ArrayList<CollectableItem> getItems(){
+        ArrayList<CollectableItem> items = new ArrayList<>();
+
+        for (CollectableItem item : this.items.keySet())
+            items.add(item);
+
+        return items;
     }
 }

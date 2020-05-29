@@ -3,9 +3,10 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.core.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.core.object.Walker;
+import br.unicamp.ic.mc322.heroquest.map.core.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.room.Room;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;
 
@@ -53,5 +54,12 @@ public class Map {
 
     public Dimension getDimension() {
         return structure.getDimension();
+    }
+
+    public void moveObject(MapObject mapObject, Coordinate coordinateDestination){
+    }
+
+    public ArrayList<Coordinate> getPositionsWithDistanceUp(int limitPositionInMove) {
+        return null;
     }
 }

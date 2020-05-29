@@ -5,16 +5,17 @@ import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.core.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
-import br.unicamp.ic.mc322.heroquest.walker.walkerManager.WalkerManager;
 
 import java.util.ArrayList;
 
-public abstract class Walker {
-    protected WalkerManager walkerManager;
+public abstract class Walker extends MapObject {
+    protected Coordinate position;
     protected String name;
     protected Weapon leftWeapon, rightWeapon;
     protected Armor armor;
@@ -25,7 +26,8 @@ public abstract class Walker {
     protected RedDice redDice;
     protected Knapsack knapsack;
 
-    public Walker() {
+    public Walker(Coordinate position) {
+        super(position);
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
@@ -208,4 +210,25 @@ public abstract class Walker {
     public String getName() {
         return name;
     }
+
+
+    public ArrayList<CollectableItem> getItems() {
+        return knapsack.getItems();
+    }
+
+    public Coordinate getPosition(){
+        return position;
+    }
+
+    @Override
+    public boolean isMovable() {
+        return true;
+    }
+
+    @Override
+    public boolean isWalkOverable() {
+        return false;
+    }
+
+    public abstract void move();
 }

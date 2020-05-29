@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.core.room;
 
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.core.object.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.HashMap;
 

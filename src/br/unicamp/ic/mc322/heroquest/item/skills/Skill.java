@@ -22,7 +22,6 @@ public class Skill {
         this.skilledItem = skilledItem;
     }
 
-
     public CollectableItem getSkilledItem() {
         return skilledItem;
     }
@@ -44,5 +43,8 @@ public class Skill {
     }
 
     public ArrayList<Pair<Walker, Coordinate>> getTargets(VisibleMap visibleMap) {
+    }
+
+    public void use(VisibleMap visibleMap, Walker targetWalker) {
     }
 }

@@ -1,5 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.baseitems;
 
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
+
 public class Item {
     private String itemName;
     private String itemDescription;
@@ -25,4 +27,10 @@ public class Item {
     }
 
     public boolean getExistenceState;
+
+    public String getName() {
+    }
+
+    public void use(Walker walker) {
+    }
 }

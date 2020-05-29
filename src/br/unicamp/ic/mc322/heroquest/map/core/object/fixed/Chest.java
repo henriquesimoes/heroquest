@@ -2,8 +2,8 @@ package br.unicamp.ic.mc322.heroquest.map.core.object.fixed;
 
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.core.object.Walker;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class Chest extends FixedObject {
     private boolean opened;

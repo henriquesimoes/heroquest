@@ -7,6 +7,6 @@ public class PlayerInterface {
     public int showOptionsAndGetAnswer(ArrayList<String> optionsList) {
     }
 
-    public int getNumberInRange(String message, int upperBound) {
+    public void showMessage(String s) {
     }
 }

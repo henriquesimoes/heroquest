@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.walker.walkerManager.walkerPlayer;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
-import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.visibleMap.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
@@ -28,20 +27,21 @@ public class WalkerPlayer extends WalkerManager {
             ArrayList<String> options = new ArrayList<>();
             options.add("Use Items");
             if (!sucessMove)
+                if (!sucessUseSkill)
+                    options.add("Use Skill");
                 options.add("Execute Movement");
-            if (!sucessUseSkill)
-                options.add("Execute Skill");
 
+            ioInterface.showMessage("Choose an action:");
             int choice = ioInterface.showOptionsAndGetAnswer(options);
 
             if (choice == 0)
                 return;
             if (choice == 1){
                 useItems();
-            }else if(choice == 2 && !sucessMove){
-                sucessMove = move();
-            }else{
+            }else if(choice == 2 && !sucessUseSkill){
                 sucessUseSkill = useSkill();
+            }else{
+                sucessMove = move();
             }
         }
     }
@@ -54,7 +54,8 @@ public class WalkerPlayer extends WalkerManager {
             nameList.add(item.getName());
         }
 
-        int choice = ioInterface.showOptionsAndGetAnswer(movesList);
+        ioInterface.showMessage("Choose an item to use:");
+        int choice = ioInterface.showOptionsAndGetAnswer(nameList);
 
         if (choice != 0){
             CollectableItem choosedItem = items.get(choice - 1);
@@ -65,13 +66,14 @@ public class WalkerPlayer extends WalkerManager {
 
     private boolean move(){
         int limitPositionInMove = walker.getLimitPositionInMovement();
-        ArrayList<Coordinate> possibleMoves = visibleMap.getPositionInDistance(limitPositionInMove);
+        ArrayList<Coordinate> possibleMoves = visibleMap.getPositionsWithDistanceUp(limitPositionInMove);
         ArrayList<String> movesList = new ArrayList<>();
 
         for (Coordinate coordinate : possibleMoves){
             movesList.add(coordinate.toString());
         }
 
+        ioInterface.showMessage("Choose a position of destination");
         int choice = ioInterface.showOptionsAndGetAnswer(movesList);
 
         visibleMap.moveWalker(possibleMoves.get(choice - 1));
@@ -86,6 +88,7 @@ public class WalkerPlayer extends WalkerManager {
             nameList.add(skill.getSkillName());
         }
 
+        ioInterface.showMessage("Choose a skill to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList);
 
         if (choice != 0){
@@ -99,6 +102,7 @@ public class WalkerPlayer extends WalkerManager {
                 targetList.add(targetWalker.getName() + " - " + coordinate.toString());
             }
 
+            ioInterface.showMessage("Choose a target:");
             choice = ioInterface.showOptionsAndGetAnswer(targetList);
 
             if (choice != 0){
