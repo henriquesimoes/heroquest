@@ -4,7 +4,6 @@ import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.core.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.core.object.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.room.Room;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
@@ -31,21 +30,23 @@ public class Map {
     }
 
     public FixedObject getObject(Coordinate coordinate) {
-        int id = structure.getRoomAt(coordinate);
+        try {
+            int id = structure.getRoomIdAt(coordinate);
 
-        if (id == MapStructure.OUTSIDE_ROOM)
+            return rooms.get(id).getFixedObject(coordinate);
+        } catch (OutsideRoomException ex) {
             return null;
-
-        return rooms.get(id).getFixedObject(coordinate);
+        }
     }
 
     public Walker getWalker(Coordinate coordinate) {
-        int id = structure.getRoomAt(coordinate);
+        try {
+            int id = structure.getRoomIdAt(coordinate);
 
-        if (id == MapStructure.OUTSIDE_ROOM)
+            return rooms.get(id).getWalker(coordinate);
+        } catch (OutsideRoomException ex) {
             return null;
-
-        return rooms.get(id).getWalker(coordinate);
+        }
     }
 
     public ObjectView getStructureRepresentationAt(Coordinate coordinate) {

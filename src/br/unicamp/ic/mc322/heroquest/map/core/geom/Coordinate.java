@@ -47,6 +47,11 @@ public class Coordinate {
         return Objects.hash(x, y);
     }
 
+    @Override
+    public String toString() {
+        return "Coordinate (" + x + ',' + y + ")";
+    }
+
     public boolean inside(Dimension dimension) {
         Coordinate origin = getOrigin();
 
