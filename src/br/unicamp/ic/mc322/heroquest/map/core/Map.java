@@ -64,11 +64,14 @@ public class Map {
     }
 
     public ArrayList<Walker> getWalkersOfTheFourDirections() {
+        return null;
     }
 
     public ArrayList<Walker> getWalkersOfTheAdjacentPositions() {
+        return null;
     }
 
     public ArrayList<Walker> getAllWalkersInRadiusOf(Walker target, int radius) {
+        return null;
     }
 }

@@ -10,6 +10,5 @@ public class Fireball extends MagicSkill {
 
     @Override
     public void useSkill() {
-        super.useSkill();
     }
 }

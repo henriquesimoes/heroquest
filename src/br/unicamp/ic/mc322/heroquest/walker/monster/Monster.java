@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class Monster extends Walker {
     @Override
-    public int getIntensityOfDefensePhysical(){
+    public int getIntensityOfPhysicalDefense(){
         int totalDefense = defenseDice + bonusDefenseDice;
         int intensity = 0;
 

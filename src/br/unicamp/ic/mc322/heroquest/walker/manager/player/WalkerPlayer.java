@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.walker.walkerManager.walkerPlayer;
+package br.unicamp.ic.mc322.heroquest.walker.manager.player;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
@@ -7,7 +7,7 @@ import br.unicamp.ic.mc322.heroquest.map.core.visibleMap.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import br.unicamp.ic.mc322.heroquest.util.playerInterface.PlayerInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
-import br.unicamp.ic.mc322.heroquest.walker.walkerManager.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 

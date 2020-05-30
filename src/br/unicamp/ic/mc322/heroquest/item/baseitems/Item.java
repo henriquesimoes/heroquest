@@ -29,6 +29,7 @@ public class Item {
     public boolean getExistenceState;
 
     public String getName() {
+        return null;
     }
 
     public void use(Walker walker) {

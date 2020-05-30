@@ -3,7 +3,6 @@ package br.unicamp.ic.mc322.heroquest.map.core.visibleMap;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
-import org.omg.CORBA.ARG_IN;
 
 import java.util.ArrayList;
 

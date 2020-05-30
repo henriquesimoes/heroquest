@@ -4,4 +4,9 @@ public class Teleport extends MagicSkill {
     public Teleport() {
         super("Teleporte", "O herói ou monstro se teletransporta para uma posição visível");
     }
+
+    @Override
+    public void useSkill() {
+
+    }
 }

@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.walker.walkerManager;
+package br.unicamp.ic.mc322.heroquest.walker.manager;
 
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 

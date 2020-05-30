@@ -1,7 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.item.spells;
 
-import br.unicamp.ic.mc322.heroquest.item.spells.MagicSkill;
-
 public class MagicMissile extends MagicSkill {
     private int totalDamage = 6;
 
@@ -11,7 +9,6 @@ public class MagicMissile extends MagicSkill {
 
     @Override
     public void useSkill() {
-        super.useSkill();
     }
 
     public int getTotalDamage() {

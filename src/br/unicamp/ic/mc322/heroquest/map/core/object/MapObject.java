@@ -5,11 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class MapObject {
-    protected Coordinate position;
-
-    public MapObject(Coordinate position) {
-        this.position = position;
-    }
+    private Coordinate position;
 
     public Coordinate getPosition() {
         return position;

@@ -5,7 +5,6 @@ import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
-import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
@@ -26,8 +25,8 @@ public abstract class Walker extends MapObject {
     protected RedDice redDice;
     protected Knapsack knapsack;
 
-    public Walker(Coordinate position) {
-        super(position);
+    public Walker() {
+        super();
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
@@ -145,7 +144,7 @@ public abstract class Walker extends MapObject {
         }
     }
 
-    private void addSkill(Skill skill){
+    protected void addSkill(Skill skill){
         // TODO: test if this really work
         int index = skills.indexOf(new Pair<Skill, Integer>(skill, 0));
 
@@ -218,6 +217,11 @@ public abstract class Walker extends MapObject {
     @Override
     public boolean isWalkOverable() {
         return false;
+    }
+
+    @Override
+    public void interact(Walker agent) {
+        return;
     }
 
     public boolean isEnemy(Walker walker){

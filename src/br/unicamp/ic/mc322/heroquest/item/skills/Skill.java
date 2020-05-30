@@ -43,6 +43,7 @@ public class Skill {
     }
 
     public ArrayList<Pair<Walker, Coordinate>> getTargets(VisibleMap visibleMap) {
+        return null;
     }
 
     public void use(VisibleMap visibleMap, Walker targetWalker) {

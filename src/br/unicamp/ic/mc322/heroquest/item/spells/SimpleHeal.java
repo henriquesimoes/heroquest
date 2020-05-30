@@ -8,6 +8,7 @@ public class SimpleHeal extends MagicSkill {
                 "O valor é o número obtido após o lançamento de um dado de seis faces");
     }
 
+    @Override
     public void useSkill() {
         // TODO: configurar para curar walker
     }

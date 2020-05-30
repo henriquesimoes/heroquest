@@ -5,9 +5,9 @@ import br.unicamp.ic.mc322.heroquest.item.spells.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.item.spells.Teleport;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Dagger;
+import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class Wizard extends Hero {
-
     Wizard(){
         super();
         final int numInitialDaggers = 3;
@@ -26,9 +26,14 @@ public class Wizard extends Hero {
             knapsack.put(new Dagger());
 
         for (int i = 0; i < numInitialMagicMissile; i++)
-            addMagicSkill(new MagicMissile());
+            addSkill(new MagicMissile());
 
-        addMagicSkill(new Fireball());
-        addMagicSkill(new Teleport());
+        addSkill(new Fireball());
+        addSkill(new Teleport());
+    }
+
+    @Override
+    public ObjectView getRepresentation() {
+        return new ObjectView("W");
     }
 }
