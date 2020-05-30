@@ -2,11 +2,11 @@ package br.unicamp.ic.mc322.heroquest.map.loader;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
-import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Door;
-import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Floor;
-import br.unicamp.ic.mc322.heroquest.map.core.object.structural.StructuralObject;
-import br.unicamp.ic.mc322.heroquest.map.core.object.structural.Wall;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,7 +1,6 @@
-package br.unicamp.ic.mc322.heroquest.map.core.visibleMap;
+package br.unicamp.ic.mc322.heroquest.map.core;
 
-import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.map.core.geom;
+package br.unicamp.ic.mc322.heroquest.map.geom;
 
 public class Dimension {
     private int width;

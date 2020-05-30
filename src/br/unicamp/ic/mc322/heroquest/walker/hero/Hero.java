@@ -1,7 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
 
-import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 

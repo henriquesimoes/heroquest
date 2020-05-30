@@ -1,9 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
-import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.core.geom.Dimension;
-import br.unicamp.ic.mc322.heroquest.map.core.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.core.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 

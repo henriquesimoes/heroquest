@@ -1,23 +1,22 @@
-package br.unicamp.ic.mc322.heroquest.map.core.object.structural;
+package br.unicamp.ic.mc322.heroquest.map.object.structural;
 
-import br.unicamp.ic.mc322.heroquest.map.core.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class Floor extends StructuralObject {
-
-    public Floor(Coordinate position) {
+public class Wall extends StructuralObject {
+    public Wall(Coordinate position) {
         super(position);
     }
 
     @Override
     public boolean belongsToARoom() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isWalkOverable() {
-        return true;
+        return false;
     }
 
     @Override
@@ -27,6 +26,6 @@ public class Floor extends StructuralObject {
 
     @Override
     public ObjectView getRepresentation() {
-        return new ObjectView(" ");
+        return new ObjectView("#");
     }
 }
