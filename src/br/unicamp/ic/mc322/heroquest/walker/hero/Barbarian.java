@@ -6,7 +6,6 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class Barbarian extends Hero {
     Barbarian() {
-        super();
         attackDice = 3;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints = 8;

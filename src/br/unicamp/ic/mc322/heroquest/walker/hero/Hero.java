@@ -14,8 +14,8 @@ public abstract class Hero extends Walker {
         int totalDefense = defenseDice + bonusDefenseDice;
         int intensity = 0;
 
-        for (int times = 0; times < totalDefense; times++){
-            if(combatDice.roll() == CombatDiceFace.HERO_SHIELD)
+        for (int times = 0; times < totalDefense; times++) {
+            if (combatDice.roll() == CombatDiceFace.HERO_SHIELD)
                 intensity++;
         }
 

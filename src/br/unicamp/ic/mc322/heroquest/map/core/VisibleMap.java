@@ -13,46 +13,46 @@ public class VisibleMap {
         map.moveObject(walker, coordinate);
     }
 
-    public ArrayList<Coordinate> getPositionsWithDistanceUp(int limitPositionInMove) {
-        return map.getPositionsWithDistanceUp(limitPositionInMove);
+    public ArrayList<Coordinate> getCloseWalkablePositions(int maximumDistance) {
+        return map.getCloseWalkablePositions(walker, maximumDistance);
     }
 
-    public ArrayList<Walker> getAllWalkersInRadiusOf(Walker target, int radius){
-        return map.getAllWalkersInRadiusOf(target, radius);
+    public ArrayList<Walker> getAllWalkersWithinArea(Walker target, int radius) {
+        return map.getAllWalkersWithinArea(target, radius);
     }
 
-    public ArrayList<Walker> getEnemiesInRadiusOf(int radius){
-        ArrayList<Walker> targetWalkers = map.getAllWalkersInRadiusOf(walker, radius);
+    public ArrayList<Walker> getEnemiesWithinArea(int radius) {
+        ArrayList<Walker> targetWalkers = map.getAllWalkersWithinArea(walker, radius);
         return getListOfEnemies(targetWalkers);
     }
 
-    public ArrayList<Walker> getFriendsInRadiusOf(int radius){
-        ArrayList<Walker> targetWalkers = map.getAllWalkersInRadiusOf(walker, radius);
+    public ArrayList<Walker> getFriendsWithinArea(int radius) {
+        ArrayList<Walker> targetWalkers = map.getAllWalkersWithinArea(walker, radius);
         return getListOfFriends(targetWalkers);
     }
 
-    public ArrayList<Walker> getEnemiesOfTheAdjacentPositions(){
-        ArrayList<Walker> targetWalkers = map.getWalkersOfTheAdjacentPositions();
+    public ArrayList<Walker> getEnemiesInAdjacentPositions() {
+        ArrayList<Walker> targetWalkers = map.getEnemiesInAdjacentPositions(walker);
         return getListOfEnemies(targetWalkers);
     }
 
-    public ArrayList<Walker> getEnemiesOfTheFourDirections(){
-        ArrayList<Walker> targetWalkers = map.getWalkersOfTheFourDirections();
+    public ArrayList<Walker> getEnemiesInTheFourDirections() {
+        ArrayList<Walker> targetWalkers = map.getWalkersOfTheFourDirections(walker);
         return getListOfEnemies(targetWalkers);
     }
 
-    private ArrayList<Walker> getListOfFriends(ArrayList<Walker> targetWalkers){
+    private ArrayList<Walker> getListOfFriends(ArrayList<Walker> targetWalkers) {
         ArrayList<Walker> friends = new ArrayList<>();
-        for(Walker targetWalker : targetWalkers){
+        for (Walker targetWalker : targetWalkers) {
             if (walker.isFriend(targetWalker))
                 friends.add(targetWalker);
         }
         return friends;
     }
 
-    private ArrayList<Walker> getListOfEnemies(ArrayList<Walker> targetWalkers){
+    private ArrayList<Walker> getListOfEnemies(ArrayList<Walker> targetWalkers) {
         ArrayList<Walker> enemies = new ArrayList<>();
-        for(Walker targetWalker : targetWalkers){
+        for (Walker targetWalker : targetWalkers) {
             if (walker.isEnemy(targetWalker))
                 enemies.add(targetWalker);
         }

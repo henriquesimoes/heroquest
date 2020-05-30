@@ -14,20 +14,21 @@ import java.util.ArrayList;
 public class WalkerPlayer extends WalkerManager {
     private PlayerInterface ioInterface;
     private VisibleMap visibleMap;
-    WalkerPlayer(){
+
+    WalkerPlayer() {
         ioInterface = new PlayerInterface();
     }
 
     @Override
-    public void playTurn(){
-        boolean sucessMove = false;
-        boolean sucessUseSkill = false;
+    public void playTurn() {
+        boolean successfulMove = false;
+        boolean successfulSkillUsage = false;
 
-        while(true) {
+        while (true) {
             ArrayList<String> options = new ArrayList<>();
             options.add("Use Items");
-            if (!sucessMove)
-                if (!sucessUseSkill)
+            if (!successfulMove)
+                if (!successfulSkillUsage)
                     options.add("Use Skill");
                 options.add("Execute Movement");
 
@@ -36,40 +37,40 @@ public class WalkerPlayer extends WalkerManager {
 
             if (choice == 0)
                 return;
-            if (choice == 1){
+            if (choice == 1) {
                 useItems();
-            }else if(choice == 2 && !sucessUseSkill){
-                sucessUseSkill = useSkill();
-            }else{
-                sucessMove = move();
+            } else if (choice == 2 && !successfulSkillUsage) {
+                successfulSkillUsage = useSkill();
+            } else {
+                successfulMove = move();
             }
         }
     }
 
-    private void useItems(){
+    private void useItems() {
         ArrayList<CollectableItem> items = walker.getItems();
         ArrayList<String> nameList = new ArrayList<>();
 
-        for (CollectableItem item : items){
+        for (CollectableItem item : items) {
             nameList.add(item.getName());
         }
 
         ioInterface.showMessage("Choose an item to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList);
 
-        if (choice != 0){
+        if (choice != 0) {
             CollectableItem choosedItem = items.get(choice - 1);
             choosedItem.use(walker);
         }
 
     }
 
-    private boolean move(){
-        int limitPositionInMove = walker.getLimitPositionInMovement();
-        ArrayList<Coordinate> possibleMoves = visibleMap.getPositionsWithDistanceUp(limitPositionInMove);
+    private boolean move() {
+        int limitPositionInMove = walker.getMovementLimitInPositions();
+        ArrayList<Coordinate> possibleMoves = visibleMap.getCloseWalkablePositions(limitPositionInMove);
         ArrayList<String> movesList = new ArrayList<>();
 
-        for (Coordinate coordinate : possibleMoves){
+        for (Coordinate coordinate : possibleMoves) {
             movesList.add(coordinate.toString());
         }
 
@@ -80,23 +81,23 @@ public class WalkerPlayer extends WalkerManager {
         return true;
     }
 
-    private boolean useSkill(){
+    private boolean useSkill() {
         ArrayList<Skill> skills = walker.getSkills();
         ArrayList<String> nameList = new ArrayList<>();
 
-        for(Skill skill: skills){
+        for (Skill skill: skills) {
             nameList.add(skill.getSkillName());
         }
 
         ioInterface.showMessage("Choose a skill to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList);
 
-        if (choice != 0){
+        if (choice != 0) {
             Skill chosenSkill = skills.get(choice - 1);
             ArrayList<Pair<Walker, Coordinate>> targets = chosenSkill.getTargets(visibleMap);
             ArrayList<String> targetList = new ArrayList<>();
 
-            for(Pair<Walker, Coordinate> pair : targets){
+            for (Pair<Walker, Coordinate> pair : targets) {
                 Walker targetWalker = pair.getKey();
                 Coordinate coordinate = pair.getValue();
                 targetList.add(targetWalker.getName() + " - " + coordinate.toString());
@@ -105,11 +106,11 @@ public class WalkerPlayer extends WalkerManager {
             ioInterface.showMessage("Choose a target:");
             choice = ioInterface.showOptionsAndGetAnswer(targetList);
 
-            if (choice != 0){
+            if (choice != 0) {
                 Walker targetWalker = targets.get(choice - 1).getKey();
                 chosenSkill.use(visibleMap, targetWalker);
                 return true;
-            }else
+            } else
                 return false;
         }
         else

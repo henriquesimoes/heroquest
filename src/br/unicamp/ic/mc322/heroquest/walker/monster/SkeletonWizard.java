@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.item.spells.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class SkeletonWizard extends Skeleton {
-    SkeletonWizard(){
+    SkeletonWizard() {
         super();
         final int numInitialMagicMissile = 2;
         attackDice = 2;

@@ -12,6 +12,7 @@ import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public abstract class Walker extends MapObject {
     protected Team team;
@@ -45,16 +46,16 @@ public abstract class Walker extends MapObject {
         return skillsList;
     }
 
-    public int getLimitPositionInMovement(){
+    public int getMovementLimitInPositions() {
         int numPos = 0;
 
-        for(int i = 0; i < moveDice; i++)
-            numPos += redDice.rollIndex();
+        for (int i = 0; i < moveDice; i++)
+            numPos += redDice.roll();
 
         return numPos;
     }
 
-    public int getPowerPhysicalAttack(Weapon weapon) {
+    public int getPhysicalAttackPower(Weapon weapon) {
         int intensity = 0;
         int totalAttack = attackDice + weapon.getAttackBonus();
 
@@ -65,21 +66,21 @@ public abstract class Walker extends MapObject {
         return intensity;
     }
 
-    private boolean tryUseMagicalMovement() {
-        return redDice.rollIndex() <= mindPoints;
+    private boolean attemptMagicalMovement() {
+        return redDice.roll() <= mindPoints;
     }
 
     public abstract int getIntensityOfPhysicalDefense();
 
-    public void defendsMagicSkill(int intensity){
-        boolean sucessDefend = tryUseMagicalMovement();
-        if(!sucessDefend)
+    public void defendsMagicSkill(int intensity) {
+        boolean successDefend = attemptMagicalMovement();
+        if (!successDefend)
             decreaseBodyPoints(intensity);
     }
 
-    public void defendsPhysicalSkill(int intensity){
+    public void defendsPhysicalSkill(int intensity) {
         int intensityDefence = getIntensityOfPhysicalDefense();
-        if(intensityDefence < intensity)
+        if (intensityDefence < intensity)
             decreaseBodyPoints(intensity - intensityDefence);
     }
 
@@ -144,8 +145,8 @@ public abstract class Walker extends MapObject {
         }
     }
 
-    protected void addSkill(Skill skill){
-        // TODO: test if this really work
+    protected void addSkill(Skill skill) {
+        // TODO: test if this really works
         int index = skills.indexOf(new Pair<Skill, Integer>(skill, 0));
 
         if (index == -1) {
@@ -156,21 +157,19 @@ public abstract class Walker extends MapObject {
         }
     }
 
-    private void removeSkill(Skill skill){
-        // TODO: test if this really work
+    private void removeSkill(Skill skill) {
+        // TODO: test if this really works
         int index = skills.indexOf(new Pair<Skill, Integer>(skill, 0));
 
-        if (index == -1) {
-            System.out.println("Fatal Error");
-            System.exit(1);
-        } else {
-            Pair<Skill, Integer> pair = skills.get(index);
+        if (index == -1)
+            throw new NoSuchElementException();
 
-            if (pair.getValue() == 1)
-                skills.remove(index);
-            else
-                pair.setValue(pair.getValue() - 1);
-        }
+        Pair<Skill, Integer> pair = skills.get(index);
+
+        if (pair.getValue() == 1)
+            skills.remove(index);
+        else
+            pair.setValue(pair.getValue() - 1);
     }
 
     protected void storeLeftWeapon() {
@@ -224,11 +223,11 @@ public abstract class Walker extends MapObject {
         return;
     }
 
-    public boolean isEnemy(Walker walker){
+    public boolean isEnemy(Walker walker) {
         return this.team != walker.team;
     }
 
-    public boolean isFriend(Walker walker){
+    public boolean isFriend(Walker walker) {
         return this.team == walker.team;
     }
 }

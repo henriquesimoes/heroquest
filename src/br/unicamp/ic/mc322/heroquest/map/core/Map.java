@@ -57,22 +57,22 @@ public class Map {
         return structure.getDimension();
     }
 
-    public void moveObject(MapObject mapObject, Coordinate coordinateDestination){
+    public void moveObject(MapObject mapObject, Coordinate coordinateDestination) {
     }
 
-    public ArrayList<Coordinate> getPositionsWithDistanceUp(int limitPositionInMove) {
+    public ArrayList<Coordinate> getCloseWalkablePositions(Walker reference, int maximumDistance) {
         return null;
     }
 
-    public ArrayList<Walker> getWalkersOfTheFourDirections() {
+    public ArrayList<Walker> getWalkersOfTheFourDirections(Walker reference) {
         return null;
     }
 
-    public ArrayList<Walker> getWalkersOfTheAdjacentPositions() {
+    public ArrayList<Walker> getEnemiesInAdjacentPositions(Walker reference) {
         return null;
     }
 
-    public ArrayList<Walker> getAllWalkersInRadiusOf(Walker target, int radius) {
+    public ArrayList<Walker> getAllWalkersWithinArea(Walker reference, int radius) {
         return null;
     }
 }

@@ -8,8 +8,7 @@ import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class Wizard extends Hero {
-    Wizard(){
-        super();
+    Wizard() {
         final int numInitialDaggers = 3;
         final int numInitialMagicMissile = 3;
 
@@ -22,7 +21,7 @@ public class Wizard extends Hero {
         knapsack.put(curWeapon);
         equipWeapon(curWeapon);
 
-        for(int i = 0; i < numInitialDaggers - 1; i++)
+        for (int i = 0; i < numInitialDaggers - 1; i++)
             knapsack.put(new Dagger());
 
         for (int i = 0; i < numInitialMagicMissile; i++)

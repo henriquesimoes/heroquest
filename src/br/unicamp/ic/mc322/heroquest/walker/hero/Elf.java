@@ -7,7 +7,6 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class Elf extends Hero {
     Elf() {
-        super();
         attackDice = 2;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints =  6;

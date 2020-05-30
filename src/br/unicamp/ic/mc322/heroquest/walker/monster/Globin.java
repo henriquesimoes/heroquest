@@ -5,11 +5,11 @@ import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.manager.ai.WalkerAI;
-import br.unicamp.ic.mc322.heroquest.walker.manager.ai.attackBehavior.Bloodthirsty;
-import br.unicamp.ic.mc322.heroquest.walker.manager.ai.movimentBehavior.Follower;
+import br.unicamp.ic.mc322.heroquest.walker.manager.ai.attack.Bloodthirsty;
+import br.unicamp.ic.mc322.heroquest.walker.manager.ai.movement.Follower;
 
 public class Globin extends Monster {
-    public Globin(){
+    public Globin() {
         super();
         WalkerManager walkerManager = new WalkerAI(new Follower(), new Bloodthirsty());
         final int initialNumberOfDaggers = 2;
@@ -22,7 +22,7 @@ public class Globin extends Monster {
         knapsack.put(currentWeapon);
         equipWeapon(currentWeapon);
 
-        for(int i = 0; i < initialNumberOfDaggers - 1; i++)
+        for (int i = 0; i < initialNumberOfDaggers - 1; i++)
             knapsack.put(new Dagger());
     }
 

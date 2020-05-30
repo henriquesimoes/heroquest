@@ -6,7 +6,6 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class Dwarf extends Hero {
     Dwarf() {
-        super();
         attackDice = 2;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints = 7;

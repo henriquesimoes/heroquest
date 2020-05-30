@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class CommonSkeleton extends Skeleton {
-    CommonSkeleton(){
+    CommonSkeleton() {
         super();
         attackDice = 2;
         defenseDice = 2;
