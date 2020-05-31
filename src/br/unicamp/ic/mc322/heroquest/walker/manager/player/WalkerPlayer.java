@@ -27,9 +27,9 @@ public class WalkerPlayer extends WalkerManager {
         while (true) {
             ArrayList<String> options = new ArrayList<>();
             options.add("Use Items");
+            if (!successfulSkillUsage)
+                options.add("Use Skill");
             if (!successfulMove)
-                if (!successfulSkillUsage)
-                    options.add("Use Skill");
                 options.add("Execute Movement");
 
             ioInterface.showMessage("Choose an action:");
