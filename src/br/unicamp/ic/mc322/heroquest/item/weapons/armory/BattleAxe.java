@@ -1,6 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.AttackEnemy;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.PhysicalSkill;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class BattleAxe extends Weapon {
     private static final String description = "A heavy axe that gives you a bonus of 4 combat dices." +
@@ -8,9 +10,10 @@ public class BattleAxe extends Weapon {
 
     public BattleAxe() {
         super("Battle axe", description, 7, 450);
-        super.setAttackDistance(1);
-        super.setAttackBonus(4);
-        super.setTwoHanded(true);
-        super.setAttackDiagonally(false);
+
+        setAttackBonus(4);
+        setTwoHanded(true);
+        setAttackDiagonally(false);
+        setNewSkill(new AttackEnemy("Golpear", this, 1));
     }
 }

@@ -1,6 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.AttackEnemy;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.AttackEnemyInLongDistanceRange;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class Flail extends Weapon {
     private static final String description = "Flail gives you a bonus of 3 combat dice." +
@@ -8,9 +10,11 @@ public class Flail extends Weapon {
 
     public Flail() {
         super("Flail", description, 4, 350);
-        super.setAttackDistance(2);
-        super.setAttackBonus(3);
-        super.setTwoHanded(false);
-        super.setAttackDiagonally(true);
+
+        setAttackBonus(3);
+        setTwoHanded(false);
+        setAttackDiagonally(true);
+        setNewSkill(new AttackEnemy("Golpear", this, 2));
+        setNewSkill(new AttackEnemyInLongDistanceRange("Lançar", this, 6));
     }
 }

@@ -1,6 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.AttackEnemy;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.AttackEnemyInLongDistanceRange;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class Staff extends Weapon {
     private static final String description = "Staff gives you a bonus of 1 combat dice." +
@@ -8,9 +10,10 @@ public class Staff extends Weapon {
 
     public Staff() {
         super("Staff", description, 3, 100);
-        super.setAttackDistance(4);
-        super.setAttackBonus(1);
-        super.setTwoHanded(true);
-        super.setAttackDiagonally(true);
+        setAttackDistance(4);
+        setAttackBonus(1);
+        setTwoHanded(true);
+        setAttackDiagonally(true);
+        setNewSkill(new AttackEnemy("Golpear", this, 4));
     }
 }
