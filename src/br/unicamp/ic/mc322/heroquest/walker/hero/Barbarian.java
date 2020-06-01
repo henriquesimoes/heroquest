@@ -21,4 +21,9 @@ public class Barbarian extends Hero {
     public ObjectView getRepresentation() {
         return new ObjectView("B");
     }
+
+    @Override
+    public String getRepresentationOnMenu() {
+        return null;
+    }
 }

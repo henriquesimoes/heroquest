@@ -20,12 +20,12 @@ public class Elf extends Hero {
     }
 
     @Override
-    public int getIntensityOfPhysicalDefense() {
-        return 0;
+    public ObjectView getRepresentation() {
+        return new ObjectView("E");
     }
 
     @Override
-    public ObjectView getRepresentation() {
-        return new ObjectView("E");
+    public String getRepresentationOnMenu() {
+        return null;
     }
 }

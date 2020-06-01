@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
@@ -60,19 +61,15 @@ public class Map {
     public void moveObject(MapObject mapObject, Coordinate coordinateDestination) {
     }
 
-    public ArrayList<Coordinate> getCloseWalkablePositions(Walker reference, int maximumDistance) {
+    public ArrayList<Coordinate> getCloseWalkablePositions(Walker reference, Distance distance) {
         return null;
     }
 
-    public ArrayList<Walker> getWalkersOfTheFourDirections(Walker reference) {
+    public ArrayList<Walker> getAllWalkersWithinArea(Walker reference, Distance distance) {
         return null;
     }
 
-    public ArrayList<Walker> getEnemiesInAdjacentPositions(Walker reference) {
-        return null;
-    }
-
-    public ArrayList<Walker> getAllWalkersWithinArea(Walker reference, int radius) {
+    public ArrayList<MapObject> getUnoccupiedPositions(Walker reference) {
         return null;
     }
 }
