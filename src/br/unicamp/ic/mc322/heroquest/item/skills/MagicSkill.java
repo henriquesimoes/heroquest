@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.item.spells;
+package br.unicamp.ic.mc322.heroquest.item.skills;
 
 import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
 
@@ -9,6 +9,4 @@ public abstract class MagicSkill extends Skill {
         super(SpellName);
         this.spellDescription = spellDescription;
     }
-
-    public abstract void useSkill();
 }

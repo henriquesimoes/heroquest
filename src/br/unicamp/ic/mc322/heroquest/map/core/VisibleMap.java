@@ -31,8 +31,8 @@ public class VisibleMap {
         return getListOfFriends(targetWalkers);
     }
 
-    public ArrayList<Walker> getEnemiesInAdjacentPositions() {
-        ArrayList<Walker> targetWalkers = map.getEnemiesInAdjacentPositions(walker);
+    public ArrayList<Walker> getEnemiesInAdjacentPositions(Walker targetWalker) {
+        ArrayList<Walker> targetWalkers = map.getEnemiesInAdjacentPositions(targetWalker);
         return getListOfEnemies(targetWalkers);
     }
 

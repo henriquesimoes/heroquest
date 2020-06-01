@@ -19,7 +19,7 @@ public abstract class Walker extends MapObject {
     protected String name;
     protected Weapon leftWeapon, rightWeapon;
     protected Armor armor;
-    protected int attackDice, moveDice, defenseDice, bonusDefenseDice;
+    protected int attackDice, movementDice, defenseDice, bonusDefenseDice;
     protected int maxBodyPoints, currentBodyPoints, mindPoints;
     protected ArrayList<Pair<Skill, Integer>> skills;
     protected CombatDice combatDice;
@@ -32,7 +32,7 @@ public abstract class Walker extends MapObject {
         combatDice = new CombatDice();
         knapsack = new Knapsack();
         skills = new ArrayList<>();
-        moveDice = 2;
+        movementDice = 2;
     }
 
     public ArrayList<Skill> getSkills() {
@@ -46,10 +46,10 @@ public abstract class Walker extends MapObject {
         return skillsList;
     }
 
-    public int getMovementLimitInPositions() {
+    public int getPositionLimitInMovement() {
         int numPos = 0;
 
-        for (int i = 0; i < moveDice; i++)
+        for (int i = 0; i < movementDice; i++)
             numPos += redDice.roll();
 
         return numPos;
@@ -66,8 +66,12 @@ public abstract class Walker extends MapObject {
         return intensity;
     }
 
-    private boolean attemptMagicalMovement() {
+    public boolean attemptMagicalMovement() {
         return redDice.roll() <= mindPoints;
+    }
+
+    public int rollRedDice() {
+        return redDice.roll();
     }
 
     public abstract int getIntensityOfPhysicalDefense();
@@ -102,7 +106,7 @@ public abstract class Walker extends MapObject {
         knapsack.remove(item);
     }
 
-    private void restoreBodyPoints(int delta) {
+    public void restoreBodyPoints(int delta) {
         currentBodyPoints = Math.min(currentBodyPoints + delta, maxBodyPoints);
     }
 

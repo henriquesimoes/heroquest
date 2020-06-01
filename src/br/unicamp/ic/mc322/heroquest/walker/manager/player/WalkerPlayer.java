@@ -66,7 +66,7 @@ public class WalkerPlayer extends WalkerManager {
     }
 
     private boolean move() {
-        int limitPositionInMove = walker.getMovementLimitInPositions();
+        int limitPositionInMove = walker.getPositionLimitInMovement();
         ArrayList<Coordinate> possibleMoves = visibleMap.getCloseWalkablePositions(limitPositionInMove);
         ArrayList<String> movesList = new ArrayList<>();
 
@@ -108,7 +108,7 @@ public class WalkerPlayer extends WalkerManager {
 
             if (choice != 0) {
                 Walker targetWalker = targets.get(choice - 1).getKey();
-                chosenSkill.use(visibleMap, targetWalker);
+                chosenSkill.useSkill(visibleMap, walker, targetWalker);
                 return true;
             } else
                 return false;

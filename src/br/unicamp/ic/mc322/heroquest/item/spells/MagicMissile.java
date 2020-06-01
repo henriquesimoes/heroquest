@@ -1,17 +1,21 @@
 package br.unicamp.ic.mc322.heroquest.item.spells;
 
+import br.unicamp.ic.mc322.heroquest.item.skills.MagicSkill;
+import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
+
 public class MagicMissile extends MagicSkill {
-    private int totalDamage = 6;
+    private final int TOTAL_DAMAGE = 6;
 
     public MagicMissile() {
         super("Magic Missile", "Lança três flechas mágicas, cada uma causando 2 de dano.");
     }
 
     @Override
-    public void useSkill() {
+    public void useSkill(VisibleMap visibleMap, Walker summoner, Walker targetWalker) {
+        if (summoner.attemptMagicalMovement()) {
+            targetWalker.defendsMagicSkill(TOTAL_DAMAGE);
+        }
     }
 
-    public int getTotalDamage() {
-        return totalDamage;
-    }
 }

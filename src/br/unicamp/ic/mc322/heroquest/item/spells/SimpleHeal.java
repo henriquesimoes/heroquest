@@ -1,5 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.spells;
 
+import br.unicamp.ic.mc322.heroquest.item.skills.MagicSkill;
+import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class SimpleHeal extends MagicSkill {
@@ -9,7 +11,9 @@ public class SimpleHeal extends MagicSkill {
     }
 
     @Override
-    public void useSkill() {
-        // TODO: configurar para curar walker
+    public void useSkill(VisibleMap visibleMap, Walker targetWalker) {
+        if (targetWalker.attemptMagicalMovement()) {
+            targetWalker.restoreBodyPoints(targetWalker.rollRedDice());
+        }
     }
 }

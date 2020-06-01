@@ -5,6 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.manager.player.WalkerPlayer;
 
 import java.util.ArrayList;
 
@@ -26,9 +27,7 @@ public class Skill {
         return skilledItem;
     }
 
-    public boolean useSkill(Walker walker) {
-        return false;
-    }
+    public void useSkill(VisibleMap visibleMap, Walker userWalker, Walker targetWalker) {}
 
     public String getSkillName() {
         return skillName;
@@ -42,10 +41,10 @@ public class Skill {
         return skillIntensity;
     }
 
+    /**TODO:
+     * Tudo, porque ela não faz nada kkkk */
     public ArrayList<Pair<Walker, Coordinate>> getTargets(VisibleMap visibleMap) {
         return null;
     }
 
-    public void use(VisibleMap visibleMap, Walker targetWalker) {
-    }
 }
