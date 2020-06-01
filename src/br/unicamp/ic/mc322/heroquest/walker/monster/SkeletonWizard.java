@@ -1,16 +1,24 @@
 package br.unicamp.ic.mc322.heroquest.walker.monster;
 
-public class SkeletonWizard extends Skeleton {
+import br.unicamp.ic.mc322.heroquest.item.spells.MagicMissile;
+import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
-    SkeletonWizard(){
+public class SkeletonWizard extends Skeleton {
+    SkeletonWizard() {
         super();
         final int numInitialMagicMissile = 2;
         attackDice = 2;
         defenseDice = 1;
-        maxBodyPoints = curBodyPoints = 2;
+        maxBodyPoints = currentBodyPoints = 2;
         mindPoints = 3;
         for (int i = 0; i < numInitialMagicMissile; i++)
-            knapsack.put(new MagicMissileCard());
-        // TODO: implements use of the fists
+            addSkill(new MagicMissile());
+
+        // TODO: implement use of the fists
+    }
+
+    @Override
+    public ObjectView getRepresentation() {
+        return new ObjectView("Ŝ");
     }
 }

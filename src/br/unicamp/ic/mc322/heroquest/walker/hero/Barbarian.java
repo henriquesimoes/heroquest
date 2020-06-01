@@ -1,17 +1,24 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
-public class Barbarian extends Hero {
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.weapons.armory.LongSword;
+import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
-    Barbarian(){
-        super();
+public class Barbarian extends Hero {
+    Barbarian() {
         attackDice = 3;
         defenseDice = 2;
-        maxBodyPoints = curBodyPoints = 8;
+        maxBodyPoints = currentBodyPoints = 8;
         mindPoints = 2;
 
         Weapon curWeapon = new LongSword();
         knapsack.put(curWeapon);
 
         equipWeapon(curWeapon);
+    }
+
+    @Override
+    public ObjectView getRepresentation() {
+        return new ObjectView("B");
     }
 }

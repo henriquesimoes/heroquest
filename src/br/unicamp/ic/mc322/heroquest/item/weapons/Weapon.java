@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.item.weapons;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.DurableItem;
 import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
+import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.PhysicalSkill;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public class Weapon extends DurableItem {
     private int attackDistance;
     private boolean attackDiagonally;
     private boolean twoHanded;
-    private ArrayList<Skill> itemSkills = new ArrayList<>();
+    private ArrayList<PhysicalSkill> itemSkills = new ArrayList<>();
 
     public Weapon(String name, String description, int weaponDurability, int goldCoinsValue) {
         super(name, description, weaponDurability, goldCoinsValue);
@@ -32,11 +33,11 @@ public class Weapon extends DurableItem {
         this.twoHanded = twoHanded;
     }
 
-    public void setNewSkill(Skill skill) {
+    public void setNewSkill(PhysicalSkill skill) {
         itemSkills.add(skill);
     }
 
-    public ArrayList<Skill> getItemSkills() {
+    public ArrayList<PhysicalSkill> getSkills() {
         return itemSkills;
     }
 

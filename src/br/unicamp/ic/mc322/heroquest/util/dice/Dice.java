@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.util.dice;
 
 import java.util.Random;
 
-public class Dice {
+class Dice {
     private static Random random = new Random();
 
     private int numberOfFaces;
@@ -15,7 +15,7 @@ public class Dice {
      * Rolls the dice.
      * @return The face index turned up.
      */
-    public int rollIndex() {
+    int rollIndex() {
         return random.nextInt(numberOfFaces) + 1;
     }
 }
