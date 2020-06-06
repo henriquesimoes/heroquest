@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemy;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemy;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class BattleAxe extends Weapon {

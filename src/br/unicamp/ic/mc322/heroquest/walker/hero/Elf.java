@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
-import br.unicamp.ic.mc322.heroquest.item.spells.SimpleHeal;
+import br.unicamp.ic.mc322.heroquest.skills.magicSkill.SimpleHeal;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.armory.ShortSword;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;

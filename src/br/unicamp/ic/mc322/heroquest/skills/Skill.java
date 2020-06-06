@@ -44,7 +44,7 @@ public abstract class Skill {
 
     /**TODO:
      * Tudo, porque ela não faz nada kkkk */
-    public abstract ArrayList<MapObject> getTargets(VisibleMap visibleMap);
+    public abstract ArrayList<MapObject> getTargets(Walker walkerReference, VisibleMap visibleMap);
 
     protected ArrayList<Walker> getFriendsWithinArea(Walker currentWalker, VisibleMap visibleMap, Distance distance) {
         ArrayList<Walker> targetWalkers = visibleMap.getAllWalkersWithinArea(currentWalker, distance);

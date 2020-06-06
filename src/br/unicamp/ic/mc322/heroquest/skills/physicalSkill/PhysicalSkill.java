@@ -1,9 +1,9 @@
-package br.unicamp.ic.mc322.heroquest.skills.weaponskills;
+package br.unicamp.ic.mc322.heroquest.skills.physicalSkill;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.DurableItem;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 
-public class PhysicalSkill extends Skill {
+public abstract class PhysicalSkill extends Skill {
     private int attackDistance;
 
     public PhysicalSkill(String skillName, DurableItem skilledItem, int attackDistance) {
@@ -19,4 +19,5 @@ public class PhysicalSkill extends Skill {
         DurableItem weapon = (DurableItem) getSkilledItem();
         weapon.updateItemDurability(weapon.getItemDurability() - 1);
     }
+
 }

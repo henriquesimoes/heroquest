@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
-import br.unicamp.ic.mc322.heroquest.item.spells.Fireball;
-import br.unicamp.ic.mc322.heroquest.item.spells.MagicMissile;
-import br.unicamp.ic.mc322.heroquest.item.spells.Teleport;
+import br.unicamp.ic.mc322.heroquest.skills.magicSkill.Fireball;
+import br.unicamp.ic.mc322.heroquest.skills.magicSkill.MagicMissile;
+import br.unicamp.ic.mc322.heroquest.skills.magicSkill.Teleport;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;

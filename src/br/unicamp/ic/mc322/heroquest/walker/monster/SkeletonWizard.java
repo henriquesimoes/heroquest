@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.monster;
 
-import br.unicamp.ic.mc322.heroquest.item.spells.MagicMissile;
+import br.unicamp.ic.mc322.heroquest.skills.magicSkill.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
 public class SkeletonWizard extends Skeleton {

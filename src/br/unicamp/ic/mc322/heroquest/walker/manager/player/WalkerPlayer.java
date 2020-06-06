@@ -91,7 +91,7 @@ public class WalkerPlayer extends WalkerManager {
 
         if (choice != 0) {
             Skill chosenSkill = skills.get(choice - 1);
-            ArrayList<MapObject> targets = chosenSkill.getTargets(visibleMap);
+            ArrayList<MapObject> targets = chosenSkill.getTargets(walker, visibleMap);
             ArrayList<String> targetList = new ArrayList<>();
 
             for (MapObject target : targets)
