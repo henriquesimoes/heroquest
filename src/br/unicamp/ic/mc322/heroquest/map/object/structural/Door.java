@@ -19,7 +19,7 @@ public class Door extends StructuralObject {
     }
 
     @Override
-    public boolean isWalkOverable() {
+    public boolean isAllowedToWalkOverPosition() {
         return opened;
     }
 

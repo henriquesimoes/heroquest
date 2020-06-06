@@ -1,6 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.item.skills;
-
-import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
+package br.unicamp.ic.mc322.heroquest.skills;
 
 public abstract class MagicSkill extends Skill {
     private String spellDescription;

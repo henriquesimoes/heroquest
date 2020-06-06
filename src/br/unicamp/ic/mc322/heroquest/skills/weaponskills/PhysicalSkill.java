@@ -1,7 +1,7 @@
-package br.unicamp.ic.mc322.heroquest.item.skills.weaponskills;
+package br.unicamp.ic.mc322.heroquest.skills.weaponskills;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.DurableItem;
-import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
+import br.unicamp.ic.mc322.heroquest.skills.Skill;
 
 public class PhysicalSkill extends Skill {
     private int attackDistance;

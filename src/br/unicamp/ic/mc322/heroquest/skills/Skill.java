@@ -1,11 +1,10 @@
-package br.unicamp.ic.mc322.heroquest.item.skills;
+package br.unicamp.ic.mc322.heroquest.skills;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
-import br.unicamp.ic.mc322.heroquest.walker.manager.player.WalkerPlayer;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.item.skills.weaponskills;
+package br.unicamp.ic.mc322.heroquest.skills.weaponskills;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.DurableItem;
 

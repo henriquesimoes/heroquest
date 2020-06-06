@@ -1,10 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
-import br.unicamp.ic.mc322.heroquest.item.Armor;
+import br.unicamp.ic.mc322.heroquest.item.armors.Armor;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
-import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
-import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.PhysicalSkill;
+import br.unicamp.ic.mc322.heroquest.skills.Skill;
+import br.unicamp.ic.mc322.heroquest.skills.weaponskills.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
@@ -218,7 +219,7 @@ public abstract class Walker extends MapObject {
     }
 
     @Override
-    public boolean isWalkOverable() {
+    public boolean isAllowedToWalkOverPosition() {
         return false;
     }
 
@@ -234,4 +235,7 @@ public abstract class Walker extends MapObject {
     public boolean isFriend(Walker walker) {
         return this.team == walker.team;
     }
+
+    /**TODO: Classe com implementação vazia até decidirmos formato do mapa*/
+    public ArrayList<Coordinate> getPositionsInEntitySight() { return new ArrayList<>();}
 }

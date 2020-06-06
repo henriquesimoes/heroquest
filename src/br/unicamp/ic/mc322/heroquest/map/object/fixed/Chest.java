@@ -17,7 +17,7 @@ public class Chest extends FixedObject {
     }
 
     @Override
-    public boolean isWalkOverable() {
+    public boolean isAllowedToWalkOverPosition() {
         return false;
     }
 

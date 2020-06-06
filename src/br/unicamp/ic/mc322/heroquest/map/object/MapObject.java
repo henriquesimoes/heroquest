@@ -15,7 +15,7 @@ public abstract class MapObject {
         this.position = position;
     }
 
-    public abstract boolean isWalkOverable();
+    public abstract boolean isAllowedToWalkOverPosition();
     public abstract void interact(Walker agent);
     public abstract ObjectView getRepresentation();
 }
