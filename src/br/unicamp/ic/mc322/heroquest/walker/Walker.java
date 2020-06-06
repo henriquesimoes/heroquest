@@ -11,6 +11,7 @@ import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -26,6 +27,7 @@ public abstract class Walker extends MapObject {
     protected CombatDice combatDice;
     protected RedDice redDice;
     protected Knapsack knapsack;
+    protected WalkerManager walkerManager;
 
     public Walker() {
         redDice = new RedDice();
@@ -33,6 +35,10 @@ public abstract class Walker extends MapObject {
         knapsack = new Knapsack();
         skills = new ArrayList<>();
         movementDice = 2;
+    }
+
+    public WalkerManager getManager(){
+        return walkerManager;
     }
 
     public ArrayList<Skill> getSkills() {
@@ -93,7 +99,7 @@ public abstract class Walker extends MapObject {
     }
 
     // erase the item of the inventory
-    private void destroyItem(CollectableItem item) {
+    public void destroyItem(CollectableItem item) {
         if (leftWeapon != null && leftWeapon.equals(item))
             unequipWeapon((Weapon) item);
 

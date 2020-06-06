@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class WalkerPlayer extends WalkerManager {
     private PlayerInterface ioInterface;
-    private VisibleMap visibleMap;
 
-    WalkerPlayer() {
+    public WalkerPlayer(Walker walker) {
+        super(walker);
         ioInterface = new PlayerInterface();
     }
 
@@ -91,7 +91,7 @@ public class WalkerPlayer extends WalkerManager {
 
         if (choice != 0) {
             Skill chosenSkill = skills.get(choice - 1);
-            ArrayList<MapObject> targets = chosenSkill.getTargets(walker, visibleMap);
+            ArrayList<MapObject> targets = chosenSkill.getTargets(this);
             ArrayList<String> targetList = new ArrayList<>();
 
             for (MapObject target : targets)
@@ -102,7 +102,7 @@ public class WalkerPlayer extends WalkerManager {
 
             if (choice != 0) {
                 MapObject target = targets.get(choice - 1);
-                chosenSkill.useSkill(visibleMap, walker, target);
+                chosenSkill.useSkill(walker, target);
                 return true;
             } else
                 return false;

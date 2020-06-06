@@ -26,7 +26,9 @@ public class Item {
         existenceState = existence;
     }
 
-    public boolean getExistenceState;
+    public boolean getExistenceState(){
+        return existenceState;
+    }
 
     public String getName() {
         return null;

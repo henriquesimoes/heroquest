@@ -2,9 +2,8 @@ package br.unicamp.ic.mc322.heroquest.skills.magicSkill;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
 import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
-import br.unicamp.ic.mc322.heroquest.skills.magicSkill.MagicSkill;
-import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 
@@ -14,18 +13,18 @@ public class SimpleHeal extends MagicSkill {
                 "O valor é o número obtido após o lançamento de um dado de seis faces");
     }
 
-    public void useSkill(VisibleMap visibleMap, Walker userWalker, MapObject targetObject) {
+    @Override
+    public void useSkill(Walker summoner, MapObject targetObject) {
         Walker walkerTarget = (Walker)targetObject;
-
-        if (userWalker.attemptMagicalMovement())
-            walkerTarget.restoreBodyPoints(userWalker.rollRedDice());
+        if (summoner.attemptMagicalMovement())
+            walkerTarget.restoreBodyPoints(summoner.rollRedDice());
     }
 
     @Override
-    public ArrayList<MapObject> getTargets(Walker reference, VisibleMap visibleMap) {
+    public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
         Distance distance = null;
         // TODO: configure distance
-        ArrayList<Walker> friends = getFriendsWithinArea(reference, visibleMap, distance);
+        ArrayList<Walker> friends = currentWalkerManager.getFriendsWithinArea(distance);
         return arrayListWalkerToMapObject(friends);
     }
 }

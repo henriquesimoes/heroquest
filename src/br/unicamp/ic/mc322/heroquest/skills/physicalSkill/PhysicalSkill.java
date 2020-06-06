@@ -1,23 +1,27 @@
 package br.unicamp.ic.mc322.heroquest.skills.physicalSkill;
 
-import br.unicamp.ic.mc322.heroquest.item.baseitems.DurableItem;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class PhysicalSkill extends Skill {
-    private int attackDistance;
 
-    public PhysicalSkill(String skillName, DurableItem skilledItem, int attackDistance) {
-        super(skillName, skilledItem);
-        this.attackDistance = attackDistance;
+    protected Weapon skilledWeapon;
+
+    @Override
+    public void useSkill(Walker summoner, MapObject targetObject) {
+        Walker targetWalker = (Walker) targetObject;
+        int attackIntensity = summoner.getPhysicalAttackPower(skilledWeapon);
+        targetWalker.defendsPhysicalSkill(attackIntensity);
+
+        skilledWeapon.updateItemDurability(skilledWeapon.getItemDurability() - 1);
+        if (!skilledWeapon.getExistenceState())
+            summoner.destroyItem(skilledWeapon);
     }
 
-    public int getAttackDistance() {
-        return attackDistance;
+    public PhysicalSkill(String skillName, Weapon skilledWeapon) {
+        super(skillName);
+        this.skilledWeapon = skilledWeapon;
     }
-
-    public void useSkill() {
-        DurableItem weapon = (DurableItem) getSkilledItem();
-        weapon.updateItemDurability(weapon.getItemDurability() - 1);
-    }
-
 }

@@ -2,9 +2,8 @@ package br.unicamp.ic.mc322.heroquest.skills.magicSkill;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
 import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
-import br.unicamp.ic.mc322.heroquest.skills.magicSkill.MagicSkill;
-import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 
@@ -16,17 +15,17 @@ public class MagicMissile extends MagicSkill {
     }
 
     @Override
-    public void useSkill(VisibleMap visibleMap, Walker summoner, MapObject targetObject) {
+    public void useSkill(Walker summoner, MapObject targetObject) {
         Walker targetWalker = (Walker)targetObject;
         if (summoner.attemptMagicalMovement())
             targetWalker.defendsMagicSkill(TOTAL_DAMAGE);
     }
 
     @Override
-    public ArrayList<MapObject> getTargets(Walker reference, VisibleMap visibleMap) {
+    public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
         Distance distance = null;
         // TODO: configure distance
-        ArrayList<Walker> enemies = getEnemiesWithinArea(reference, visibleMap, distance);
+        ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
         return arrayListWalkerToMapObject(enemies);
     }
 }

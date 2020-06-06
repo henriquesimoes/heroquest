@@ -1,10 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.skills.magicSkill;
 
 import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
-import br.unicamp.ic.mc322.heroquest.skills.magicSkill.MagicSkill;
-import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 
@@ -17,12 +16,14 @@ public class Teleport extends MagicSkill {
     public Coordinate showCanvasToPickPosition() {return new Coordinate(0, 0);}
 
     @Override
-    public void useSkill(VisibleMap visibleMap, Walker userWalker, MapObject target) {
-
+    public void useSkill(Walker summoner, MapObject targetObject) {
+        WalkerManager summonerManager = summoner.getManager();
+        if (summoner.attemptMagicalMovement())
+            summonerManager.moveWalker(targetObject.getPosition());
     }
 
     @Override
-    public ArrayList<MapObject> getTargets(Walker walkerReference, VisibleMap visibleMap) {
-        return visibleMap.getUnoccupiedPositionsVisible();
+    public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
+        return currentWalkerManager.getUnoccupiedPositionsVisible();
     }
 }
