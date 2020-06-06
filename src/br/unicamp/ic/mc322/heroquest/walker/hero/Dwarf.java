@@ -21,4 +21,9 @@ public class Dwarf extends Hero {
     public ObjectView getRepresentation() {
         return new ObjectView("W");
     }
+
+    @Override
+    public String getRepresentationOnMenu() {
+        return null;
+    }
 }

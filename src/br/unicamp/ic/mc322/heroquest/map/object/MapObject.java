@@ -18,4 +18,6 @@ public abstract class MapObject {
     public abstract boolean isAllowedToWalkOverPosition();
     public abstract void interact(Walker agent);
     public abstract ObjectView getRepresentation();
+
+    public abstract String getRepresentationOnMenu();
 }

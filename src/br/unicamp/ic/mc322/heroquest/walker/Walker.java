@@ -28,7 +28,6 @@ public abstract class Walker extends MapObject {
     protected Knapsack knapsack;
 
     public Walker() {
-        super();
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
@@ -75,16 +74,16 @@ public abstract class Walker extends MapObject {
         return redDice.roll();
     }
 
-    public abstract int getIntensityOfPhysicalDefense();
+    public abstract int getIntensityDefense(int numberOfDices);
 
     public void defendsMagicSkill(int intensity) {
-        boolean successDefend = attemptMagicalMovement();
-        if (!successDefend)
-            decreaseBodyPoints(intensity);
+        int intensityDefence = getIntensityDefense(mindPoints);
+        if (intensityDefence < intensity)
+            decreaseBodyPoints(intensity - intensityDefence);
     }
 
     public void defendsPhysicalSkill(int intensity) {
-        int intensityDefence = getIntensityOfPhysicalDefense();
+        int intensityDefence = getIntensityDefense(defenseDice + bonusDefenseDice);
         if (intensityDefence < intensity)
             decreaseBodyPoints(intensity - intensityDefence);
     }
