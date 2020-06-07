@@ -7,7 +7,8 @@ import java.util.*;
 public class LimitedDistance extends Distance {
     private int limit;
 
-    public LimitedDistance(int limit) {
+    public LimitedDistance(Coordinate reference, int limit) {
+        super(reference);
         this.limit = limit;
     }
 

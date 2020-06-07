@@ -2,7 +2,11 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 
 import java.util.Iterator;
 
-public class AdjacentDistance extends Distance {
+class AdjacentDistance extends Distance {
+
+    AdjacentDistance(Coordinate reference) {
+        super(reference);
+    }
 
     @Override
     public Iterator<Coordinate> iterator() {

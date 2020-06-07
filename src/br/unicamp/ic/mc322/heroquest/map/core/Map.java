@@ -3,6 +3,7 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
+import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
@@ -12,6 +13,7 @@ import java.util.Iterator;
 public class Map {
     private MapStructure structure;
     private ArrayList<Room> rooms;
+    private Ruler ruler;
 
     public Map(MapStructure structure) {
         this.structure = structure;
@@ -89,14 +91,18 @@ public class Map {
         return structure.getDimension();
     }
 
+    public Ruler getRuler() {
+        return new Ruler(structure);
+    }
+
     public void moveObject(MapObject mapObject, Coordinate destination) {
         if (isAllowedToWalkOver(destination)) {
             mapObject.setPosition(destination);
         }
     }
 
-    public ArrayList<Coordinate> getCloseWalkablePositions(Walker reference, Distance distance) {
-        Iterator<Coordinate> iterator = distance.getCoveredCoordinates(reference.getPosition());
+    public ArrayList<Coordinate> getCloseWalkablePositions(Distance distance) {
+        Iterator<Coordinate> iterator = distance.iterator();
         ArrayList<Coordinate> positions = new ArrayList<>();
 
         while (iterator.hasNext()) {
@@ -116,12 +122,12 @@ public class Map {
         return rooms.get(id);
     }
 
-    public ArrayList<Walker> getAllWalkersWithinArea(Walker reference, Distance distance) {
-        Iterator<Coordinate> iterator = distance.getCoveredCoordinates(reference.getPosition());
+    public ArrayList<Walker> getAllWalkersWithinArea(Distance distance) {
+        Iterator<Coordinate> iterator = distance.iterator();
         ArrayList<Walker> walkers = new ArrayList<>();
 
         try {
-            Room room = getRoom(reference.getPosition());
+            Room room = getRoom(distance.getReference());
 
             while (iterator.hasNext()) {
                 Coordinate coordinate = iterator.next();
