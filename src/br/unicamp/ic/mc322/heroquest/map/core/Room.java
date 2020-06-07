@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.HashMap;
@@ -42,7 +41,7 @@ public class Room {
         return beings.get(coordinate);
     }
 
-    public boolean isWalkOverable(Coordinate coordinate) {
+    public boolean isAllowedToWalkOver(Coordinate coordinate) {
         MapObject object = getPreferentialObject(coordinate);
 
         if (object != null && !object.isWalkOverable())

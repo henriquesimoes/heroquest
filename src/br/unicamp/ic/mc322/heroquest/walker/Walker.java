@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.item.skills.weaponskills.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;

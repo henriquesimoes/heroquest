@@ -4,9 +4,6 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
-import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;
@@ -37,6 +34,7 @@ public class Map {
 
         // TODO: Check whether an object can be placed only on walkable positions or not.
         if (structure.isWalkOverable(coordinate) && !room.isOccupied(coordinate)) {
+            object.setPosition(coordinate);
             room.add(object);
         }
     }
@@ -44,32 +42,47 @@ public class Map {
     public void add(Walker walker, Coordinate coordinate) throws OutsideRoomException {
         Room room = getRoom(coordinate);
 
-        if (structure.isWalkOverable(coordinate) && !room.isOccupied(coordinate))
+        if (structure.isWalkOverable(coordinate) && !room.isOccupied(coordinate)) {
+            walker.setPosition(coordinate);
             room.add(walker);
-    }
-
-    public FixedObject getObject(Coordinate coordinate) {
-        try {
-            Room room = getRoom(coordinate);
-
-            return room.getFixedObject(coordinate);
-        } catch (OutsideRoomException ex) {
-            return null;
         }
     }
 
-    public Walker getWalker(Coordinate coordinate) {
+    public FixedObject getObject(Coordinate coordinate) throws OutsideRoomException {
+        Room room = getRoom(coordinate);
+
+        return room.getFixedObject(coordinate);
+    }
+
+    public Walker getWalker(Coordinate coordinate) throws OutsideRoomException {
+        Room room = getRoom(coordinate);
+
+        return room.getWalker(coordinate);
+    }
+
+    /**
+     * Returns the object that has the highest priority for interaction. This ordering is the following
+     *      - Walkers
+     *      - Fixed map objects
+     *      - Structural part of the map
+     * @param coordinate Coordinate to get object from.
+     * @return Preferential object
+     */
+    public MapObject getPreferentialObject(Coordinate coordinate) {
+        MapObject structuralObject = structure.getObjectAt(coordinate);
+        MapObject preferential = structuralObject;
+
         try {
             Room room = getRoom(coordinate);
 
-            return room.getWalker(coordinate);
-        } catch (OutsideRoomException ex) {
-            return null;
-        }
-    }
+            MapObject object = room.getPreferentialObject(coordinate);
+            if (object != null)
+                preferential = object;
 
-    public ObjectView getStructureRepresentationAt(Coordinate coordinate) {
-        return structure.get(coordinate).getRepresentation();
+        } catch (OutsideRoomException ex) {
+        }
+
+        return preferential;
     }
 
     public Dimension getDimension() {
@@ -77,7 +90,7 @@ public class Map {
     }
 
     public void moveObject(MapObject mapObject, Coordinate destination) {
-        if (isWalkOverable(destination)) {
+        if (isAllowedToWalkOver(destination)) {
             mapObject.setPosition(destination);
         }
     }
@@ -90,7 +103,7 @@ public class Map {
             Coordinate coordinate = iterator.next();
 
             // TODO: restrict movement to the same room, except for doors
-            if (isWalkOverable(coordinate))
+            if (isAllowedToWalkOver(coordinate))
                 positions.add(coordinate);
         }
 
@@ -134,7 +147,7 @@ public class Map {
             ArrayList<Coordinate> positions = structure.getRoomCoordinates(room.getId());
 
             for (Coordinate current : positions) {
-                MapObject structuralObject = structure.get(current);
+                MapObject structuralObject = structure.getObjectAt(current);
                 MapObject object = room.getPreferentialObject(current);
 
                 if ((object == null || object.isWalkOverable()) && structuralObject.isWalkOverable())
@@ -147,14 +160,14 @@ public class Map {
         }
     }
 
-    private boolean isWalkOverable(Coordinate coordinate) {
+    private boolean isAllowedToWalkOver(Coordinate coordinate) {
         if (!structure.isWalkOverable(coordinate))
             return false;
 
         try {
             Room room = getRoom(coordinate);
 
-            return room.isWalkOverable(coordinate);
+            return room.isAllowedToWalkOver(coordinate);
         } catch (OutsideRoomException e) {
             return false;
         }

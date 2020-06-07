@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.view;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 
 public interface Viewer {
 

@@ -39,13 +39,13 @@ public class MapStructure {
         return dimension;
     }
 
-    public StructuralObject get(Coordinate coordinate) {
+    public StructuralObject getObjectAt(Coordinate coordinate) {
         return objects.get(coordinate);
     }
 
     public boolean isWalkOverable(Coordinate position) {
         if (objects.containsKey(position)) {
-            objects.get(position).isWalkOverable();
+            return objects.get(position).isWalkOverable();
         }
         return false;
     }

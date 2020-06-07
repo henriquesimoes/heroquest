@@ -3,7 +3,6 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
 import br.unicamp.ic.mc322.heroquest.map.geom.LimitedDistance;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;

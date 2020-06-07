@@ -28,4 +28,9 @@ public class Wall extends StructuralObject {
     public ObjectView getRepresentation() {
         return new ObjectView("#");
     }
+
+    @Override
+    public String getRepresentationOnMenu() {
+        return "Wall";
+    }
 }

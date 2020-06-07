@@ -4,10 +4,8 @@ import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
-import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.util.playerInterface.PlayerInterface;
-import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
