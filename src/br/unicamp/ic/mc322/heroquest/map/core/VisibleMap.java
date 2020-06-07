@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
+import br.unicamp.ic.mc322.heroquest.map.geom.LimitedDistance;
 import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
@@ -16,8 +17,8 @@ public class VisibleMap {
     }
 
     public ArrayList<Coordinate> getCloseWalkablePositions(int maximumDistance) {
-        Distance distance = new Distance();
-        // TODO: convert maximum distance in object distance
+        Distance distance = new LimitedDistance(maximumDistance);
+
         return map.getCloseWalkablePositions(walker, distance);
     }
 
@@ -25,7 +26,8 @@ public class VisibleMap {
         return map.getAllWalkersWithinArea(reference, distance);
     }
 
-    public ArrayList<MapObject>  getUnoccupiedPositionsVisible(){
+    public ArrayList<MapObject>  getVisibleUnoccupiedPositions() {
+        // TODO: implement visibility restriction
         return map.getUnoccupiedPositions(walker);
     }
 }
