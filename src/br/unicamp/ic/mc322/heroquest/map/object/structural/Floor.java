@@ -29,4 +29,9 @@ public class Floor extends StructuralObject {
     public ObjectView getRepresentation() {
         return new ObjectView(" ");
     }
+
+    @Override
+    public String getRepresentationOnMenu() {
+        return "Free space";
+    }
 }

@@ -1,18 +1,15 @@
 package br.unicamp.ic.mc322.heroquest.map.object.fixed;
 
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class Chest extends FixedObject {
+public class Chest extends  FixedObject {
     private boolean opened;
 
     // TODO: Introduce storage item management
 
-    public Chest(Coordinate position) {
-        super(position);
-
+    public Chest() {
         opened = false;
     }
 
@@ -31,6 +28,11 @@ public class Chest extends FixedObject {
 
     @Override
     public ObjectView getRepresentation() {
+        return new ObjectView("c");
+    }
+
+    @Override
+    public String getRepresentationOnMenu() {
         return null;
     }
 }
