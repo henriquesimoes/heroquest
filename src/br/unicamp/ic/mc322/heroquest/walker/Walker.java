@@ -120,7 +120,7 @@ public abstract class Walker extends MapObject {
         currentBodyPoints = Math.max(currentBodyPoints - delta, 0);
     }
 
-    protected void equipWeapon(Weapon weapon) {
+    public void equipWeapon(Weapon weapon) {
         knapsack.remove(weapon);
 
         if (weapon.isTwoHanded()) {
