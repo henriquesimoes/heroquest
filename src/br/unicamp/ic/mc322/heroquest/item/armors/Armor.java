@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.armors;
 
-import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.DurableItem;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class Armor extends DurableItem {
     private int defenseBonus;
@@ -13,5 +13,10 @@ public class Armor extends DurableItem {
 
     public int getDefenceBonus() {
         return defenseBonus;
+    }
+
+    @Override
+    public void useItem(Walker proprietary){
+        proprietary.equipArmor(this);
     }
 }

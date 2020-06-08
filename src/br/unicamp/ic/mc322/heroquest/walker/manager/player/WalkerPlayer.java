@@ -3,9 +3,9 @@ package br.unicamp.ic.mc322.heroquest.walker.manager.player;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.util.playerInterface.PlayerInterface;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
@@ -51,14 +51,14 @@ public class WalkerPlayer extends WalkerManager {
         ArrayList<String> nameList = new ArrayList<>();
 
         for (CollectableItem item : items)
-            nameList.add(item.getName());
+            nameList.add(item.getItemName());
 
         ioInterface.showMessage("Choose an item to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList);
 
         if (choice != 0) {
             CollectableItem choosedItem = items.get(choice - 1);
-            choosedItem.use(walker);
+            choosedItem.useItem(walker);
         }
     }
 

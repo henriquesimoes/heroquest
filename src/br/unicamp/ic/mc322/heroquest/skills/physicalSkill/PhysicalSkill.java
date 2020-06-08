@@ -14,10 +14,7 @@ public abstract class PhysicalSkill extends Skill {
         Walker targetWalker = (Walker) targetObject;
         int attackIntensity = summoner.getPhysicalAttackPower(skilledWeapon);
         targetWalker.defendsPhysicalSkill(attackIntensity);
-
-        skilledWeapon.updateItemDurability(skilledWeapon.getItemDurability() - 1);
-        if (!skilledWeapon.getExistenceState())
-            summoner.destroyItem(skilledWeapon);
+        skilledWeapon.degradeByUse(summoner);
     }
 
     public PhysicalSkill(String skillName, Weapon skilledWeapon) {

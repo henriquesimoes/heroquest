@@ -58,7 +58,7 @@ public abstract class Weapon extends DurableItem {
     }
 
     @Override
-    public void use(Walker proprietary){
+    public void useItem(Walker proprietary){
         proprietary.equipWeapon(this);
     }
 }
