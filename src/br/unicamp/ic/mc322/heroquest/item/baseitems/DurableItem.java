@@ -15,15 +15,9 @@ public abstract class DurableItem extends CollectableItem {
         return itemDurability;
     }
 
-    public void decreaseItemDurability() {
+    public void degradeByUse(Walker proprietary){
         itemDurability--;
         if (itemDurability == 0)
-            changeExistenceState(false);
-    }
-
-    public void degradeByUse(Walker proprietary){
-        decreaseItemDurability();
-        if (!getExistenceState())
             proprietary.destroyItem(this);
     }
 }
