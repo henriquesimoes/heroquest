@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.skills.physicalSkill;
 
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 

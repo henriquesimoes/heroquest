@@ -1,8 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.skills.physicalSkill;
 
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
@@ -16,8 +17,12 @@ public class AttackEnemy extends PhysicalSkill{
 
     @Override
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
-        Distance distance = null;
-        // TODO: configure distance
+        Ruler ruler = currentWalkerManager.getRuler();
+        Distance distance;
+        if (skilledWeapon.canAttackDiagonally())
+            distance = ruler.getAdjacentDistance();
+        else
+            distance = ruler.getCardinalDistance();
         ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
         return arrayListWalkerToMapObject(enemies);
     }

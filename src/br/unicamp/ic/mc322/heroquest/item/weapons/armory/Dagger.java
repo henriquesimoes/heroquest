@@ -15,7 +15,7 @@ public class Dagger extends Weapon {
         setAttackBonus(1);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemy("Golpear", this, 1));
-        setNewSkill(new AttackEnemyInLongDistanceRange("Lançar adaga", this, 4));
+        setNewSkill(new AttackEnemy("Golpear", this));
+        setNewSkill(new AttackEnemyInLongDistanceRange("Lançar adaga", this));
     }
 }

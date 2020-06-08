@@ -1,9 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.walker.manager;
 
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;
@@ -19,12 +20,12 @@ public abstract class WalkerManager {
     public abstract void playTurn();
 
     public ArrayList<Walker> getFriendsWithinArea(Distance distance) {
-        ArrayList<Walker> targetWalkers = visibleMap.getAllWalkersWithinArea(walker, distance);
+        ArrayList<Walker> targetWalkers = visibleMap.getAllWalkersWithinArea(distance);
         return getListOfFriends(targetWalkers);
     }
 
     public ArrayList<Walker> getEnemiesWithinArea(Distance distance) {
-        ArrayList<Walker> targetWalkers = visibleMap.getAllWalkersWithinArea(walker, distance);
+        ArrayList<Walker> targetWalkers = visibleMap.getAllWalkersWithinArea(distance);
         return getListOfEnemies(targetWalkers);
     }
 
@@ -44,11 +45,15 @@ public abstract class WalkerManager {
         return enemies;
     }
 
-    public ArrayList<MapObject> getUnoccupiedPositionsVisible() {
-        return visibleMap.getUnoccupiedPositionsVisible();
+    public ArrayList<MapObject> getVisibleUnoccupiedPositions() {
+        return visibleMap.getVisibleUnoccupiedPositions();
     }
 
     public void moveWalker(Coordinate position) {
         visibleMap.moveWalker(position);
+    }
+
+    public Ruler getRuler(){
+        return visibleMap.getRuler();
     }
 }

@@ -1,7 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.skills.magicSkill;
 
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
@@ -22,8 +23,8 @@ public class SimpleHeal extends MagicSkill {
 
     @Override
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
-        Distance distance = null;
-        // TODO: configure distance
+        Ruler ruler = currentWalkerManager.getRuler();
+        Distance distance; // TODO: discover how to set the distance to catch the visible walkers
         ArrayList<Walker> friends = currentWalkerManager.getFriendsWithinArea(distance);
         return arrayListWalkerToMapObject(friends);
     }

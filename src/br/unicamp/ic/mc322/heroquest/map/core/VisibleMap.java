@@ -34,4 +34,8 @@ public class VisibleMap {
         // TODO: implement visibility restriction
         return map.getUnoccupiedPositions(walker);
     }
+
+    public Ruler getRuler() {
+        return ruler;
+    }
 }

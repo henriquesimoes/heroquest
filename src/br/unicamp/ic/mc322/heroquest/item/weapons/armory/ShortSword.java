@@ -14,6 +14,6 @@ public class ShortSword extends Weapon {
         setAttackBonus(2);
         setTwoHanded(false);
         setAttackDiagonally(false);
-        setNewSkill(new AttackEnemy("Golpear", this, 1));
+        setNewSkill(new AttackEnemy("Golpear", this));
     }
 }

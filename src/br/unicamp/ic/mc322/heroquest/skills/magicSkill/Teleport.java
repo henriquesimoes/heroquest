@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.skills.magicSkill;
 
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
@@ -24,6 +24,6 @@ public class Teleport extends MagicSkill {
 
     @Override
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
-        return currentWalkerManager.getUnoccupiedPositionsVisible();
+        return currentWalkerManager.getVisibleUnoccupiedPositions();
     }
 }

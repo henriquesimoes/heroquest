@@ -13,6 +13,6 @@ public class BattleAxe extends Weapon {
         setAttackBonus(4);
         setTwoHanded(true);
         setAttackDiagonally(false);
-        setNewSkill(new AttackEnemy("Golpear", this, 1));
+        setNewSkill(new AttackEnemy("Golpear", this));
     }
 }

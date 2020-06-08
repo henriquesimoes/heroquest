@@ -13,6 +13,6 @@ public class Staff extends Weapon {
         setAttackBonus(1);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemy("Golpear", this, 4));
+        setNewSkill(new AttackEnemy("Golpear", this));
     }
 }
