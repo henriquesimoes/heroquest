@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.armors.Armor;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Fists;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
@@ -36,6 +37,10 @@ public abstract class Walker extends MapObject {
         knapsack = new Knapsack();
         skills = new ArrayList<>();
         movementDice = 2;
+
+        //Add skill of attack with the fists
+        Weapon fists = new Fists();
+        addSkill(fists.getSkills().get(0));
     }
 
     public WalkerManager getManager(){
