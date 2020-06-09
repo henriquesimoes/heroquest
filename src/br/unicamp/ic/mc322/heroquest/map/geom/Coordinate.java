@@ -1,22 +1,21 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
+import java.awt.*;
 import java.util.Objects;
 
 public class Coordinate {
-    private int x;
-    private int y;
+    private Point coordinate;
 
     public Coordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.coordinate = new Point(x, y);
     }
 
     public int getX() {
-        return x;
+        return coordinate.x;
     }
 
     public int getY() {
-        return y;
+        return coordinate.y;
     }
 
     public Coordinate[] getNeighborCoordinates() {
@@ -26,7 +25,7 @@ public class Coordinate {
         Coordinate[] neighbors = new Coordinate[dx.length];
 
         for (int i = 0; i < dx.length; i++)
-            neighbors[i] = new Coordinate(x + dx[i], y + dy[i]);
+            neighbors[i] = new Coordinate(this.getX() + dx[i], this.getY() + dy[i]);
 
         return neighbors;
     }
@@ -44,12 +43,12 @@ public class Coordinate {
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(this.getX(), this.getY());
     }
 
     @Override
     public String toString() {
-        return "Coordinate (" + x + ',' + y + ")";
+        return "Coordinate (" + getX() + ',' + getY() + ")";
     }
 
     public boolean inside(Dimension dimension) {
@@ -64,6 +63,6 @@ public class Coordinate {
     }
 
     public static Coordinate shift(Coordinate reference, int dx, int dy) {
-        return new Coordinate(reference.x + dx, reference.y + dy);
+        return new Coordinate(reference.getX() + dx, reference.getX() + dy);
     }
 }

@@ -17,17 +17,17 @@ public class Map {
         this.structure = structure;
         this.rooms = new ArrayList<>();
 
-        build();
+//        build();
     }
 
-    private void build() {
-        structure.updateRooms();
-
-        int numberOfRooms = structure.getNumberOfRooms();
-
-        for (int i = 0; i < numberOfRooms; i++)
-            rooms.add(new Room());
-    }
+//    private void build() {
+//        structure.updateRooms();
+//
+//        int numberOfRooms = structure.getNumberOfRooms();
+//
+//        for (int i = 0; i < numberOfRooms; i++)
+//            rooms.add(new Room());
+//    }
 
     public FixedObject getObject(Coordinate coordinate) {
         try {
