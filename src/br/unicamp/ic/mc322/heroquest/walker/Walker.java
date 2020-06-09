@@ -28,6 +28,7 @@ public abstract class Walker extends MapObject {
     protected RedDice redDice;
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
+    protected boolean ableLearnFireSpell, ableLearnAirSpell, ableLearnEarthSpell, ableLearnWaterSpell;
 
     public Walker() {
         redDice = new RedDice();
@@ -157,7 +158,7 @@ public abstract class Walker extends MapObject {
         }
     }
 
-    protected void addSkill(Skill skill) {
+    public void addSkill(Skill skill) {
         // TODO: test if this really works
         int index = skills.indexOf(new Pair<Skill, Integer>(skill, 0));
 
@@ -245,4 +246,20 @@ public abstract class Walker extends MapObject {
 
     /**TODO: Classe com implementação vazia até decidirmos formato do mapa*/
     public ArrayList<Coordinate> getPositionsInEntitySight() { return new ArrayList<>();}
+
+    public boolean isAbleLearnFireSpell(){
+        return ableLearnFireSpell;
+    }
+
+    public boolean isAbleLearnAirSpell(){
+        return ableLearnAirSpell;
+    }
+
+    public boolean isAbleLearnEarthSpell(){
+        return ableLearnEarthSpell;
+    }
+
+    public boolean isAbleLearnWaterSpell(){
+        return ableLearnWaterSpell;
+    }
 }

@@ -8,11 +8,11 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 
-public class Fireball extends MagicSkill {
+public class FireBall extends MagicSkill {
     private final int ADJACENT_DAMAGE = 3;
     private final int DAMAGE_TO_PRIMARY_TARGET = 6;
 
-    public Fireball() {
+    public FireBall() {
         super("Fireball", "Causa 6 de dano ao alvo. Causa 3 danos nos mobs adjacentes");
     }
 

@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
-import br.unicamp.ic.mc322.heroquest.skills.magicSkill.Fireball;
+import br.unicamp.ic.mc322.heroquest.skills.magicSkill.FireBall;
 import br.unicamp.ic.mc322.heroquest.skills.magicSkill.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.skills.magicSkill.Teleport;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
@@ -27,7 +27,7 @@ public class Wizard extends Hero {
         for (int i = 0; i < numInitialMagicMissile; i++)
             addSkill(new MagicMissile());
 
-        addSkill(new Fireball());
+        addSkill(new FireBall());
         addSkill(new Teleport());
     }
 
