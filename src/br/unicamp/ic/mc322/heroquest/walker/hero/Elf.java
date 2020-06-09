@@ -12,6 +12,8 @@ public class Elf extends Hero {
         maxBodyPoints = currentBodyPoints =  6;
         mindPoints = 4;
 
+        ableLearnWaterSpell = ableLearnEarthSpell = true;
+
         Weapon curWeapon = new ShortSword();
         knapsack.put(curWeapon);
         equipWeapon(curWeapon);

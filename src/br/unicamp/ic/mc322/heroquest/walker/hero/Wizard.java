@@ -16,6 +16,7 @@ public class Wizard extends Hero {
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints =  4;
         mindPoints = 6;
+        ableLearnAirSpell = ableLearnEarthSpell = ableLearnFireSpell = true;
 
         Weapon curWeapon = new Dagger();
         knapsack.put(curWeapon);

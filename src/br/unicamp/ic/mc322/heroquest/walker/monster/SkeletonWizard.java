@@ -10,9 +10,10 @@ public class SkeletonWizard extends Skeleton {
         defenseDice = 1;
         maxBodyPoints = currentBodyPoints = 2;
         mindPoints = 3;
+        ableLearnAirSpell = true;
+
         for (int i = 0; i < numInitialMagicMissile; i++)
             addSkill(new MagicMissile());
-
         // TODO: implement use of the fists
     }
 
