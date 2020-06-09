@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.item.baseitems;
 
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class Item {
+public abstract class Item {
     private String itemName;
     private String itemDescription;
     private boolean existenceState = true;
@@ -26,12 +26,9 @@ public class Item {
         existenceState = existence;
     }
 
-    public boolean getExistenceState;
-
-    public String getName() {
-        return null;
+    public boolean getExistenceState(){
+        return existenceState;
     }
 
-    public void use(Walker walker) {
-    }
+    public abstract void useItem(Walker proprietary);
 }

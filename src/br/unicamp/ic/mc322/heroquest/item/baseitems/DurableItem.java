@@ -1,6 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.item.baseitems;
 
-public class DurableItem extends CollectableItem {
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
+
+public abstract class DurableItem extends CollectableItem {
     private int itemDurability;
 
     public DurableItem(String itemName, String itemDescription, int itemDurability, int goldCoinsValue) {
@@ -13,7 +15,9 @@ public class DurableItem extends CollectableItem {
         return itemDurability;
     }
 
-    public void updateItemDurability(int newItemDurability) {
-        itemDurability =  newItemDurability;
+    public void degradeByUse(Walker proprietary){
+        itemDurability--;
+        if (itemDurability == 0)
+            proprietary.destroyItem(this);
     }
 }

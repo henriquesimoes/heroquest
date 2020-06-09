@@ -39,8 +39,31 @@ public class MapStructure {
         return dimension;
     }
 
-    public StructuralObject get(Coordinate coordinate) {
+    public StructuralObject getObjectAt(Coordinate coordinate) {
         return objects.get(coordinate);
+    }
+
+    public boolean isWalkOverable(Coordinate position) {
+        if (objects.containsKey(position)) {
+            return objects.get(position).isWalkOverable();
+        }
+        return false;
+    }
+
+    public ArrayList<Coordinate> getRoomCoordinates(int roomId) {
+        ArrayList<Coordinate> coordinates = new ArrayList<>();
+
+        Coordinate origin = Coordinate.getOrigin();
+
+        for (int dy = 0; dy < dimension.getHeight(); dy++)
+            for (int dx = 0; dx < dimension.getWidth(); dx++) {
+                Coordinate current = Coordinate.shift(origin, dx, dy);
+
+                if (room.getOrDefault(current, OUTSIDE_ROOM) == roomId)
+                    coordinates.add(current);
+            }
+
+        return coordinates;
     }
 
     public void updateRooms() {

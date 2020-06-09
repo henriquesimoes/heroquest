@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemy;
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemyInLongDistanceRange;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemy;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemyInLongDistanceRange;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class Flail extends Weapon {
@@ -14,7 +14,7 @@ public class Flail extends Weapon {
         setAttackBonus(3);
         setTwoHanded(false);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemy("Golpear", this, 2));
-        setNewSkill(new AttackEnemyInLongDistanceRange("Lançar", this, 6));
+        setNewSkill(new AttackEnemy("Golpear", this));
+        setNewSkill(new AttackEnemyInLongDistanceRange("Lançar", this));
     }
 }

@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemy;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemy;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class LongSword extends Weapon {
@@ -13,6 +13,6 @@ public class LongSword extends Weapon {
         setAttackBonus(3);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemy("Golpear", this, 2));
+        setNewSkill(new AttackEnemy("Golpear", this));
     }
 }

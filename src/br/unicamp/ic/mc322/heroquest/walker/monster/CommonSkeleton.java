@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.monster;
 
+import br.unicamp.ic.mc322.heroquest.item.weapons.GeneratorRandomWeapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 
@@ -10,8 +11,7 @@ public class CommonSkeleton extends Skeleton {
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints = 2;
         mindPoints = 1;
-        // TODO: See how the skeleton will generate its weapon
-        Weapon weapon = null;
+        Weapon weapon = GeneratorRandomWeapon.getRandomWeapon();
 
         knapsack.put(weapon);
         equipWeapon(weapon);
@@ -20,5 +20,10 @@ public class CommonSkeleton extends Skeleton {
     @Override
     public ObjectView getRepresentation() {
         return new ObjectView("S");
+    }
+
+    @Override
+    public String getRepresentationOnMenu() {
+        return null;
     }
 }

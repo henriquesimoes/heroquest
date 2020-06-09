@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemy;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemy;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class ShortSword extends Weapon {
@@ -14,6 +14,6 @@ public class ShortSword extends Weapon {
         setAttackBonus(2);
         setTwoHanded(false);
         setAttackDiagonally(false);
-        setNewSkill(new AttackEnemy("Golpear", this, 1));
+        setNewSkill(new AttackEnemy("Golpear", this));
     }
 }

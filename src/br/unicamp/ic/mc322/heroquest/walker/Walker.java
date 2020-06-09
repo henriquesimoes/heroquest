@@ -2,15 +2,17 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.armors.Armor;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Fists;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.PhysicalSkill;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -26,14 +28,23 @@ public abstract class Walker extends MapObject {
     protected CombatDice combatDice;
     protected RedDice redDice;
     protected Knapsack knapsack;
+    protected WalkerManager walkerManager;
+    protected boolean ableLearnFireSpell, ableLearnAirSpell, ableLearnEarthSpell, ableLearnWaterSpell;
 
     public Walker() {
-        super();
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
         skills = new ArrayList<>();
         movementDice = 2;
+
+        //Add skill of attack with the fists
+        Weapon fists = new Fists();
+        addSkill(fists.getSkills().get(0));
+    }
+
+    public WalkerManager getManager(){
+        return walkerManager;
     }
 
     public ArrayList<Skill> getSkills() {
@@ -75,18 +86,20 @@ public abstract class Walker extends MapObject {
         return redDice.roll();
     }
 
-    public abstract int getIntensityOfPhysicalDefense();
+    public abstract int getIntensityDefense(int numberOfDices);
 
     public void defendsMagicSkill(int intensity) {
-        boolean successDefend = attemptMagicalMovement();
-        if (!successDefend)
-            decreaseBodyPoints(intensity);
+        int intensityDefence = getIntensityDefense(mindPoints);
+        if (intensityDefence < intensity)
+            decreaseBodyPoints(intensity - intensityDefence);
     }
 
     public void defendsPhysicalSkill(int intensity) {
-        int intensityDefence = getIntensityOfPhysicalDefense();
+        int intensityDefence = getIntensityDefense(defenseDice + bonusDefenseDice);
         if (intensityDefence < intensity)
             decreaseBodyPoints(intensity - intensityDefence);
+        if (armor != null)
+            armor.degradeByUse(this);
     }
 
     public boolean isAlive() {
@@ -94,7 +107,7 @@ public abstract class Walker extends MapObject {
     }
 
     // erase the item of the inventory
-    private void destroyItem(CollectableItem item) {
+    public void destroyItem(CollectableItem item) {
         if (leftWeapon != null && leftWeapon.equals(item))
             unequipWeapon((Weapon) item);
 
@@ -115,7 +128,7 @@ public abstract class Walker extends MapObject {
         currentBodyPoints = Math.max(currentBodyPoints - delta, 0);
     }
 
-    protected void equipWeapon(Weapon weapon) {
+    public void equipWeapon(Weapon weapon) {
         knapsack.remove(weapon);
 
         if (weapon.isTwoHanded()) {
@@ -150,7 +163,7 @@ public abstract class Walker extends MapObject {
         }
     }
 
-    protected void addSkill(Skill skill) {
+    public void addSkill(Skill skill) {
         // TODO: test if this really works
         int index = skills.indexOf(new Pair<Skill, Integer>(skill, 0));
 
@@ -191,7 +204,7 @@ public abstract class Walker extends MapObject {
         }
     }
 
-    protected void equipArmor(Armor nextArmor) {
+    public void equipArmor(Armor nextArmor) {
         if (armor != null)
             unequipArmor();
 
@@ -238,4 +251,20 @@ public abstract class Walker extends MapObject {
 
     /**TODO: Classe com implementação vazia até decidirmos formato do mapa*/
     public ArrayList<Coordinate> getPositionsInEntitySight() { return new ArrayList<>();}
+
+    public boolean isAbleLearnFireSpell(){
+        return ableLearnFireSpell;
+    }
+
+    public boolean isAbleLearnAirSpell(){
+        return ableLearnAirSpell;
+    }
+
+    public boolean isAbleLearnEarthSpell(){
+        return ableLearnEarthSpell;
+    }
+
+    public boolean isAbleLearnWaterSpell(){
+        return ableLearnWaterSpell;
+    }
 }

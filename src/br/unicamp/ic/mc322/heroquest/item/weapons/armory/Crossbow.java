@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemyInLongDistanceRange;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemyInLongDistanceRange;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class Crossbow extends Weapon {
@@ -14,6 +14,6 @@ public class Crossbow extends Weapon {
         setAttackBonus(3);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemyInLongDistanceRange("Atirar flecha", this, 10));
+        setNewSkill(new AttackEnemyInLongDistanceRange("Atirar flecha", this));
     }
 }

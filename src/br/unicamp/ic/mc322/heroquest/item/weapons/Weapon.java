@@ -1,11 +1,12 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.DurableItem;
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.PhysicalSkill;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;
 
-public class Weapon extends DurableItem {
+public abstract class Weapon extends DurableItem {
     private int attackBonus;
     private int attackDistance;
     private boolean attackDiagonally;
@@ -54,5 +55,10 @@ public class Weapon extends DurableItem {
 
     public boolean isTwoHanded() {
         return twoHanded;
+    }
+
+    @Override
+    public void useItem(Walker proprietary){
+        proprietary.equipWeapon(this);
     }
 }

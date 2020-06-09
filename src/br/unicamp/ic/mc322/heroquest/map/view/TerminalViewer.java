@@ -1,9 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.map.view;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.OutsideRoomException;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
 
 public class TerminalViewer implements Viewer {
 
@@ -19,9 +20,10 @@ public class TerminalViewer implements Viewer {
             // TODO: encapsulate rows creation
 
             for (int dx = 0; dx < dimension.getWidth(); dx++) {
-                Coordinate coor = Coordinate.shift(origin, dx, dy);
+                Coordinate coordinate = Coordinate.shift(origin, dx, dy);
 
-                ObjectView view = map.getStructureRepresentationAt(coor);
+                MapObject object = map.getPreferentialObject(coordinate);
+                ObjectView view = object.getRepresentation();
 
                 builder.append(view);
             }
