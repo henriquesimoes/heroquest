@@ -1,31 +1,27 @@
 package br.unicamp.ic.mc322.heroquest;
 
-import br.unicamp.ic.mc322.heroquest.map.MapManager;
-import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.generator.GridContainer;
 import br.unicamp.ic.mc322.heroquest.map.generator.MapGenerator;
-import br.unicamp.ic.mc322.heroquest.map.loader.CorruptedConfigurationFileException;
-import br.unicamp.ic.mc322.heroquest.map.view.TerminalViewer;
 import br.unicamp.ic.mc322.heroquest.util.tree.BSPTree;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
-        BSPTree teste = new BSPTree(new GridContainer(100, 30, 0, 0));
+//        BSPTree teste = new BSPTree(new GridContainer(100, 30, 0, 0));
+//        teste.runBSP(4);
+//
+//        ArrayList<GridContainer> t = teste.getPartitionedGrid();
+//
+//        for (GridContainer container:
+//             t) {
+//            System.out.println(container.toString());
+//        }
 
-        for (int i = 0; i < 4; i++)
-            teste.splitGrid();
 
-        ArrayList<GridContainer> t = teste.getPartitionedGrid();
-
-        for (GridContainer container:
-             t) {
-            System.out.println(container.toString());
-        }
-
+        MapGenerator a = new MapGenerator();
+        a.generate();
 
 
 //        MapManager manager = new MapManager();

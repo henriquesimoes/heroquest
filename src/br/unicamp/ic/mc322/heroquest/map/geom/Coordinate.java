@@ -11,11 +11,11 @@ public class Coordinate {
     }
 
     public int getX() {
-        return coordinate.x;
+        return (int) coordinate.x;
     }
 
     public int getY() {
-        return coordinate.y;
+        return (int) coordinate.y;
     }
 
     public Coordinate[] getNeighborCoordinates() {
