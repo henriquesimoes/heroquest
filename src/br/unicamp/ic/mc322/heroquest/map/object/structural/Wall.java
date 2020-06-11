@@ -15,7 +15,7 @@ public class Wall extends StructuralObject {
     }
 
     @Override
-    public boolean isAllowedToWalkOverPosition() {
+    public boolean isAllowedToWalkOver() {
         return false;
     }
 

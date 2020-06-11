@@ -22,11 +22,6 @@ public class Map {
         build();
     }
 
-    public static Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
-        // TODO : to class follower
-        return null;
-    }
-
     private void build() {
         structure.updateRooms();
 
@@ -40,7 +35,7 @@ public class Map {
         Room room = getRoom(coordinate);
 
         // TODO: Check whether an object can be placed only on walkable positions or not.
-        if (structure.isWalkOverable(coordinate) && !room.isOccupied(coordinate)) {
+        if (structure.isAllowedToWalkOver(coordinate) && !room.isOccupied(coordinate)) {
             object.setPosition(coordinate);
             room.add(object);
         }
@@ -49,7 +44,7 @@ public class Map {
     public void add(Walker walker, Coordinate coordinate) throws OutsideRoomException {
         Room room = getRoom(coordinate);
 
-        if (structure.isWalkOverable(coordinate) && !room.isOccupied(coordinate)) {
+        if (structure.isAllowedToWalkOver(coordinate) && !room.isOccupied(coordinate)) {
             walker.setPosition(coordinate);
             room.add(walker);
         }
@@ -121,6 +116,11 @@ public class Map {
         return positions;
     }
 
+    public static Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
+        // TODO : to class follower
+        return null;
+    }
+
     private Room getRoom(Coordinate coordinate) throws OutsideRoomException {
         int id = structure.getRoomIdAt(coordinate);
 
@@ -131,48 +131,40 @@ public class Map {
         Iterator<Coordinate> iterator = distance.iterator();
         ArrayList<Walker> walkers = new ArrayList<>();
 
-        try {
-            Room room = getRoom(distance.getReference());
+        Room room = getRoom(distance.getReference());
 
-            while (iterator.hasNext()) {
-                Coordinate coordinate = iterator.next();
+        while (iterator.hasNext()) {
+            Coordinate coordinate = iterator.next();
 
-                Walker walker = room.getWalker(coordinate);
+            Walker walker = room.getWalker(coordinate);
 
-                if (walker != null)
-                    walkers.add(walker);
-            }
-
-            return walkers;
-        } catch (OutsideRoomException ex) {
-            return walkers;
+            if (walker != null)
+                walkers.add(walker);
         }
+
+        return walkers;
     }
 
     public ArrayList<MapObject> getUnoccupiedPositions(Walker reference) {
         ArrayList<MapObject> objects = new ArrayList<>();
 
-        try {
-            Room room = getRoom(reference.getPosition());
+        Room room = getRoom(reference.getPosition());
 
-            ArrayList<Coordinate> positions = structure.getRoomCoordinates(room.getId());
+        ArrayList<Coordinate> positions = structure.getRoomCoordinates(room.getId());
 
-            for (Coordinate current : positions) {
-                MapObject structuralObject = structure.getObjectAt(current);
-                MapObject object = room.getPreferentialObject(current);
+        for (Coordinate current : positions) {
+            MapObject structuralObject = structure.getObjectAt(current);
+            MapObject object = room.getPreferentialObject(current);
 
-                if ((object == null || object.isWalkOverable()) && structuralObject.isWalkOverable())
-                    objects.add(object);
-            }
-
-            return objects;
-        } catch (OutsideRoomException ex) {
-            return objects;
+            if ((object == null || object.isAllowedToWalkOver()) && structuralObject.isAllowedToWalkOver())
+                objects.add(object);
         }
+
+        return objects;
     }
 
     private boolean isAllowedToWalkOver(Coordinate coordinate) {
-        if (!structure.isWalkOverable(coordinate))
+        if (!structure.isAllowedToWalkOver(coordinate))
             return false;
 
         try {

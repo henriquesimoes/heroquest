@@ -16,7 +16,7 @@ public class Floor extends StructuralObject {
     }
 
     @Override
-    public boolean isAllowedToWalkOverPosition() {
+    public boolean isAllowedToWalkOver() {
         return true;
     }
 

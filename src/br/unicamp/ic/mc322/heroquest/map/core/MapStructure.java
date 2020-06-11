@@ -43,9 +43,9 @@ public class MapStructure {
         return objects.get(coordinate);
     }
 
-    public boolean isWalkOverable(Coordinate position) {
+    public boolean isAllowedToWalkOver(Coordinate position) {
         if (objects.containsKey(position)) {
-            return objects.get(position).isWalkOverable();
+            return objects.get(position).isAllowedToWalkOver();
         }
         return false;
     }
@@ -64,6 +64,12 @@ public class MapStructure {
             }
 
         return coordinates;
+    }
+
+    public ArrayList<Coordinate> getRoomCoordinates(Coordinate coordinateInsideRoom) throws OutsideRoomException {
+        int roomId = getRoomIdAt(coordinateInsideRoom);
+
+        return getRoomCoordinates(roomId);
     }
 
     public void updateRooms() {

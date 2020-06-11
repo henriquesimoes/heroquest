@@ -35,7 +35,8 @@ public class FireBall extends MagicSkill {
     @Override
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
         Ruler ruler = currentWalkerManager.getRuler();
-        Distance distance; // TODO: discover how to set the distance to catch the visible walkers
+        // TODO: discover how to set the distance to catch the visible walkers
+        Distance distance = ruler.getRoomDistance();
         ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
         return currentWalkerManager.arrayListWalkerToMapObject(enemies);
     }

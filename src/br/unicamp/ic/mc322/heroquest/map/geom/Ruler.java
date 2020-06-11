@@ -1,6 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
+import br.unicamp.ic.mc322.heroquest.map.core.OutsideRoomException;
+import br.unicamp.ic.mc322.heroquest.map.core.Room;
+
+import java.util.ArrayList;
 
 public class Ruler {
     private Coordinate reference;
@@ -15,27 +19,37 @@ public class Ruler {
         this.reference = coordinate;
     }
 
-    public Distance getAdjacentDistance() {
+    public AdjacentDistance getAdjacentDistance() {
         return new AdjacentDistance(reference);
     }
 
-    public Distance getAdjacentDistance(Coordinate reference) {
+    public AdjacentDistance getAdjacentDistance(Coordinate reference) {
         return new AdjacentDistance(reference);
     }
 
-    public Distance getCardinalDistance() {
+    public CardinalDistance getCardinalDistance() {
         return new CardinalDistance(reference);
     }
 
-    public Distance getCardinalDistance(Coordinate reference) {
+    public CardinalDistance getCardinalDistance(Coordinate reference) {
         return new CardinalDistance(reference);
     }
 
-    public Distance getLimitedDistance(int limit) {
+    public LimitedDistance getLimitedDistance(int limit) {
         return new LimitedDistance(reference, limit);
     }
 
-    public Distance getLimitedDistance(Coordinate reference, int limit) {
+    public LimitedDistance getLimitedDistance(Coordinate reference, int limit) {
         return new LimitedDistance(reference, limit);
+    }
+
+    public RoomDistance getRoomDistance(Coordinate reference) throws OutsideRoomException {
+        ArrayList<Coordinate> roomCoordinates = structure.getRoomCoordinates(reference);
+
+        return new RoomDistance(reference, roomCoordinates);
+    }
+
+    public RoomDistance getRoomDistance() throws OutsideRoomException {
+        return getRoomDistance(reference);
     }
 }

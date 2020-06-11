@@ -44,7 +44,7 @@ public class Room {
     public boolean isAllowedToWalkOver(Coordinate coordinate) {
         MapObject object = getPreferentialObject(coordinate);
 
-        if (object != null && !object.isWalkOverable())
+        if (object != null && !object.isAllowedToWalkOver())
             return false;
 
         return true;

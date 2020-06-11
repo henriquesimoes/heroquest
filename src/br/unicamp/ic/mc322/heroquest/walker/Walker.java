@@ -227,7 +227,7 @@ public abstract class Walker extends MapObject {
     }
 
     @Override
-    public boolean isAllowedToWalkOverPosition() {
+    public boolean isAllowedToWalkOver() {
         return false;
     }
 
