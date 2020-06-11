@@ -20,6 +20,6 @@ public class AttackEnemyInLongDistanceRange extends PhysicalSkill {
         Ruler ruler = currentWalkerManager.getRuler();
         Distance distance; // TODO: read information of the weapon to set the proper distance
         ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
-        return arrayListWalkerToMapObject(enemies);
+        return currentWalkerManager.arrayListWalkerToMapObject(enemies);
     }
 }

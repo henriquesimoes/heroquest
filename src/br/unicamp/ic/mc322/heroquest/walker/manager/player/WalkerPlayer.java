@@ -41,13 +41,13 @@ public class WalkerPlayer extends WalkerManager {
             } else if (choice == 2 && !successfulSkillUsage) {
                 successfulSkillUsage = useSkill();
             } else {
-                successfulMove = move();
+                successfulMove = makeMove();
             }
         }
     }
 
-    private void useItems() {
-        ArrayList<CollectableItem> items = walker.getItems();
+    @Override
+    protected int chooseItem(ArrayList<CollectableItem> items){
         ArrayList<String> nameList = new ArrayList<>();
 
         for (CollectableItem item : items)
@@ -55,16 +55,11 @@ public class WalkerPlayer extends WalkerManager {
 
         ioInterface.showMessage("Choose an item to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList);
-
-        if (choice != 0) {
-            CollectableItem choosedItem = items.get(choice - 1);
-            choosedItem.useItem(walker);
-        }
+        return choice;
     }
 
-    private boolean move() {
-        int limitPositionInMove = walker.getPositionLimitInMovement();
-        ArrayList<Coordinate> possibleMoves = visibleMap.getCloseWalkablePositions(limitPositionInMove);
+    @Override
+    protected int chooseMove(ArrayList<Coordinate> possibleMoves) {
         ArrayList<String> movesList = new ArrayList<>();
 
         for (Coordinate coordinate : possibleMoves)
@@ -73,12 +68,10 @@ public class WalkerPlayer extends WalkerManager {
         ioInterface.showMessage("Choose a position of destination");
         int choice = ioInterface.showOptionsAndGetAnswer(movesList);
 
-        visibleMap.moveWalker(possibleMoves.get(choice - 1));
-        return true;
+        return choice;
     }
 
-    private boolean useSkill() {
-        ArrayList<Skill> skills = walker.getSkills();
+    protected int chooseSkill(ArrayList<Skill> skills){
         ArrayList<String> nameList = new ArrayList<>();
 
         for (Skill skill: skills)
@@ -87,25 +80,18 @@ public class WalkerPlayer extends WalkerManager {
         ioInterface.showMessage("Choose a skill to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList);
 
-        if (choice != 0) {
-            Skill chosenSkill = skills.get(choice - 1);
-            ArrayList<MapObject> targets = chosenSkill.getTargets(this);
-            ArrayList<String> targetList = new ArrayList<>();
+        return choice;
+    }
 
-            for (MapObject target : targets)
-                targetList.add(target.getRepresentationOnMenu());
+    protected int chooseTargetSkill(ArrayList<MapObject> targets){
+        ArrayList<String> targetList = new ArrayList<>();
 
-            ioInterface.showMessage("Choose a target:");
-            choice = ioInterface.showOptionsAndGetAnswer(targetList);
+        for (MapObject target : targets)
+            targetList.add(target.getRepresentationOnMenu());
 
-            if (choice != 0) {
-                MapObject target = targets.get(choice - 1);
-                chosenSkill.useSkill(walker, target);
-                return true;
-            } else
-                return false;
-        }
-        else
-            return false;
+        ioInterface.showMessage("Choose a target:");
+        int choice = ioInterface.showOptionsAndGetAnswer(targetList);
+
+        return choice;
     }
 }

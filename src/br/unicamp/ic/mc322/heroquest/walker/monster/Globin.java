@@ -9,7 +9,7 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.ai.movement.Follower;
 
 public class Globin extends Monster {
     public Globin() {
-        walkerManager = new WalkerAI(this, new Follower(), new Bloodthirsty());
+        walkerManager = new WalkerAI(this, Follower.getInstance(), Bloodthirsty.getInstance());
         final int initialNumberOfDaggers = 2;
         attackDice = 3;
         defenseDice = 1;

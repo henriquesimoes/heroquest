@@ -6,6 +6,6 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.ai.movement.RandomMovement;
 
 public abstract class Skeleton extends Monster {
     Skeleton() {
-        walkerManager = new WalkerAI(this, new RandomMovement(), new Bloodthirsty());
+        walkerManager = new WalkerAI(this, RandomMovement.getInstance(), Bloodthirsty.getInstance());
     }
 }

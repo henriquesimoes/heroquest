@@ -26,6 +26,6 @@ public class SimpleHeal extends MagicSkill {
         Ruler ruler = currentWalkerManager.getRuler();
         Distance distance; // TODO: discover how to set the distance to catch the visible walkers
         ArrayList<Walker> friends = currentWalkerManager.getFriendsWithinArea(distance);
-        return arrayListWalkerToMapObject(friends);
+        return currentWalkerManager.arrayListWalkerToMapObject(friends);
     }
 }

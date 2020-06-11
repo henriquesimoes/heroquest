@@ -38,4 +38,13 @@ public class VisibleMap {
     public Ruler getRuler() {
         return ruler;
     }
+
+    public ArrayList<Walker> getVisibleWalkers() {
+        // TODO
+        return null;
+    }
+
+    public Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
+        return map.getCoordinateCloserToObject(coordinates, objects);
+    }
 }

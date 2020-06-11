@@ -22,6 +22,11 @@ public class Map {
         build();
     }
 
+    public static Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
+        // TODO : to class follower
+        return null;
+    }
+
     private void build() {
         structure.updateRooms();
 

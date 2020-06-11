@@ -24,6 +24,6 @@ public class AttackEnemy extends PhysicalSkill{
         else
             distance = ruler.getCardinalDistance();
         ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
-        return arrayListWalkerToMapObject(enemies);
+        return currentWalkerManager.arrayListWalkerToMapObject(enemies);
     }
 }

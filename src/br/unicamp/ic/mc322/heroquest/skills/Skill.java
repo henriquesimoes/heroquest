@@ -20,11 +20,4 @@ public abstract class Skill {
     }
 
     public abstract ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager);
-
-    protected ArrayList<MapObject> arrayListWalkerToMapObject(ArrayList<Walker> walkers){
-        ArrayList<MapObject> mapObjects = new ArrayList<>();
-        for(Walker walker : walkers)
-            mapObjects.add(walker);
-        return mapObjects;
-    }
 }
