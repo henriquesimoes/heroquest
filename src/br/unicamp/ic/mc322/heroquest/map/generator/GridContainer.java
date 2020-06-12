@@ -1,23 +1,24 @@
 package br.unicamp.ic.mc322.heroquest.map.generator;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
 public class GridContainer {
-    Pair<Integer, Integer> dimensions;
+    Dimension dimensions;
     Coordinate topLeftCornerCoordinate;
 
     public GridContainer(int dimensionX, int dimensionY, int coordinateX, int coordinateY) {
-        this.dimensions = new Pair<>(dimensionX, dimensionY);
+        this.dimensions = new Dimension(dimensionX, dimensionY);
         this.topLeftCornerCoordinate = new Coordinate(coordinateX, coordinateY);
     }
 
     public int getDimensionX() {
-        return dimensions.getKey();
+        return dimensions.getWidth();
     }
 
     public int getDimensionY() {
-        return dimensions.getValue();
+        return dimensions.getHeight();
     }
 
     public Coordinate getTopLeftCornerCoordinate() {
@@ -26,7 +27,7 @@ public class GridContainer {
 
     @Override
     public String toString() {
-        return ("Dimensions: " + dimensions.getKey() + " X " + dimensions.getValue() + "  -  Coords:" +
+        return ("Dimensions: " + dimensions.getWidth() + " X " + dimensions.getHeight() + "  -  Coords:" +
                 topLeftCornerCoordinate.toString());
     }
 }
