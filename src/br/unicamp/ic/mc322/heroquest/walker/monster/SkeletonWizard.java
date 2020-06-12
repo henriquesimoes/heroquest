@@ -14,7 +14,6 @@ public class SkeletonWizard extends Skeleton {
 
         for (int i = 0; i < numInitialMagicMissile; i++)
             addSkill(new MagicMissile());
-        // TODO: implement use of the fists
     }
 
     @Override
