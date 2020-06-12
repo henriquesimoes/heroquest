@@ -66,4 +66,9 @@ public class WalkerAI extends WalkerManager {
     protected int chooseTargetSkill(ArrayList<MapObject> targets) {
         return attackBehavior.chooseTarget(targets);
     }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
 }

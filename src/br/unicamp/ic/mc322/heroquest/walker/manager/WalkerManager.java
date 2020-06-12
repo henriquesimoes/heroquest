@@ -151,4 +151,10 @@ public abstract class WalkerManager {
     public Coordinate getPositionWalker() {
         return walker.getPosition();
     }
+
+    public boolean isAlive() {
+        return walker.isAlive();
+    }
+
+    public abstract void showMessage(String message);
 }

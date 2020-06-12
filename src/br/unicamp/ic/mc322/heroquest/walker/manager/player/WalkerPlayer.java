@@ -94,4 +94,9 @@ public class WalkerPlayer extends WalkerManager {
 
         return choice;
     }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
 }
