@@ -18,7 +18,9 @@ public class MapGenerator {
     private final int ROOM_MIN_HEIGHT = 5;
     private final int ROOM_MAX_WIDTH = 20;
     private final int ROOM_MAX_HEIGHT = 9;
-    private String[][] grid;
+
+    Random random = new Random();
+    private char[][] grid;
     private ArrayList<GridContainer> gridSections;
 
     private Random randGenerator;
@@ -40,9 +42,26 @@ public class MapGenerator {
     }
 
     private ArrayList<GridContainer> getPartitionedGrid() {
-        BSPTree grid = createBSP();
+        return getBestGrid();
+    }
 
-        return grid.getPartitionedGrid();
+    private ArrayList<GridContainer> getBestGrid() {
+        ArrayList<GridContainer> bestGrid = null;
+
+        int i = 0;
+        do {
+            BSPTree grid = createBSP();
+            ArrayList<GridContainer> comparableGrid = grid.getPartitionedGrid();
+
+            if (bestGrid == null)
+                bestGrid = comparableGrid;
+            else if (comparableGrid.size() > bestGrid.size())
+                bestGrid = comparableGrid;
+
+            i++;
+        } while (i < 20);
+
+        return bestGrid;
     }
 
     private BSPTree createBSP() {
@@ -53,29 +72,51 @@ public class MapGenerator {
         return grid;
     }
 
+    private void generateRooms() {
+        for (GridContainer container : gridSections) {
+            Pair<Integer, Integer> dimensions = getRandomRoomDimensions(container);
+
+        }
+    }
+
+    private Pair<Integer, Integer> getRandomRoomDimensions(GridContainer container) {
+        int dimensionX = Math.max(ROOM_MIN_WIDTH, random.nextInt(container.getDimensionX()));
+        int dimensionY = Math.max(ROOM_MIN_HEIGHT, random.nextInt(container.getDimensionY()));
+
+        return (new Pair<>(dimensionX, dimensionY));
+    }
+
+    private Coordinate getRandomRoomCoordinates(GridContainer container, Pair<Integer, Integer> dimensions) {
+        int coordY;
+        int coordX;
+        return (new Coordinate());
+    }
+
     private void createMatrixGrid() {
-        grid = new String[GRID_HEIGHT][GRID_WIDTH];
+        grid = new char[GRID_HEIGHT][GRID_WIDTH];
 
         for (int i = 0; i < GRID_HEIGHT; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                grid[i][j] = "#";
+                grid[i][j] = '#';
             }
         }
 
-        int qualquer = 1;
+        char qualquer = 'A';
 
         for (GridContainer container : gridSections) {
+            System.out.println(container.toString());
             Coordinate coord = container.getTopLeftCornerCoordinate();
 
-            // a coordenada ta passando o valor da dimensão corno filho da puta
-            for (int i = coord.getY(); i < container.getDimensionY(); i++) {
-                for (int j = coord.getX(); j < container.getDimensionX(); j++) {
-                    grid[i][j] = "" + qualquer;
+            for (int i = coord.getY(); i < coord.getY() + container.getDimensionY(); i++) {
+                for (int j = coord.getX(); j < coord.getX() + container.getDimensionX(); j++) {
+                    grid[i][j] = qualquer;
                 }
+
             }
-            qualquer += 1;
+                qualquer+=1;
         }
     }
+
 
     //TODO: ainda não é a versão final
 
