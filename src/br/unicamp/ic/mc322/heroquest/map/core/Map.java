@@ -5,15 +5,14 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
 import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
+import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class Map {
     private MapStructure structure;
     private ArrayList<Room> rooms;
-    private Ruler ruler;
 
     public Map(MapStructure structure) {
         this.structure = structure;
@@ -43,6 +42,8 @@ public class Map {
 
     public void add(Walker walker, Coordinate coordinate) throws OutsideRoomException {
         Room room = getRoom(coordinate);
+
+        // TODO: prevent duplicate insertion of a walker
 
         if (structure.isAllowedToWalkOver(coordinate) && !room.isOccupied(coordinate)) {
             walker.setPosition(coordinate);
@@ -82,6 +83,7 @@ public class Map {
                 preferential = object;
 
         } catch (OutsideRoomException ex) {
+            // TODO: Check how to better model this, in order to avoid empty catch block
         }
 
         return preferential;
@@ -114,11 +116,6 @@ public class Map {
         }
 
         return positions;
-    }
-
-    public static Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
-        // TODO : to class follower
-        return null;
     }
 
     private Room getRoom(Coordinate coordinate) throws OutsideRoomException {
@@ -174,5 +171,42 @@ public class Map {
         } catch (OutsideRoomException e) {
             return false;
         }
+    }
+
+    // TODO: Consider refactoring this method by moving to the Coordinate class
+    public static Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
+        Queue<Pair<Coordinate, Coordinate>> queue = new LinkedList<>();
+        Set<Coordinate> destination = new HashSet<>();
+        Set<Coordinate> visited = new HashSet<>();
+
+        if (objects.isEmpty())
+            return null;
+
+        for (MapObject target : objects)
+            destination.add(target.getPosition());
+
+        for (Coordinate source : coordinates) {
+            queue.add(new Pair<>(source, source));
+            visited.add(source);
+        }
+
+        while (!queue.isEmpty()) {
+            Pair<Coordinate, Coordinate> current = queue.poll();
+            Coordinate moveCoordinate = current.getKey();
+            Coordinate sourceCoordinate = current.getValue();
+
+            if (destination.contains(moveCoordinate)) {
+                return sourceCoordinate;
+            }
+
+            for (Coordinate neighbor : moveCoordinate.getNeighborCoordinates()) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.add(new Pair<>(neighbor, sourceCoordinate));
+                }
+            }
+        }
+
+        return null;
     }
 }

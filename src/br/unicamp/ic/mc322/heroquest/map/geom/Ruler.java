@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
 import br.unicamp.ic.mc322.heroquest.map.core.OutsideRoomException;
-import br.unicamp.ic.mc322.heroquest.map.core.Room;
 
 import java.util.ArrayList;
 
