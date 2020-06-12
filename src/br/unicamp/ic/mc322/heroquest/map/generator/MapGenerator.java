@@ -7,6 +7,7 @@ import br.unicamp.ic.mc322.heroquest.util.tree.BSPTree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class MapGenerator {
@@ -14,10 +15,8 @@ public class MapGenerator {
     private final int GRID_HEIGHT = 31;
     private final int GRID_WIDTH = 101;
 
-    private final int ROOM_MIN_WIDTH = 9;
-    private final int ROOM_MIN_HEIGHT = 5;
-    private final int ROOM_MAX_WIDTH = 20;
-    private final int ROOM_MAX_HEIGHT = 9;
+    private final int ROOM_MIN_WIDTH = 11;
+    private final int ROOM_MIN_HEIGHT = 7;
 
     Random random = new Random();
     private char[][] grid;
@@ -33,6 +32,7 @@ public class MapGenerator {
 
     public void generate() {
         createGrid();
+        generateRooms();
         createMatrixGrid();
         print();
     }
@@ -73,23 +73,33 @@ public class MapGenerator {
     }
 
     private void generateRooms() {
+        int idCounter = 0;
         for (GridContainer container : gridSections) {
             Pair<Integer, Integer> dimensions = getRandomRoomDimensions(container);
+            Coordinate roomCoordinates = getRandomRoomCoordinates(container, dimensions);
 
+            rooms.put("ID" + idCounter, new Room(dimensions, roomCoordinates));
+            idCounter += 1;
+//            System.out.println(rooms.get("ID" + idCounter).getRoomDimension().getKey() + " " + rooms.get("ID" + idCounter).getRoomDimension().getValue());
         }
     }
 
     private Pair<Integer, Integer> getRandomRoomDimensions(GridContainer container) {
-        int dimensionX = Math.max(ROOM_MIN_WIDTH, random.nextInt(container.getDimensionX()));
-        int dimensionY = Math.max(ROOM_MIN_HEIGHT, random.nextInt(container.getDimensionY()));
+        int dimensionX = Math.max(ROOM_MIN_WIDTH, random.nextInt(container.getDimensionX()) - 2);
+        int dimensionY = Math.max(ROOM_MIN_HEIGHT, random.nextInt(container.getDimensionY()) - 2);
 
         return (new Pair<>(dimensionX, dimensionY));
     }
 
     private Coordinate getRandomRoomCoordinates(GridContainer container, Pair<Integer, Integer> dimensions) {
-        int coordY;
-        int coordX;
-        return (new Coordinate());
+        Coordinate containerCoordinates = container.getTopLeftCornerCoordinate();
+        if (container.getDimensionY() - dimensions.getValue() < 0 || container.getDimensionX() - dimensions.getKey() < 0) {
+            System.out.println("teste");
+        }
+        int coordY = random.nextInt(container.getDimensionY() - dimensions.getValue() + 1) + containerCoordinates.getY();
+        int coordX = random.nextInt(container.getDimensionX() - dimensions.getKey() + 1) + containerCoordinates.getX();
+
+        return (new Coordinate(coordX, coordY));
     }
 
     private void createMatrixGrid() {
@@ -101,22 +111,29 @@ public class MapGenerator {
             }
         }
 
-        char qualquer = 'A';
+        for (Map.Entry<String, Room> room : rooms.entrySet()) {
+            Coordinate roomCoord = room.getValue().getTopLeftCoordinates();
 
-        for (GridContainer container : gridSections) {
-            System.out.println(container.toString());
-            Coordinate coord = container.getTopLeftCornerCoordinate();
-
-            for (int i = coord.getY(); i < coord.getY() + container.getDimensionY(); i++) {
-                for (int j = coord.getX(); j < coord.getX() + container.getDimensionX(); j++) {
-                    grid[i][j] = qualquer;
+            for (int i = roomCoord.getY(); i < roomCoord.getY() + room.getValue().getRoomDimension().getValue(); i++) {
+                if (i == roomCoord.getY() || i == (roomCoord.getY() + room.getValue().getRoomDimension().getValue() - 1)) {
+                    for (int j = roomCoord.getX(); j < roomCoord.getX() + room.getValue().getRoomDimension().getKey(); j++) {
+                        grid[i][j] = 'B';
+                    }
                 }
-
+                else {
+                    for (int j = roomCoord.getX(); j < roomCoord.getX() + room.getValue().getRoomDimension().getKey(); j++) {
+                        grid[i][j] = ' ';
+                    }
+                    grid[i][roomCoord.getX()] = 'B';
+                    grid[i][roomCoord.getX() + room.getValue().getRoomDimension().getKey() - 1] = 'B';
+                }
             }
-                qualquer+=1;
+        }
+        for (Map.Entry<String, Room> room : rooms.entrySet()) {
+            System.out.println("Coords (" + room.getValue().getTopLeftCoordinates().getX() + ", " + room.getValue().getTopLeftCoordinates().getY() + ")" +
+                    "- Size:" + room.getValue().getRoomDimension().getKey() + " x " +  room.getValue().getRoomDimension().getValue());
         }
     }
-
 
     //TODO: ainda não é a versão final
 

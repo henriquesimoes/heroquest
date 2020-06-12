@@ -7,8 +7,8 @@ import br.unicamp.ic.mc322.heroquest.util.random.Random;
 import java.util.ArrayList;
 
 public class BSPTree {
-    private final int GRID_MIN_WIDTH = 9;
-    private final int GRID_MIN_HEIGHT = 7;
+    private final int GRID_MIN_WIDTH = 12;
+    private final int GRID_MIN_HEIGHT = 10;
 
     private Random random = new Random();
     private Leaf<GridContainer> root;
@@ -74,9 +74,9 @@ public class BSPTree {
 
         rightChildContainer = new GridContainer(
                 currentContainer.getDimensionX(),
-                currentContainer.getDimensionY() - splitPoint,
+                currentContainer.getDimensionY() - splitPoint - 1,
                 currentContainerCoords.getX(),
-                currentContainerCoords.getY() + splitPoint);
+                currentContainerCoords.getY() + splitPoint + 1);
     }
 
     private void splitVertical(int splitPoint) {
@@ -84,9 +84,9 @@ public class BSPTree {
                 currentContainerCoords.getX(), currentContainerCoords.getY());
 
         rightChildContainer = new GridContainer(
-                currentContainer.getDimensionX() - splitPoint,
+                currentContainer.getDimensionX() - splitPoint - 1,
                 currentContainer.getDimensionY(),
-                currentContainerCoords.getX() + splitPoint,
+                currentContainerCoords.getX() + splitPoint + 1,
                 currentContainerCoords.getY());
     }
 
@@ -96,8 +96,8 @@ public class BSPTree {
     }
 
     private int getSplitPoint(boolean splitHorizontal, int maxSplitValue) {
-        int splitPoint = random.nextInt(maxSplitValue);
-
+        int splitPoint = random.nextInt(maxSplitValue - 1);
+        //TODO: verificar validade
         return Math.max((splitHorizontal ? GRID_MIN_HEIGHT : GRID_MIN_WIDTH), splitPoint);
     }
 
