@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.util.tree;
 
-import br.unicamp.ic.mc322.heroquest.map.generator.GridContainer;
+import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.util.random.Random;
 

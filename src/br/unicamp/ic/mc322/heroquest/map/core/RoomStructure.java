@@ -7,9 +7,10 @@ public class RoomStructure {
     private Room room;
     private Dimension roomDimension;
     private Coordinate roomTopLeftCoordinates;
+    private Coordinate roomDoorCoordinates;
     private int id;
 
-    public RoomStructure(Dimension roomDimension, Coordinate roomTopLeftCoordinates, int id) {
+    public RoomStructure(Dimension roomDimension, Coordinate roomTopLeftCoordinates, Coordinate roomDoorCoordinates, int id) {
         this.room = new Room();
         this.roomDimension = roomDimension;
         this.roomTopLeftCoordinates = roomTopLeftCoordinates;
@@ -22,6 +23,10 @@ public class RoomStructure {
 
     public Room getRoom() {
         return room;
+    }
+
+    public Coordinate getRoomDoorCoordinates() {
+        return roomDoorCoordinates;
     }
 
     public Coordinate getRoomTopLeftCoordinates() {

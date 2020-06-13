@@ -1,11 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.map.generator;
 
-import br.unicamp.ic.mc322.heroquest.map.core.Room;
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
+import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.BSPGrid;
+import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
+import br.unicamp.ic.mc322.heroquest.map.generator.roomgenerator.RoomGenerator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
-import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
-import br.unicamp.ic.mc322.heroquest.util.tree.BSPTree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,6 @@ public class MapGenerator {
     Random random = new Random();
     private char[][] grid;
     private ArrayList<GridContainer> gridSections;
-
     private java.util.Map<String, RoomStructure> rooms;
 
     public MapGenerator(){
@@ -32,7 +31,7 @@ public class MapGenerator {
 
     public void generate() {
         createGrid();
-        generateRooms();
+        createRandomRooms();
         createMatrixGrid();
         print();
     }
@@ -42,35 +41,11 @@ public class MapGenerator {
                 .getPartitionedGrid();
     }
 
-    private void generateRooms() {
-        int id = 0;
-        for (GridContainer container : gridSections) {
-            Dimension dimensions = getRandomRoomDimensions(container);
-            Coordinate roomCoordinates = getRandomRoomCoordinates(container, dimensions);
-
-            rooms.put("ID" + id, new RoomStructure(dimensions, roomCoordinates, id));
-            id += 1;
-        }
+    private void createRandomRooms() {
+        RoomGenerator randomRooms = new RoomGenerator(gridSections, ROOM_MIN_WIDTH, ROOM_MIN_HEIGHT);
+        rooms = randomRooms.createRandomRooms();
     }
 
-    private Dimension getRandomRoomDimensions(GridContainer container) {
-        int dimensionX = Math.max(ROOM_MIN_WIDTH, random.nextInt(container.getDimensionX()) - 2);
-        int dimensionY = Math.max(ROOM_MIN_HEIGHT, random.nextInt(container.getDimensionY()) - 2);
-
-        return (new Dimension(dimensionX, dimensionY));
-    }
-
-    private Coordinate getRandomRoomCoordinates(GridContainer container, Dimension dimensions) {
-        Coordinate containerCoordinates = container.getTopLeftCornerCoordinate();
-        if (container.getDimensionY() - dimensions.getHeight() < 0 || container.getDimensionX() - dimensions.getWidth() < 0) {
-            System.out.println("teste");
-        }
-        int coordY = random.nextInt(container.getDimensionY() - dimensions.getHeight() + 1) + containerCoordinates.getY();
-        int coordX = random.nextInt(container.getDimensionX() - dimensions.getWidth() + 1) + containerCoordinates.getX();
-
-        return (new Coordinate(coordX, coordY));
-    }
-    
     private void createMatrixGrid() {
         grid = new char[GRID_HEIGHT][GRID_WIDTH];
 

@@ -1,10 +1,6 @@
 package br.unicamp.ic.mc322.heroquest;
 
-import br.unicamp.ic.mc322.heroquest.map.generator.GridContainer;
 import br.unicamp.ic.mc322.heroquest.map.generator.MapGenerator;
-import br.unicamp.ic.mc322.heroquest.util.tree.BSPTree;
-
-import java.util.ArrayList;
 
 public class Main {
 

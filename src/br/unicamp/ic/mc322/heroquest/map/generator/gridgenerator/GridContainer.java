@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.map.generator;
+package br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
