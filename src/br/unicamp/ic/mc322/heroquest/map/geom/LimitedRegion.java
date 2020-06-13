@@ -5,15 +5,15 @@ import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
 import java.util.*;
 
-public class LimitedDistance extends Distance {
+public class LimitedRegion extends Region {
     private int limit;
 
-    LimitedDistance(Coordinate reference, int limit) {
+    LimitedRegion(Coordinate reference, int limit) {
         super(reference);
         this.limit = limit;
     }
 
-    LimitedDistance(Coordinate reference, WalkValidator walkValidator, int limit) {
+    LimitedRegion(Coordinate reference, WalkValidator walkValidator, int limit) {
         super(reference, walkValidator);
         this.limit = limit;
     }

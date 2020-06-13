@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.skills.magicSkill;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
-import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
@@ -22,9 +22,9 @@ public class FireBall extends MagicSkill {
 
         if (summoner.attemptMagicalMovement()) {
             WalkerManager targetManager = targetWalker.getManager();
-            Ruler ruler = targetManager.getRuler();
-            Distance distance = ruler.getAdjacentDistance(false);
-            ArrayList<Walker> adjacentTargets = targetManager.getEnemiesWithinArea(distance);
+            RegionSelector regionSelector = targetManager.getRuler();
+            Region region = regionSelector.getAdjacentRegion(false);
+            ArrayList<Walker> adjacentTargets = targetManager.getEnemiesWithinArea(region);
 
             targetWalker.defendsMagicSkill(DAMAGE_TO_PRIMARY_TARGET);
             for (Walker target : adjacentTargets)
@@ -34,10 +34,10 @@ public class FireBall extends MagicSkill {
 
     @Override
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
-        Ruler ruler = currentWalkerManager.getRuler();
+        RegionSelector regionSelector = currentWalkerManager.getRuler();
         // TODO: discover how to set the distance to catch the visible walkers
-        Distance distance = ruler.getRoomDistance(false);
-        ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
+        Region region = regionSelector.getRoomRegion(false);
+        ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(region);
         return currentWalkerManager.arrayListWalkerToMapObject(enemies);
     }
 }

@@ -90,8 +90,8 @@ public class Map implements WalkValidator {
         return structure.getDimension();
     }
 
-    public Ruler getRuler() {
-        return new Ruler(structure, this);
+    public RegionSelector getRegionSelector() {
+        return new RegionSelector(structure, this);
     }
 
     public void moveObject(MapObject mapObject, Coordinate destination) {
@@ -101,8 +101,8 @@ public class Map implements WalkValidator {
     }
 
     // TODO: consider removing this method (feature already provided by the distance object)
-    public ArrayList<Coordinate> getWalkablePositions(Distance distance) {
-        Iterator<Coordinate> iterator = distance.iterator();
+    public ArrayList<Coordinate> getWalkablePositions(Region region) {
+        Iterator<Coordinate> iterator = region.iterator();
         ArrayList<Coordinate> positions = new ArrayList<>();
 
         while (iterator.hasNext()) {
@@ -122,12 +122,12 @@ public class Map implements WalkValidator {
         return rooms.get(id);
     }
 
-    public ArrayList<Walker> getAllWalkersWithinArea(Distance distance) {
+    public ArrayList<Walker> getAllWalkersWithinArea(Region region) {
         ArrayList<Walker> walkers = new ArrayList<>();
 
-        Room room = getRoom(distance.getReference());
+        Room room = getRoom(region.getReference());
 
-        for (Coordinate coordinate : distance) {
+        for (Coordinate coordinate : region) {
             Walker walker = room.getWalker(coordinate);
 
             if (walker != null)
@@ -140,12 +140,12 @@ public class Map implements WalkValidator {
     public ArrayList<MapObject> getUnoccupiedPositions(Walker reference) {
         ArrayList<MapObject> objects = new ArrayList<>();
 
-        Ruler ruler = getRuler();
+        RegionSelector regionSelector = getRegionSelector();
 
-        ruler.fixAt(reference.getPosition());
-        Distance distance = ruler.getRoomDistance(true);
+        regionSelector.useAsReference(reference.getPosition());
+        Region region = regionSelector.getRoomRegion(true);
 
-        for (Coordinate coordinate : distance)
+        for (Coordinate coordinate : region)
             objects.add(structure.getObjectAt(coordinate));
 
         return objects;

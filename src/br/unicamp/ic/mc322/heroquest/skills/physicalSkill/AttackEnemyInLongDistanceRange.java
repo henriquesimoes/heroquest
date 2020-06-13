@@ -2,8 +2,8 @@ package br.unicamp.ic.mc322.heroquest.skills.physicalSkill;
 
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
-import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
@@ -17,9 +17,9 @@ public class AttackEnemyInLongDistanceRange extends PhysicalSkill {
 
     @Override
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
-        Ruler ruler = currentWalkerManager.getRuler();
-        Distance distance = ruler.getRoomDistance(false);
-        ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
+        RegionSelector regionSelector = currentWalkerManager.getRuler();
+        Region region = regionSelector.getRoomRegion(false);
+        ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(region);
         return currentWalkerManager.arrayListWalkerToMapObject(enemies);
     }
 }

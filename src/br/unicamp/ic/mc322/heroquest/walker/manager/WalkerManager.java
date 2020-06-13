@@ -4,8 +4,8 @@ import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
-import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
@@ -47,13 +47,13 @@ public abstract class WalkerManager {
      */
     protected abstract int chooseTargetSkill(ArrayList<MapObject> targets);
 
-    public ArrayList<Walker> getFriendsWithinArea(Distance distance) {
-        ArrayList<Walker> targetWalkers = visibleMap.getAllWalkersWithinArea(distance);
+    public ArrayList<Walker> getFriendsWithinArea(Region region) {
+        ArrayList<Walker> targetWalkers = visibleMap.getAllWalkersWithinArea(region);
         return getListOfFriends(targetWalkers);
     }
 
-    public ArrayList<Walker> getEnemiesWithinArea(Distance distance) {
-        ArrayList<Walker> targetWalkers = visibleMap.getAllWalkersWithinArea(distance);
+    public ArrayList<Walker> getEnemiesWithinArea(Region region) {
+        ArrayList<Walker> targetWalkers = visibleMap.getAllWalkersWithinArea(region);
         return getListOfEnemies(targetWalkers);
     }
 
@@ -86,8 +86,8 @@ public abstract class WalkerManager {
         visibleMap.moveWalker(position);
     }
 
-    public Ruler getRuler(){
-        return visibleMap.getRuler();
+    public RegionSelector getRuler(){
+        return visibleMap.getRegionSelector();
     }
 
     protected void useItems() {

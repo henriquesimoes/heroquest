@@ -6,14 +6,14 @@ import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-class AdjacentDistance extends Distance {
+class AdjacentRegion extends Region {
     protected ArrayList<Pair<Integer, Integer>> delta = new ArrayList<>();
 
-    AdjacentDistance(Coordinate reference) {
+    AdjacentRegion(Coordinate reference) {
         super(reference);
     }
 
-    AdjacentDistance(Coordinate reference, WalkValidator walkValidator) {
+    AdjacentRegion(Coordinate reference, WalkValidator walkValidator) {
         super(reference, walkValidator);
     }
 

@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
-import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;
@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class VisibleMap {
     private Map map;
     private Walker walker;
-    private Ruler ruler;
+    private RegionSelector regionSelector;
 
     public VisibleMap() {
-        this.ruler = map.getRuler();
+        this.regionSelector = map.getRegionSelector();
 
-        ruler.fixAt(walker.getPosition());
+        regionSelector.useAsReference(walker.getPosition());
     }
 
     public void moveWalker(Coordinate coordinate) {
@@ -23,11 +23,11 @@ public class VisibleMap {
     }
 
     public ArrayList<Coordinate> getCloseWalkablePositions(int maximumDistance) {
-        return map.getWalkablePositions(ruler.getLimitedDistance(maximumDistance, true));
+        return map.getWalkablePositions(regionSelector.getLimitedRegion(maximumDistance, true));
     }
 
-    public ArrayList<Walker> getAllWalkersWithinArea(Distance distance) {
-        return map.getAllWalkersWithinArea(distance);
+    public ArrayList<Walker> getAllWalkersWithinArea(Region region) {
+        return map.getAllWalkersWithinArea(region);
     }
 
     public ArrayList<MapObject>  getVisibleUnoccupiedPositions() {
@@ -35,8 +35,8 @@ public class VisibleMap {
         return map.getUnoccupiedPositions(walker);
     }
 
-    public Ruler getRuler() {
-        return ruler;
+    public RegionSelector getRegionSelector() {
+        return regionSelector;
     }
 
     public ArrayList<Walker> getVisibleWalkers() {

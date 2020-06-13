@@ -3,13 +3,13 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
-class CardinalDistance extends AdjacentDistance {
+class CardinalRegion extends AdjacentRegion {
 
-    CardinalDistance(Coordinate reference) {
+    CardinalRegion(Coordinate reference) {
         super(reference);
     }
 
-    public CardinalDistance(Coordinate reference, WalkValidator walkValidator) {
+    public CardinalRegion(Coordinate reference, WalkValidator walkValidator) {
         super(reference, walkValidator);
     }
 
