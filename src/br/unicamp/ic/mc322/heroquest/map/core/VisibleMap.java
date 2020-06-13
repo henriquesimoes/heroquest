@@ -23,7 +23,7 @@ public class VisibleMap {
     }
 
     public ArrayList<Coordinate> getCloseWalkablePositions(int maximumDistance) {
-        return map.getCloseWalkablePositions(ruler.getLimitedDistance(maximumDistance));
+        return map.getWalkablePositions(ruler.getLimitedDistance(maximumDistance, true));
     }
 
     public ArrayList<Walker> getAllWalkersWithinArea(Distance distance) {

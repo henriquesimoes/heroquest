@@ -1,16 +1,13 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
-import br.unicamp.ic.mc322.heroquest.map.geom.Distance;
-import br.unicamp.ic.mc322.heroquest.map.geom.Ruler;
+import br.unicamp.ic.mc322.heroquest.map.geom.*;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.*;
 
-public class Map {
+public class Map implements WalkValidator {
     private MapStructure structure;
     private ArrayList<Room> rooms;
 
@@ -94,7 +91,7 @@ public class Map {
     }
 
     public Ruler getRuler() {
-        return new Ruler(structure);
+        return new Ruler(structure, this);
     }
 
     public void moveObject(MapObject mapObject, Coordinate destination) {
@@ -103,7 +100,8 @@ public class Map {
         }
     }
 
-    public ArrayList<Coordinate> getCloseWalkablePositions(Distance distance) {
+    // TODO: consider removing this method (feature already provided by the distance object)
+    public ArrayList<Coordinate> getWalkablePositions(Distance distance) {
         Iterator<Coordinate> iterator = distance.iterator();
         ArrayList<Coordinate> positions = new ArrayList<>();
 
@@ -125,14 +123,11 @@ public class Map {
     }
 
     public ArrayList<Walker> getAllWalkersWithinArea(Distance distance) {
-        Iterator<Coordinate> iterator = distance.iterator();
         ArrayList<Walker> walkers = new ArrayList<>();
 
         Room room = getRoom(distance.getReference());
 
-        while (iterator.hasNext()) {
-            Coordinate coordinate = iterator.next();
-
+        for (Coordinate coordinate : distance) {
             Walker walker = room.getWalker(coordinate);
 
             if (walker != null)
@@ -145,22 +140,19 @@ public class Map {
     public ArrayList<MapObject> getUnoccupiedPositions(Walker reference) {
         ArrayList<MapObject> objects = new ArrayList<>();
 
-        Room room = getRoom(reference.getPosition());
+        Ruler ruler = getRuler();
 
-        ArrayList<Coordinate> positions = structure.getRoomCoordinates(room.getId());
+        ruler.fixAt(reference.getPosition());
+        Distance distance = ruler.getRoomDistance(true);
 
-        for (Coordinate current : positions) {
-            MapObject structuralObject = structure.getObjectAt(current);
-            MapObject object = room.getPreferentialObject(current);
-
-            if ((object == null || object.isAllowedToWalkOver()) && structuralObject.isAllowedToWalkOver())
-                objects.add(object);
-        }
+        for (Coordinate coordinate : distance)
+            objects.add(structure.getObjectAt(coordinate));
 
         return objects;
     }
 
-    private boolean isAllowedToWalkOver(Coordinate coordinate) {
+    @Override
+    public boolean isAllowedToWalkOver(Coordinate coordinate) {
         if (!structure.isAllowedToWalkOver(coordinate))
             return false;
 
@@ -173,8 +165,7 @@ public class Map {
         }
     }
 
-    // TODO: Consider refactoring this method by moving to the Coordinate class
-    public static Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
+    public Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
         Queue<Pair<Coordinate, Coordinate>> queue = new LinkedList<>();
         Set<Coordinate> destination = new HashSet<>();
         Set<Coordinate> visited = new HashSet<>();
@@ -200,7 +191,7 @@ public class Map {
             }
 
             for (Coordinate neighbor : moveCoordinate.getNeighborCoordinates()) {
-                if (!visited.contains(neighbor)) {
+                if (!visited.contains(neighbor) && isAllowedToWalkOver(neighbor)) {
                     visited.add(neighbor);
                     queue.add(new Pair<>(neighbor, sourceCoordinate));
                 }

@@ -26,7 +26,7 @@ public class MagicMissile extends MagicSkill {
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
         Ruler ruler = currentWalkerManager.getRuler();
         // TODO: discover how to set the distance to catch the visible walkers
-        Distance distance = ruler.getRoomDistance();
+        Distance distance = ruler.getRoomDistance(false);
         ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
         return currentWalkerManager.arrayListWalkerToMapObject(enemies);
     }

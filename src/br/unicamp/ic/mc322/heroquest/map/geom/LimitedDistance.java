@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
+import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
 import java.util.*;
@@ -7,8 +8,13 @@ import java.util.*;
 public class LimitedDistance extends Distance {
     private int limit;
 
-    public LimitedDistance(Coordinate reference, int limit) {
+    LimitedDistance(Coordinate reference, int limit) {
         super(reference);
+        this.limit = limit;
+    }
+
+    LimitedDistance(Coordinate reference, WalkValidator walkValidator, int limit) {
+        super(reference, walkValidator);
         this.limit = limit;
     }
 
@@ -26,12 +32,7 @@ public class LimitedDistance extends Distance {
 
             @Override
             public boolean hasNext() {
-                Pair<Coordinate, Integer> pair = queue.peek();
-
-                if (pair == null)
-                    return false;
-
-                return pair.getValue() <= limit;
+                return !queue.isEmpty() && queue.peek().getValue() <= limit;
             }
 
             @Override
@@ -39,7 +40,8 @@ public class LimitedDistance extends Distance {
                 Pair<Coordinate, Integer> current = queue.poll();
 
                 for (Coordinate neighbor : current.getKey().getNeighborCoordinates())
-                    if (!visited.contains(neighbor)) {
+                    if (!visited.contains(neighbor)
+                            && (walkValidator == null || walkValidator.isAllowedToWalkOver(neighbor))) {
                         queue.add(new Pair<>(neighbor, current.getValue() + 1));
                         visited.add(neighbor);
                     }

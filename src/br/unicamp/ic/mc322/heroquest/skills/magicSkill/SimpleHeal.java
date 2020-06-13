@@ -25,7 +25,7 @@ public class SimpleHeal extends MagicSkill {
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
         Ruler ruler = currentWalkerManager.getRuler();
         // TODO: discover how to set the distance to catch the visible walkers
-        Distance distance = ruler.getRoomDistance();
+        Distance distance = ruler.getRoomDistance(false);
         ArrayList<Walker> friends = currentWalkerManager.getFriendsWithinArea(distance);
         return currentWalkerManager.arrayListWalkerToMapObject(friends);
     }

@@ -20,9 +20,9 @@ public class AttackEnemy extends PhysicalSkill{
         Ruler ruler = currentWalkerManager.getRuler();
         Distance distance;
         if (skilledWeapon.canAttackDiagonally())
-            distance = ruler.getAdjacentDistance();
+            distance = ruler.getAdjacentDistance(false);
         else
-            distance = ruler.getCardinalDistance();
+            distance = ruler.getCardinalDistance(false);
         ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
         return currentWalkerManager.arrayListWalkerToMapObject(enemies);
     }

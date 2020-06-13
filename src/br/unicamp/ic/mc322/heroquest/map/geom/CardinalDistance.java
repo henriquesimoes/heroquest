@@ -1,29 +1,24 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
-import java.util.Iterator;
+import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
+import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
-class CardinalDistance extends Distance {
+class CardinalDistance extends AdjacentDistance {
 
     CardinalDistance(Coordinate reference) {
         super(reference);
     }
 
+    public CardinalDistance(Coordinate reference, WalkValidator walkValidator) {
+        super(reference, walkValidator);
+    }
+
     @Override
-    public Iterator<Coordinate> iterator() {
-        return new Iterator<>() {
-            private int[] deltaX = {0, 0, 1, -1};
-            private int[] deltaY = {1, -1, 0, 0};
-            private int current = 0;
+    protected void build() {
+        final int[] deltaX = {0, 0, 1, -1};
+        final int[] deltaY = {1, -1, 0, 0};
 
-            @Override
-            public boolean hasNext() {
-                return current < deltaX.length;
-            }
-
-            @Override
-            public Coordinate next() {
-                return Coordinate.shift(reference, deltaX[current], deltaY[current++]);
-            }
-        };
+        for (int i = 0; i < deltaX.length; i++)
+            delta.add(new Pair<>(deltaX[i], deltaY[i]));
     }
 }

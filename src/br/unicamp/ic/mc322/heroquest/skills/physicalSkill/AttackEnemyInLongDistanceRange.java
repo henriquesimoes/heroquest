@@ -18,7 +18,7 @@ public class AttackEnemyInLongDistanceRange extends PhysicalSkill {
     @Override
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
         Ruler ruler = currentWalkerManager.getRuler();
-        Distance distance = ruler.getRoomDistance();
+        Distance distance = ruler.getRoomDistance(false);
         ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(distance);
         return currentWalkerManager.arrayListWalkerToMapObject(enemies);
     }
