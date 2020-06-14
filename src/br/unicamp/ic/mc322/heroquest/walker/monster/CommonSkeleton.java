@@ -3,10 +3,12 @@ package br.unicamp.ic.mc322.heroquest.walker.monster;
 import br.unicamp.ic.mc322.heroquest.item.weapons.GeneratorRandomWeapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
-public class CommonSkeleton extends Skeleton {
-    CommonSkeleton() {
-        super();
+public class CommonSkeleton extends Monster {
+    CommonSkeleton(WalkerManager walkerManager) {
+        this.walkerManager = walkerManager;
+        this.walkerManager.setWalker(this);
         attackDice = 2;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints = 2;

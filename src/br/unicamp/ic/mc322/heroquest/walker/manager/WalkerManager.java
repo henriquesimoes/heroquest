@@ -16,7 +16,12 @@ public abstract class WalkerManager {
     private Map map;
     private RegionSelector regionSelector;
 
-    public WalkerManager(Walker walker) {
+    public WalkerManager(Map map) {
+        this.map = map;
+        this.regionSelector = map.getRegionSelector();
+    }
+
+    public void setWalker(Walker walker){
         this.walker = walker;
         regionSelector.useAsReference(walker.getPosition());
     }

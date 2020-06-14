@@ -4,9 +4,12 @@ import br.unicamp.ic.mc322.heroquest.skills.magicSkill.SimpleHeal;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.armory.ShortSword;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Elf extends Hero {
-    Elf() {
+    Elf(WalkerManager walkerManager) {
+        this.walkerManager = walkerManager;
+        this.walkerManager.setWalker(this);
         attackDice = 2;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints =  6;

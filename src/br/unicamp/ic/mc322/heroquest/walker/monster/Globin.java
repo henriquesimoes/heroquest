@@ -3,14 +3,13 @@ package br.unicamp.ic.mc322.heroquest.walker.monster;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
-import br.unicamp.ic.mc322.heroquest.walker.manager.ai.WalkerAI;
-import br.unicamp.ic.mc322.heroquest.walker.manager.ai.attack.Bloodthirsty;
-import br.unicamp.ic.mc322.heroquest.walker.manager.ai.movement.Follower;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Globin extends Monster {
-    public Globin() {
-        walkerManager = new WalkerAI(this, Follower.getInstance(), Bloodthirsty.getInstance());
-        final int initialNumberOfDaggers = 2;
+    final int initialNumberOfDaggers = 2;
+
+    public Globin(WalkerManager walkerManager) {
+        this.walkerManager = walkerManager;
         attackDice = 3;
         defenseDice = 1;
         maxBodyPoints = currentBodyPoints = 2;

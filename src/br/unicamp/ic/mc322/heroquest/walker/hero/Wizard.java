@@ -6,9 +6,12 @@ import br.unicamp.ic.mc322.heroquest.skills.magicSkill.Teleport;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Wizard extends Hero {
-    Wizard() {
+    Wizard(WalkerManager walkerManager) {
+        this.walkerManager = walkerManager;
+        this.walkerManager.setWalker(this);
         final int numInitialDaggers = 3;
         final int numInitialMagicMissile = 3;
 
