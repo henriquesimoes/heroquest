@@ -27,6 +27,6 @@ public class Barbarian extends Hero {
 
     @Override
     public String getRepresentationOnMenu() {
-        return null;
+        return "Barbarian " + getName();
     }
 }

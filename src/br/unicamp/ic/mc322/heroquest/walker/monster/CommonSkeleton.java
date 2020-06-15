@@ -26,6 +26,6 @@ public class CommonSkeleton extends Monster {
 
     @Override
     public String getRepresentationOnMenu() {
-        return null;
+        return "Common Skeleton";
     }
 }

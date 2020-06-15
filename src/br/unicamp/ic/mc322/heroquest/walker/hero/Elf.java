@@ -31,6 +31,6 @@ public class Elf extends Hero {
 
     @Override
     public String getRepresentationOnMenu() {
-        return null;
+        return "Elf: " + getName();
     }
 }

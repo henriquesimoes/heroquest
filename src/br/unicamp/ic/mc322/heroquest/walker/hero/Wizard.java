@@ -42,6 +42,6 @@ public class Wizard extends Hero {
 
     @Override
     public String getRepresentationOnMenu() {
-        return null;
+        return "Wizard: " + getName();
     }
 }

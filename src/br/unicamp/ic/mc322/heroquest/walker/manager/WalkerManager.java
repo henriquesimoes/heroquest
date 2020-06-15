@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public abstract class WalkerManager {
     protected Walker walker;
-    private Map map;
+    protected Map map;
     private RegionSelector regionSelector;
 
     public WalkerManager(Map map) {

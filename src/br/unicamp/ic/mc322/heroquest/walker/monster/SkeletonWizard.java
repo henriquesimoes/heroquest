@@ -27,6 +27,6 @@ public class SkeletonWizard extends Monster {
 
     @Override
     public String getRepresentationOnMenu() {
-        return null;
+        return "Skeleton Wizard";
     }
 }

@@ -30,6 +30,6 @@ public class Globin extends Monster {
 
     @Override
     public String getRepresentationOnMenu() {
-        return null;
+        return "Globin";
     }
 }

@@ -43,6 +43,19 @@ public abstract class Walker extends MapObject {
         addSkill(fists.getSkills().get(0));
     }
 
+    public String getStatus(){
+        String status = String.format("Name: %s\n",  name);
+        status += String.format("Life: %d/%d\n", currentBodyPoints, maxBodyPoints);
+        status += String.format("Armor: %s\n", (armor == null? "none" : armor.getItemName()));
+        if (leftWeapon != null && leftWeapon.isTwoHanded())
+            status += String.format("Weapon: %s\n", leftWeapon.getItemName());
+        else {
+            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.getItemName()));
+            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.getItemName()));
+        }
+        return  status;
+    }
+
     public WalkerManager getManager(){
         return walkerManager;
     }

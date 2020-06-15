@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.manager.ai;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
@@ -16,8 +17,8 @@ public class WalkerAI extends WalkerManager {
     private MovementBehavior movementBehavior;
     private AttackBehavior attackBehavior;
 
-    public WalkerAI(Walker walker, MovementBehavior movementBehavior, AttackBehavior attackBehavior) {
-        super(walker);
+    public WalkerAI(Map map, MovementBehavior movementBehavior, AttackBehavior attackBehavior) {
+        super(map);
         this.movementBehavior = movementBehavior;
         this.attackBehavior = attackBehavior;
     }

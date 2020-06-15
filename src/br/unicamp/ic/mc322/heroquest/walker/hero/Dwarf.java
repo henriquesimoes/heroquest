@@ -27,6 +27,6 @@ public class Dwarf extends Hero {
 
     @Override
     public String getRepresentationOnMenu() {
-        return null;
+        return "Dwarf " + getName();
     }
 }
