@@ -41,6 +41,10 @@ public class Coordinate {
         return false;
     }
 
+    public void copyValue(Coordinate coordinate){
+        this.coordinate.setLocation(coordinate.getX(), coordinate.getY());
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(this.getX(), this.getY());

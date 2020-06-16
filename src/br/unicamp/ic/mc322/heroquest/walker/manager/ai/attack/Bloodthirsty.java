@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Bloodthirsty extends AttackBehavior{
     private static Bloodthirsty instance;
 
-    private Bloodthirsty(){}
+    public Bloodthirsty(){}
 
     public static Bloodthirsty getInstance(){
         if (instance == null)

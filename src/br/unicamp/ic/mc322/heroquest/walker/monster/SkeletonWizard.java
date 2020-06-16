@@ -7,7 +7,7 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 public class SkeletonWizard extends Monster {
     final int numInitialMagicMissile = 2;
 
-    SkeletonWizard(WalkerManager walkerManager) {
+    public SkeletonWizard(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;
         this.walkerManager.setWalker(this);
         attackDice = 2;

@@ -8,7 +8,7 @@ public abstract class MapObject {
     private Coordinate position;
 
     public MapObject() {
-
+        position = new Coordinate(Integer.MIN_VALUE, Integer.MIN_VALUE);
     }
 
     public MapObject(Coordinate coordinate) {
@@ -21,7 +21,7 @@ public abstract class MapObject {
     }
 
     protected void setPosition(Coordinate position) {
-        this.position = position;
+        this.position.copyValue(position);
     }
 
     public abstract boolean isAllowedToWalkOver();

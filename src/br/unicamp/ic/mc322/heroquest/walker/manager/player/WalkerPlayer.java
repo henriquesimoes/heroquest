@@ -29,6 +29,7 @@ public class WalkerPlayer extends WalkerManager {
         boolean successfulSkillUsage = false;
 
         while (true) {
+            updateScreen();
             ArrayList<String> options = new ArrayList<>();
             options.add("Use Items");
             if (!successfulSkillUsage)

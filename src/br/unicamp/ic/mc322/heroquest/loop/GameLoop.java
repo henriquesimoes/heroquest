@@ -3,17 +3,17 @@ package br.unicamp.ic.mc322.heroquest.loop;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 public class GameLoop implements DeathListener {
-    TreeSet<WalkerManager> heroes, monsters, heroesAlive, monstersAlive;
+    HashSet<WalkerManager> heroes, monsters, heroesAlive, monstersAlive;
     boolean running;
 
     public GameLoop(ArrayList<WalkerManager> heroes, ArrayList<WalkerManager> monsters) {
-        this.heroes = new TreeSet<>();
-        this.heroesAlive = new TreeSet<>();
-        this.monsters = new TreeSet<>();
-        this.monstersAlive = new TreeSet<>();
+        this.heroes = new HashSet<>();
+        this.heroesAlive = new HashSet<>();
+        this.monsters = new HashSet<>();
+        this.monstersAlive = new HashSet<>();
 
         this.heroes.addAll(heroes);
         this.heroesAlive.addAll(heroes);
@@ -49,16 +49,16 @@ public class GameLoop implements DeathListener {
     }
 
     private void playTurn() {
-        TreeSet<WalkerManager> cloneHeroesAlive = (TreeSet<WalkerManager>) heroesAlive.clone();
-        TreeSet<WalkerManager> cloneMonstersAlive = (TreeSet<WalkerManager>) monstersAlive.clone();
+        HashSet<WalkerManager> cloneHeroesAlive = (HashSet<WalkerManager>) heroesAlive.clone();
+        HashSet<WalkerManager> cloneMonstersAlive = (HashSet<WalkerManager>) monstersAlive.clone();
 
         for (WalkerManager manager : cloneHeroesAlive)
             if (manager.isAlive())
                 manager.playTurn();
 
-        for (WalkerManager manager : cloneMonstersAlive)
+        /*for (WalkerManager manager : cloneMonstersAlive)
             if (manager.isAlive())
-                manager.playTurn();
+                manager.playTurn();*/
     }
 
 

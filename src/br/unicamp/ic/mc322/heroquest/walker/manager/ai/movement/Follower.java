@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Follower extends MovementBehavior {
     private static Follower instance;
 
-    private Follower(){}
+    public Follower(){}
 
     public static Follower getInstance(){
         if (instance == null)

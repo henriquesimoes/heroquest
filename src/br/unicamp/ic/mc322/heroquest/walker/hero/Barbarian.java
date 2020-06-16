@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Barbarian extends Hero {
-    Barbarian(WalkerManager walkerManager) {
+    public Barbarian(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;
         this.walkerManager.setWalker(this);
         attackDice = 3;
