@@ -57,4 +57,8 @@ public class Room {
 
         return getFixedObject(coordinate);
     }
+
+    public void remove(Walker walker) {
+        beings.remove(walker.getPosition());
+    }
 }

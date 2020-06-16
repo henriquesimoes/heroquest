@@ -3,6 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker;
 import br.unicamp.ic.mc322.heroquest.item.armors.Armor;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Fists;
+import br.unicamp.ic.mc322.heroquest.loop.DeathMonitor;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
@@ -101,16 +102,27 @@ public abstract class Walker extends MapObject {
 
     public abstract int getIntensityDefense(int numberOfDices);
 
+    public void notifyIfIsDead(){
+        if (!isAlive()){
+            DeathMonitor deathMonitor = DeathMonitor.getInstance();
+            deathMonitor.notify(this);
+        }
+    }
+
     public void defendsMagicSkill(int intensity) {
         int intensityDefence = getIntensityDefense(mindPoints);
-        if (intensityDefence < intensity)
+        if (intensityDefence < intensity){
             decreaseBodyPoints(intensity - intensityDefence);
+            notifyIfIsDead();
+        }
     }
 
     public void defendsPhysicalSkill(int intensity) {
         int intensityDefence = getIntensityDefense(defenseDice + bonusDefenseDice);
-        if (intensityDefence < intensity)
+        if (intensityDefence < intensity){
             decreaseBodyPoints(intensity - intensityDefence);
+            notifyIfIsDead();
+        }
         if (armor != null)
             armor.degradeByUse(this);
     }

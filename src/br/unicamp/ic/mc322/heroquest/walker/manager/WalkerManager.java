@@ -93,8 +93,8 @@ public abstract class WalkerManager {
         map.moveObject(walker, position);
     }
 
-    public RegionSelector getRuler(){
-        return map.getRegionSelector();
+    public RegionSelector getRegionSelector(){
+        return regionSelector;
     }
 
     protected void useItems() {
@@ -158,6 +158,10 @@ public abstract class WalkerManager {
 
     public Coordinate getPositionWalker() {
         return walker.getPosition();
+    }
+
+    public Walker getWalker(){
+        return walker;
     }
 
     public boolean isAlive() {

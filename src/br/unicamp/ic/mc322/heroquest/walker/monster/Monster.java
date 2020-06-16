@@ -1,9 +1,15 @@
 package br.unicamp.ic.mc322.heroquest.walker.monster;
 
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
+import br.unicamp.ic.mc322.heroquest.walker.Team;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class Monster extends Walker {
+
+    Monster(){
+        team = Team.MORCAR;
+    }
+
     @Override
     public int getIntensityDefense(int numberOfDices) {
         int intensity = 0;

@@ -48,6 +48,11 @@ public class Map implements WalkValidator {
         }
     }
 
+    public void remove(Walker walker, Coordinate coordinate) throws OutsideRoomException {
+        Room room = getRoom(coordinate);
+        room.remove(walker);
+    }
+
     public FixedObject getObject(Coordinate coordinate) throws OutsideRoomException {
         Room room = getRoom(coordinate);
 
@@ -94,9 +99,10 @@ public class Map implements WalkValidator {
         return new RegionSelector(structure, this);
     }
 
-    public void moveObject(MapObject mapObject, Coordinate destination) {
+    public void moveObject(Walker walker, Coordinate destination) {
         if (isAllowedToWalkOver(destination)) {
-            mapObject.setPosition(destination);
+            remove(walker, walker.getPosition());
+            add(walker, destination);
         }
     }
 

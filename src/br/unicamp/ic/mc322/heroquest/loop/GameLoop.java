@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.loop;
 
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
@@ -8,8 +9,10 @@ import java.util.HashSet;
 public class GameLoop implements DeathListener {
     HashSet<WalkerManager> heroes, monsters, heroesAlive, monstersAlive;
     boolean running;
+    Map map;
 
-    public GameLoop(ArrayList<WalkerManager> heroes, ArrayList<WalkerManager> monsters) {
+    public GameLoop(Map map, ArrayList<WalkerManager> heroes, ArrayList<WalkerManager> monsters) {
+        this.map = map;
         this.heroes = new HashSet<>();
         this.heroesAlive = new HashSet<>();
         this.monsters = new HashSet<>();
@@ -19,6 +22,9 @@ public class GameLoop implements DeathListener {
         this.heroesAlive.addAll(heroes);
         this.monsters.addAll(monsters);
         this.monstersAlive.addAll(monsters);
+
+        DeathMonitor deathMonitor = DeathMonitor.getInstance();
+        deathMonitor.addListener(this);
     }
 
     public void run() {
@@ -64,7 +70,13 @@ public class GameLoop implements DeathListener {
 
     @Override
     public void notifyWalkerDeath(WalkerManager walkerManager) {
-        heroesAlive.remove(walkerManager);
-        monstersAlive.remove(walkerManager);
+        if (heroesAlive.contains(walkerManager)){
+            heroesAlive.remove(walkerManager);
+            map.remove(walkerManager.getWalker(), walkerManager.getPositionWalker());
+        }
+        if (monstersAlive.contains(walkerManager)){
+            monstersAlive.remove(walkerManager);
+            map.remove(walkerManager.getWalker(), walkerManager.getPositionWalker());
+        }
     }
 }

@@ -17,7 +17,7 @@ public class AttackEnemy extends PhysicalSkill{
 
     @Override
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
-        RegionSelector regionSelector = currentWalkerManager.getRuler();
+        RegionSelector regionSelector = currentWalkerManager.getRegionSelector();
         Region region;
         if (skilledWeapon.canAttackDiagonally())
             region = regionSelector.getAdjacentRegion(false);

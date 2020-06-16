@@ -11,6 +11,7 @@ import br.unicamp.ic.mc322.heroquest.map.view.TerminalViewer;
 import br.unicamp.ic.mc322.heroquest.util.tree.BSPTree;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Barbarian;
+import br.unicamp.ic.mc322.heroquest.walker.hero.Wizard;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.manager.ai.WalkerAI;
 import br.unicamp.ic.mc322.heroquest.walker.manager.ai.attack.Bloodthirsty;
@@ -47,13 +48,13 @@ public class Main {
             ArrayList<WalkerManager> heroes = new ArrayList<>();
             ArrayList<WalkerManager> monster = new ArrayList<>();
             heroes.add(new WalkerPlayer(map));
-            Barbarian barbarian = new Barbarian(heroes.get(0));
+            Wizard wizard = new Wizard(heroes.get(0));
             monster.add(new WalkerAI(map, new Follower(), new Bloodthirsty()));
             SkeletonWizard skeletonWizard = new SkeletonWizard(monster.get(0));
-            map.add(barbarian, new Coordinate(1, 1));
-            map.add(skeletonWizard, new Coordinate(9,9));
+            map.add(wizard, new Coordinate(1, 1));
+            map.add(skeletonWizard, new Coordinate(2,2));
             viewer.display(map, null);
-            GameLoop gameLoop = new GameLoop(heroes, monster);
+            GameLoop gameLoop = new GameLoop(map, heroes, monster);
             gameLoop.run();
 
             viewer.display(map, null);

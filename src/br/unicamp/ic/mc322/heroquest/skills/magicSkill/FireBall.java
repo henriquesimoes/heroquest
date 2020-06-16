@@ -22,7 +22,7 @@ public class FireBall extends MagicSkill {
 
         if (summoner.attemptMagicalMovement()) {
             WalkerManager targetManager = targetWalker.getManager();
-            RegionSelector regionSelector = targetManager.getRuler();
+            RegionSelector regionSelector = targetManager.getRegionSelector();
             Region region = regionSelector.getAdjacentRegion(false);
             ArrayList<Walker> adjacentTargets = targetManager.getEnemiesWithinArea(region);
 
@@ -34,7 +34,7 @@ public class FireBall extends MagicSkill {
 
     @Override
     public ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager) {
-        RegionSelector regionSelector = currentWalkerManager.getRuler();
+        RegionSelector regionSelector = currentWalkerManager.getRegionSelector();
         // TODO: discover how to set the distance to catch the visible walkers
         Region region = regionSelector.getRoomRegion(false);
         ArrayList<Walker> enemies = currentWalkerManager.getEnemiesWithinArea(region);
