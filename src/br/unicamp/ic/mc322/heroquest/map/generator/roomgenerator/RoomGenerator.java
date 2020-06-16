@@ -14,7 +14,7 @@ public class RoomGenerator {
     private int roomMinHeight;
     Random random = new Random();
     ArrayList<GridContainer> gridSections;
-    private java.util.Map<String, RoomStructure> rooms = new HashMap<>();
+    private ArrayList<RoomStructure> rooms = new ArrayList<>();
 
     public RoomGenerator(ArrayList<GridContainer> gridSections, int roomMinWidth, int roomMinHeight) {
         this.gridSections = gridSections;
@@ -22,19 +22,17 @@ public class RoomGenerator {
         this.roomMinHeight = roomMinHeight;
     }
 
-    public java.util.Map<String, RoomStructure> createRandomRooms() {
+    public ArrayList<RoomStructure> createRandomRooms() {
         generateRooms();
         return rooms;
     }
 
     private void generateRooms() {
-        int id = 0;
         for (GridContainer container : gridSections) {
             Dimension dimensions = getRandomRoomDimensions(container);
             Coordinate roomCoordinates = getRandomRoomCoordinates(container, dimensions);
-            Coordinate doorCoordinates = ;
-            rooms.put("ID" + id, new RoomStructure(dimensions, roomCoordinates, doorCoordinates ,id));
-            id += 1;
+            Coordinate doorCoordinates = new Coordinate(0, 0);
+            rooms.add(new RoomStructure(dimensions, roomCoordinates, doorCoordinates));
         }
     }
 
@@ -52,9 +50,5 @@ public class RoomGenerator {
         int coordX = random.nextInt(container.getDimensionX() - dimensions.getWidth() + 1) + containerCoordinates.getX();
 
         return (new Coordinate(coordX, coordY));
-    }
-
-    private Coordinate getRandomDoorCoordinates(GridContainer container) {
-
     }
 }

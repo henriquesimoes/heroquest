@@ -97,7 +97,6 @@ public class BSPTree {
 
     private int getSplitPoint(boolean splitHorizontal, int maxSplitValue) {
         int splitPoint = random.nextInt(maxSplitValue - 1);
-        //TODO: verificar validade
         return Math.max((splitHorizontal ? GRID_MIN_HEIGHT : GRID_MIN_WIDTH), splitPoint);
     }
 

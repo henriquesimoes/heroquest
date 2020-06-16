@@ -3,6 +3,7 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
 import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.BSPGrid;
 import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
+import br.unicamp.ic.mc322.heroquest.map.generator.pathgenerator.PathGenerator;
 import br.unicamp.ic.mc322.heroquest.map.generator.roomgenerator.RoomGenerator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
@@ -23,16 +24,17 @@ public class MapGenerator {
     Random random = new Random();
     private char[][] grid;
     private ArrayList<GridContainer> gridSections;
-    private java.util.Map<String, RoomStructure> rooms;
+    private ArrayList<RoomStructure> rooms;
 
     public MapGenerator(){
-        rooms = new HashMap<>();
+        rooms = new ArrayList<>();
     }
 
     public void generate() {
         createGrid();
         createRandomRooms();
         createMatrixGrid();
+        digPathBetweenRooms();
         print();
     }
 
@@ -46,7 +48,7 @@ public class MapGenerator {
         rooms = randomRooms.createRandomRooms();
     }
 
-    private void createMatrixGrid() {
+    private void createMatrixGrid(){
         grid = new char[GRID_HEIGHT][GRID_WIDTH];
 
         for (int i = 0; i < GRID_HEIGHT; i++) {
@@ -55,10 +57,9 @@ public class MapGenerator {
             }
         }
 
-        for (Map.Entry<String, RoomStructure> room : rooms.entrySet()) {
-            RoomStructure currentRoom = room.getValue();
-            Coordinate roomCoord = currentRoom.getRoomTopLeftCoordinates();
-            Dimension roomDimensions = currentRoom.getRoomDimension();
+        for (RoomStructure room : rooms) {
+            Coordinate roomCoord = room.getRoomTopLeftCoordinates();
+            Dimension roomDimensions = room.getRoomDimension();
 
             for (int i = roomCoord.getY(); i < roomCoord.getY() + roomDimensions.getHeight(); i++) {
                 if (i == roomCoord.getY() || i == (roomCoord.getY() + roomDimensions.getHeight() - 1)) {
@@ -67,20 +68,23 @@ public class MapGenerator {
                     }
                 }
                 else {
-                    for (int j = roomCoord.getX(); j < roomCoord.getX() + currentRoom.getRoomDimension().getWidth(); j++) {
+                    for (int j = roomCoord.getX(); j < roomCoord.getX() + room.getRoomDimension().getWidth(); j++) {
                         grid[i][j] = ' ';
                     }
                     grid[i][roomCoord.getX()] = '/';
-                    grid[i][roomCoord.getX() + currentRoom.getRoomDimension().getWidth() - 1] = '/';
+                    grid[i][roomCoord.getX() + room.getRoomDimension().getWidth() - 1] = '/';
                 }
             }
         }
-        for (Map.Entry<String, RoomStructure> room : rooms.entrySet()) {
-            System.out.println("Coords (" + room.getValue().getRoomTopLeftCoordinates().getX() + ", " + room.getValue().getRoomTopLeftCoordinates().getY() + ")" +
-                    "- Size:" + room.getValue().getRoomDimension().getWidth() + " x " +  room.getValue().getRoomDimension().getHeight());
+        for (RoomStructure room : rooms) {
+            System.out.println("Coords (" + room.getRoomTopLeftCoordinates().getX() + ", " + room.getRoomTopLeftCoordinates().getY() + ")" +
+                    "- Size:" + room.getRoomDimension().getWidth() + " x " +  room.getRoomDimension().getHeight());
         }
     }
 
+    private void digPathBetweenRooms() {
+        new PathGenerator(grid, rooms).createPaths();
+    }
     //TODO: ainda não é a versão final
 
     public void print() {
