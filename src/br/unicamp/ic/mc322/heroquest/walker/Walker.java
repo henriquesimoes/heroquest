@@ -12,10 +12,11 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
-import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 public abstract class Walker extends MapObject {
@@ -25,7 +26,7 @@ public abstract class Walker extends MapObject {
     protected Armor armor;
     protected int attackDice, movementDice, defenseDice, bonusDefenseDice;
     protected int maxBodyPoints, currentBodyPoints, mindPoints;
-    protected ArrayList<Pair<Skill, Integer>> skills;
+    protected HashMap<Skill, Integer> skills;
     protected CombatDice combatDice;
     protected RedDice redDice;
     protected Knapsack knapsack;
@@ -36,7 +37,7 @@ public abstract class Walker extends MapObject {
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
-        skills = new ArrayList<>();
+        skills = new HashMap<>();
         movementDice = 2;
 
         //Add skill of attack with the fists
@@ -64,7 +65,7 @@ public abstract class Walker extends MapObject {
     public ArrayList<Skill> getSkills() {
         ArrayList<Skill> skillsList = new ArrayList<>();
 
-        for (Pair<Skill, Integer> pair : skills) {
+        for (Map.Entry<Skill, Integer> pair : skills.entrySet()) {
             Skill skill = pair.getKey();
             skillsList.add(skill);
         }
@@ -173,9 +174,8 @@ public abstract class Walker extends MapObject {
 
         ArrayList<PhysicalSkill> skills = weapon.getSkills();
 
-        for (PhysicalSkill skill : skills) {
+        for (PhysicalSkill skill : skills)
             addSkill(skill);
-        }
     }
 
     private void unequipWeapon(Weapon weapon) {
@@ -183,36 +183,29 @@ public abstract class Walker extends MapObject {
 
         ArrayList<PhysicalSkill> skills = weapon.getSkills();
 
-        for (PhysicalSkill skill : skills) {
+        for (PhysicalSkill skill : skills)
             removeSkill(skill);
-        }
     }
 
     public void addSkill(Skill skill) {
-        // TODO: test if this really works
-        int index = skills.indexOf(new Pair<Skill, Integer>(skill, 0));
+        Integer amount = skills.get(skill);
 
-        if (index == -1) {
-            skills.add(new Pair<>(skill, 1));
-        } else {
-            Pair<Skill, Integer> pair = skills.get(index);
-            pair.setValue(pair.getValue() + 1);
-        }
+        if (amount == null)
+            skills.put(skill, 1);
+        else
+            skills.replace(skill, amount + 1);
     }
 
     private void removeSkill(Skill skill) {
-        // TODO: test if this really works
-        int index = skills.indexOf(new Pair<Skill, Integer>(skill, 0));
+        Integer amount = skills.get(skill);
 
-        if (index == -1)
+        if (amount == -1)
             throw new NoSuchElementException();
 
-        Pair<Skill, Integer> pair = skills.get(index);
-
-        if (pair.getValue() == 1)
-            skills.remove(index);
+        if (amount == 1)
+            skills.remove(skill);
         else
-            pair.setValue(pair.getValue() - 1);
+            skills.replace(skill, amount - 1);
     }
 
     protected void storeLeftWeapon() {

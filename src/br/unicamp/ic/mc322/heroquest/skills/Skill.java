@@ -7,7 +7,7 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 import java.util.ArrayList;
 
 public abstract class Skill {
-    private String skillName;
+    protected String skillName;
 
     public Skill(String skillName) {
         this.skillName = skillName;
