@@ -33,6 +33,6 @@ public class Chest extends  FixedObject {
 
     @Override
     public String getRepresentationOnMenu() {
-        return null;
+        return "Chest on " + getPosition();
     }
 }

@@ -31,6 +31,6 @@ public class Wall extends StructuralObject {
 
     @Override
     public String getRepresentationOnMenu() {
-        return "Wall";
+        return "Wall on " + getPosition();
     }
 }

@@ -32,6 +32,6 @@ public class Floor extends StructuralObject {
 
     @Override
     public String getRepresentationOnMenu() {
-        return "Free space";
+        return "Free space on " + getPosition();
     }
 }

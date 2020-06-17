@@ -37,6 +37,6 @@ public class Door extends StructuralObject {
 
     @Override
     public String getRepresentationOnMenu() {
-        return (opened ? "Opened" : "Closed") + " door";
+        return (opened ? "Opened" : "Closed") + " door on " + getPosition();
     }
 }
