@@ -12,8 +12,6 @@ public class TerminalViewer implements Viewer {
         StringBuilder builder = new StringBuilder();
         Dimension dimension = map.getDimension();
 
-        builder.append("Displaying map...\n\n");
-
         Coordinate origin = Coordinate.getOrigin();
 
         for (int dy = 0; dy < dimension.getHeight(); dy++) {

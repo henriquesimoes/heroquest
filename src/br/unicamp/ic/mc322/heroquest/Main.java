@@ -25,20 +25,6 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        /*BSPTree teste = new BSPTree(new GridContainer(100, 30, 0, 0));
-
-        for (int i = 0; i < 4; i++)
-            teste.splitGrid();
-
-        ArrayList<GridContainer> t = teste.getPartitionedGrid();
-
-        for (GridContainer container:
-             t) {
-            System.out.println(container.toString());
-        }*/
-
-
-
         MapManager manager = new MapManager();
         TerminalViewer viewer = new TerminalViewer();
 
@@ -57,7 +43,6 @@ public class Main {
             GameLoop gameLoop = new GameLoop(map, heroes, monster);
             gameLoop.run();
 
-            viewer.display(map, null);
         } catch (FileNotFoundException ex) {
             System.err.println("Configuration file not found...");
         } catch (CorruptedConfigurationFileException ex) {

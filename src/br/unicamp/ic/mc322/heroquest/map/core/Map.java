@@ -53,18 +53,6 @@ public class Map implements WalkValidator {
         room.remove(walker);
     }
 
-    public FixedObject getObject(Coordinate coordinate) throws OutsideRoomException {
-        Room room = getRoom(coordinate);
-
-        return room.getFixedObject(coordinate);
-    }
-
-    public Walker getWalker(Coordinate coordinate) throws OutsideRoomException {
-        Room room = getRoom(coordinate);
-
-        return room.getWalker(coordinate);
-    }
-
     /**
      * Returns the object that has the highest priority for interaction. This ordering is the following
      *      - Walkers
