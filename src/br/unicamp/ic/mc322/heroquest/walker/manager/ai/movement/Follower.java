@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Follower extends MovementBehavior {
     private static Follower instance;
 
-    public Follower(){}
+    public Follower() {}
 
     public static Follower getInstance(){
         if (instance == null)
@@ -20,24 +20,22 @@ public class Follower extends MovementBehavior {
     @Override
     public int chooseMove(WalkerManager walkerManager, ArrayList<Coordinate> possibleMoves){
         ArrayList<Walker> enemies = walkerManager.getVisibleEnemies();
-        Coordinate positionWalker = walkerManager.getPositionWalker();
-        possibleMoves.add(0, positionWalker); // insert stay still as the move 0
+        Coordinate walkerPosition = walkerManager.getWalkerPosition();
+        possibleMoves.add(0, walkerPosition); // insert "stay still" as the 0-th move
 
-        // if not has enemies visible, then make a random move
-        if (enemies.size() == 0){
+        // if there is no visible enemies, then make a random move
+        if (enemies.size() == 0) {
             RandomMovement randomMovement = RandomMovement.getInstance();
             return randomMovement.chooseMove(walkerManager, possibleMoves);
         }
 
         Coordinate choice = walkerManager.getCoordinateCloserToWalkers(possibleMoves, enemies);
 
-        // how was insert a move in begin, the return is indexed by 1 (just as desired)
-        for (int i = 0; i < possibleMoves.size(); i++){
+        // Since a move has been inserted in the beginning, the return is indexed by 1 (just as desired)
+        for (int i = 0; i < possibleMoves.size(); i++)
             if (possibleMoves.get(i).equals(choice))
                 return i;
-        }
 
-        new IllegalStateException();
-        return 0;
+        throw new IllegalStateException();
     }
 }

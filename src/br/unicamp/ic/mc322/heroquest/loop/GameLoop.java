@@ -72,11 +72,11 @@ public class GameLoop implements GameListener {
     public void notifyWalkerDeath(WalkerManager managerWalkerDead) {
         if (heroesAlive.contains(managerWalkerDead)){
             heroesAlive.remove(managerWalkerDead);
-            map.remove(managerWalkerDead.getWalker(), managerWalkerDead.getPositionWalker());
+            map.remove(managerWalkerDead.getWalker(), managerWalkerDead.getWalkerPosition());
         }
         if (monstersAlive.contains(managerWalkerDead)){
             monstersAlive.remove(managerWalkerDead);
-            map.remove(managerWalkerDead.getWalker(), managerWalkerDead.getPositionWalker());
+            map.remove(managerWalkerDead.getWalker(), managerWalkerDead.getWalkerPosition());
         }
         String message = String.format("The %s is dead", managerWalkerDead.getWalkerName());
         for (WalkerManager manager : heroes)

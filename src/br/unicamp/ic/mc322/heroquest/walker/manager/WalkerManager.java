@@ -156,7 +156,7 @@ public abstract class WalkerManager {
         return map.getCoordinateCloserToObject(coordinates, objects);
     }
 
-    public Coordinate getPositionWalker() {
+    public Coordinate getWalkerPosition() {
         return walker.getPosition();
     }
 

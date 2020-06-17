@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class CommonSkeleton extends Monster {
-    CommonSkeleton(WalkerManager walkerManager) {
+    public CommonSkeleton(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;
         this.walkerManager.setWalker(this);
         name = "Common Skeleton";
