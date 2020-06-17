@@ -4,10 +4,10 @@ import br.unicamp.ic.mc322.heroquest.item.baseitems.HeapItem;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class HealthPotion extends HeapItem {
-    private static final String DESCRIPTION = "A magic item able restore of 1 to 6 health points instantly";
+    private static final String DESCRIPTION = "A magic item able restore from 1 to 6 health points instantly";
 
     HealthPotion(){
-        super("HealthPotion", DESCRIPTION, 100);
+        super("Health potion", DESCRIPTION, 100);
     }
 
     @Override

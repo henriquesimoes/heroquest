@@ -9,10 +9,12 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 import java.util.ArrayList;
 
 public class MagicMissile extends MagicSkill {
-    private final int TOTAL_DAMAGE = 6;
+    private static final int TOTAL_DAMAGE = 6;
 
     public MagicMissile() {
-        super("Magic Missile", "Lança três flechas mágicas, cada uma causando 2 de dano.");
+        super("Magic Missile",
+                "Three magic arrows are thrown against the target," +
+                        " with " + TOTAL_DAMAGE / 3 + " damage each");
     }
 
     @Override

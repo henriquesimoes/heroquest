@@ -10,8 +10,9 @@ import java.util.ArrayList;
 
 public class SimpleHeal extends MagicSkill {
     public SimpleHeal() {
-        super("Simple Heal spell", "Cura um valor de 1 a 6 pontos vida. " +
-                "O valor é o número obtido após o lançamento de um dado de seis faces");
+        super("Simple Heal spell",
+                "It heals from 1 to 6 health points." +
+                        "The healing power depends on the result of a six-face die roll.");
     }
 
     @Override

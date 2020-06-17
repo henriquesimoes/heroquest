@@ -31,11 +31,11 @@ public class WalkerPlayer extends WalkerManager {
         while (true) {
             updateScreen();
             ArrayList<String> options = new ArrayList<>();
-            options.add("Use Items");
+            options.add("Use items");
             if (!successfulSkillUsage)
-                options.add("Use Skill");
+                options.add("Use skill");
             if (!successfulMove)
-                options.add("Execute Movement");
+                options.add("Execute a movement");
 
             ioInterface.showMessage("Choose an action:");
             int choice = ioInterface.showOptionsAndGetAnswer(options);
@@ -71,7 +71,7 @@ public class WalkerPlayer extends WalkerManager {
         for (Coordinate coordinate : possibleMoves)
             movesList.add(coordinate.toString());
 
-        ioInterface.showMessage("Choose a position of destination");
+        ioInterface.showMessage("Choose a destination position:");
         int choice = ioInterface.showOptionsAndGetAnswer(movesList);
 
         return choice;

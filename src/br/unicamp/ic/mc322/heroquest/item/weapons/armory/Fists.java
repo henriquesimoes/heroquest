@@ -10,7 +10,7 @@ public class Fists extends Weapon {
 
     public Fists() {
         super("Fists", DESCRIPTION, Integer.MAX_VALUE, 0);
-        setNewSkill(new AttackEnemy("Socar", this));
+        setNewSkill(new AttackEnemy("Punch", this));
     }
 
     @Override

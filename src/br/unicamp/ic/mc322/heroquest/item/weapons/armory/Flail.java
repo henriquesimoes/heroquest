@@ -14,7 +14,7 @@ public class Flail extends Weapon {
         setAttackBonus(3);
         setTwoHanded(false);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemy("Golpear", this));
-        setNewSkill(new AttackEnemyInLongDistanceRange("Lançar", this));
+        setNewSkill(new AttackEnemy("Hit", this));
+        setNewSkill(new AttackEnemyInLongDistanceRange("Throw", this));
     }
 }

@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 public class Teleport extends MagicSkill {
     public Teleport() {
-        super("Teleporte", "O herói ou monstro se teletransporta para uma posição visível");
+        super("Teleport",
+                "The hero or the monster teleports to a visible position");
     }
 
     /**TODO: método apenas para teste, deve ser implementado no package do mapa*/

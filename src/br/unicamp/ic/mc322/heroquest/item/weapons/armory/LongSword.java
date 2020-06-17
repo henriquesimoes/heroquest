@@ -13,6 +13,6 @@ public class LongSword extends Weapon {
         setAttackBonus(3);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemy("Golpear", this));
+        setNewSkill(new AttackEnemy("Hit", this));
     }
 }

@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class PlayerInterface {
     Viewer viewer;
     Scanner scanner;
-    public PlayerInterface(){
+    public PlayerInterface() {
         scanner = new Scanner(System.in);
         viewer = new TerminalViewer();
     }
@@ -20,13 +20,15 @@ public class PlayerInterface {
         boolean invalidAnswer = true;
         int answer = 0;
 
-        while(invalidAnswer){
-            System.out.println("0 - to return");
-            for (int i = 0; i < optionsList.size(); i++){
-                System.out.printf("%d -  %s\n", i + 1, optionsList.get(i));
+        while (invalidAnswer) {
+            for (int i = 0; i < optionsList.size(); i++) {
+                System.out.printf("%2d - %s\n", i + 1, optionsList.get(i));
             }
+            System.out.printf("%2d - Return\n", 0);
+            System.out.print("Selected option: ");
             answer = scanner.nextInt();
-            if(answer >= 0 && answer <= optionsList.size())
+
+            if (answer >= 0 && answer <= optionsList.size())
                 invalidAnswer = false;
         }
 
