@@ -57,6 +57,25 @@ public class MapGenerator {
             }
         }
 
+        for (GridContainer container : gridSections) {
+            Coordinate topleft = container.getTopLeftCornerCoordinate();
+            for (int i = 0; i < container.getDimensionY() + 2; i++) {
+                if (topleft.getX() + container.getDimensionX() >= grid[0].length || topleft.getY() + i >= grid.length)
+                    break;
+
+                grid[topleft.getY() + i][topleft.getX() + container.getDimensionX()] = ' ';
+                grid[topleft.getY() + i][topleft.getX() + container.getDimensionX() + 1] = ' ';
+            }
+
+            for (int i = 0; i < container.getDimensionX() + 2; i++) {
+                if (topleft.getY() + container.getDimensionY() + 1 >= grid.length || topleft.getX() + i >= grid[0].length)
+                    break;
+
+                grid[topleft.getY() + container.getDimensionY()][topleft.getX() + i] = ' ';
+                grid[topleft.getY() + container.getDimensionY() + 1][topleft.getX() + i] = ' ';
+            }
+        }
+
         for (RoomStructure room : rooms) {
             Coordinate roomCoord = room.getRoomTopLeftCoordinates();
             Dimension roomDimensions = room.getRoomDimension();
@@ -76,6 +95,7 @@ public class MapGenerator {
                 }
             }
         }
+
         for (RoomStructure room : rooms) {
             System.out.println("Coords (" + room.getRoomTopLeftCoordinates().getX() + ", " + room.getRoomTopLeftCoordinates().getY() + ")" +
                     "- Size:" + room.getRoomDimension().getWidth() + " x " +  room.getRoomDimension().getHeight());

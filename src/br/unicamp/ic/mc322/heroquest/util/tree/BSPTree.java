@@ -7,8 +7,8 @@ import br.unicamp.ic.mc322.heroquest.util.random.Random;
 import java.util.ArrayList;
 
 public class BSPTree {
-    private final int GRID_MIN_WIDTH = 12;
-    private final int GRID_MIN_HEIGHT = 10;
+    private final int GRID_MIN_WIDTH = 13;
+    private final int GRID_MIN_HEIGHT = 11;
 
     private Random random = new Random();
     private Leaf<GridContainer> root;
@@ -74,9 +74,9 @@ public class BSPTree {
 
         rightChildContainer = new GridContainer(
                 currentContainer.getDimensionX(),
-                currentContainer.getDimensionY() - splitPoint - 1,
+                currentContainer.getDimensionY() - splitPoint - 2,
                 currentContainerCoords.getX(),
-                currentContainerCoords.getY() + splitPoint + 1);
+                currentContainerCoords.getY() + splitPoint + 2);
     }
 
     private void splitVertical(int splitPoint) {
@@ -84,9 +84,9 @@ public class BSPTree {
                 currentContainerCoords.getX(), currentContainerCoords.getY());
 
         rightChildContainer = new GridContainer(
-                currentContainer.getDimensionX() - splitPoint - 1,
+                currentContainer.getDimensionX() - splitPoint - 2,
                 currentContainer.getDimensionY(),
-                currentContainerCoords.getX() + splitPoint + 1,
+                currentContainerCoords.getX() + splitPoint + 2,
                 currentContainerCoords.getY());
     }
 
