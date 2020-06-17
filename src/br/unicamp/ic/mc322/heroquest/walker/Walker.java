@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker;
 import br.unicamp.ic.mc322.heroquest.item.armors.Armor;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Fists;
-import br.unicamp.ic.mc322.heroquest.loop.DeathMonitor;
+import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
@@ -103,27 +103,33 @@ public abstract class Walker extends MapObject {
 
     public abstract int getIntensityDefense(int numberOfDices);
 
+    public void notifyDamage(int damage){
+        GameMonitor gameMonitor = GameMonitor.getInstance();
+        gameMonitor.notifyDamage(this, damage);
+    }
+
     public void notifyIfIsDead(){
         if (!isAlive()){
-            DeathMonitor deathMonitor = DeathMonitor.getInstance();
-            deathMonitor.notify(this);
+            GameMonitor gameMonitor = GameMonitor.getInstance();
+            gameMonitor.notifyDeath(this);
         }
     }
 
-    public void defendsMagicSkill(int intensity) {
+    public void defendsSkill(int intensityAttack, int intensityDefence){
+        int damage = Math.max(intensityAttack - intensityDefence, 0);
+        decreaseBodyPoints(damage);
+        notifyDamage(damage);
+        notifyIfIsDead();
+    }
+
+    public void defendsMagicSkill(int intensityAttack) {
         int intensityDefence = getIntensityDefense(mindPoints);
-        if (intensityDefence < intensity){
-            decreaseBodyPoints(intensity - intensityDefence);
-            notifyIfIsDead();
-        }
+        defendsSkill(intensityAttack, intensityDefence);
     }
 
-    public void defendsPhysicalSkill(int intensity) {
+    public void defendsPhysicalSkill(int intensityAttack) {
         int intensityDefence = getIntensityDefense(defenseDice + bonusDefenseDice);
-        if (intensityDefence < intensity){
-            decreaseBodyPoints(intensity - intensityDefence);
-            notifyIfIsDead();
-        }
+        defendsSkill(intensityAttack, intensityDefence);
         if (armor != null)
             armor.degradeByUse(this);
     }

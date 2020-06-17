@@ -34,11 +34,18 @@ public class Main {
             ArrayList<WalkerManager> heroes = new ArrayList<>();
             ArrayList<WalkerManager> monster = new ArrayList<>();
             heroes.add(new WalkerPlayer(map));
-            Wizard wizard = new Wizard(heroes.get(0));
+            Wizard wizard = new Wizard(heroes.get(0), "Gandalf");
+
             monster.add(new WalkerAI(map, new Follower(), new Bloodthirsty()));
             SkeletonWizard skeletonWizard = new SkeletonWizard(monster.get(0));
+
+            monster.add(new WalkerAI(map, new Follower(), new Bloodthirsty()));
+            SkeletonWizard skeletonWizard2 = new SkeletonWizard(monster.get(1));
+
             map.add(wizard, new Coordinate(1, 1));
             map.add(skeletonWizard, new Coordinate(2,2));
+            map.add(skeletonWizard2, new Coordinate(9,9));
+
             viewer.display(map, null);
             GameLoop gameLoop = new GameLoop(map, heroes, monster);
             gameLoop.run();

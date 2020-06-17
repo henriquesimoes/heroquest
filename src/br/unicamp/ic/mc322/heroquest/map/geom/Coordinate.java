@@ -67,6 +67,6 @@ public class Coordinate {
     }
 
     public static Coordinate shift(Coordinate reference, int dx, int dy) {
-        return new Coordinate(reference.getX() + dx, reference.getX() + dy);
+        return new Coordinate(reference.getX() + dx, reference.getY() + dy);
     }
 }

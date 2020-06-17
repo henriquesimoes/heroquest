@@ -169,4 +169,8 @@ public abstract class WalkerManager {
     }
 
     public abstract void showMessage(String message);
+
+    public String getWalkerName() {
+        return walker.getName();
+    }
 }

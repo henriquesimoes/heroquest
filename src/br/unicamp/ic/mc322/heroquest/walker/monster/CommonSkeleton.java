@@ -9,6 +9,7 @@ public class CommonSkeleton extends Monster {
     CommonSkeleton(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;
         this.walkerManager.setWalker(this);
+        name = "Common Skeleton";
         attackDice = 2;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints = 2;

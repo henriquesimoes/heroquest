@@ -30,13 +30,14 @@ public class PlayerInterface {
 
             if (answer >= 0 && answer <= optionsList.size())
                 invalidAnswer = false;
+            System.out.println("");
         }
 
         return answer;
     }
 
     public void showMessage(String s) {
-        System.out.println(s);
+        System.out.println(s + "\n");
     }
 
     public void showMap(Map map, MapObject reference){

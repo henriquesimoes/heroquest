@@ -10,6 +10,7 @@ public class Globin extends Monster {
 
     public Globin(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;
+        name = "Globin";
         attackDice = 3;
         defenseDice = 1;
         maxBodyPoints = currentBodyPoints = 2;

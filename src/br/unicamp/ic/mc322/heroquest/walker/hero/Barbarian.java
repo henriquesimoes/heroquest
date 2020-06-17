@@ -6,9 +6,11 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Barbarian extends Hero {
-    public Barbarian(WalkerManager walkerManager) {
+    public Barbarian(WalkerManager walkerManager, String name) {
         this.walkerManager = walkerManager;
         this.walkerManager.setWalker(this);
+
+        this.name = name;
         attackDice = 3;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints = 8;

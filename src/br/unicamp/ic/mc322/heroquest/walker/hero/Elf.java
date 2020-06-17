@@ -7,9 +7,11 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Elf extends Hero {
-    Elf(WalkerManager walkerManager) {
+    Elf(WalkerManager walkerManager, String name) {
         this.walkerManager = walkerManager;
         this.walkerManager.setWalker(this);
+
+        this.name = name;
         attackDice = 2;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints =  6;

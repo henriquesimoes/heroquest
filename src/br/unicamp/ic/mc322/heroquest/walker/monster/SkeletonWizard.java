@@ -10,6 +10,7 @@ public class SkeletonWizard extends Monster {
     public SkeletonWizard(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;
         this.walkerManager.setWalker(this);
+        name = "Skeleton Wizard";
         attackDice = 2;
         defenseDice = 1;
         maxBodyPoints = currentBodyPoints = 2;
