@@ -14,8 +14,14 @@ public class TerminalViewer implements Viewer {
 
         Coordinate origin = Coordinate.getOrigin();
 
+        builder.append("  ");
+        for (int dx = 0; dx < dimension.getWidth(); dx++)
+            builder.append(String.format("%3d", dx));
+        builder.append("\n");
+
         for (int dy = 0; dy < dimension.getHeight(); dy++) {
             // TODO: encapsulate rows creation
+            builder.append(String.format("%2d ", dy));
 
             for (int dx = 0; dx < dimension.getWidth(); dx++) {
                 Coordinate coordinate = Coordinate.shift(origin, dx, dy);
@@ -23,7 +29,7 @@ public class TerminalViewer implements Viewer {
                 MapObject object = map.getPreferentialObject(coordinate);
                 ObjectView view = object.getRepresentation();
 
-                builder.append(view);
+                builder.append(" " + view + " ");
             }
 
             // TODO: encapsulate row wrap-up
