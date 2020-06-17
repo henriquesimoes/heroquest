@@ -1,13 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
 import br.unicamp.ic.mc322.heroquest.item.weapons.armory.*;
-
-import java.util.Random;
+import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 
 public class GeneratorRandomWeapon {
     public static Weapon getRandomWeapon() {
-        Random rand = new Random();
-
         Weapon[] possibleWeapons = {
                 new BattleAxe(),
                 new Crossbow(),
@@ -18,7 +15,7 @@ public class GeneratorRandomWeapon {
                 new Staff(),
         };
 
-        int choice = rand.nextInt(possibleWeapons.length);
+        int choice = Randomizer.randInt(0, possibleWeapons.length - 1);
 
         return possibleWeapons[choice];
     }
