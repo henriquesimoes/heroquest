@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.skills.magicSkill.FireBall;
 import br.unicamp.ic.mc322.heroquest.skills.magicSkill.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.skills.magicSkill.Teleport;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
-import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Dagger;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 

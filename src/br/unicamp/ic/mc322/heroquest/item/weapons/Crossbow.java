@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
+package br.unicamp.ic.mc322.heroquest.item.weapons;
 
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemyInLongDistanceRange;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;

@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.armors.Armor;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
-import br.unicamp.ic.mc322.heroquest.item.weapons.armory.Fists;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Fists;
 import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;

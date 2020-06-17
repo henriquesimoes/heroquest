@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.item.weapons;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.DurableItem;
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
+import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;
@@ -60,5 +61,21 @@ public abstract class Weapon extends DurableItem {
     @Override
     public void useItem(Walker proprietary){
         proprietary.equipWeapon(this);
+    }
+
+    public static Weapon getRandomWeapon() {
+        Weapon[] possibleWeapons = {
+                new BattleAxe(),
+                new Crossbow(),
+                new Dagger(),
+                new Flail(),
+                new LongSword(),
+                new ShortSword(),
+                new Staff(),
+        };
+
+        int choice = Randomizer.randInt(0, possibleWeapons.length - 1);
+
+        return possibleWeapons[choice];
     }
 }
