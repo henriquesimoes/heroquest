@@ -59,12 +59,19 @@ public class PathGenerator {
     }
 
     private boolean refillIfValidForTopDirection(Coordinate beginOfPath, int currentYCoord) {
-        if (grid[currentYCoord - 1][beginOfPath.getX()] == '#')
+        if (grid[currentYCoord - 1][beginOfPath.getX()] == '#') {
             if (grid[currentYCoord][beginOfPath.getX() - 1] == '#' && grid[currentYCoord][beginOfPath.getX() + 1] == '#') {
                 grid[currentYCoord][beginOfPath.getX()] = '#';
 
                 return true;
             }
+
+            if (grid[currentYCoord][beginOfPath.getX() - 1] == '/' && grid[currentYCoord][beginOfPath.getX() + 1] == '/') {
+                grid[currentYCoord][beginOfPath.getX()] = '/';
+                return true;
+            }
+        }
+
 
         return false;
     }
@@ -91,12 +98,18 @@ public class PathGenerator {
                 return true;
             }
 
+        if (grid[currentYCoord][beginOfPath.getX() - 1] == '/' && grid[currentYCoord][beginOfPath.getX() + 1] == '/') {
+
+            grid[currentYCoord][beginOfPath.getX()] = '/';
+
+            return true;
+        }
+
         return false;
     }
 
     private void refillInHorizontal(Coordinate beginOfPath) {
         refillInLeftDirection(beginOfPath, beginOfPath.getX());
-//        refillInRightDirection(beginOfPath, beginOfPath.getX());
     }
 
     private void refillInLeftDirection(Coordinate beginOfPath, int currentXCoord) {
@@ -121,29 +134,6 @@ public class PathGenerator {
 
         return false;
     }
-
-//    private void refillInRightDirection(Coordinate beginOfPath, int currentXCoord) {
-//        if (currentXCoord == grid[0].length)
-//            return;
-//
-//        if (refillIfValidForRightDirection(beginOfPath, beginOfPath.getX()))
-//            return;
-//
-//        refillInRightDirection(beginOfPath, currentXCoord + 1);
-//
-//        refillIfValidForRightDirection(beginOfPath, currentXCoord);
-//    }
-//
-//    private boolean refillIfValidForRightDirection(Coordinate beginOfPath, int currentXCoord) {
-//        if (grid[beginOfPath.getY()][currentXCoord + 1] == '#')
-//            if (grid[beginOfPath.getY() - 1][currentXCoord] == '#' && grid[beginOfPath.getY() + 1][currentXCoord] == '#') {
-//                grid[beginOfPath.getY()][currentXCoord] = '#';
-//
-//                return true;
-//            }
-//
-//        return false;
-//    }
 
     private void digInVertical(Coordinate beginOfPath) {
         int i;
