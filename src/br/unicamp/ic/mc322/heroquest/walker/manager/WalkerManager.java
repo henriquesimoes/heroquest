@@ -23,7 +23,7 @@ public abstract class WalkerManager {
 
     public void setWalker(Walker walker){
         this.walker = walker;
-        regionSelector.useAsReference(walker.getPosition());
+        regionSelector.useAsReference(walker);
     }
 
     public abstract void playTurn();

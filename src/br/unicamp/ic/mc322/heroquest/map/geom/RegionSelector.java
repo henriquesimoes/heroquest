@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
 import br.unicamp.ic.mc322.heroquest.map.core.OutsideRoomException;
 import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
@@ -20,6 +21,10 @@ public class RegionSelector {
 
     public void useAsReference(Coordinate coordinate) {
         this.reference = coordinate;
+    }
+
+    public void useAsReference(MapObject object) {
+        useAsReference(object.getPosition());
     }
 
     public Region getAdjacentRegion(boolean onlyWalkablePositions) {

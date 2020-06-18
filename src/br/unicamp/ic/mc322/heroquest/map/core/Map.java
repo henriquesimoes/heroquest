@@ -136,7 +136,7 @@ public class Map implements WalkValidator {
 
         RegionSelector regionSelector = getRegionSelector();
 
-        regionSelector.useAsReference(reference.getPosition());
+        regionSelector.useAsReference(reference);
         Region region = regionSelector.getRoomRegion(true);
 
         for (Coordinate coordinate : region)
