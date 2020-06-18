@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemy;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemy;
 
 public class ShortSword extends Weapon {
     private static final String DESCRIPTION = "Shortsword gives you a bonus of 2 combat dice." +

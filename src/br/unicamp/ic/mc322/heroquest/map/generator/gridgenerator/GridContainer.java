@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
-import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
 public class GridContainer {
     Dimension dimensions;
