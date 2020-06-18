@@ -21,7 +21,6 @@ public class MapGenerator {
     private final int ROOM_MIN_WIDTH = 11;
     private final int ROOM_MIN_HEIGHT = 7;
 
-    Random random = new Random();
     private char[][] grid;
     private ArrayList<GridContainer> gridSections;
     private ArrayList<RoomStructure> rooms;
@@ -50,12 +49,24 @@ public class MapGenerator {
     private void createMatrixGrid(){
         grid = new char[GRID_HEIGHT][GRID_WIDTH];
 
+        fillGridWithWalls();
+        fillGridWithRoomsAreas();
+        addPathsBetweenRooms();
+    }
+
+    private void addPathsBetweenRooms() {
+        new PathGenerator(grid, rooms, gridSections).createPaths();
+    }
+
+    private void fillGridWithWalls() {
         for (int i = 0; i < GRID_HEIGHT; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
                 grid[i][j] = '#';
             }
         }
+    }
 
+    private void fillGridWithRoomsAreas() {
         for (RoomStructure room : rooms) {
             Coordinate roomCoord = room.getRoomTopLeftCoordinates();
             Dimension roomDimensions = room.getRoomDimension();
@@ -75,9 +86,6 @@ public class MapGenerator {
                 }
             }
         }
-
-        new PathGenerator(grid, rooms, gridSections).createPaths();
-
     }
 
     public void print() {
