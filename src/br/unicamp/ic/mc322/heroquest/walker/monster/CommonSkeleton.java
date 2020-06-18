@@ -9,7 +9,7 @@ public class CommonSkeleton extends Monster {
         super(walkerManager, "Common Skeleton");
         attackDice = 2;
         defenseDice = 2;
-        maxBodyPoints = currentBodyPoints = 2;
+        maximumBodyPoints = currentBodyPoints = 2;
         mindPoints = 1;
         Weapon weapon = Weapon.getRandomWeapon();
 

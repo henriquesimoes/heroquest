@@ -16,19 +16,19 @@ public class PlayerInterface {
         viewer = new TerminalViewer();
     }
 
-    public int showOptionsAndGetAnswer(ArrayList<String> optionsList) {
+    public int showOptionsAndGetAnswer(ArrayList<String> optionList) {
         boolean invalidAnswer = true;
         int answer = 0;
 
         while (invalidAnswer) {
-            for (int i = 0; i < optionsList.size(); i++) {
-                System.out.printf("%2d - %s\n", i + 1, optionsList.get(i));
+            for (int i = 0; i < optionList.size(); i++) {
+                System.out.printf("%2d - %s\n", i + 1, optionList.get(i));
             }
             System.out.printf("%2d - Return\n", 0);
             System.out.print("Selected option: ");
             answer = scanner.nextInt();
 
-            if (answer >= 0 && answer <= optionsList.size())
+            if (answer >= 0 && answer <= optionList.size())
                 invalidAnswer = false;
             System.out.println("");
         }

@@ -46,7 +46,7 @@ public class GameLoop implements GameListener {
                 manager.showMessage("Your Team Lost");
         } else {
             for (WalkerManager manager : heroes)
-                manager.showMessage("Your Team Won");
+                manager.showMessage("Your Team Wins");
         }
     }
 
@@ -74,11 +74,13 @@ public class GameLoop implements GameListener {
             heroesAlive.remove(managerWalkerDead);
             map.remove(managerWalkerDead.getWalker(), managerWalkerDead.getWalkerPosition());
         }
+
         if (monstersAlive.contains(managerWalkerDead)){
             monstersAlive.remove(managerWalkerDead);
             map.remove(managerWalkerDead.getWalker(), managerWalkerDead.getWalkerPosition());
         }
-        String message = String.format("The %s is dead", managerWalkerDead.getWalkerName());
+
+        String message = String.format("%s is dead", managerWalkerDead.getWalkerName());
         for (WalkerManager manager : heroes)
             manager.showMessage(message);
     }

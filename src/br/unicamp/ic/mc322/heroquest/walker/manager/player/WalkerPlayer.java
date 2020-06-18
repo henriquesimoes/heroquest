@@ -66,13 +66,13 @@ public class WalkerPlayer extends WalkerManager {
 
     @Override
     protected int chooseMove(ArrayList<Coordinate> possibleMoves) {
-        ArrayList<String> movesList = new ArrayList<>();
+        ArrayList<String> moveList = new ArrayList<>();
 
         for (Coordinate coordinate : possibleMoves)
-            movesList.add(coordinate.toString());
+            moveList.add(coordinate.toString());
 
         ioInterface.showMessage("Choose a destination position:");
-        int choice = ioInterface.showOptionsAndGetAnswer(movesList);
+        int choice = ioInterface.showOptionsAndGetAnswer(moveList);
 
         return choice;
     }

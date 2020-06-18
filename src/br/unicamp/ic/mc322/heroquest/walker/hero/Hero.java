@@ -14,10 +14,10 @@ public abstract class Hero extends Walker {
     }
 
     @Override
-    public int getIntensityDefense(int numberOfDices) {
+    public int getDefenseIntensity(int numberOfDice) {
         int intensity = 0;
 
-        for (int times = 0; times < numberOfDices; times++)
+        for (int times = 0; times < numberOfDice; times++)
             if (combatDice.roll() == CombatDiceFace.HERO_SHIELD)
                 intensity++;
 

@@ -101,8 +101,8 @@ public abstract class WalkerManager {
         ArrayList<CollectableItem> items = walker.getItems();
         int choice = chooseItem(items);
         if (choice != 0) {
-            CollectableItem choosedItem = items.get(choice - 1);
-            choosedItem.useItem(walker);
+            CollectableItem chosenItem = items.get(choice - 1);
+            chosenItem.useItem(walker);
         }
     }
 

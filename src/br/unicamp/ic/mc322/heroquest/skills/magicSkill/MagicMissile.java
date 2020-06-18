@@ -21,7 +21,7 @@ public class MagicMissile extends MagicSkill {
     public void useSkill(Walker summoner, MapObject targetObject) {
         Walker targetWalker = (Walker)targetObject;
         if (summoner.attemptMagicalMovement())
-            targetWalker.defendsMagicSkill(TOTAL_DAMAGE);
+            targetWalker.defendFromMagicSkill(TOTAL_DAMAGE);
     }
 
     @Override

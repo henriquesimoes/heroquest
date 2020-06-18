@@ -25,7 +25,7 @@ public abstract class Walker extends MapObject {
     protected Weapon leftWeapon, rightWeapon;
     protected Armor armor;
     protected int attackDice, movementDice, defenseDice, bonusDefenseDice;
-    protected int maxBodyPoints, currentBodyPoints, mindPoints;
+    protected int maximumBodyPoints, currentBodyPoints, mindPoints;
     protected HashMap<Skill, Integer> skills;
     protected CombatDice combatDice;
     protected RedDice redDice;
@@ -51,7 +51,7 @@ public abstract class Walker extends MapObject {
 
     public String getStatus(){
         String status = String.format("Name: %s\n",  name);
-        status += String.format("Life: %d/%d\n", currentBodyPoints, maxBodyPoints);
+        status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
         status += String.format("Armor: %s\n", (armor == null? "none" : armor.getItemName()));
         if (leftWeapon != null && leftWeapon.isTwoHanded())
             status += String.format("Weapon: %s\n", leftWeapon.getItemName());
@@ -67,14 +67,14 @@ public abstract class Walker extends MapObject {
     }
 
     public ArrayList<Skill> getSkills() {
-        ArrayList<Skill> skillsList = new ArrayList<>();
+        ArrayList<Skill> skillList = new ArrayList<>();
 
         for (Map.Entry<Skill, Integer> pair : skills.entrySet()) {
             Skill skill = pair.getKey();
-            skillsList.add(skill);
+            skillList.add(skill);
         }
 
-        return skillsList;
+        return skillList;
     }
 
     public int getPositionLimitInMovement() {
@@ -87,14 +87,14 @@ public abstract class Walker extends MapObject {
     }
 
     public int getPhysicalAttackPower(Weapon weapon) {
-        int intensity = 0;
+        int attackIntensity = 0;
         int totalAttack = attackDice + weapon.getAttackBonus();
 
         for (int times = 0; times < totalAttack; times++)
             if (combatDice.roll() == CombatDiceFace.SKULL)
-                intensity++;
+                attackIntensity++;
 
-        return intensity;
+        return attackIntensity;
     }
 
     public boolean attemptMagicalMovement() {
@@ -105,7 +105,7 @@ public abstract class Walker extends MapObject {
         return redDice.roll();
     }
 
-    public abstract int getIntensityDefense(int numberOfDices);
+    public abstract int getDefenseIntensity(int numberOfDices);
 
     public void notifyDamage(int damage){
         GameMonitor gameMonitor = GameMonitor.getInstance();
@@ -119,21 +119,21 @@ public abstract class Walker extends MapObject {
         }
     }
 
-    public void defendsSkill(int intensityAttack, int intensityDefence){
-        int damage = Math.max(intensityAttack - intensityDefence, 0);
+    public void defendFromSkill(int attackIntensity, int defenseIntensity) {
+        int damage = Math.max(attackIntensity - defenseIntensity, 0);
         decreaseBodyPoints(damage);
         notifyDamage(damage);
         notifyIfIsDead();
     }
 
-    public void defendsMagicSkill(int intensityAttack) {
-        int intensityDefence = getIntensityDefense(mindPoints);
-        defendsSkill(intensityAttack, intensityDefence);
+    public void defendFromMagicSkill(int attackIntensity) {
+        int defenseIntensity = getDefenseIntensity(mindPoints);
+        defendFromSkill(attackIntensity, defenseIntensity);
     }
 
-    public void defendsPhysicalSkill(int intensityAttack) {
-        int intensityDefence = getIntensityDefense(defenseDice + bonusDefenseDice);
-        defendsSkill(intensityAttack, intensityDefence);
+    public void defendsPhysicalSkill(int attackIntensity) {
+        int defenseIntensity = getDefenseIntensity(defenseDice + bonusDefenseDice);
+        defendFromSkill(attackIntensity, defenseIntensity);
         if (armor != null)
             armor.degradeByUse(this);
     }
@@ -157,7 +157,7 @@ public abstract class Walker extends MapObject {
     }
 
     public void restoreBodyPoints(int delta) {
-        currentBodyPoints = Math.min(currentBodyPoints + delta, maxBodyPoints);
+        currentBodyPoints = Math.min(currentBodyPoints + delta, maximumBodyPoints);
     }
 
     private void decreaseBodyPoints(int delta) {
@@ -237,13 +237,13 @@ public abstract class Walker extends MapObject {
             unequipArmor();
 
         armor = nextArmor;
-        bonusDefenseDice += nextArmor.getDefenceBonus();
+        bonusDefenseDice += nextArmor.getDefenseBonus();
     }
 
     protected void unequipArmor() {
         if (armor != null) {
             knapsack.put(armor);
-            bonusDefenseDice -= armor.getDefenceBonus();
+            bonusDefenseDice -= armor.getDefenseBonus();
         }
     }
 

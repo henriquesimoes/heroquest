@@ -9,26 +9,26 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Wizard extends Hero {
-    final int numInitialDaggers = 3;
-    final int numInitialMagicMissile = 3;
+    final int initialNumberOfDaggers = 3;
+    final int initialNumberOfMagicMissiles = 3;
 
     public Wizard(WalkerManager walkerManager, String name) {
         super(walkerManager, name);
 
         attackDice = 1;
         defenseDice = 2;
-        maxBodyPoints = currentBodyPoints =  4;
+        maximumBodyPoints = currentBodyPoints =  4;
         mindPoints = 6;
         ableLearnAirSpell = ableLearnEarthSpell = ableLearnFireSpell = true;
 
-        Weapon curWeapon = new Dagger();
-        knapsack.put(curWeapon);
-        equipWeapon(curWeapon);
+        Weapon currentWeapon = new Dagger();
+        knapsack.put(currentWeapon);
+        equipWeapon(currentWeapon);
 
-        for (int i = 0; i < numInitialDaggers - 1; i++)
+        for (int i = 0; i < initialNumberOfDaggers - 1; i++)
             knapsack.put(new Dagger());
 
-        for (int i = 0; i < numInitialMagicMissile; i++)
+        for (int i = 0; i < initialNumberOfMagicMissiles; i++)
             addSkill(new MagicMissile());
 
         addSkill(new FireBall());

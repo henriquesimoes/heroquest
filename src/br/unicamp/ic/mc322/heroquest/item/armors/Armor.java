@@ -11,7 +11,7 @@ public class Armor extends DurableItem {
         this.defenseBonus = defenseBonus;
     }
 
-    public int getDefenceBonus() {
+    public int getDefenseBonus() {
         return defenseBonus;
     }
 

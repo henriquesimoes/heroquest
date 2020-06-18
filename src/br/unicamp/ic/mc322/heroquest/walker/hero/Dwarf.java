@@ -11,13 +11,13 @@ public class Dwarf extends Hero {
 
         attackDice = 2;
         defenseDice = 2;
-        maxBodyPoints = currentBodyPoints = 7;
+        maximumBodyPoints = currentBodyPoints = 7;
         mindPoints = 3;
 
-        Weapon curWeapon = new ShortSword();
-        knapsack.put(curWeapon);
+        Weapon currentWeapon = new ShortSword();
+        knapsack.put(currentWeapon);
 
-        equipWeapon(curWeapon);
+        equipWeapon(currentWeapon);
     }
 
     @Override

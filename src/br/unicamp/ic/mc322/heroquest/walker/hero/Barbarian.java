@@ -11,13 +11,13 @@ public class Barbarian extends Hero {
 
         attackDice = 3;
         defenseDice = 2;
-        maxBodyPoints = currentBodyPoints = 8;
+        maximumBodyPoints = currentBodyPoints = 8;
         mindPoints = 2;
 
-        Weapon curWeapon = new LongSword();
-        knapsack.put(curWeapon);
+        Weapon currentWeapon = new LongSword();
+        knapsack.put(currentWeapon);
 
-        equipWeapon(curWeapon);
+        equipWeapon(currentWeapon);
     }
 
     @Override

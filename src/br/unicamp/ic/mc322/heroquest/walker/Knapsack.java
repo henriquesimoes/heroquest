@@ -15,18 +15,18 @@ public class Knapsack {
 
     public void put(CollectableItem item) {
         Integer oldAmount = items.get(item);
-        Integer curAmount = oldAmount == null ? 1 : oldAmount + 1;
-        items.put(item, curAmount);
+        Integer currentAmount = oldAmount == null ? 1 : oldAmount + 1;
+        items.put(item, currentAmount);
     }
 
     public void remove(CollectableItem item) {
-        Integer curAmount = items.remove(item);
-        if (curAmount == null)
+        Integer currentAmount = items.remove(item);
+        if (currentAmount == null)
             throw new NoSuchElementException();
 
-        curAmount --;
-        if (curAmount > 0)
-            items.put(item, curAmount);
+        currentAmount--;
+        if (currentAmount > 0)
+            items.put(item, currentAmount);
     }
 
     public ArrayList<CollectableItem> getItems() {

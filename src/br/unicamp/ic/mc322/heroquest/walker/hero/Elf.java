@@ -12,14 +12,14 @@ public class Elf extends Hero {
 
         attackDice = 2;
         defenseDice = 2;
-        maxBodyPoints = currentBodyPoints =  6;
+        maximumBodyPoints = currentBodyPoints =  6;
         mindPoints = 4;
 
         ableLearnWaterSpell = ableLearnEarthSpell = true;
 
-        Weapon curWeapon = new ShortSword();
-        knapsack.put(curWeapon);
-        equipWeapon(curWeapon);
+        Weapon currentWeapon = new ShortSword();
+        knapsack.put(currentWeapon);
+        equipWeapon(currentWeapon);
 
         addSkill(new SimpleHeal());
     }

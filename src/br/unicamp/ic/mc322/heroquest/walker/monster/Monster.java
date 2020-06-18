@@ -13,7 +13,7 @@ public abstract class Monster extends Walker {
     }
 
     @Override
-    public int getIntensityDefense(int numberOfDices) {
+    public int getDefenseIntensity(int numberOfDices) {
         int intensity = 0;
 
         for (int times = 0; times < numberOfDices; times++)

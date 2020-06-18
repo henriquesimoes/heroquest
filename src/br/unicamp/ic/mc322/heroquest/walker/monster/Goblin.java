@@ -13,7 +13,7 @@ public class Goblin extends Monster {
 
         attackDice = 3;
         defenseDice = 1;
-        maxBodyPoints = currentBodyPoints = 2;
+        maximumBodyPoints = currentBodyPoints = 2;
         mindPoints = 2;
 
         Weapon currentWeapon = new Dagger();

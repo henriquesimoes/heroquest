@@ -12,7 +12,7 @@ public class SkeletonWizard extends Monster {
 
         attackDice = 2;
         defenseDice = 1;
-        maxBodyPoints = currentBodyPoints = 2;
+        maximumBodyPoints = currentBodyPoints = 2;
         mindPoints = 3;
         ableLearnAirSpell = true;
 

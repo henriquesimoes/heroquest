@@ -28,9 +28,9 @@ public class FireBall extends MagicSkill {
             Region region = regionSelector.getAdjacentRegion(false);
             ArrayList<Walker> adjacentTargets = targetManager.getEnemiesWithinArea(region);
 
-            targetWalker.defendsMagicSkill(DAMAGE_TO_PRIMARY_TARGET);
+            targetWalker.defendFromMagicSkill(DAMAGE_TO_PRIMARY_TARGET);
             for (Walker target : adjacentTargets)
-                target.defendsMagicSkill(ADJACENT_DAMAGE);
+                target.defendFromMagicSkill(ADJACENT_DAMAGE);
         }
     }
 
