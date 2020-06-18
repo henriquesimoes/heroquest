@@ -16,7 +16,7 @@ import java.util.Random;
 public class MapGenerator {
     private final int BSP_ITERATIONS = 4;
     private final int GRID_HEIGHT = 31;
-    private final int GRID_WIDTH = 101;
+    private final int GRID_WIDTH = 80;
 
     private final int ROOM_MIN_WIDTH = 11;
     private final int ROOM_MIN_HEIGHT = 7;
@@ -34,7 +34,6 @@ public class MapGenerator {
         createGrid();
         createRandomRooms();
         createMatrixGrid();
-        digPathBetweenRooms();
         print();
     }
 
@@ -57,25 +56,6 @@ public class MapGenerator {
             }
         }
 
-        for (GridContainer container : gridSections) {
-            Coordinate topleft = container.getTopLeftCornerCoordinate();
-            for (int i = 0; i < container.getDimensionY() + 2; i++) {
-                if (topleft.getX() + container.getDimensionX() >= grid[0].length || topleft.getY() + i >= grid.length)
-                    break;
-
-                grid[topleft.getY() + i][topleft.getX() + container.getDimensionX()] = ' ';
-                grid[topleft.getY() + i][topleft.getX() + container.getDimensionX() + 1] = ' ';
-            }
-
-            for (int i = 0; i < container.getDimensionX() + 2; i++) {
-                if (topleft.getY() + container.getDimensionY() + 1 >= grid.length || topleft.getX() + i >= grid[0].length)
-                    break;
-
-                grid[topleft.getY() + container.getDimensionY()][topleft.getX() + i] = ' ';
-                grid[topleft.getY() + container.getDimensionY() + 1][topleft.getX() + i] = ' ';
-            }
-        }
-
         for (RoomStructure room : rooms) {
             Coordinate roomCoord = room.getRoomTopLeftCoordinates();
             Dimension roomDimensions = room.getRoomDimension();
@@ -83,29 +63,22 @@ public class MapGenerator {
             for (int i = roomCoord.getY(); i < roomCoord.getY() + roomDimensions.getHeight(); i++) {
                 if (i == roomCoord.getY() || i == (roomCoord.getY() + roomDimensions.getHeight() - 1)) {
                     for (int j = roomCoord.getX(); j < roomCoord.getX() + roomDimensions.getWidth(); j++) {
-                        grid[i][j] = '/';
+                        grid[i][j] = '#';
                     }
                 }
                 else {
                     for (int j = roomCoord.getX(); j < roomCoord.getX() + room.getRoomDimension().getWidth(); j++) {
                         grid[i][j] = ' ';
                     }
-                    grid[i][roomCoord.getX()] = '/';
-                    grid[i][roomCoord.getX() + room.getRoomDimension().getWidth() - 1] = '/';
+                    grid[i][roomCoord.getX()] = '#';
+                    grid[i][roomCoord.getX() + room.getRoomDimension().getWidth() - 1] = '#';
                 }
             }
         }
 
-        for (RoomStructure room : rooms) {
-            System.out.println("Coords (" + room.getRoomTopLeftCoordinates().getX() + ", " + room.getRoomTopLeftCoordinates().getY() + ")" +
-                    "- Size:" + room.getRoomDimension().getWidth() + " x " +  room.getRoomDimension().getHeight());
-        }
-    }
+        new PathGenerator(grid, rooms, gridSections).createPaths();
 
-    private void digPathBetweenRooms() {
-        new PathGenerator(grid, rooms).createPaths();
     }
-    //TODO: ainda não é a versão final
 
     public void print() {
         for (int i = 0; i < GRID_HEIGHT; i++) {
