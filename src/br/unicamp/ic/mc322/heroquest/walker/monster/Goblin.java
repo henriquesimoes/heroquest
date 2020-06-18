@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Goblin extends Monster {
-    final int initialNumberOfDaggers = 2;
+    private final int initialNumberOfDaggers = 2;
 
     public Goblin(WalkerManager walkerManager) {
         super(walkerManager, "Goblin");

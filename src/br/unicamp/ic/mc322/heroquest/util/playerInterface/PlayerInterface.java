@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlayerInterface {
-    Viewer viewer;
-    Scanner scanner;
+    private Viewer viewer;
+    private Scanner scanner;
+
     public PlayerInterface() {
         scanner = new Scanner(System.in);
         viewer = new TerminalViewer();

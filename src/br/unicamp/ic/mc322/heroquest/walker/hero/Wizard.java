@@ -9,8 +9,8 @@ import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Wizard extends Hero {
-    final int initialNumberOfDaggers = 3;
-    final int initialNumberOfMagicMissiles = 3;
+    private final int initialNumberOfDaggers = 3;
+    private final int initialNumberOfMagicMissiles = 3;
 
     public Wizard(WalkerManager walkerManager, String name) {
         super(walkerManager, name);
