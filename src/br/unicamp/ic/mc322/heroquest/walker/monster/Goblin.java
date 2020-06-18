@@ -5,12 +5,12 @@ import br.unicamp.ic.mc322.heroquest.item.weapons.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
-public class Globin extends Monster {
+public class Goblin extends Monster {
     final int initialNumberOfDaggers = 2;
 
-    public Globin(WalkerManager walkerManager) {
-        this.walkerManager = walkerManager;
-        name = "Globin";
+    public Goblin(WalkerManager walkerManager) {
+        super(walkerManager, "Goblin");
+
         attackDice = 3;
         defenseDice = 1;
         maxBodyPoints = currentBodyPoints = 2;
@@ -31,6 +31,6 @@ public class Globin extends Monster {
 
     @Override
     public String getRepresentationOnMenu() {
-        return "Globin";
+        return name;
     }
 }

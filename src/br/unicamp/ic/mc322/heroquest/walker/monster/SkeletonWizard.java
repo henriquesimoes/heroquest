@@ -8,9 +8,8 @@ public class SkeletonWizard extends Monster {
     final int numInitialMagicMissile = 2;
 
     public SkeletonWizard(WalkerManager walkerManager) {
-        this.walkerManager = walkerManager;
-        this.walkerManager.setWalker(this);
-        name = "Skeleton Wizard";
+        super(walkerManager, "Skeleton Wizard");
+
         attackDice = 2;
         defenseDice = 1;
         maxBodyPoints = currentBodyPoints = 2;

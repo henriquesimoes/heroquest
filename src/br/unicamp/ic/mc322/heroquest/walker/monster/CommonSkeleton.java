@@ -6,9 +6,7 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class CommonSkeleton extends Monster {
     public CommonSkeleton(WalkerManager walkerManager) {
-        this.walkerManager = walkerManager;
-        this.walkerManager.setWalker(this);
-        name = "Common Skeleton";
+        super(walkerManager, "Common Skeleton");
         attackDice = 2;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints = 2;

@@ -33,7 +33,11 @@ public abstract class Walker extends MapObject {
     protected WalkerManager walkerManager;
     protected boolean ableLearnFireSpell, ableLearnAirSpell, ableLearnEarthSpell, ableLearnWaterSpell;
 
-    public Walker() {
+    public Walker(WalkerManager manager, String name) {
+        this.walkerManager = manager;
+        this.name = name;
+        this.walkerManager.setWalker(this);
+
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();

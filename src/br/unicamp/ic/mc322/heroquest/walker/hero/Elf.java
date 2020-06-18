@@ -8,10 +8,8 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Elf extends Hero {
     public Elf(WalkerManager walkerManager, String name) {
-        this.walkerManager = walkerManager;
-        this.walkerManager.setWalker(this);
+        super(walkerManager, name);
 
-        this.name = name;
         attackDice = 2;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints =  6;

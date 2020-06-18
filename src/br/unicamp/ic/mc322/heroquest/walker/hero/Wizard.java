@@ -13,10 +13,8 @@ public class Wizard extends Hero {
     final int numInitialMagicMissile = 3;
 
     public Wizard(WalkerManager walkerManager, String name) {
-        this.walkerManager = walkerManager;
-        this.walkerManager.setWalker(this);
+        super(walkerManager, name);
 
-        this.name = name;
         attackDice = 1;
         defenseDice = 2;
         maxBodyPoints = currentBodyPoints =  4;
