@@ -1,6 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.item.armors;
 
-import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.DurableItem;
 
 public class Armor extends DurableItem {

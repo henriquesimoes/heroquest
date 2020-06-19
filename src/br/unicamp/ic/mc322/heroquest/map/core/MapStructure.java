@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 
-import java.util.*;
+import java.util.HashMap;
 import java.util.Map;
 
 public class MapStructure {

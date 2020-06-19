@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.spells;
 
-import br.unicamp.ic.mc322.heroquest.skills.MagicSkill;
 import br.unicamp.ic.mc322.heroquest.map.core.VisibleMap;
+import br.unicamp.ic.mc322.heroquest.skills.MagicSkill;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class MagicMissile extends MagicSkill {

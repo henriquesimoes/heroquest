@@ -16,17 +16,6 @@ public class RoomStructure {
         this.roomTopLeftCoordinates = roomTopLeftCoordinates;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public Coordinate getRoomDoorCoordinates() {
-        return roomDoorCoordinates;
-    }
 
     public Coordinate getRoomTopLeftCoordinates() {
         return roomTopLeftCoordinates;

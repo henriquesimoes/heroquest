@@ -20,6 +20,7 @@ public class MapManager {
         return loader.load(name);
     }
 
-    public void generate() {
+    public Map generate() {
+        return generator.generate();
     }
 }

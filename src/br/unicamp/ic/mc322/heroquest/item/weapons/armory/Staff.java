@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons.armory;
 
-import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemy;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.skills.weaponskills.AttackEnemy;
 
 public class Staff extends Weapon {
     private static final String DESCRIPTION = "Staff gives you a bonus of 1 combat dice." +
