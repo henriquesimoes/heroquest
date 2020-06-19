@@ -36,13 +36,15 @@ public class PathGenerator {
     }
 
     private void setVerticalCorridor(Coordinate containerTopLeft, GridContainer container) {
+        if (containerTopLeft.getX() + container.getDimensionX() >= grid[0].length)
+            return;
+
         for (int i = 0; i < container.getDimensionY() + 2; i++) {
-            if (containerTopLeft.getX() + container.getDimensionX() >= grid[0].length || containerTopLeft.getY() + i >= grid.length)
+            if (containerTopLeft.getY() + i >= grid.length)
                 break;
 
             if (containerTopLeft.getY() + i == 0 || containerTopLeft.getY() + i == grid.length - 1)
                 continue;
-
 
             grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getDimensionX()] = ' ';
             grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getDimensionX() + 1] = ' ';
@@ -50,8 +52,11 @@ public class PathGenerator {
     }
 
     private void setHorizontalCorridor(Coordinate containerTopLeft, GridContainer container) {
+        if (containerTopLeft.getY() + container.getDimensionY() + 1 >= grid.length)
+            return;
+
         for (int i = 0; i < container.getDimensionX() + 2; i++) {
-            if (containerTopLeft.getY() + container.getDimensionY() + 1 >= grid.length || containerTopLeft.getX() + i >= grid[0].length)
+            if (containerTopLeft.getX() + i >= grid[0].length)
                 break;
 
             if (containerTopLeft.getX() + i == 0 || containerTopLeft.getX() + i == grid[0].length - 1)
@@ -69,17 +74,16 @@ public class PathGenerator {
     }
 
     private void tryCorridorConnection(RoomStructure room) {
-        int[] doorsCounter = {0};
         Coordinate roomTopLeftCoords = room.getRoomTopLeftCoordinates();
         int roomEndXCoordinate = roomTopLeftCoords.getX() + room.getRoomDimension().getWidth() - 1;
 
-        tryLeftConnection(doorsCounter, room, selectVerticalIndex(room), room.getRoomTopLeftCoordinates().getX());
+        tryLeftConnection(room, selectVerticalIndex(room), room.getRoomTopLeftCoordinates().getX());
 
-        tryRightConnection(doorsCounter, room, selectVerticalIndex(room), roomEndXCoordinate);
+        tryRightConnection(room, selectVerticalIndex(room), roomEndXCoordinate);
 
     }
 
-    private void tryLeftConnection(int[] doorsCounter, RoomStructure room, int selectedYCoord, int currentXCoord) {
+    private void tryLeftConnection(RoomStructure room, int selectedYCoord, int currentXCoord) {
         if (currentXCoord <= 0)
             return;
 
@@ -92,19 +96,17 @@ public class PathGenerator {
             return;
         }
 
-        tryLeftConnection(doorsCounter, room, selectedYCoord, currentXCoord - 1);
+        tryLeftConnection(room, selectedYCoord, currentXCoord - 1);
 
         if (grid[selectedYCoord][currentXCoord - 1] == ' ') {
             if (currentXCoord == room.getRoomTopLeftCoordinates().getX())
                 grid[selectedYCoord][currentXCoord] = 'D';
             else
                 grid[selectedYCoord][currentXCoord] = ' ';
-
-            doorsCounter[0] = 1;
         }
     }
 
-    private void tryRightConnection(int[] doorsCounter, RoomStructure room, int selectedYCoord, int currentXCoord) {
+    private void tryRightConnection(RoomStructure room, int selectedYCoord, int currentXCoord) {
         if (currentXCoord >= grid[0].length - 1)
             return;
 
@@ -117,7 +119,7 @@ public class PathGenerator {
             return;
         }
 
-        tryRightConnection(doorsCounter, room, selectedYCoord, currentXCoord + 1);
+        tryRightConnection(room, selectedYCoord, currentXCoord + 1);
 
         if (grid[selectedYCoord][currentXCoord + 1] == ' ') {
             if (currentXCoord == room.getRoomTopLeftCoordinates().getX() + room.getRoomDimension().getWidth() - 1)
@@ -125,7 +127,6 @@ public class PathGenerator {
             else
                 grid[selectedYCoord][currentXCoord] = ' ';
 
-            doorsCounter[0] = 1;
         }
     }
 

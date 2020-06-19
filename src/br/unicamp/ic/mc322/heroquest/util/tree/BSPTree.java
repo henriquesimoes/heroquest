@@ -11,19 +11,19 @@ public class BSPTree {
     private final int GRID_MIN_HEIGHT = 11;
 
     private Random random = new Random();
-    private Leaf<GridContainer> root;
+    private Node<GridContainer> root;
     private GridContainer currentContainer;
     private Coordinate currentContainerCoords;
     private GridContainer leftChildContainer;
     private GridContainer rightChildContainer;
 
     public BSPTree(GridContainer grid) {
-        this.root = new Leaf<>(grid);
+        this.root = new Node<>(grid);
         this.currentContainer = root.getData();
         this.currentContainerCoords = currentContainer.getTopLeftCornerCoordinate();
     }
 
-    private BSPTree(Leaf<GridContainer> gridNode) {
+    private BSPTree(Node<GridContainer> gridNode) {
         this.root = gridNode;
         this.currentContainer = root.getData();
         this.currentContainerCoords = currentContainer.getTopLeftCornerCoordinate();
@@ -41,7 +41,7 @@ public class BSPTree {
     }
 
     private void splitGrid() {
-        if (!root.isBaseLeaf())
+        if (!root.isLeaf())
             return;
 
         boolean HorizontalSplit = random.nextBoolean();
@@ -60,8 +60,8 @@ public class BSPTree {
             splitVertical(splitPoint);
         }
 
-        root.setLeftChild(new Leaf<>(leftChildContainer));
-        root.setRightChild(new Leaf<>(rightChildContainer));
+        root.setLeftChild(new Node<>(leftChildContainer));
+        root.setRightChild(new Node<>(rightChildContainer));
 
     }
 
@@ -100,8 +100,8 @@ public class BSPTree {
         return Math.max((splitHorizontal ? GRID_MIN_HEIGHT : GRID_MIN_WIDTH), splitPoint);
     }
 
-    private void getPartitions(ArrayList<GridContainer> partitionsArray, Leaf<GridContainer> node) {
-        if (node.isBaseLeaf()) {
+    private void getPartitions(ArrayList<GridContainer> partitionsArray, Node<GridContainer> node) {
+        if (node.isLeaf()) {
             partitionsArray.add(node.getData());
             return;
         }
