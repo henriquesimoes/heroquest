@@ -1,82 +1,107 @@
 package br.unicamp.ic.mc322.heroquest.map.generator;
 
-import br.unicamp.ic.mc322.heroquest.map.core.Room;
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
+import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
+import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.BSPGrid;
+import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
+import br.unicamp.ic.mc322.heroquest.map.generator.pathgenerator.PathGenerator;
+import br.unicamp.ic.mc322.heroquest.map.generator.roomgenerator.RoomGenerator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
+import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.loader.MapParser;
 
-import java.util.HashMap;
-import java.util.Random;
+import java.util.ArrayList;
 
 public class MapGenerator {
+    private final int BSP_ITERATIONS = 4;
     private final int GRID_HEIGHT = 31;
-    private final int GRID_WIDTH = 101;
+    private final int GRID_WIDTH = 80;
 
-    private final int ROOM_MIN_WIDTH = 9;
-    private final int ROOM_MIN_HEIGHT = 5;
-    private final int ROOM_MAX_WIDTH = 20;
-    private final int ROOM_MAX_HEIGHT = 9;
-    private String[][] grid;
+    private final int ROOM_MIN_WIDTH = 11;
+    private final int ROOM_MIN_HEIGHT = 7;
 
-    private Random randGenerator;
-    private java.util.Map<String, Room> rooms;
+    private char[][] grid;
+    private ArrayList<GridContainer> gridSections;
+    private ArrayList<RoomStructure> rooms;
 
     public MapGenerator(){
-        rooms = new HashMap<>();
-        randGenerator = new Random();
+        rooms = new ArrayList<>();
     }
 
-    public void generate() {
+    public Map generate() {
         createGrid();
-        print();
+        createRandomRooms();
+        createMatrixGrid();
+
+        return new Map(buildStructure());
     }
 
     private void createGrid() {
-        grid = new String[GRID_HEIGHT][GRID_WIDTH];
+        gridSections = new BSPGrid(GRID_WIDTH, GRID_HEIGHT, BSP_ITERATIONS)
+                .getPartitionedGrid();
+    }
 
+    private void createRandomRooms() {
+        RoomGenerator randomRooms = new RoomGenerator(gridSections, ROOM_MIN_WIDTH, ROOM_MIN_HEIGHT);
+        rooms = randomRooms.createRandomRooms();
+    }
+
+    private void createMatrixGrid(){
+        grid = new char[GRID_HEIGHT][GRID_WIDTH];
+
+        fillGridWithWalls();
+        fillGridWithRoomsAreas();
+        addPathsBetweenRooms();
+    }
+
+    private void addPathsBetweenRooms() {
+        new PathGenerator(grid, rooms, gridSections).createPaths();
+    }
+
+    private void fillGridWithWalls() {
         for (int i = 0; i < GRID_HEIGHT; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                grid[i][j] = "#";
+                grid[i][j] = '#';
             }
         }
     }
 
-//    private void createRandomRooms() {
-//        int numberOfRooms = randGenerator.nextInt(22 - 15) + 15;
-//
-//        for (int i = 0; i < numberOfRooms; i++) {
-//
-//        }
-//    }
-//
-//
-//    private void setRandomRoom() {
-//        Coordinate coordinateOfTheCenterOfTheRoom = getRandCoordinateInGrid();
-//        Pair<Integer, Integer> roomDimension = new Pair<>(randGenerator.nextInt(21) + 1, randGenerator.nextInt(ROOM_MAX_HEIGHT));
-////            while(isAValidCoordinate())
-//        }
-//    }
-//
-//    private Coordinate getRandCoordinateInGrid() {
-//        return (new Coordinate(randGenerator.nextInt(GRID_HEIGHT), randGenerator.nextInt(GRID_WIDTH)));
-//    }
+    private void fillGridWithRoomsAreas() {
+        for (RoomStructure room : rooms) {
+            Coordinate roomCoord = room.getRoomTopLeftCoordinates();
+            Dimension roomDimensions = room.getRoomDimension();
 
-//    private boolean isAValidCoordinate(Coordinate coordinate) {
-//        if (coordinatesOfTheCenterOfTheRooms.contains(coordinate))
-//            return false;
-//
-//        for (Coordinate alreadySetted : coordinatesOfTheCenterOfTheRooms) {
-//            if ()
-//        }
-//    }
+            for (int i = roomCoord.getY(); i < roomCoord.getY() + roomDimensions.getHeight(); i++) {
+                for (int j = roomCoord.getX(); j < roomCoord.getX() + roomDimensions.getWidth(); j++) {
+                    grid[i][j] = isOnBorder(roomCoord, roomDimensions, i, j) ? '#': ' ';
+                }
+            }
+        }
+    }
 
+    private boolean isOnBorder(Coordinate coordinates, Dimension dimensions, int i, int j) {
+        if (i == coordinates.getY() || j == coordinates.getX()
+                || i == (coordinates.getY() + dimensions.getHeight() - 1)
+                || j == (coordinates.getX() + dimensions.getWidth() - 1)) {
+            return  true;
+        }
 
+        return false;
+    }
 
-    public void print() {
+    private MapStructure buildStructure() {
+        MapStructure structure = new MapStructure();
+        Coordinate origin = Coordinate.getOrigin();
+
         for (int i = 0; i < GRID_HEIGHT; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                System.out.print(grid[i][j]);
+                Coordinate coordinate = Coordinate.shift(origin, j, i);
+
+                structure.add(MapParser.parse(grid[i][j], coordinate));
             }
-            System.out.print('\n');
         }
+
+        return structure;
     }
 }

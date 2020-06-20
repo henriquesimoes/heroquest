@@ -1,79 +1,113 @@
 package br.unicamp.ic.mc322.heroquest.util.tree;
 
-import br.unicamp.ic.mc322.heroquest.map.generator.GridContainer;
+import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.util.random.Random;
 
 import java.util.ArrayList;
 
 public class BSPTree {
-    private final int GRID_MIN_WIDTH = 9;
-    private final int GRID_MIN_HEIGHT = 5;
+    private final int GRID_MIN_WIDTH = 13;
+    private final int GRID_MIN_HEIGHT = 11;
 
-    private Leaf<GridContainer> root;
-    private GridContainer currentContainer;
     private Random random = new Random();
-
+    private Node<GridContainer> root;
+    private GridContainer currentContainer;
+    private Coordinate currentContainerCoords;
+    private GridContainer leftChildContainer;
+    private GridContainer rightChildContainer;
 
     public BSPTree(GridContainer grid) {
-        this.root = new Leaf<>(grid);
+        this.root = new Node<>(grid);
         this.currentContainer = root.getData();
+        this.currentContainerCoords = currentContainer.getTopLeftCornerCoordinate();
     }
 
-    public boolean splitGrid() {
-        if (!root.isBaseLeaf())
-            return false;
+    private BSPTree(Node<GridContainer> gridNode) {
+        this.root = gridNode;
+        this.currentContainer = root.getData();
+        this.currentContainerCoords = currentContainer.getTopLeftCornerCoordinate();
+    }
 
-        boolean splitHorizontal = random.nextBoolean();
+    public void runBSP(int numberOfIterations) {
+        if (numberOfIterations > 0) {
+            splitGrid();
 
-        int maxSplitValueInDirection = getMaxSplitValue(splitHorizontal);
+            if (root.getRightChild() != null) {
+                new BSPTree(root.getLeftChild()).runBSP(numberOfIterations - 1);
+                new BSPTree(root.getRightChild()).runBSP(numberOfIterations - 1);
+            }
+        }
+    }
 
-        if (maxSplitValueInDirection <= (splitHorizontal ? GRID_MIN_HEIGHT : GRID_MIN_WIDTH))
-            return false;
+    private void splitGrid() {
+        if (!root.isLeaf())
+            return;
 
-        int splitPoint = getSplitPoint(splitHorizontal, maxSplitValueInDirection);
-        Coordinate currentContainerCoords = currentContainer.getTopLeftCornerCoordinate();
+        boolean HorizontalSplit = random.nextBoolean();
 
-        if (splitHorizontal) {
-            GridContainer leftChildContainer = new GridContainer(currentContainer.getDimensionX(), splitPoint,
-                                                        currentContainerCoords.getX(), currentContainerCoords.getY());
+        int maxSplitValueInDirection = getMaxSplitValue(HorizontalSplit);
 
-            GridContainer rightChildContainer = new GridContainer(
-                    currentContainer.getDimensionX(),
-                    currentContainer.getDimensionY() - splitPoint,
-                    currentContainerCoords.getX(),
-                    currentContainerCoords.getY() + (currentContainer.getDimensionY() - splitPoint));
+        if (maxSplitValueInDirection <= (HorizontalSplit ? GRID_MIN_HEIGHT : GRID_MIN_WIDTH))
+            return;
 
-            root.setLeftChild(new Leaf<>(leftChildContainer));
-            root.setRightChild(new Leaf<>(rightChildContainer));
+        int splitPoint = getSplitPoint(HorizontalSplit, maxSplitValueInDirection);
+
+        if (HorizontalSplit) {
+            splitHorizontal(splitPoint);
         }
         else {
-            GridContainer leftChildContainer = new GridContainer(splitPoint, currentContainer.getDimensionY(),
-                    currentContainerCoords.getX(), currentContainerCoords.getY());
-
-            GridContainer rightChildContainer = new GridContainer(
-                    currentContainer.getDimensionX() - splitPoint,
-                    currentContainer.getDimensionY(),
-                    currentContainerCoords.getX() + splitPoint,
-                    currentContainerCoords.getY());
-
-            root.setLeftChild(new Leaf<>(leftChildContainer));
-            root.setRightChild(new Leaf<>(rightChildContainer));
-
+            splitVertical(splitPoint);
         }
 
-        return true;
+        root.setLeftChild(new Node<>(leftChildContainer));
+        root.setRightChild(new Node<>(rightChildContainer));
+
     }
 
-    public int getMaxSplitValue(boolean splitHorizontal) {
+    private void splitHorizontal(int splitPoint) {
+        leftChildContainer = new GridContainer(
+                currentContainer.getDimensionX(),
+                splitPoint,
+                currentContainerCoords.getX(),
+                currentContainerCoords.getY());
+
+        rightChildContainer = new GridContainer(
+                currentContainer.getDimensionX(),
+                currentContainer.getDimensionY() - splitPoint - 2,
+                currentContainerCoords.getX(),
+                currentContainerCoords.getY() + splitPoint + 2);
+    }
+
+    private void splitVertical(int splitPoint) {
+        leftChildContainer = new GridContainer(splitPoint, currentContainer.getDimensionY(),
+                currentContainerCoords.getX(), currentContainerCoords.getY());
+
+        rightChildContainer = new GridContainer(
+                currentContainer.getDimensionX() - splitPoint - 2,
+                currentContainer.getDimensionY(),
+                currentContainerCoords.getX() + splitPoint + 2,
+                currentContainerCoords.getY());
+    }
+
+    private int getMaxSplitValue(boolean splitHorizontal) {
         return (splitHorizontal ? (currentContainer .getDimensionY() - GRID_MIN_HEIGHT)
-                                : (currentContainer .getDimensionX() - GRID_MIN_WIDTH));
+                : (currentContainer.getDimensionX() - GRID_MIN_WIDTH));
     }
 
-    public int getSplitPoint(boolean splitHorizontal, int maxSplitValue) {
-        int splitPoint = random.nextInt(maxSplitValue);
-
+    private int getSplitPoint(boolean splitHorizontal, int maxSplitValue) {
+        int splitPoint = random.nextInt(maxSplitValue - 1);
         return Math.max((splitHorizontal ? GRID_MIN_HEIGHT : GRID_MIN_WIDTH), splitPoint);
+    }
+
+    private void getPartitions(ArrayList<GridContainer> partitionsArray, Node<GridContainer> node) {
+        if (node.isLeaf()) {
+            partitionsArray.add(node.getData());
+            return;
+        }
+
+        getPartitions(partitionsArray, node.getLeftChild());
+        getPartitions(partitionsArray, node.getRightChild());
     }
 
     public ArrayList<GridContainer> getPartitionedGrid() {
@@ -84,13 +118,4 @@ public class BSPTree {
         return partitionedGrid;
     }
 
-    private void getPartitions(ArrayList<GridContainer> partitionsArray, Leaf<GridContainer> node) {
-        if (node.isBaseLeaf()) {
-            partitionsArray.add(node.getData());
-            return;
-        }
-
-        getPartitions(partitionsArray, node.getLeftChild());
-        getPartitions(partitionsArray, node.getRightChild());
-    }
 }

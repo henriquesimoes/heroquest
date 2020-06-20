@@ -1,7 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemy;
-import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 
 public class BattleAxe extends Weapon {
     private static final String DESCRIPTION = "A heavy axe that gives you a bonus of 4 combat dices." +
