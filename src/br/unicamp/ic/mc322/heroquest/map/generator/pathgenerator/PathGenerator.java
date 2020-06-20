@@ -84,50 +84,52 @@ public class PathGenerator {
     }
 
     private void tryLeftConnection(RoomStructure room, int selectedYCoord, int currentXCoord) {
-        if (currentXCoord <= 0)
-            return;
+        int initialXCoordValue= currentXCoord;
 
-        if (grid[selectedYCoord][currentXCoord - 1] == ' ') {
-            if (currentXCoord == room.getRoomTopLeftCoordinates().getX())
-                grid[selectedYCoord][currentXCoord] = 'D';
-            else
-                grid[selectedYCoord][currentXCoord] = ' ';
+        while (true) {
+            if (!canMakeConnection(currentXCoord, 0))
+                break;
 
-            return;
-        }
+            if (grid[selectedYCoord][currentXCoord - 1] == ' ') {
+                for (int i = initialXCoordValue; i >= currentXCoord; i--) {
+                    if (i == room.getRoomTopLeftCoordinates().getX())
+                        grid[selectedYCoord][i] = 'D';
+                    else
+                        grid[selectedYCoord][i] = ' ';
+                }
 
-        tryLeftConnection(room, selectedYCoord, currentXCoord - 1);
+                break;
+            }
 
-        if (grid[selectedYCoord][currentXCoord - 1] == ' ') {
-            if (currentXCoord == room.getRoomTopLeftCoordinates().getX())
-                grid[selectedYCoord][currentXCoord] = 'D';
-            else
-                grid[selectedYCoord][currentXCoord] = ' ';
+            currentXCoord--;
         }
     }
 
     private void tryRightConnection(RoomStructure room, int selectedYCoord, int currentXCoord) {
-        if (currentXCoord >= grid[0].length - 1)
-            return;
+        int initialXCoordValue= currentXCoord;
 
-        if (grid[selectedYCoord][currentXCoord + 1] == ' ') {
-            if (currentXCoord == room.getRoomTopLeftCoordinates().getX() + room.getRoomDimension().getWidth() - 1)
-                grid[selectedYCoord][currentXCoord] = 'D';
-            else
-                grid[selectedYCoord][currentXCoord] = ' ';
+        while (true) {
+            if (!canMakeConnection(currentXCoord, grid[0].length - 1)) {
+                break;
+            }
 
-            return;
+            if (grid[selectedYCoord][currentXCoord + 1] == ' ') {
+                for (int i = initialXCoordValue; i <= currentXCoord; i++) {
+                    if (i == room.getRoomTopLeftCoordinates().getX() + room.getRoomDimension().getWidth() - 1)
+                        grid[selectedYCoord][i] = 'D';
+                    else
+                        grid[selectedYCoord][i] = ' ';
+                }
+
+                break;
+            }
+
+            currentXCoord++;
         }
+    }
 
-        tryRightConnection(room, selectedYCoord, currentXCoord + 1);
-
-        if (grid[selectedYCoord][currentXCoord + 1] == ' ') {
-            if (currentXCoord == room.getRoomTopLeftCoordinates().getX() + room.getRoomDimension().getWidth() - 1)
-                grid[selectedYCoord][currentXCoord] = 'D';
-            else
-                grid[selectedYCoord][currentXCoord] = ' ';
-
-        }
+    private boolean canMakeConnection(int coordinateInChosenAxis, int borderLimit) {
+        return !(coordinateInChosenAxis == borderLimit);
     }
 
     private int selectVerticalIndex(RoomStructure room) {
