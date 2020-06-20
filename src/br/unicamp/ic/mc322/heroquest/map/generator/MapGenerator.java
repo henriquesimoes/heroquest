@@ -73,20 +73,21 @@ public class MapGenerator {
             Dimension roomDimensions = room.getRoomDimension();
 
             for (int i = roomCoord.getY(); i < roomCoord.getY() + roomDimensions.getHeight(); i++) {
-                if (i == roomCoord.getY() || i == (roomCoord.getY() + roomDimensions.getHeight() - 1)) {
-                    for (int j = roomCoord.getX(); j < roomCoord.getX() + roomDimensions.getWidth(); j++) {
-                        grid[i][j] = '#';
-                    }
-                }
-                else {
-                    for (int j = roomCoord.getX(); j < roomCoord.getX() + room.getRoomDimension().getWidth(); j++) {
-                        grid[i][j] = ' ';
-                    }
-                    grid[i][roomCoord.getX()] = '#';
-                    grid[i][roomCoord.getX() + room.getRoomDimension().getWidth() - 1] = '#';
+                for (int j = roomCoord.getX(); j < roomCoord.getX() + roomDimensions.getWidth(); j++) {
+                    grid[i][j] = isOnBorder(roomCoord, roomDimensions, i, j) ? '#': ' ';
                 }
             }
         }
+    }
+
+    private boolean isOnBorder(Coordinate coordinates, Dimension dimensions, int i, int j) {
+        if (i == coordinates.getY() || j == coordinates.getX()
+                || i == (coordinates.getY() + dimensions.getHeight() - 1)
+                || j == (coordinates.getX() + dimensions.getWidth() - 1)) {
+            return  true;
+        }
+
+        return false;
     }
 
     private MapStructure buildStructure() {
