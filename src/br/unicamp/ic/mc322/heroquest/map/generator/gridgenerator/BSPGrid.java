@@ -22,18 +22,12 @@ public class BSPGrid {
     private ArrayList<GridContainer> getBestGrid() {
         ArrayList<GridContainer> bestGrid = null;
 
-        int i = 0;
-        do {
+        for (int i = 0; i < 20; i++){
             BSPTree grid = createBSP();
             ArrayList<GridContainer> comparableGrid = grid.getPartitionedGrid();
-
-            if (bestGrid == null)
+            if (bestGrid == null || comparableGrid.size() > bestGrid.size())
                 bestGrid = comparableGrid;
-            else if (comparableGrid.size() > bestGrid.size())
-                bestGrid = comparableGrid;
-
-            i++;
-        } while (i < 20);
+        }
 
         return bestGrid;
     }
