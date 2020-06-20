@@ -16,7 +16,7 @@ public class Floor extends StructuralObject {
     }
 
     @Override
-    public boolean isWalkOverable() {
+    public boolean isAllowedToWalkOver() {
         return true;
     }
 
@@ -28,5 +28,10 @@ public class Floor extends StructuralObject {
     @Override
     public ObjectView getRepresentation() {
         return new ObjectView(" ");
+    }
+
+    @Override
+    public String getRepresentationOnMenu() {
+        return "Free space on " + getPosition();
     }
 }

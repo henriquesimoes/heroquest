@@ -19,7 +19,7 @@ public class Door extends StructuralObject {
     }
 
     @Override
-    public boolean isWalkOverable() {
+    public boolean isAllowedToWalkOver() {
         return opened;
     }
 
@@ -33,5 +33,10 @@ public class Door extends StructuralObject {
     @Override
     public ObjectView getRepresentation() {
         return new ObjectView(opened ? " " : "D");
+    }
+
+    @Override
+    public String getRepresentationOnMenu() {
+        return (opened ? "Opened" : "Closed") + " door on " + getPosition();
     }
 }

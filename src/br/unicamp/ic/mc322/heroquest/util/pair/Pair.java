@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.util.pair;
 
 public class Pair<T, U> {
-    T key;
-    U value;
+    private T key;
+    private U value;
 
     public Pair(T key, U value) {
         this.key = key;

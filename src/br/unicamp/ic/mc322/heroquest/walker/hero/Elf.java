@@ -1,31 +1,36 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
-import br.unicamp.ic.mc322.heroquest.item.spells.SimpleHeal;
+import br.unicamp.ic.mc322.heroquest.skills.magicSkill.SimpleHeal;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
-import br.unicamp.ic.mc322.heroquest.item.weapons.armory.ShortSword;
+import br.unicamp.ic.mc322.heroquest.item.weapons.ShortSword;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Elf extends Hero {
-    Elf() {
+    public Elf(WalkerManager walkerManager, String name) {
+        super(walkerManager, name);
+
         attackDice = 2;
         defenseDice = 2;
-        maxBodyPoints = currentBodyPoints =  6;
+        maximumBodyPoints = currentBodyPoints =  6;
         mindPoints = 4;
 
-        Weapon curWeapon = new ShortSword();
-        knapsack.put(curWeapon);
-        equipWeapon(curWeapon);
+        ableLearnWaterSpell = ableLearnEarthSpell = true;
+
+        Weapon currentWeapon = new ShortSword();
+        knapsack.put(currentWeapon);
+        equipWeapon(currentWeapon);
 
         addSkill(new SimpleHeal());
     }
 
     @Override
-    public int getIntensityOfPhysicalDefense() {
-        return 0;
+    public ObjectView getRepresentation() {
+        return new ObjectView("E");
     }
 
     @Override
-    public ObjectView getRepresentation() {
-        return new ObjectView("E");
+    public String getRepresentationOnMenu() {
+        return "Elf: " + getName();
     }
 }

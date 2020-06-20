@@ -15,7 +15,7 @@ public class Wall extends StructuralObject {
     }
 
     @Override
-    public boolean isWalkOverable() {
+    public boolean isAllowedToWalkOver() {
         return false;
     }
 
@@ -27,5 +27,10 @@ public class Wall extends StructuralObject {
     @Override
     public ObjectView getRepresentation() {
         return new ObjectView("#");
+    }
+
+    @Override
+    public String getRepresentationOnMenu() {
+        return "Wall on " + getPosition();
     }
 }

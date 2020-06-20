@@ -1,9 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.map.view;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.OutsideRoomException;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
-import br.unicamp.ic.mc322.heroquest.map.object.MapObject;
 
 public class TerminalViewer implements Viewer {
 
@@ -11,19 +12,24 @@ public class TerminalViewer implements Viewer {
         StringBuilder builder = new StringBuilder();
         Dimension dimension = map.getDimension();
 
-        builder.append("Displaying map...\n\n");
-
         Coordinate origin = Coordinate.getOrigin();
+
+        builder.append("  ");
+        for (int dx = 0; dx < dimension.getWidth(); dx++)
+            builder.append(String.format("%3d", dx));
+        builder.append("\n");
 
         for (int dy = 0; dy < dimension.getHeight(); dy++) {
             // TODO: encapsulate rows creation
+            builder.append(String.format("%2d ", dy));
 
             for (int dx = 0; dx < dimension.getWidth(); dx++) {
-                Coordinate coor = Coordinate.shift(origin, dx, dy);
+                Coordinate coordinate = Coordinate.shift(origin, dx, dy);
 
-                ObjectView view = map.getStructureRepresentationAt(coor);
+                MapObject object = map.getPreferentialObject(coordinate);
+                ObjectView view = object.getRepresentation();
 
-                builder.append(view);
+                builder.append(" " + view + " ");
             }
 
             // TODO: encapsulate row wrap-up
