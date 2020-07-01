@@ -81,7 +81,7 @@ public abstract class WalkerManager {
     }
 
     public ArrayList<MapObject> getVisibleUnoccupiedPositions() {
-        return map.getUnoccupiedPositions(walker);
+        return map.getUnoccupiedPositions(regionSelector.getRoomRegion(true));
     }
 
     public ArrayList<Walker> getVisibleEnemies(){
@@ -90,7 +90,7 @@ public abstract class WalkerManager {
     }
 
     public void moveWalker(Coordinate position) {
-        map.moveObject(walker, position);
+        map.move(walker, position);
     }
 
     public RegionSelector getRegionSelector(){
@@ -113,7 +113,7 @@ public abstract class WalkerManager {
 
         int choice = chooseMove(possibleMoves);
         if (choice != 0)
-            map.moveObject(walker, possibleMoves.get(choice - 1));
+            map.move(walker, possibleMoves.get(choice - 1));
 
         return true;
     }

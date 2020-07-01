@@ -26,10 +26,10 @@ public class TerminalViewer implements Viewer {
             for (int dx = 0; dx < dimension.getWidth(); dx++) {
                 Coordinate coordinate = Coordinate.shift(origin, dx, dy);
 
-                MapObject object = map.getPreferentialObject(coordinate);
+                /*MapObject object = map.getPreferentialObject(coordinate);
                 ObjectView view = object.getRepresentation();
 
-                builder.append(" " + view + " ");
+                builder.append(" " + view + " ");*/
             }
 
             // TODO: encapsulate row wrap-up

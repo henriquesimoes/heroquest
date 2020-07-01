@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.map.generator;
 
-import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
+import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
+import br.unicamp.ic.mc322.heroquest.map.core.SinglePlacement;
 import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.BSPGrid;
 import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
 import br.unicamp.ic.mc322.heroquest.map.generator.pathgenerator.PathGenerator;
@@ -29,12 +29,16 @@ public class MapGenerator {
         rooms = new ArrayList<>();
     }
 
-    public Map generate() {
+    public MapBuilder generate() {
         createGrid();
         createRandomRooms();
         createMatrixGrid();
 
-        return new Map(buildStructure());
+        MapBuilder builder = new MapBuilder(new SinglePlacement());
+
+        createStructure(builder);
+
+        return builder;
     }
 
     private void createGrid() {
@@ -90,18 +94,17 @@ public class MapGenerator {
         return false;
     }
 
-    private MapStructure buildStructure() {
-        MapStructure structure = new MapStructure();
+    private void createStructure(MapBuilder builder) {
         Coordinate origin = Coordinate.getOrigin();
 
         for (int i = 0; i < GRID_HEIGHT; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
                 Coordinate coordinate = Coordinate.shift(origin, j, i);
 
-                structure.add(MapParser.parse(grid[i][j], coordinate));
+                builder.add(MapParser.parse(grid[i][j], coordinate));
             }
         }
 
-        return structure;
+        builder.buildStructure();
     }
 }

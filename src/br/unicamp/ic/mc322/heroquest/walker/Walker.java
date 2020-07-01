@@ -4,6 +4,8 @@ import br.unicamp.ic.mc322.heroquest.item.armors.Armor;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Fists;
 import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
+import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
+import br.unicamp.ic.mc322.heroquest.map.core.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
@@ -267,6 +269,16 @@ public abstract class Walker extends MapObject {
     @Override
     public void interact(Walker agent) {
         return;
+    }
+
+    @Override
+    public void goTo(MapUnit unit) {
+        unit.add(this);
+    }
+
+    @Override
+    public boolean accept(PlacementStrategy strategy, MapObject object) {
+        return false;
     }
 
     public boolean isEnemy(Walker walker) {

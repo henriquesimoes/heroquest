@@ -20,6 +20,10 @@ public abstract class MapObject {
         return position;
     }
 
+    public boolean at(Coordinate coordinate) {
+        return position.equals(coordinate);
+    }
+
     protected void setPosition(Coordinate position) {
         this.position.copyValue(position);
     }
@@ -29,4 +33,7 @@ public abstract class MapObject {
     public abstract ObjectView getRepresentation();
 
     public abstract String getRepresentationOnMenu();
+
+    public abstract boolean accept(PlacementStrategy strategy, MapObject object);
+    public abstract void goTo(MapUnit unit);
 }

@@ -1,5 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.object.structural;
 
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
@@ -32,5 +34,10 @@ public class Wall extends StructuralObject {
     @Override
     public String getRepresentationOnMenu() {
         return "Wall on " + getPosition();
+    }
+    
+    @Override
+    public boolean accept(PlacementStrategy strategy, MapObject object) {
+        return strategy.canPlaceOn(this, object);
     }
 }
