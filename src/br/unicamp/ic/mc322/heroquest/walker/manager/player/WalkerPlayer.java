@@ -15,12 +15,12 @@ public class WalkerPlayer extends WalkerManager {
 
     public WalkerPlayer(Map map) {
         super(map);
-        ioInterface = new PlayerInterface();
+        ioInterface = new PlayerInterface(map);
     }
 
     public void updateScreen(){
         ioInterface.showMessage(walker.getStatus());
-        ioInterface.showMap(map, walker);
+        ioInterface.showMap(walker);
     }
 
     @Override

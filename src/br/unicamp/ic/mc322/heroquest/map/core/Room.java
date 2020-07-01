@@ -57,6 +57,11 @@ public class Room {
         return result;
     }
 
+    public void accept(MapObjectVisitor visitor) {
+        for (MapUnit unit : units)
+            unit.accept(visitor);
+    }
+
     private MapUnit getUnit(Coordinate coordinate) {
         for (MapUnit unit : units)
             if (unit.at(coordinate))

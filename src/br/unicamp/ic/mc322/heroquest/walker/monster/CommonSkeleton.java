@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.monster;
 
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
-import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class CommonSkeleton extends Monster {
@@ -18,12 +18,12 @@ public class CommonSkeleton extends Monster {
     }
 
     @Override
-    public ObjectView getRepresentation() {
-        return new ObjectView("S");
+    public String getRepresentationOnMenu() {
+        return "Common Skeleton";
     }
 
     @Override
-    public String getRepresentationOnMenu() {
-        return "Common Skeleton";
+    public void accept(MapObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

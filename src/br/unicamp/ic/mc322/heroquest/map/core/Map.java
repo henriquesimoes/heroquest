@@ -19,29 +19,15 @@ public class Map implements WalkValidator {
     public void add(Walker walker, Coordinate coordinate) throws OutsideRoomException {
         Room room = getRoom(coordinate);
 
+        walker.setPosition(coordinate);
+
         room.add(walker);
-    }
-
-    public Dimension getDimension() {
-        return dimension;
-    }
-
-    public RegionSelector getRegionSelector() {
-        return new RegionSelector(this, this);
     }
 
     public void move(Walker walker, Coordinate destination) {
         Room room = getRoom(destination);
 
         room.move(walker, destination);
-    }
-
-    private Room getRoom(Coordinate coordinate) throws OutsideRoomException {
-        for (Room room : rooms)
-            if (room.contains(coordinate))
-                return room;
-
-        throw new OutsideRoomException();
     }
 
     public ArrayList<Walker> getAllWalkersWithinArea(Region region) {
@@ -59,8 +45,24 @@ public class Map implements WalkValidator {
         return walkers;
     }
 
+    public RegionSelector getRegionSelector() {
+        return new RegionSelector(this, this);
+    }
+
     public ArrayList<Coordinate> getWalkablePositions(Region region) {
         return null;
+    }
+
+    public Dimension getDimension() {
+        return dimension;
+    }
+
+    public int getWidth() {
+        return dimension.getWidth();
+    }
+
+    public int getHeight() {
+        return dimension.getHeight();
     }
 
     public ArrayList<MapObject> getUnoccupiedPositions(Region region) {
@@ -123,5 +125,18 @@ public class Map implements WalkValidator {
         }
 
         return null;
+    }
+
+    public void accept(MapObjectVisitor visitor) {
+        for (Room room : rooms)
+            room.accept(visitor);
+    }
+
+    private Room getRoom(Coordinate coordinate) throws OutsideRoomException {
+        for (Room room : rooms)
+            if (room.contains(coordinate))
+                return room;
+
+        throw new OutsideRoomException();
     }
 }

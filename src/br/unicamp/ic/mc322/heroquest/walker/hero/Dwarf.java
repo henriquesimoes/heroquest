@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.walker.hero;
 
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.ShortSword;
-import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Dwarf extends Hero {
@@ -21,12 +21,12 @@ public class Dwarf extends Hero {
     }
 
     @Override
-    public ObjectView getRepresentation() {
-        return new ObjectView("W");
+    public String getRepresentationOnMenu() {
+        return "Dwarf " + getName();
     }
 
     @Override
-    public String getRepresentationOnMenu() {
-        return "Dwarf " + getName();
+    public void accept(MapObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -50,4 +50,14 @@ public class MapUnit {
     public boolean accept(PlacementStrategy strategy, MapObject object) {
         return structure.accept(strategy, object);
     }
+
+    public void accept(MapObjectVisitor visitor) {
+        structure.accept(visitor);
+
+        if (fixedObject != null)
+            fixedObject.accept(visitor);
+
+        if (walker != null)
+            walker.accept(visitor);
+    }
 }

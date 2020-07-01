@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.walker.monster;
 
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Dagger;
-import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Goblin extends Monster {
@@ -25,12 +25,12 @@ public class Goblin extends Monster {
     }
 
     @Override
-    public ObjectView getRepresentation() {
-        return new ObjectView("G");
+    public String getRepresentationOnMenu() {
+        return name;
     }
 
     @Override
-    public String getRepresentationOnMenu() {
-        return name;
+    public void accept(MapObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

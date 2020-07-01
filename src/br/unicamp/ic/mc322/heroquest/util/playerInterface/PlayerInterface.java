@@ -12,9 +12,9 @@ public class PlayerInterface {
     private Viewer viewer;
     private Scanner scanner;
 
-    public PlayerInterface() {
+    public PlayerInterface(Map map) {
         scanner = new Scanner(System.in);
-        viewer = new TerminalViewer();
+        viewer = new TerminalViewer(map);
     }
 
     public int showOptionsAndGetAnswer(ArrayList<String> optionList) {
@@ -41,7 +41,7 @@ public class PlayerInterface {
         System.out.println(s + "\n");
     }
 
-    public void showMap(Map map, MapObject reference){
-        viewer.display(map, reference);
+    public void showMap(MapObject reference){
+        viewer.display(reference);
     }
 }

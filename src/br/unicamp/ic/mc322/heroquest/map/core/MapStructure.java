@@ -64,6 +64,9 @@ class MapStructure {
     private void buildRooms() {
         rooms = new Room[numberOfRooms];
 
+        for (int i = 0; i < rooms.length; i++)
+            rooms[i] = new Room();
+
         Coordinate origin = Coordinate.getOrigin();
 
         for (int dy = 0; dy < dimension.getHeight(); dy++)
