@@ -101,7 +101,7 @@ public class MapGenerator {
             for (int j = 0; j < GRID_WIDTH; j++) {
                 Coordinate coordinate = Coordinate.shift(origin, j, i);
 
-                builder.add(MapParser.parse(grid[i][j], coordinate));
+                MapParser.parseAndAdd(grid[i][j], coordinate, builder);
             }
         }
 

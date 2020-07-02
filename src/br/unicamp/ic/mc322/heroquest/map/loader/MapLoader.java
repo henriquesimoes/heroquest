@@ -3,7 +3,6 @@ package br.unicamp.ic.mc322.heroquest.map.loader;
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.core.SinglePlacement;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,8 +52,7 @@ public class MapLoader {
                 Coordinate coordinate = Coordinate.shift(origin, dx, dy);
 
                 try {
-                    StructuralObject obj = MapParser.parse(line.charAt(dx), coordinate);
-                    builder.add(obj);
+;                    MapParser.parseAndAdd(line.charAt(dx), coordinate, builder);
                 } catch (IllegalArgumentException ex) {
                     throw new CorruptedConfigurationFileException(
                             String.format("Invalid char `%c` found on map configuration file", line.charAt(dx)));

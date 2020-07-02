@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.loader;
 
+import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
@@ -7,14 +8,17 @@ import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
 
 public class MapParser {
-    public static StructuralObject parse(char representation, Coordinate coordinate) {
+    public static void parseAndAdd(char representation, Coordinate coordinate, MapBuilder builder) {
         switch (representation) {
             case ' ':
-                return new Floor(coordinate);
+                builder.add(new Floor(coordinate));
+                break;
             case '#':
-                return new Wall(coordinate);
+                builder.add(new Wall(coordinate));
+                break;
             case 'D':
-                return new Door(coordinate);
+                builder.add(new Door(coordinate));
+                break;
             default:
                 throw new IllegalArgumentException("Invalid representation `" + representation + "`...");
         }

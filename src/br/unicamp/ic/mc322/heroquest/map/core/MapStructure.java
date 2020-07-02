@@ -2,8 +2,11 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +16,7 @@ class MapStructure {
     private Dimension dimension;
     private int numberOfRooms;
     private Room[] rooms;
+    private Collection<Door> doors;
 
     private static final int UNDEFINED_ROOM = -1;
     private static final int OUTSIDE_ROOM = -2;
@@ -21,6 +25,7 @@ class MapStructure {
         objects = new HashMap<>();
         roomMapping = new HashMap<>();
         dimension = new Dimension(0, 0);
+        doors = new ArrayList<>();
 
         numberOfRooms = 0;
     }
@@ -36,12 +41,23 @@ class MapStructure {
             dimension = dimension.fit(position);
     }
 
+    public void add(Door door) {
+        doors.add(door);
+        add((StructuralObject) door);
+    }
+
     public Dimension getDimension() {
         return dimension;
     }
 
     public Room[] getRooms() {
         return rooms;
+    }
+
+    public Door[] getDoors() {
+        Door[] result = new Door[doors.size()];
+        doors.toArray(result);
+        return result;
     }
 
     public void build() {

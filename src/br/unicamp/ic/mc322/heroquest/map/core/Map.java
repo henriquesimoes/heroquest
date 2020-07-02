@@ -5,6 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
@@ -12,10 +13,12 @@ import java.util.*;
 
 public class Map implements WalkValidator, GameListener {
     private Room[] rooms;
+    private Door[] doors;
     private Dimension dimension;
 
-    protected Map(Room[] rooms, Dimension dimension) {
+    protected Map(Room[] rooms, Door[] doors, Dimension dimension) {
         this.rooms = rooms;
+        this.doors = doors;
         this.dimension = dimension;
     }
 
@@ -63,8 +66,13 @@ public class Map implements WalkValidator, GameListener {
             Room room = getRoom(coordinate);
             return !room.isOccupied(coordinate);
         } catch (OutsideRoomException ex) {
-            return false;
+            Door door = getDoor(coordinate);
+
+            if (door != null)
+                return door.isOpen();
         }
+
+        return false;
     }
 
     public Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
@@ -111,13 +119,22 @@ public class Map implements WalkValidator, GameListener {
     public void accept(ConcreteMapObjectVisitor visitor) {
         for (Room room : rooms)
             room.accept(visitor);
+        for (Door door : doors)
+            door.accept(visitor);
     }
 
     public void accept(MapObjectVisitor visitor, Region region) {
         for (Coordinate coordinate : region) {
-            Room room = getRoom(coordinate);
+            try {
+                Room room = getRoom(coordinate);
 
-            room.accept(visitor, coordinate);
+                room.accept(visitor, coordinate);
+            } catch (OutsideRoomException ex) {
+                Door door = getDoor(coordinate);
+
+                if (door != null)
+                    door.accept(visitor);
+            }
         }
     }
 
@@ -127,6 +144,14 @@ public class Map implements WalkValidator, GameListener {
                 return room;
 
         throw new OutsideRoomException();
+    }
+
+    private Door getDoor(Coordinate coordinate) {
+        for (Door door : doors)
+            if (door.at(coordinate))
+                return door;
+
+        return null;
     }
 
     @Override

@@ -2,12 +2,15 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
 
 public class MapBuilder {
     private PlacementStrategy placementStrategy;
     private MapStructure structure;
     private Room[] rooms;
+    private Door[] doors;
     private Map result;
 
     private boolean isStructureBuilt;
@@ -17,11 +20,25 @@ public class MapBuilder {
         reset();
     }
 
-    public void add(StructuralObject object) {
+    public void add(Door door) {
         if (isStructureBuilt)
             throw new IllegalStateException("Structure already built...");
 
-        structure.add(object);
+        structure.add(door);
+    }
+
+    public void add(Wall wall) {
+        if (isStructureBuilt)
+            throw new IllegalStateException("Structure already built...");
+
+        structure.add(wall);
+    }
+
+    public void add(Floor floor) {
+        if (isStructureBuilt)
+            throw new IllegalStateException("Structure already built...");
+
+        structure.add(floor);
     }
 
     public void add(FixedObject object, Coordinate position) {
@@ -37,6 +54,7 @@ public class MapBuilder {
         isStructureBuilt = false;
         structure = new MapStructure();
         rooms = null;
+        doors = null;
         result = null;
     }
 
@@ -46,6 +64,7 @@ public class MapBuilder {
 
         structure.build();
         rooms = structure.getRooms();
+        doors = structure.getDoors();
         isStructureBuilt = true;
     }
 
@@ -53,7 +72,7 @@ public class MapBuilder {
         if (!isStructureBuilt)
             throw new IllegalStateException("Structure must be built first...");
 
-        result = new Map(rooms, structure.getDimension());
+        result = new Map(rooms, doors, structure.getDimension());
     }
 
     public Map getResult() {
