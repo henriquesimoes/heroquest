@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import java.util.ArrayList;
 
 public class GameMonitor {
-    static GameMonitor gameMonitor;
+    private static GameMonitor gameMonitor;
     ArrayList<GameListener> gameListeners;
 
     private GameMonitor(){
@@ -15,12 +15,13 @@ public class GameMonitor {
     public static GameMonitor getInstance(){
         if (gameMonitor == null)
             gameMonitor = new GameMonitor();
+
         return gameMonitor;
     }
 
-    public void notifyDeath(Walker walker){
+    public void notifyDeath(Walker walker) {
         for (GameListener listener : gameListeners)
-            listener.notifyWalkerDeath(walker.getManager());
+            listener.notifyWalkerDeath(walker);
     }
 
     public void addListener(GameListener listener){
@@ -29,6 +30,6 @@ public class GameMonitor {
 
     public void notifyDamage(Walker walker, int damage) {
         for (GameListener listener : gameListeners)
-            listener.notifyWalkerDamage(walker.getManager(), damage);
+            listener.notifyWalkerDamage(walker, damage);
     }
 }

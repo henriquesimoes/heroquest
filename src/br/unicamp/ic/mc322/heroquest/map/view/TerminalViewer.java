@@ -2,14 +2,11 @@ package br.unicamp.ic.mc322.heroquest.map.view;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.OutsideRoomException;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.object.fixed.Chest;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.SecretDoor;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.*;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Barbarian;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Dwarf;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Elf;
@@ -43,18 +40,17 @@ public class TerminalViewer implements Viewer {
 
     private void print() {
         StringBuilder builder = new StringBuilder();
-        Dimension dimension = map.getDimension();
 
         builder.append("  ");
-        for (int dx = 0; dx < dimension.getWidth(); dx++)
+        for (int dx = 0; dx < map.getWidth(); dx++)
             builder.append(String.format("%3d", dx));
         builder.append("\n");
 
-        for (int dy = 0; dy < dimension.getHeight(); dy++) {
+        for (int dy = 0; dy < map.getHeight(); dy++) {
             // TODO: encapsulate rows creation
             builder.append(String.format("%2d ", dy));
 
-            for (int dx = 0; dx < dimension.getWidth(); dx++)
+            for (int dx = 0; dx < map.getWidth(); dx++)
                 builder.append(" " + output[dy][dx] + " ");
 
             // TODO: encapsulate row wrap-up

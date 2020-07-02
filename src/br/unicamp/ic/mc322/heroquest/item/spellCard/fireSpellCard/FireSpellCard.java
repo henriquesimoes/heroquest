@@ -10,7 +10,7 @@ public abstract class FireSpellCard extends SpellCard {
     }
 
     public void useItem(Walker proprietary) {
-        if(proprietary.isAbleLearnFireSpell()){
+        if (proprietary.isAbleLearnFireSpell()){
             proprietary.addSkill(spell);
             proprietary.destroyItem(this);
         }

@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.object.structural;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
@@ -47,7 +47,7 @@ public class Door extends StructuralObject {
     }
 
     @Override
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(ConcreteMapObjectVisitor visitor) {
         visitor.visit(this);
     }
 }

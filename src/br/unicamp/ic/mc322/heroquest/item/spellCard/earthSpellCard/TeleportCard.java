@@ -7,6 +7,7 @@ public class TeleportCard extends EarthSpellCard {
 
     public TeleportCard() {
         super("TeleportCard", DESCRIPTION, 100);
+
         spell = new Teleport();
     }
 }

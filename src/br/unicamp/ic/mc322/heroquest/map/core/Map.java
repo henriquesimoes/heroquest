@@ -1,13 +1,16 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
-import br.unicamp.ic.mc322.heroquest.map.geom.*;
-import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
+import br.unicamp.ic.mc322.heroquest.loop.GameListener;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.*;
 
-public class Map implements WalkValidator {
+public class Map implements WalkValidator, GameListener {
     private Room[] rooms;
     private Dimension dimension;
 
@@ -16,7 +19,7 @@ public class Map implements WalkValidator {
         this.dimension = dimension;
     }
 
-    public void add(Walker walker, Coordinate coordinate) throws OutsideRoomException {
+    public void add(Walker walker, Coordinate coordinate) {
         Room room = getRoom(coordinate);
 
         walker.setPosition(coordinate);
@@ -30,31 +33,14 @@ public class Map implements WalkValidator {
         room.move(walker, destination);
     }
 
-    public ArrayList<Walker> getAllWalkersWithinArea(Region region) {
-        ArrayList<Walker> walkers = new ArrayList<>();
+    private void remove(Walker walker) {
+        Room room = getRoom(walker.getPosition());
 
-        Room room = getRoom(region.getReference());
-
-        for (Coordinate coordinate : region) {
-            Walker walker = null; // room.getWalker(coordinate);
-
-            if (walker != null)
-                walkers.add(walker);
-        }
-
-        return walkers;
+        room.remove(walker);
     }
 
     public RegionSelector getRegionSelector() {
         return new RegionSelector(this, this);
-    }
-
-    public ArrayList<Coordinate> getWalkablePositions(Region region) {
-        return null;
-    }
-
-    public Dimension getDimension() {
-        return dimension;
     }
 
     public int getWidth() {
@@ -65,19 +51,6 @@ public class Map implements WalkValidator {
         return dimension.getHeight();
     }
 
-    public ArrayList<MapObject> getUnoccupiedPositions(Region region) {
-        ArrayList<MapObject> objects = new ArrayList<>();
-
-        for (Coordinate coordinate : region) {
-            Room room = getRoom(coordinate);
-
-            // if (!room.isOccupied(coordinate))
-            //    objects.add(room.getStructuralObject(coordinate));
-        }
-
-        return objects;
-    }
-
     public Collection<Coordinate> getRoomCoordinates(Coordinate reference) {
         Room room = getRoom(reference);
 
@@ -86,9 +59,12 @@ public class Map implements WalkValidator {
 
     @Override
     public boolean isAllowedToWalkOver(Coordinate coordinate) {
-        Room room = getRoom(coordinate);
-
-        return room.isOccupied(coordinate);
+        try {
+            Room room = getRoom(coordinate);
+            return !room.isOccupied(coordinate);
+        } catch (OutsideRoomException ex) {
+            return false;
+        }
     }
 
     public Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
@@ -132,6 +108,19 @@ public class Map implements WalkValidator {
             room.accept(visitor);
     }
 
+    public void accept(ConcreteMapObjectVisitor visitor) {
+        for (Room room : rooms)
+            room.accept(visitor);
+    }
+
+    public void accept(MapObjectVisitor visitor, Region region) {
+        for (Coordinate coordinate : region) {
+            Room room = getRoom(coordinate);
+
+            room.accept(visitor, coordinate);
+        }
+    }
+
     private Room getRoom(Coordinate coordinate) throws OutsideRoomException {
         for (Room room : rooms)
             if (room.contains(coordinate))
@@ -139,4 +128,12 @@ public class Map implements WalkValidator {
 
         throw new OutsideRoomException();
     }
+
+    @Override
+    public void notifyWalkerDeath(Walker deadWalker) {
+        remove(deadWalker);
+    }
+
+    @Override
+    public void notifyWalkerDamage(Walker walker, int damage) {}
 }

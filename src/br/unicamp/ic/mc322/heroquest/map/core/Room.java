@@ -1,17 +1,17 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Room {
-    private Set<MapUnit> units;
+    private Collection<MapUnit> units;
 
     public Room() {
-        units = new HashSet<>();
+        units = new ArrayList<>();
     }
 
     protected void add(MapObject object) {
@@ -45,7 +45,10 @@ public class Room {
     }
 
     public void move(MapObject object, Coordinate destination) {
+        MapUnit originUnit = getUnit(object.getPosition());
+        MapUnit destinationUnit = getUnit(destination);
 
+        originUnit.moveWalker(destinationUnit);
     }
 
     public Collection<Coordinate> getCoordinates() {
@@ -57,7 +60,24 @@ public class Room {
         return result;
     }
 
+    public StructuralObject getStructure(Coordinate coordinate) {
+        MapUnit unit = getUnit(coordinate);
+
+        return unit.getStructure();
+    }
+
     public void accept(MapObjectVisitor visitor) {
+        for (MapUnit unit : units)
+            unit.accept(visitor);
+    }
+
+    public void accept(MapObjectVisitor visitor, Coordinate coordinate) {
+        MapUnit unit = getUnit(coordinate);
+
+        unit.accept(visitor);
+    }
+
+    public void accept(ConcreteMapObjectVisitor visitor) {
         for (MapUnit unit : units)
             unit.accept(visitor);
     }
@@ -68,5 +88,11 @@ public class Room {
                 return unit;
 
         return null;
+    }
+
+    public void remove(Walker walker) {
+        MapUnit unit = getUnit(walker.getPosition());
+
+        unit.removeWalker();
     }
 }

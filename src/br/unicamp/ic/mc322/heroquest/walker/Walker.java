@@ -3,14 +3,15 @@ package br.unicamp.ic.mc322.heroquest.walker;
 import br.unicamp.ic.mc322.heroquest.item.armors.Armor;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Fists;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
 import br.unicamp.ic.mc322.heroquest.map.core.PlacementStrategy;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
-import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
@@ -202,8 +203,10 @@ public abstract class Walker extends MapObject {
     public void addSkill(Skill skill) {
         Integer amount = skills.get(skill);
 
-        if (amount == null)
+        if (amount == null) {
             skills.put(skill, 1);
+            skill.setWalkerManager(walkerManager);
+        }
         else
             skills.replace(skill, amount + 1);
     }
@@ -279,6 +282,11 @@ public abstract class Walker extends MapObject {
     @Override
     public boolean accept(PlacementStrategy strategy, MapObject object) {
         return false;
+    }
+
+    @Override
+    public void accept(MapObjectVisitor visitor) {
+        visitor.visit(this);
     }
 
     public boolean isEnemy(Walker walker) {

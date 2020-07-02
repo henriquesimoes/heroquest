@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.object.structural;
 
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
@@ -24,7 +24,7 @@ public class SecretDoor extends Door {
     }
 
     @Override
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(ConcreteMapObjectVisitor visitor) {
         visitor.visit(this);
     }
 }

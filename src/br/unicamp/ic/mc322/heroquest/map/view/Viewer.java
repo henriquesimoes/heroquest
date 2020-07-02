@@ -1,10 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.map.view;
 
-import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 
-public interface Viewer extends MapObjectVisitor {
+public interface Viewer extends ConcreteMapObjectVisitor {
 
     /**
      * Displays the map based on the `reference` range of sight.

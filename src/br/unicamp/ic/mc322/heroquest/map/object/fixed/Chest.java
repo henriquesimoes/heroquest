@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.object.fixed;
 
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
@@ -32,7 +32,7 @@ public class Chest extends FixedObject {
     }
 
     @Override
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(ConcreteMapObjectVisitor visitor) {
         visitor.visit(this);
     }
 }

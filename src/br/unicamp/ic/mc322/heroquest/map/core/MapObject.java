@@ -42,5 +42,6 @@ public abstract class MapObject {
 
     public abstract boolean accept(PlacementStrategy strategy, MapObject object);
     public abstract void accept(MapObjectVisitor visitor);
+    public abstract void accept(ConcreteMapObjectVisitor visitor);
     public abstract void goTo(MapUnit unit);
 }

@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
-import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.ShortSword;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Dwarf extends Hero {
@@ -26,7 +26,7 @@ public class Dwarf extends Hero {
     }
 
     @Override
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(ConcreteMapObjectVisitor visitor) {
         visitor.visit(this);
     }
 }

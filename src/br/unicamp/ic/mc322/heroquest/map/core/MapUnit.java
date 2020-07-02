@@ -31,8 +31,12 @@ public class MapUnit {
     public void moveWalker(MapUnit destination) {
         if (walker != null && destination.isFree()) {
             destination.add(walker);
-            walker = null;
+            removeWalker();
         }
+    }
+
+    protected void removeWalker() {
+        walker = null;
     }
 
     public boolean isFree() {
@@ -41,6 +45,10 @@ public class MapUnit {
 
     public Coordinate getCoordinate() {
         return structure.getPosition();
+    }
+
+    public StructuralObject getStructure() {
+        return structure;
     }
 
     public boolean at(Coordinate coordinate) {
@@ -52,12 +60,20 @@ public class MapUnit {
     }
 
     public void accept(MapObjectVisitor visitor) {
-        structure.accept(visitor);
-
-        if (fixedObject != null)
-            fixedObject.accept(visitor);
-
         if (walker != null)
             walker.accept(visitor);
+        else if (fixedObject != null)
+            fixedObject.accept(visitor);
+        else
+            structure.accept(visitor);
+    }
+
+    public void accept(ConcreteMapObjectVisitor visitor) {
+        if (walker != null)
+            walker.accept(visitor);
+        else if (fixedObject != null)
+            fixedObject.accept(visitor);
+        else
+            structure.accept(visitor);
     }
 }
