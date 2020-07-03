@@ -53,7 +53,7 @@ public class WalkerPlayer extends WalkerManager {
     }
 
     @Override
-    protected int chooseItem(ArrayList<CollectableItem> items){
+    protected CollectableItem chooseItem(ArrayList<CollectableItem> items){
         ArrayList<String> nameList = new ArrayList<>();
 
         for (CollectableItem item : items)
@@ -61,11 +61,12 @@ public class WalkerPlayer extends WalkerManager {
 
         ioInterface.showMessage("Choose an item to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList);
-        return choice;
+
+        return choice == 0 ? null : items.get(choice - 1);
     }
 
     @Override
-    protected int chooseMove(ArrayList<Coordinate> possibleMoves) {
+    protected Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
         ArrayList<String> moveList = new ArrayList<>();
 
         for (Coordinate coordinate : possibleMoves)
@@ -74,10 +75,10 @@ public class WalkerPlayer extends WalkerManager {
         ioInterface.showMessage("Choose a destination position:");
         int choice = ioInterface.showOptionsAndGetAnswer(moveList);
 
-        return choice;
+        return choice == 0 ? null : possibleMoves.get(choice - 1);
     }
 
-    protected int chooseSkill(ArrayList<Skill> skills){
+    protected Skill chooseSkill(ArrayList<Skill> skills){
         ArrayList<String> nameList = new ArrayList<>();
 
         for (Skill skill: skills)
@@ -86,10 +87,10 @@ public class WalkerPlayer extends WalkerManager {
         ioInterface.showMessage("Choose a skill to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList);
 
-        return choice;
+        return choice == 0 ? null : skills.get(choice - 1);
     }
 
-    protected int chooseTargetSkill(ArrayList<MapObject> targets){
+    protected MapObject chooseTargetSkill(ArrayList<MapObject> targets){
         ArrayList<String> targetList = new ArrayList<>();
 
         for (MapObject target : targets)
@@ -98,7 +99,7 @@ public class WalkerPlayer extends WalkerManager {
         ioInterface.showMessage("Choose a target:");
         int choice = ioInterface.showOptionsAndGetAnswer(targetList);
 
-        return choice;
+        return choice == 0 ? null : targets.get(choice - 1);
     }
 
     @Override

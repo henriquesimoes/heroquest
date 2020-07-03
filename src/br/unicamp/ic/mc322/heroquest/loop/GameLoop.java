@@ -64,9 +64,9 @@ public class GameLoop implements GameListener {
             if (manager.isAlive())
                 manager.playTurn();
 
-        /*for (WalkerManager manager : cloneMonstersAlive)
+        for (WalkerManager manager : cloneMonstersAlive)
             if (manager.isAlive())
-                manager.playTurn();*/
+                manager.playTurn();
     }
 
     @Override

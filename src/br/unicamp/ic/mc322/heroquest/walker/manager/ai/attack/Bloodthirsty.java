@@ -6,24 +6,14 @@ import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 
 import java.util.ArrayList;
 
-public class Bloodthirsty extends AttackBehavior{
-    private static Bloodthirsty instance;
-
-    public Bloodthirsty(){}
-
-    public static Bloodthirsty getInstance(){
-        if (instance == null)
-            instance = new Bloodthirsty();
-        return instance;
+public class Bloodthirsty extends AttackBehavior {
+    @Override
+    public MapObject chooseTarget(ArrayList<MapObject> targets) {
+        return targets.get(Randomizer.nextInt(targets.size()));
     }
 
     @Override
-    public int chooseTarget(ArrayList<MapObject> targets) {
-        return Randomizer.randInt(1, targets.size());
-    }
-
-    @Override
-    public int chooseSkill(ArrayList<Skill> skills) {
-        return Randomizer.randInt(1, skills.size());
+    public Skill chooseSkill(ArrayList<Skill> skills) {
+        return skills.get(Randomizer.nextInt(skills.size()));
     }
 }

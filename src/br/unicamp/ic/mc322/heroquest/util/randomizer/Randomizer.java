@@ -10,4 +10,11 @@ public class Randomizer {
             random = new Random();
         return random.nextInt(max - min + 1) + min;
     }
+
+
+    public static int nextInt(int max){
+        if(random == null)
+            random = new Random();
+        return random.nextInt(max);
+    }
 }
