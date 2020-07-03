@@ -47,7 +47,7 @@ public class MapGenerator {
         rooms = randomRooms.createRandomRooms();
     }
 
-    private void createMatrixGrid(){
+    private void createMatrixGrid() {
         grid = new char[GRID_HEIGHT][GRID_WIDTH];
 
         fillGridWithWalls();

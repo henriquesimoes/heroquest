@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest;
 
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.loop.GameLoop;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
@@ -20,37 +21,40 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        MapManager manager = new MapManager();
-        TerminalViewer viewer = new TerminalViewer();
+       GameWindow window = new GameWindow();
 
-        try {
-            Map map = manager.load("default.map");
 
-            ArrayList<WalkerManager> heroes = new ArrayList<>();
-            ArrayList<WalkerManager> monster = new ArrayList<>();
-            heroes.add(new WalkerPlayer(map));
-            Wizard wizard = new Wizard(heroes.get(0), "Gandalf");
-
-            monster.add(new WalkerAI(map, new Follower(), new Bloodthirsty()));
-            SkeletonWizard skeletonWizard = new SkeletonWizard(monster.get(0));
-
-            monster.add(new WalkerAI(map, new Follower(), new Bloodthirsty()));
-            SkeletonWizard skeletonWizard2 = new SkeletonWizard(monster.get(1));
-
-            map.add(wizard, new Coordinate(1, 1));
-            map.add(skeletonWizard, new Coordinate(2,2));
-            map.add(skeletonWizard2, new Coordinate(9,9));
-
-            viewer.display(map, null);
-            GameLoop gameLoop = new GameLoop(map, heroes, monster);
-            gameLoop.run();
-
-        } catch (FileNotFoundException ex) {
-            System.err.println("Configuration file not found...");
-        } catch (CorruptedConfigurationFileException ex) {
-            System.err.println("Configuration file is corrupted...");
-            System.err.println(ex.getMessage());
-            System.exit(1);
-        }
+//        MapManager manager = new MapManager();
+//        TerminalViewer viewer = new TerminalViewer();
+//
+//        try {
+//            Map map = manager.load("default.map");
+//
+//            ArrayList<WalkerManager> heroes = new ArrayList<>();
+//            ArrayList<WalkerManager> monster = new ArrayList<>();
+//            heroes.add(new WalkerPlayer(map));
+//            Wizard wizard = new Wizard(heroes.get(0), "Gandalf");
+//
+//            monster.add(new WalkerAI(map, new Follower(), new Bloodthirsty()));
+//            SkeletonWizard skeletonWizard = new SkeletonWizard(monster.get(0));
+//
+//            monster.add(new WalkerAI(map, new Follower(), new Bloodthirsty()));
+//            SkeletonWizard skeletonWizard2 = new SkeletonWizard(monster.get(1));
+//
+//            map.add(wizard, new Coordinate(1, 1));
+//            map.add(skeletonWizard, new Coordinate(2,2));
+//            map.add(skeletonWizard2, new Coordinate(9,9));
+//
+//            viewer.display(map, null);
+//            GameLoop gameLoop = new GameLoop(map, heroes, monster);
+//            gameLoop.run();
+//
+//        } catch (FileNotFoundException ex) {
+//            System.err.println("Configuration file not found...");
+//        } catch (CorruptedConfigurationFileException ex) {
+//            System.err.println("Configuration file is corrupted...");
+//            System.err.println(ex.getMessage());
+//            System.exit(1);
+//        }
     }
 }
