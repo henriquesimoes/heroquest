@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 
@@ -10,7 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-class MapStructure {
+class MapCreator {
     private Map<Coordinate, StructuralObject> objects;
     private Map<Coordinate, Integer> roomMapping;
     private Dimension dimension;
@@ -21,7 +22,7 @@ class MapStructure {
     private static final int UNDEFINED_ROOM = -1;
     private static final int OUTSIDE_ROOM = -2;
 
-    public MapStructure() {
+    public MapCreator() {
         objects = new HashMap<>();
         roomMapping = new HashMap<>();
         dimension = new Dimension(0, 0);
@@ -46,6 +47,12 @@ class MapStructure {
         add((StructuralObject) door);
     }
 
+    public void add(PlacementStrategy placementStrategy, FixedObject object, Coordinate position) {
+        Room room = getRoom(position);
+
+        room.placeObject(placementStrategy, position, object);
+    }
+
     public Dimension getDimension() {
         return dimension;
     }
@@ -60,7 +67,7 @@ class MapStructure {
         return result;
     }
 
-    public void build() {
+    public void create() {
         Coordinate origin = Coordinate.getOrigin();
 
         int id = 0;
@@ -113,5 +120,13 @@ class MapStructure {
             if (roomMapping.getOrDefault(neighbor, OUTSIDE_ROOM) == UNDEFINED_ROOM)
                 fillRoom(neighbor, id);
         }
+    }
+
+    private Room getRoom(Coordinate position) {
+        for (Room room : rooms)
+            if (room.contains(position))
+                return room;
+
+        throw new OutsideRoomException();
     }
 }

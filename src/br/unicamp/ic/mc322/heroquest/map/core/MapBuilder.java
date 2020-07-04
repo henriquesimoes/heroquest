@@ -8,12 +8,10 @@ import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
 
 public class MapBuilder {
     private PlacementStrategy placementStrategy;
-    private MapStructure structure;
-    private Room[] rooms;
-    private Door[] doors;
+    private MapCreator creator;
     private Map result;
 
-    private boolean isStructureBuilt;
+    private boolean isBuilt;
 
     public MapBuilder(PlacementStrategy placementStrategy) {
         this.placementStrategy = placementStrategy;
@@ -21,69 +19,55 @@ public class MapBuilder {
     }
 
     public void add(Door door) {
-        if (isStructureBuilt)
+        if (isBuilt)
             throw new IllegalStateException("Structure already built...");
 
-        structure.add(door);
+        creator.add(door);
     }
 
     public void add(Wall wall) {
-        if (isStructureBuilt)
+        if (isBuilt)
             throw new IllegalStateException("Structure already built...");
 
-        structure.add(wall);
+        creator.add(wall);
     }
 
     public void add(Floor floor) {
-        if (isStructureBuilt)
+        if (isBuilt)
             throw new IllegalStateException("Structure already built...");
 
-        structure.add(floor);
+        creator.add(floor);
     }
 
     public void add(FixedObject object, Coordinate position) {
-        if (!isStructureBuilt)
+        if (!isBuilt)
             throw new IllegalStateException("Structure not built yet...");
 
-        Room room = getRoom(position);
-
-        room.placeObject(placementStrategy, position, object);
+        creator.add(placementStrategy, object, position);
     }
 
     public void reset() {
-        isStructureBuilt = false;
-        structure = new MapStructure();
-        rooms = null;
-        doors = null;
+        isBuilt = false;
+        creator = new MapCreator();
         result = null;
     }
 
     public void buildStructure() {
-        if (isStructureBuilt)
+        if (isBuilt)
             throw new IllegalStateException("Structure already built...");
 
-        structure.build();
-        rooms = structure.getRooms();
-        doors = structure.getDoors();
-        isStructureBuilt = true;
+        creator.create();
+        isBuilt = true;
     }
 
     public void buildMap() {
-        if (!isStructureBuilt)
+        if (!isBuilt)
             throw new IllegalStateException("Structure must be built first...");
 
-        result = new Map(rooms, doors, structure.getDimension());
+        result = new Map(creator.getRooms(), creator.getDoors(), creator.getDimension());
     }
 
     public Map getResult() {
         return result;
-    }
-
-    private Room getRoom(Coordinate position) {
-        for (Room room : rooms)
-            if (room.contains(position))
-                return room;
-
-        throw new OutsideRoomException();
     }
 }
