@@ -2,22 +2,37 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 
 import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 public abstract class Region implements Iterable<Coordinate> {
+    private WalkValidator walkValidator;
     protected Coordinate reference;
-    protected WalkValidator walkValidator;
+    protected Collection<Coordinate> coordinates;
 
     Region(Coordinate reference) {
         this.reference = reference;
+        this.coordinates = new ArrayList<>();
         this.walkValidator = null;
     }
 
-    Region(Coordinate reference, WalkValidator walkValidator) {
-        this(reference);
-
-        this.walkValidator = walkValidator;
+    public void setWalkValidator(WalkValidator validator) {
+        walkValidator = validator;
     }
 
     public Coordinate getReference() {
         return reference;
     }
+
+    protected boolean isValid(Coordinate coordinate) {
+        return walkValidator == null || walkValidator.isAllowedToWalkOver(coordinate);
+    }
+
+    @Override
+    public Iterator<Coordinate> iterator() {
+        return coordinates.iterator();
+    }
+
+    protected abstract void build();
 }
