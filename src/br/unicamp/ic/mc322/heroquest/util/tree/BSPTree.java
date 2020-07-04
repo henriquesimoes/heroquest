@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.util.tree;
 
 import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.util.random.Random;
+import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,6 @@ public class BSPTree {
     private final int GRID_MIN_WIDTH = 13;
     private final int GRID_MIN_HEIGHT = 11;
 
-    private Random random = new Random();
     private Node<GridContainer> root;
     private GridContainer currentContainer;
     private Coordinate currentContainerCoords;
@@ -44,7 +43,7 @@ public class BSPTree {
         if (!root.isLeaf())
             return;
 
-        boolean HorizontalSplit = random.nextBoolean();
+        boolean HorizontalSplit = Randomizer.nextBoolean();
 
         int maxSplitValueInDirection = getMaxSplitValue(HorizontalSplit);
 
@@ -96,7 +95,7 @@ public class BSPTree {
     }
 
     private int getSplitPoint(boolean splitHorizontal, int maxSplitValue) {
-        int splitPoint = random.nextInt(maxSplitValue - 1);
+        int splitPoint = Randomizer.nextInt(maxSplitValue - 1);
         return Math.max((splitHorizontal ? GRID_MIN_HEIGHT : GRID_MIN_WIDTH), splitPoint);
     }
 
