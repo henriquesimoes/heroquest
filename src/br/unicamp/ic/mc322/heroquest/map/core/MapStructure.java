@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.geom.PlaneRegion;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 
 import java.util.ArrayList;
@@ -53,16 +54,12 @@ public class MapStructure {
 
     public ArrayList<Coordinate> getRoomCoordinates(int roomId) {
         ArrayList<Coordinate> coordinates = new ArrayList<>();
+        PlaneRegion plane = new PlaneRegion(dimension);
 
-        Coordinate origin = Coordinate.getOrigin();
-
-        for (int dy = 0; dy < dimension.getHeight(); dy++)
-            for (int dx = 0; dx < dimension.getWidth(); dx++) {
-                Coordinate current = Coordinate.shift(origin, dx, dy);
-
-                if (room.getOrDefault(current, OUTSIDE_ROOM) == roomId)
-                    coordinates.add(current);
-            }
+        for (Coordinate coordinate : plane) {
+            if (room.getOrDefault(coordinate, OUTSIDE_ROOM) == roomId)
+                coordinates.add(coordinate);
+        }
 
         return coordinates;
     }
@@ -74,16 +71,13 @@ public class MapStructure {
     }
 
     public void updateRooms() {
-        Coordinate origin = Coordinate.getOrigin();
+        PlaneRegion plane = new PlaneRegion(dimension);
 
         int id = 0;
-        for (int dy = 0; dy < dimension.getHeight(); dy++)
-            for (int dx = 0; dx < dimension.getWidth(); dx++) {
-                Coordinate current = Coordinate.shift(origin, dx, dy);
-
-                if (room.getOrDefault(current, OUTSIDE_ROOM) == UNDEFINED_ROOM)
-                    fillRoom(current, id++);
-            }
+        for (Coordinate coordinate : plane) {
+            if (room.getOrDefault(coordinate, OUTSIDE_ROOM) == UNDEFINED_ROOM)
+                fillRoom(coordinate, id++);
+        }
 
         numberOfRooms = id;
     }

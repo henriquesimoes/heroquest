@@ -28,4 +28,8 @@ public class Dimension {
                 Math.max(position.getX() + 1, this.getWidth()),
                 Math.max(position.getY() + 1, this.getHeight()));
     }
+
+    public Coordinate toCoordinate() {
+        return Coordinate.shift(Coordinate.getOrigin(), width, height);
+    }
 }
