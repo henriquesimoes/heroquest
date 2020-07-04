@@ -1,10 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.util.dice;
 
-import java.util.Random;
+import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 
 class Dice {
-    private static Random random = new Random();
-
     private int numberOfFaces;
 
     public Dice(int numberOfFaces) {
@@ -16,6 +14,6 @@ class Dice {
      * @return The face index turned up.
      */
     int rollIndex() {
-        return random.nextInt(numberOfFaces) + 1;
+        return Randomizer.randInt(0, numberOfFaces);
     }
 }

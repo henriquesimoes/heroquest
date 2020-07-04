@@ -14,6 +14,7 @@ public class Randomizer {
      * @return a random integer in range [min, max]
      */
     public static int randInt(int min, int max){
+        create();
         return random.nextInt(max - min + 1) + min;
     }
 
