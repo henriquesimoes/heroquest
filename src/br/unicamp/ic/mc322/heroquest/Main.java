@@ -38,7 +38,7 @@ public class Main {
             SkeletonWizard skeletonWizard2 = new SkeletonWizard(monster.get(1));
 
             map.add(wizard, new Coordinate(1, 1));
-            map.add(skeletonWizard, new Coordinate(2,2));
+            map.add(skeletonWizard, new Coordinate(5,3));
             map.add(skeletonWizard2, new Coordinate(9,9));
 
             viewer.display(null);

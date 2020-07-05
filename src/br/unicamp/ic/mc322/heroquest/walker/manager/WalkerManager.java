@@ -29,31 +29,13 @@ public abstract class WalkerManager {
 
     public abstract void playTurn();
 
-    /**
-     *
-     * @param items
-     * @return Chosen item indexed by 1, or 0 indicating no selection
-     */
-    protected abstract int chooseItem(ArrayList<CollectableItem> items);
+    protected abstract CollectableItem chooseItem(ArrayList<CollectableItem> items);
 
-    /**
-     *
-     * @param possibleMoves
-     * @return Chosen move indexed by 1, or 0 indicating no selection
-     */
-    protected abstract int chooseMove(ArrayList<Coordinate> possibleMoves);
+    protected abstract Coordinate chooseMove(ArrayList<Coordinate> possibleMoves);
 
-    /**
-     * @param skills
-     * @return Chosen skill indexed by 1, or 0 indicating no selection
-     */
-    protected abstract int chooseSkill(ArrayList<Skill> skills);
+    protected abstract Skill chooseSkill(ArrayList<Skill> skills);
 
-    /**
-     * @param targets
-     * @return Chosen target indexed by 1, or 0 indicating no selection
-     */
-    protected abstract int chooseTargetSkill(ArrayList<MapObject> targets);
+    protected abstract MapObject chooseTargetSkill(ArrayList<MapObject> targets);
 
     public void moveWalker(Coordinate position) {
         map.move(walker, position);
@@ -65,11 +47,9 @@ public abstract class WalkerManager {
 
     protected void useItems() {
         ArrayList<CollectableItem> items = walker.getItems();
-        int choice = chooseItem(items);
-        if (choice != 0) {
-            CollectableItem chosenItem = items.get(choice - 1);
+        CollectableItem chosenItem = chooseItem(items);
+        if (chosenItem != null)
             chosenItem.useItem(walker);
-        }
     }
 
     protected boolean makeMove() {
@@ -78,31 +58,26 @@ public abstract class WalkerManager {
 
         ArrayList<Coordinate> possibleMoves = region.toArrayList();
 
-        int choice = chooseMove(possibleMoves);
-        if (choice != 0)
-            moveWalker(possibleMoves.get(choice - 1));
+        Coordinate chosenMove = chooseMove(possibleMoves);
+        if (chosenMove != null)
+            moveWalker(chosenMove);
 
         return true;
     }
 
     protected boolean useSkill() {
-        int choice;
         ArrayList<Skill> skills = walker.getSkills();
+        Skill chosenSkill = chooseSkill(skills);
 
-        choice = chooseSkill(skills);
-
-        if (choice == 0)
+        if (chosenSkill == null)
             return false;
 
-        Skill chosenSkill = skills.get(choice - 1);
         ArrayList<MapObject> targets = chosenSkill.getTargets();
+        MapObject target = chooseTargetSkill(targets);
 
-        choice = chooseTargetSkill(targets);
-
-        if (choice == 0)
+        if (target == null)
             return false;
 
-        MapObject target = targets.get(choice - 1);
         chosenSkill.useSkill(walker, target);
 
         return true;
@@ -110,9 +85,9 @@ public abstract class WalkerManager {
 
     public Coordinate getCoordinateCloserToWalkers(ArrayList<Coordinate> coordinates, ArrayList<Walker> walkers) {
         ArrayList<MapObject> objects = new ArrayList<>();
-        for(Walker walker : walkers){
+        for(Walker walker : walkers)
             objects.add(walker);
-        }
+
         return map.getCoordinateCloserToObject(coordinates, objects);
     }
 

@@ -96,11 +96,10 @@ public class Map implements WalkValidator, GameListener {
             Coordinate moveCoordinate = current.getKey();
             Coordinate sourceCoordinate = current.getValue();
 
-            if (destination.contains(moveCoordinate)) {
-                return sourceCoordinate;
-            }
-
             for (Coordinate neighbor : moveCoordinate.getNeighborCoordinates()) {
+                if (destination.contains(neighbor))
+                    return sourceCoordinate;
+
                 if (!visited.contains(neighbor) && isAllowedToWalkOver(neighbor)) {
                     visited.add(neighbor);
                     queue.add(new Pair<>(neighbor, sourceCoordinate));
