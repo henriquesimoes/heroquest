@@ -11,17 +11,26 @@ public class Randomizer {
     }
 
     /**
-     * @return an integer in range [min, max]
+     * @return a random integer in range [min, max]
      */
     public static int randInt(int min, int max){
+        create();
         return random.nextInt(max - min + 1) + min;
     }
 
     /**
-     * @return an integer in range [0, max)
+     * @return a random integer in range [0, max)
      */
     public static int nextInt(int max){
         create();
         return random.nextInt(max);
+    }
+
+    /**
+     * @return a random boolean
+     */
+    public static boolean nextBoolean(){
+        create();
+        return random.nextBoolean();
     }
 }
