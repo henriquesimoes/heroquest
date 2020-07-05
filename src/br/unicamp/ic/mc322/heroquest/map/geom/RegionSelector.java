@@ -1,6 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
-import br.unicamp.ic.mc322.heroquest.map.core.*;
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.OutsideRoomException;
+import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
 
 import java.util.Collection;
 
@@ -25,34 +28,40 @@ public class RegionSelector {
     }
 
     public Region getAdjacentRegion(boolean onlyWalkablePositions) {
-        if (onlyWalkablePositions)
-            return new AdjacentRegion(reference, validator);
-        return new AdjacentRegion(reference);
+        return build(new AdjacentRegion(reference), onlyWalkablePositions);
     }
 
     public Region getCardinalRegion(boolean onlyWalkablePositions) {
-        if (onlyWalkablePositions)
-            return new CardinalRegion(reference, validator);
-        return new CardinalRegion(reference);
+        return build(new CardinalRegion(reference), onlyWalkablePositions);
     }
 
     public Region getLimitedRegion(int limit, boolean onlyWalkablePositions) {
-        if (onlyWalkablePositions)
-            return new LimitedRegion(reference, validator, limit);
-        return new LimitedRegion(reference, limit);
+        return build(new LimitedRegion(reference, limit), onlyWalkablePositions);
     }
 
     public Region getRoomRegion(Coordinate reference, boolean onlyWalkablePositions)
             throws OutsideRoomException {
         Collection<Coordinate> roomCoordinates = map.getRoomCoordinates(reference);
 
-        if (onlyWalkablePositions)
-            return new RoomRegion(reference, validator, roomCoordinates);
-
-        return new RoomRegion(reference, roomCoordinates);
+        return build(new RoomRegion(reference, roomCoordinates), onlyWalkablePositions);
     }
 
     public Region getRoomRegion(boolean onlyWalkablePositions) throws OutsideRoomException {
         return getRoomRegion(reference, onlyWalkablePositions);
+    }
+
+    private Region build(Region region, boolean onlyWalkablePositions) {
+        if (onlyWalkablePositions)
+            region.setWalkValidator(validator);
+
+        region.build();
+
+        return region;
+    }
+
+    public static Region getPlaneRegion(Dimension dimension) {
+        Region region = new PlaneRegion(Coordinate.getOrigin(), dimension.toCoordinate());
+        region.build();
+        return region;
     }
 }

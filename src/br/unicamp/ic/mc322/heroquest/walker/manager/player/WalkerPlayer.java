@@ -2,9 +2,9 @@ package br.unicamp.ic.mc322.heroquest.walker.manager.player;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.skills.Skill;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.playerInterface.PlayerInterface;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 

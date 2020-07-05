@@ -15,7 +15,7 @@ public class MapUnit {
     }
 
     public void add(Walker walker) {
-        if (structure.isAllowedToWalkOver()) {
+        if (structure.isAllowedToWalkOver() && (fixedObject == null || fixedObject.isAllowedToWalkOver())) {
             this.walker = walker;
             this.walker.setPosition(structure.getPosition());
         }
@@ -26,6 +26,8 @@ public class MapUnit {
     public void add(FixedObject object) {
         if (fixedObject == null)
             fixedObject = object;
+        else
+            throw new OccupiedUnitException();
     }
 
     public void moveWalker(MapUnit destination) {

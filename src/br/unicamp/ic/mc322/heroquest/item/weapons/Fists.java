@@ -1,6 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
-import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemy;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 

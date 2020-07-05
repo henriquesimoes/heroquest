@@ -56,10 +56,7 @@ public abstract class WalkerManager {
         int limitPositionInMove = walker.getPositionLimitInMovement();
         Region region = regionSelector.getLimitedRegion(limitPositionInMove, true);
 
-        // TODO: include toArrayList method on Region
-        ArrayList<Coordinate> possibleMoves = new ArrayList<>();
-        for (Coordinate coordinate : region)
-            possibleMoves.add(coordinate);
+        ArrayList<Coordinate> possibleMoves = region.toArrayList();
 
         Coordinate chosenMove = chooseMove(possibleMoves);
         if (chosenMove != null)

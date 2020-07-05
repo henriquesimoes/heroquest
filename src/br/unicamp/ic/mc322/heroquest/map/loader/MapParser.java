@@ -4,7 +4,6 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
 
 public class MapParser {

@@ -1,53 +1,47 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
-import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 public class LimitedRegion extends Region {
     private int limit;
+    private Queue<Pair<Coordinate, Integer>> queue;
+    private Set<Coordinate> visited;
 
     LimitedRegion(Coordinate reference, int limit) {
         super(reference);
         this.limit = limit;
-    }
-
-    LimitedRegion(Coordinate reference, WalkValidator walkValidator, int limit) {
-        super(reference, walkValidator);
-        this.limit = limit;
+        queue = new LinkedList<>();
+        visited = new HashSet<>();
     }
 
     @Override
-    public Iterator<Coordinate> iterator() {
-        return new Iterator<>() {
-            private Queue<Pair<Coordinate, Integer>> queue = new LinkedList<>();
-            private Set<Coordinate> visited = new HashSet<>();
+    protected void build() {
+        visited.add(reference);
+        queue.add(new Pair<>(reference, 0));
 
-            {
-                // TODO: Check whether a nested class approach is more desired.
-                queue.add(new Pair<>(reference, 0));
-                visited.add(reference);
+        while (!queue.isEmpty() && queue.peek().getValue() <= limit) {
+            Pair<Coordinate, Integer> current = queue.poll();
+
+            update(current);
+
+            coordinates.add(current.getKey());
+        }
+    }
+
+    private void update(Pair<Coordinate, Integer> lastVisitedPosition) {
+        Coordinate lastCoordinate = lastVisitedPosition.getKey();
+        int distance = lastVisitedPosition.getValue();
+
+        for (Coordinate neighbor : lastCoordinate.getNeighborCoordinates()) {
+            if (!visited.contains(neighbor) && isValid(neighbor)) {
+                queue.add(new Pair<>(neighbor, distance + 1));
+                visited.add(neighbor);
             }
-
-            @Override
-            public boolean hasNext() {
-                return !queue.isEmpty() && queue.peek().getValue() <= limit;
-            }
-
-            @Override
-            public Coordinate next() {
-                Pair<Coordinate, Integer> current = queue.poll();
-
-                for (Coordinate neighbor : current.getKey().getNeighborCoordinates())
-                    if (!visited.contains(neighbor)
-                            && (walkValidator == null || walkValidator.isAllowedToWalkOver(neighbor))) {
-                        queue.add(new Pair<>(neighbor, current.getValue() + 1));
-                        visited.add(neighbor);
-                    }
-
-                return current.getKey();
-            }
-        };
+        }
     }
 }

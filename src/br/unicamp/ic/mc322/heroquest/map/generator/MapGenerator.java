@@ -9,6 +9,7 @@ import br.unicamp.ic.mc322.heroquest.map.generator.pathgenerator.PathGenerator;
 import br.unicamp.ic.mc322.heroquest.map.generator.roomgenerator.RoomGenerator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapParser;
 
 import java.util.ArrayList;
@@ -95,14 +96,12 @@ public class MapGenerator {
     }
 
     private void createStructure(MapBuilder builder) {
-        Coordinate origin = Coordinate.getOrigin();
+        Dimension dimension = new Dimension(GRID_WIDTH, GRID_HEIGHT);
 
-        for (int i = 0; i < GRID_HEIGHT; i++) {
-            for (int j = 0; j < GRID_WIDTH; j++) {
-                Coordinate coordinate = Coordinate.shift(origin, j, i);
+        for (Coordinate coordinate : RegionSelector.getPlaneRegion(dimension)) {
+            Coordinate relative = coordinate.toRelative();
 
-                MapParser.parseAndAdd(grid[i][j], coordinate, builder);
-            }
+            MapParser.parseAndAdd(grid[relative.getY()][relative.getX()], coordinate, builder);
         }
 
         builder.buildStructure();

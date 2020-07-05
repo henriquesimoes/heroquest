@@ -1,56 +1,37 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
-import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collection;
 
 class AdjacentRegion extends Region {
-    protected ArrayList<Pair<Integer, Integer>> delta = new ArrayList<>();
+    protected Collection<Pair<Integer, Integer>> deltas;
 
     AdjacentRegion(Coordinate reference) {
         super(reference);
+
+        deltas = new ArrayList<>();
     }
 
-    AdjacentRegion(Coordinate reference, WalkValidator walkValidator) {
-        super(reference, walkValidator);
-    }
-
-    protected void build() {
+    protected void buildDeltas() {
         final int[] deltaX = {0,  0, 1, 1,  1, -1, -1, -1};
         final int[] deltaY = {1, -1, 1, 0, -1,  1,  0, -1};
 
         for (int i = 0; i < deltaX.length; i++)
-            delta.add(new Pair<>(deltaX[i], deltaY[i]));
+            deltas.add(new Pair<>(deltaX[i], deltaY[i]));
     }
 
     @Override
-    public Iterator<Coordinate> iterator() {
-        if (delta.isEmpty())
-            build();
+    protected void build() {
+        buildDeltas();
 
-        return new Iterator<>() {
-            private int current = 0;
+        for (Pair<Integer, Integer> delta : deltas) {
+            Coordinate coordinate = Coordinate.shift(reference, delta.getKey(), delta.getValue());
 
-            private Coordinate get(int index) {
-                return Coordinate.shift(reference, delta.get(index).getKey(), delta.get(index).getValue());
-            }
-
-            @Override
-            public boolean hasNext() {
-                if (walkValidator != null)
-                    while (current < delta.size() && !walkValidator.isAllowedToWalkOver(get(current)))
-                        current++;
-
-                return current < delta.size();
-            }
-
-            @Override
-            public Coordinate next() {
-                return get(current++);
-            }
-        };
+            if (isValid(coordinate))
+                coordinates.add(coordinate);
+        }
     }
 }
 
