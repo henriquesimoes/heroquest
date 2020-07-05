@@ -14,7 +14,7 @@ public class SkeletonWizard extends Monster {
         defenseDice = 1;
         maximumBodyPoints = currentBodyPoints = 2;
         mindPoints = 3;
-        ableLearnAirSpell = true;
+        ableToLearnAirSpell = true;
 
         for (int i = 0; i < numInitialMagicMissile; i++)
             addSkill(new MagicMissile());

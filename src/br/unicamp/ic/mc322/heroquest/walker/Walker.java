@@ -34,7 +34,7 @@ public abstract class Walker extends MapObject {
     protected RedDice redDice;
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
-    protected boolean ableLearnFireSpell, ableLearnAirSpell, ableLearnEarthSpell, ableLearnWaterSpell;
+    protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell, ableToLearnWaterSpell;
 
     public Walker(WalkerManager manager, String name) {
         this.walkerManager = manager;
@@ -300,19 +300,19 @@ public abstract class Walker extends MapObject {
     /**TODO: Classe com implementação vazia até decidirmos formato do mapa*/
     public ArrayList<Coordinate> getPositionsInEntitySight() { return new ArrayList<>();}
 
-    public boolean isAbleLearnFireSpell(){
-        return ableLearnFireSpell;
+    public boolean isAbleToLearnFireSpell(){
+        return ableToLearnFireSpell;
     }
 
-    public boolean isAbleLearnAirSpell(){
-        return ableLearnAirSpell;
+    public boolean isAbleToLearnAirSpell(){
+        return ableToLearnAirSpell;
     }
 
-    public boolean isAbleLearnEarthSpell(){
-        return ableLearnEarthSpell;
+    public boolean isAbleToLearnEarthSpell(){
+        return ableToLearnEarthSpell;
     }
 
-    public boolean isAbleLearnWaterSpell(){
-        return ableLearnWaterSpell;
+    public boolean isAbleToLearnWaterSpell(){
+        return ableToLearnWaterSpell;
     }
 }

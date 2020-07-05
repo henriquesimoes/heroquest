@@ -10,7 +10,7 @@ public abstract class EarthSpellCard extends SpellCard {
     }
 
     public void useItem(Walker proprietary) {
-        if(proprietary.isAbleLearnEarthSpell()){
+        if(proprietary.isAbleToLearnEarthSpell()){
             proprietary.addSkill(spell);
             proprietary.destroyItem(this);
         }
