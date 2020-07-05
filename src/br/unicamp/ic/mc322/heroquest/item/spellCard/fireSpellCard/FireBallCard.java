@@ -7,6 +7,7 @@ public class FireBallCard extends FireSpellCard {
 
     public FireBallCard() {
         super("FireBallCard", DESCRIPTION, 100);
+
         spell = new FireBall();
     }
 

@@ -1,16 +1,32 @@
 package br.unicamp.ic.mc322.heroquest.skills;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
+import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 
-public abstract class Skill {
+public abstract class Skill implements MapObjectVisitor {
+    private WalkerManager walkerManager;
     protected String skillName;
+    protected RegionSelector userRegionSelector;
+    protected Walker skillUser;
+    protected ArrayList<MapObject> targets;
 
     public Skill(String skillName) {
         this.skillName = skillName;
+        this.targets = new ArrayList<>();
+    }
+
+    public void setWalkerManager(WalkerManager walkerManager) {
+        this.walkerManager = walkerManager;
+        this.userRegionSelector = walkerManager.getRegionSelector();
+        this.skillUser = walkerManager.getWalker();
     }
 
     public abstract void useSkill(Walker summoner, MapObject targetObject);
@@ -19,5 +35,24 @@ public abstract class Skill {
         return skillName;
     }
 
-    public abstract ArrayList<MapObject> getTargets(WalkerManager currentWalkerManager);
+    public abstract void updateTargets();
+
+    public ArrayList<MapObject> getTargets() {
+        targets.clear();
+        updateTargets();
+        return targets;
+    }
+
+    protected void accept(MapObjectVisitor visitor, Region region) {
+        walkerManager.accept(visitor, region);
+    }
+
+    @Override
+    public void visit(StructuralObject structuralObject) {}
+
+    @Override
+    public void visit(FixedObject fixedObject) {}
+
+    @Override
+    public void visit(Walker walker) {}
 }

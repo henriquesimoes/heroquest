@@ -2,9 +2,9 @@ package br.unicamp.ic.mc322.heroquest.walker.manager.player;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.skills.Skill;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.playerInterface.PlayerInterface;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
@@ -15,12 +15,12 @@ public class WalkerPlayer extends WalkerManager {
 
     public WalkerPlayer(Map map) {
         super(map);
-        ioInterface = new PlayerInterface();
+        ioInterface = new PlayerInterface(map);
     }
 
     public void updateScreen(){
         ioInterface.showMessage(walker.getStatus());
-        ioInterface.showMap(map, walker);
+        ioInterface.showMap(walker);
     }
 
     @Override

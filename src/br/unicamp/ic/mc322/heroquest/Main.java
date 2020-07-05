@@ -21,10 +21,10 @@ public class Main {
 
     public static void main(String[] args) {
         MapManager manager = new MapManager();
-        TerminalViewer viewer = new TerminalViewer();
 
         try {
             Map map = manager.load("default.map");
+            TerminalViewer viewer = new TerminalViewer(map);
 
             ArrayList<WalkerManager> heroes = new ArrayList<>();
             ArrayList<WalkerManager> monster = new ArrayList<>();
@@ -41,7 +41,7 @@ public class Main {
             map.add(skeletonWizard, new Coordinate(2,2));
             map.add(skeletonWizard2, new Coordinate(9,9));
 
-            viewer.display(map, null);
+            viewer.display(null);
             GameLoop gameLoop = new GameLoop(map, heroes, monster);
             gameLoop.run();
 

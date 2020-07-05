@@ -2,7 +2,10 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 public class LimitedRegion extends Region {
     private int limit;

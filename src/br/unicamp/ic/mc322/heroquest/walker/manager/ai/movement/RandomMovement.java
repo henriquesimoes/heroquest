@@ -6,19 +6,22 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 
-public class RandomMovement extends MovementBehavior {
+public class RandomMovement implements MovementBehavior {
     private static RandomMovement instance;
+    private WalkerManager walkerManager;
 
-    private RandomMovement(){}
+    public RandomMovement() {}
 
-    public static RandomMovement getInstance(){
-        if (instance == null)
-            instance = new RandomMovement();
-        return instance;
+    public RandomMovement(WalkerManager walkerManager) {
+        setWalkerManager(walkerManager);
+    }
+
+    public void setWalkerManager(WalkerManager walkerManager) {
+        this.walkerManager = walkerManager;
     }
 
     @Override
-    public int chooseMove(WalkerManager walkerManager, ArrayList<Coordinate> possibleMoves){
+    public int chooseMove(ArrayList<Coordinate> possibleMoves){
         return Randomizer.randInt(1, possibleMoves.size()); // choose a move indexed by 1
     }
 }

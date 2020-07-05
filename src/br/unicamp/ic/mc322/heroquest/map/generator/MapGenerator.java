@@ -1,14 +1,15 @@
 package br.unicamp.ic.mc322.heroquest.map.generator;
 
-import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
+import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
+import br.unicamp.ic.mc322.heroquest.map.core.SinglePlacement;
 import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.BSPGrid;
 import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
 import br.unicamp.ic.mc322.heroquest.map.generator.pathgenerator.PathGenerator;
 import br.unicamp.ic.mc322.heroquest.map.generator.roomgenerator.RoomGenerator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapParser;
 
 import java.util.ArrayList;
@@ -29,12 +30,16 @@ public class MapGenerator {
         rooms = new ArrayList<>();
     }
 
-    public Map generate() {
+    public MapBuilder generate() {
         createGrid();
         createRandomRooms();
         createMatrixGrid();
 
-        return new Map(buildStructure());
+        MapBuilder builder = new MapBuilder(new SinglePlacement());
+
+        createStructure(builder);
+
+        return builder;
     }
 
     private void createGrid() {
@@ -90,18 +95,15 @@ public class MapGenerator {
         return false;
     }
 
-    private MapStructure buildStructure() {
-        MapStructure structure = new MapStructure();
-        Coordinate origin = Coordinate.getOrigin();
+    private void createStructure(MapBuilder builder) {
+        Dimension dimension = new Dimension(GRID_WIDTH, GRID_HEIGHT);
 
-        for (int i = 0; i < GRID_HEIGHT; i++) {
-            for (int j = 0; j < GRID_WIDTH; j++) {
-                Coordinate coordinate = Coordinate.shift(origin, j, i);
+        for (Coordinate coordinate : RegionSelector.getPlaneRegion(dimension)) {
+            Coordinate relative = coordinate.toRelative();
 
-                structure.add(MapParser.parse(grid[i][j], coordinate));
-            }
+            MapParser.parseAndAdd(grid[relative.getY()][relative.getX()], coordinate, builder);
         }
 
-        return structure;
+        builder.buildStructure();
     }
 }

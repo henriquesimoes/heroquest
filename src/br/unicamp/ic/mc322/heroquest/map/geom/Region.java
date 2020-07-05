@@ -29,6 +29,10 @@ public abstract class Region implements Iterable<Coordinate> {
         return walkValidator == null || walkValidator.isAllowedToWalkOver(coordinate);
     }
 
+    public ArrayList<Coordinate> toArrayList() {
+        return new ArrayList<>(coordinates);
+    }
+
     @Override
     public Iterator<Coordinate> iterator() {
         return coordinates.iterator();

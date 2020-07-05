@@ -1,64 +1,98 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Room {
-    private java.util.Map<Coordinate, FixedObject> objects;
-    private java.util.Map<Coordinate, Walker> beings;
-    private int id;
+    private Collection<MapUnit> units;
 
-    public Room(int id) {
-        this.id = id;
-        objects = new HashMap<>();
-        beings = new HashMap<>();
+    public Room() {
+        units = new ArrayList<>();
     }
 
-    public int getId() {
-        return id;
+    protected void add(MapObject object) {
+        MapUnit unit = getUnit(object.getPosition());
+
+        object.goTo(unit);
     }
 
-    public void add(FixedObject object) {
-        objects.put(object.getPosition(), object);
-    }
-
-    public void add(Walker walker) {
-        beings.put(walker.getPosition(), walker);
+    protected void add(StructuralObject object) {
+        units.add(new MapUnit(object));
     }
 
     public boolean isOccupied(Coordinate coordinate) {
-        return objects.containsKey(coordinate) || beings.containsKey(coordinate);
+        MapUnit unit = getUnit(coordinate);
+
+        return !unit.isFree();
     }
 
-    public FixedObject getFixedObject(Coordinate coordinate) {
-        return objects.get(coordinate);
+    public boolean contains(Coordinate position) {
+        return getUnit(position) != null;
     }
 
-    public Walker getWalker(Coordinate coordinate) {
-        return beings.get(coordinate);
+    public void placeObject(PlacementStrategy strategy, Coordinate coordinate, MapObject objectToPlace) {
+        MapUnit unit = getUnit(coordinate);
+
+        if (unit.accept(strategy, objectToPlace)) {
+            objectToPlace.setPosition(coordinate);
+
+            add(objectToPlace);
+        }
     }
 
-    public boolean isAllowedToWalkOver(Coordinate coordinate) {
-        MapObject object = getPreferentialObject(coordinate);
+    public void move(MapObject object, Coordinate destination) {
+        MapUnit originUnit = getUnit(object.getPosition());
+        MapUnit destinationUnit = getUnit(destination);
 
-        if (object != null && !object.isAllowedToWalkOver())
-            return false;
-
-        return true;
+        originUnit.moveWalker(destinationUnit);
     }
 
-    public MapObject getPreferentialObject(Coordinate coordinate) {
-        Walker walker = getWalker(coordinate);
-        if (walker != null)
-            return walker;
+    public Collection<Coordinate> getCoordinates() {
+        Collection<Coordinate> result = new ArrayList<>();
 
-        return getFixedObject(coordinate);
+        for (MapUnit unit : units)
+            result.add(unit.getCoordinate());
+
+        return result;
+    }
+
+    public StructuralObject getStructure(Coordinate coordinate) {
+        MapUnit unit = getUnit(coordinate);
+
+        return unit.getStructure();
+    }
+
+    public void accept(MapObjectVisitor visitor) {
+        for (MapUnit unit : units)
+            unit.accept(visitor);
+    }
+
+    public void accept(MapObjectVisitor visitor, Coordinate coordinate) {
+        MapUnit unit = getUnit(coordinate);
+
+        unit.accept(visitor);
+    }
+
+    public void accept(ConcreteMapObjectVisitor visitor) {
+        for (MapUnit unit : units)
+            unit.accept(visitor);
+    }
+
+    private MapUnit getUnit(Coordinate coordinate) {
+        for (MapUnit unit : units)
+            if (unit.at(coordinate))
+                return unit;
+
+        return null;
     }
 
     public void remove(Walker walker) {
-        beings.remove(walker.getPosition());
+        MapUnit unit = getUnit(walker.getPosition());
+
+        unit.removeWalker();
     }
 }

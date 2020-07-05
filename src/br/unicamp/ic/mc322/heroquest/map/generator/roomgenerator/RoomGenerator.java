@@ -6,7 +6,6 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class RoomGenerator {

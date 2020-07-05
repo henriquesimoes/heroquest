@@ -1,9 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.map.loader;
 
-import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.map.core.MapStructure;
+import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
+import br.unicamp.ic.mc322.heroquest.map.core.SinglePlacement;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +20,7 @@ public class MapLoader {
         this.base = Paths.get(MAPS_PATH).toAbsolutePath();
     }
 
-    public Map load(String filename) throws FileNotFoundException, CorruptedConfigurationFileException {
+    public MapBuilder load(String filename) throws FileNotFoundException, CorruptedConfigurationFileException {
         File config = new File(base.resolve(filename).toUri());
 
         if (!config.exists())
@@ -29,14 +28,14 @@ public class MapLoader {
 
         Scanner scanner = new Scanner(config);
         scanner.useDelimiter("\n");
-        MapStructure mapStructure = readStructure(scanner);
+        MapBuilder builder = new MapBuilder(new SinglePlacement());
 
-        return new Map(mapStructure);
+        readStructure(scanner, builder);
+
+        return builder;
     }
 
-    private MapStructure readStructure(Scanner scanner) throws CorruptedConfigurationFileException {
-        MapStructure structure = new MapStructure();
-
+    private void readStructure(Scanner scanner, MapBuilder builder) throws CorruptedConfigurationFileException {
         Coordinate origin = Coordinate.getOrigin();
         int dy = 0, width = 0;
 
@@ -53,8 +52,7 @@ public class MapLoader {
                 Coordinate coordinate = Coordinate.shift(origin, dx, dy);
 
                 try {
-                    StructuralObject obj = MapParser.parse(line.charAt(dx), coordinate);
-                    structure.add(obj);
+;                    MapParser.parseAndAdd(line.charAt(dx), coordinate, builder);
                 } catch (IllegalArgumentException ex) {
                     throw new CorruptedConfigurationFileException(
                             String.format("Invalid char `%c` found on map configuration file", line.charAt(dx)));
@@ -64,8 +62,6 @@ public class MapLoader {
             dy++;
         }
 
-        return structure;
+        builder.buildStructure();
     }
-
-
 }

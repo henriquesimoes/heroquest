@@ -1,10 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.map.object.fixed;
 
+import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class Chest extends  FixedObject {
+public class Chest extends FixedObject {
     private boolean opened;
 
     // TODO: Introduce storage item management
@@ -27,12 +27,12 @@ public class Chest extends  FixedObject {
     }
 
     @Override
-    public ObjectView getRepresentation() {
-        return new ObjectView("c");
+    public String getRepresentationOnMenu() {
+        return "Chest on " + getPosition();
     }
 
     @Override
-    public String getRepresentationOnMenu() {
-        return "Chest on " + getPosition();
+    public void accept(ConcreteMapObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

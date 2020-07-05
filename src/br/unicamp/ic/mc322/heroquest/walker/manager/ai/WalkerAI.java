@@ -6,7 +6,6 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
-import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.manager.ai.attack.AttackBehavior;
 import br.unicamp.ic.mc322.heroquest.walker.manager.ai.movement.MovementBehavior;
@@ -42,7 +41,7 @@ public class WalkerAI extends WalkerManager {
 
     @Override
     protected int chooseMove(ArrayList<Coordinate> possibleMoves) {
-        return movementBehavior.chooseMove(this, possibleMoves);
+        return movementBehavior.chooseMove(possibleMoves);
     }
 
     @Override
@@ -51,12 +50,12 @@ public class WalkerAI extends WalkerManager {
 
         // store in skillTarget each skill with a valid target
         for (Skill skill : skills){
-            ArrayList<MapObject> targets = skill.getTargets(this);
+            ArrayList<MapObject> targets = skill.getTargets();
             if (targets.size() != 0)
                 skillWithValidTargets.add(skill);
         }
 
-        // nothing skill has a valid target
+        // no skill has a valid target
         if (skillWithValidTargets.size() == 0)
             return 0;
 

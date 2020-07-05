@@ -1,32 +1,40 @@
 package br.unicamp.ic.mc322.heroquest.walker.manager.ai.movement;
 
+import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
 
-public class Follower extends MovementBehavior {
-    private static Follower instance;
+public class Follower implements MovementBehavior, MapObjectVisitor {
+    private ArrayList<Walker> enemies;
+    private WalkerManager walkerManager;
 
-    public Follower() {}
+    public Follower() {
+        enemies = new ArrayList<>();
+    }
 
-    public static Follower getInstance(){
-        if (instance == null)
-            instance = new Follower();
-        return instance;
+    public void setWalkerManager(WalkerManager walkerManager) {
+        this.walkerManager = walkerManager;
     }
 
     @Override
-    public int chooseMove(WalkerManager walkerManager, ArrayList<Coordinate> possibleMoves){
-        ArrayList<Walker> enemies = walkerManager.getVisibleEnemies();
+    public int chooseMove(ArrayList<Coordinate> possibleMoves) {
         Coordinate walkerPosition = walkerManager.getWalkerPosition();
         possibleMoves.add(0, walkerPosition); // insert "stay still" as the 0-th move
 
+        Region region = walkerManager.getRegionSelector().getRoomRegion(false);
+
+        walkerManager.accept(this, region);
+
         // if there is no visible enemies, then make a random move
         if (enemies.size() == 0) {
-            RandomMovement randomMovement = RandomMovement.getInstance();
-            return randomMovement.chooseMove(walkerManager, possibleMoves);
+            RandomMovement randomMovement = new RandomMovement(walkerManager);
+            return randomMovement.chooseMove(possibleMoves);
         }
 
         Coordinate choice = walkerManager.getCoordinateCloserToWalkers(possibleMoves, enemies);
@@ -38,4 +46,16 @@ public class Follower extends MovementBehavior {
 
         throw new IllegalStateException();
     }
+
+    @Override
+    public void visit(Walker walker) {
+        if (walker.isEnemy(walkerManager.getWalker()))
+            enemies.add(walker);
+    }
+
+    @Override
+    public void visit(StructuralObject structuralObject) {}
+
+    @Override
+    public void visit(FixedObject fixedObject) {}
 }

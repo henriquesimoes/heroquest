@@ -3,6 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker.manager;
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
@@ -54,43 +55,8 @@ public abstract class WalkerManager {
      */
     protected abstract int chooseTargetSkill(ArrayList<MapObject> targets);
 
-    public ArrayList<Walker> getFriendsWithinArea(Region region) {
-        ArrayList<Walker> targetWalkers = map.getAllWalkersWithinArea(region);
-        return getListOfFriends(targetWalkers);
-    }
-
-    public ArrayList<Walker> getEnemiesWithinArea(Region region) {
-        ArrayList<Walker> targetWalkers = map.getAllWalkersWithinArea(region);
-        return getListOfEnemies(targetWalkers);
-    }
-
-    public ArrayList<Walker> getListOfFriends(ArrayList<Walker> targetWalkers) {
-        ArrayList<Walker> friends = new ArrayList<>();
-        for (Walker targetWalker : targetWalkers)
-            if (walker.isFriend(targetWalker))
-                friends.add(targetWalker);
-        return friends;
-    }
-
-    public ArrayList<Walker> getListOfEnemies(ArrayList<Walker> targetWalkers) {
-        ArrayList<Walker> enemies = new ArrayList<>();
-        for (Walker targetWalker : targetWalkers)
-            if (walker.isEnemy(targetWalker))
-                enemies.add(targetWalker);
-        return enemies;
-    }
-
-    public ArrayList<MapObject> getVisibleUnoccupiedPositions() {
-        return map.getUnoccupiedPositions(walker);
-    }
-
-    public ArrayList<Walker> getVisibleEnemies(){
-        ArrayList<Walker> walkers = map.getAllWalkersWithinArea(regionSelector.getRoomRegion(false));
-        return getListOfEnemies(walkers);
-    }
-
     public void moveWalker(Coordinate position) {
-        map.moveObject(walker, position);
+        map.move(walker, position);
     }
 
     public RegionSelector getRegionSelector(){
@@ -109,11 +75,12 @@ public abstract class WalkerManager {
     protected boolean makeMove() {
         int limitPositionInMove = walker.getPositionLimitInMovement();
         Region region = regionSelector.getLimitedRegion(limitPositionInMove, true);
-        ArrayList<Coordinate> possibleMoves = map.getWalkablePositions(region);
+
+        ArrayList<Coordinate> possibleMoves = region.toArrayList();
 
         int choice = chooseMove(possibleMoves);
         if (choice != 0)
-            map.moveObject(walker, possibleMoves.get(choice - 1));
+            moveWalker(possibleMoves.get(choice - 1));
 
         return true;
     }
@@ -128,7 +95,7 @@ public abstract class WalkerManager {
             return false;
 
         Skill chosenSkill = skills.get(choice - 1);
-        ArrayList<MapObject> targets = chosenSkill.getTargets(this);
+        ArrayList<MapObject> targets = chosenSkill.getTargets();
 
         choice = chooseTargetSkill(targets);
 
@@ -139,13 +106,6 @@ public abstract class WalkerManager {
         chosenSkill.useSkill(walker, target);
 
         return true;
-    }
-
-    public ArrayList<MapObject> arrayListWalkerToMapObject(ArrayList<Walker> walkers){
-        ArrayList<MapObject> mapObjects = new ArrayList<>();
-        for(Walker walker : walkers)
-            mapObjects.add(walker);
-        return mapObjects;
     }
 
     public Coordinate getCoordinateCloserToWalkers(ArrayList<Coordinate> coordinates, ArrayList<Walker> walkers) {
@@ -172,5 +132,9 @@ public abstract class WalkerManager {
 
     public String getWalkerName() {
         return walker.getName();
+    }
+
+    public void accept(MapObjectVisitor visitor, Region region) {
+        map.accept(visitor, region);
     }
 }

@@ -7,6 +7,7 @@ public class SimpleHealCard extends EarthSpellCard {
 
     public SimpleHealCard() {
         super("SimpleHealCard", DESCRIPTION, 100);
+
         spell = new SimpleHeal();
     }
 }

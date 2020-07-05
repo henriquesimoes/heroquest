@@ -1,10 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.loop;
 
-import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public interface GameListener {
 
-    void notifyWalkerDeath(WalkerManager walkerManager);
-
-    void notifyWalkerDamage(WalkerManager manager, int damage);
+    void notifyWalkerDeath(Walker walker);
+    void notifyWalkerDamage(Walker walker, int damage);
 }

@@ -45,6 +45,12 @@ public class Coordinate {
         this.coordinate.setLocation(coordinate.getX(), coordinate.getY());
     }
 
+    public Coordinate toRelative() {
+        Coordinate origin = getOrigin();
+
+        return Coordinate.shift(this, -origin.getX(), -origin.getY());
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(this.getX(), this.getY());
