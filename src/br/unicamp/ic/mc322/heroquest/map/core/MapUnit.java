@@ -17,15 +17,17 @@ public class MapUnit {
     public void add(Walker walker) {
         if (structure.isAllowedToWalkOver() && (fixedObject == null || fixedObject.isAllowedToWalkOver())) {
             this.walker = walker;
-            this.walker.setPosition(structure.getPosition());
+            this.walker.setPosition(getCoordinate());
         }
         else
             throw new IllegalStateException("Not walkable unit...");
     }
 
     public void add(FixedObject object) {
-        if (fixedObject == null)
+        if (fixedObject == null) {
             fixedObject = object;
+            fixedObject.setPosition(getCoordinate());
+        }
         else
             throw new OccupiedUnitException();
     }

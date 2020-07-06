@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;
@@ -14,10 +15,25 @@ public class Room {
         units = new ArrayList<>();
     }
 
-    protected void add(MapObject object) {
-        MapUnit unit = getUnit(object.getPosition());
+    protected void add(MapObject object, Coordinate coordinate) {
+        MapUnit unit = getUnit(coordinate);
 
         object.goTo(unit);
+    }
+
+    protected void add(MapObject object) {
+        ArrayList<MapUnit> available = new ArrayList<>();
+
+        for (MapUnit unit : units)
+            if (unit.isFree())
+                available.add(unit);
+
+        if (available.isEmpty())
+            throw new IllegalStateException("Full room...");
+
+        MapUnit destination = available.get(Randomizer.nextInt(available.size()));
+
+        object.goTo(destination);
     }
 
     protected void add(StructuralObject object) {

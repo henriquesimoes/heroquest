@@ -38,4 +38,8 @@ public class MapManager {
 
         builder.buildMap();
     }
+
+    public String[] getExistingMapNames() {
+        return loader.getMapNames();
+    }
 }
