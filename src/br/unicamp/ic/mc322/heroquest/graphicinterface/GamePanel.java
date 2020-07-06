@@ -18,12 +18,6 @@ public class GamePanel extends JPanel implements Runnable {
         requestFocus();
     }
 
-    private void initGameInterface() {
-        running = true;
-        image = new BufferedImage(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT, BufferedImage.TYPE_INT_RGB);
-        graphics = (Graphics2D) image.getGraphics();
-    }
-
     @Override
     public void addNotify() {
         super.addNotify();
@@ -44,17 +38,23 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    private void initGameInterface() {
+        running = true;
+        image = new BufferedImage(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        graphics = (Graphics2D) image.createGraphics();
+    }
+
     private void renderGraphics() {
         if (graphics != null) {
-            graphics.setColor(Color.RED);
+            graphics.setColor(Color.BLACK);
             graphics.fillRect(0, 0, GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
         }
     }
 
     private void draw() {
-        Graphics showScreen = (Graphics) this.getGraphics();
-        showScreen.drawImage(image, 0, 0, null);
-        showScreen.dispose();
+        Graphics showInTheScreen = (Graphics) this.getGraphics();
+        showInTheScreen.drawImage(image, 0, 0, null);
+        showInTheScreen.dispose();
     }
 
 }
