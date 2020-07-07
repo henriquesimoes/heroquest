@@ -103,6 +103,7 @@ public class GameLoop implements GameListener, MapObjectVisitor {
             case MORCAR:
                 monsters.add(manager);
                 monstersAlive.add(manager);
+                break;
             default:
                 throw new UnsupportedClassVersionError();
         }
