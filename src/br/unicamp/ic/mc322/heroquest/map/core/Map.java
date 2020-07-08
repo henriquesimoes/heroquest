@@ -7,6 +7,7 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
+import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.*;
@@ -25,7 +26,11 @@ public class Map implements WalkValidator, GameListener {
     public void add(Walker walker, Coordinate coordinate) {
         Room room = getRoom(coordinate);
 
-        walker.setPosition(coordinate);
+        room.add(walker, coordinate);
+    }
+
+    public void add(Walker walker) {
+        Room room = rooms[Randomizer.nextInt(rooms.length)];
 
         room.add(walker);
     }

@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.map.view;
+package br.unicamp.ic.mc322.heroquest.terminal;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
@@ -7,6 +7,7 @@ import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.SecretDoor;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
+import br.unicamp.ic.mc322.heroquest.view.MapViewer;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Barbarian;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Dwarf;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Elf;
@@ -15,11 +16,11 @@ import br.unicamp.ic.mc322.heroquest.walker.monster.CommonSkeleton;
 import br.unicamp.ic.mc322.heroquest.walker.monster.Goblin;
 import br.unicamp.ic.mc322.heroquest.walker.monster.SkeletonWizard;
 
-public class TerminalViewer implements Viewer {
+public class TerminalMapViewer implements MapViewer {
     private Map map;
     private char output[][];
 
-    public TerminalViewer(Map map) {
+    public TerminalMapViewer(Map map) {
         this.map = map;
 
         output = new char[map.getHeight()][map.getWidth()];

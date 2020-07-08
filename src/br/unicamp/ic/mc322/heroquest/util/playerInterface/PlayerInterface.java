@@ -2,19 +2,19 @@ package br.unicamp.ic.mc322.heroquest.util.playerInterface;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.view.TerminalViewer;
-import br.unicamp.ic.mc322.heroquest.map.view.Viewer;
+import br.unicamp.ic.mc322.heroquest.terminal.TerminalMapViewer;
+import br.unicamp.ic.mc322.heroquest.view.MapViewer;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlayerInterface {
-    private Viewer viewer;
+    private MapViewer mapViewer;
     private Scanner scanner;
 
     public PlayerInterface(Map map) {
         scanner = new Scanner(System.in);
-        viewer = new TerminalViewer(map);
+        mapViewer = new TerminalMapViewer(map);
     }
 
     public int showOptionsAndGetAnswer(ArrayList<String> optionList) {
@@ -42,6 +42,6 @@ public class PlayerInterface {
     }
 
     public void showMap(MapObject reference){
-        viewer.display(reference);
+        mapViewer.display(reference);
     }
 }

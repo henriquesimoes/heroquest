@@ -1,28 +1,27 @@
 package br.unicamp.ic.mc322.heroquest.loop;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
-public class GameLoop implements GameListener {
+public class GameLoop implements GameListener, MapObjectVisitor {
     HashSet<WalkerManager> heroes, monsters, heroesAlive, monstersAlive;
     boolean running;
     Map map;
 
-    public GameLoop(Map map, ArrayList<WalkerManager> heroes, ArrayList<WalkerManager> monsters) {
+    public GameLoop(Map map) {
         this.map = map;
         this.heroes = new HashSet<>();
         this.heroesAlive = new HashSet<>();
         this.monsters = new HashSet<>();
         this.monstersAlive = new HashSet<>();
 
-        this.heroes.addAll(heroes);
-        this.heroesAlive.addAll(heroes);
-        this.monsters.addAll(monsters);
-        this.monstersAlive.addAll(monsters);
+        map.accept(this);
 
         GameMonitor gameMonitor = GameMonitor.getInstance();
         gameMonitor.addListener(this);
@@ -92,4 +91,27 @@ public class GameLoop implements GameListener {
         for (WalkerManager manager : heroes)
             manager.showMessage(message);
     }
+
+    @Override
+    public void visit(Walker walker) {
+        WalkerManager manager = walker.getManager();
+        switch (walker.getTeam()) {
+            case HEROES:
+                heroes.add(manager);
+                heroesAlive.add(manager);
+                break;
+            case MORCAR:
+                monsters.add(manager);
+                monstersAlive.add(manager);
+                break;
+            default:
+                throw new UnsupportedClassVersionError();
+        }
+    }
+
+    @Override
+    public void visit(StructuralObject structuralObject) {}
+
+    @Override
+    public void visit(FixedObject fixedObject) {}
 }

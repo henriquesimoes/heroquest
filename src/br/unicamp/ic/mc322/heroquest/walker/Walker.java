@@ -9,7 +9,6 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
 import br.unicamp.ic.mc322.heroquest.map.core.PlacementStrategy;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
@@ -297,8 +296,9 @@ public abstract class Walker extends MapObject {
         return this.team == walker.team;
     }
 
-    /**TODO: Classe com implementação vazia até decidirmos formato do mapa*/
-    public ArrayList<Coordinate> getPositionsInEntitySight() { return new ArrayList<>();}
+    public Team getTeam() {
+        return team;
+    }
 
     public boolean isAbleToLearnFireSpell(){
         return ableToLearnFireSpell;
