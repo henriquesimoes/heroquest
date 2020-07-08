@@ -3,13 +3,12 @@ package br.unicamp.ic.mc322.heroquest.map.generator.pathgenerator;
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
 import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.util.random.Random;
+import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 
 import java.util.ArrayList;
 
 public class PathGenerator {
     private char[][] grid;
-    private Random rand = new Random();
     private ArrayList<RoomStructure> rooms;
     private ArrayList<GridContainer> gridSections;
     private ArrayList<Coordinate> roomsCoordinates = new ArrayList<>();
@@ -136,7 +135,7 @@ public class PathGenerator {
         int startingPoint = room.getRoomTopLeftCoordinates().getY() + 2;
         int finishPoint = room.getRoomTopLeftCoordinates().getY() + room.getRoomDimension().getHeight() - 2;
 
-        return rand.random(startingPoint, finishPoint);
+        return Randomizer.randInt(startingPoint, finishPoint - 1);
     }
 
     private void getCoordsOfTheCenterOfTheRooms() {

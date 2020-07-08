@@ -6,7 +6,6 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
-import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.manager.ai.attack.AttackBehavior;
 import br.unicamp.ic.mc322.heroquest.walker.manager.ai.movement.MovementBehavior;
@@ -21,6 +20,8 @@ public class WalkerAI extends WalkerManager {
         super(map);
         this.movementBehavior = movementBehavior;
         this.attackBehavior = attackBehavior;
+        this.movementBehavior.setWalkerManager(this);
+        this.attackBehavior.setWalkerManager(this);
     }
 
     @Override
@@ -34,37 +35,31 @@ public class WalkerAI extends WalkerManager {
     }
 
     @Override
-    protected int chooseItem(ArrayList<CollectableItem> items) {
-        if (items.size() == 0)
-            return 0;
-        return Randomizer.randInt(1, items.size()); // choice item indexed by 1
+    protected CollectableItem chooseItem(ArrayList<CollectableItem> items) {
+        return items.size() == 0 ? null : items.get(Randomizer.nextInt(items.size()));
     }
 
     @Override
-    protected int chooseMove(ArrayList<Coordinate> possibleMoves) {
-        return movementBehavior.chooseMove(this, possibleMoves);
+    protected Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
+        return movementBehavior.chooseMove(possibleMoves);
     }
 
     @Override
-    protected int chooseSkill(ArrayList<Skill> skills){
+    protected Skill chooseSkill(ArrayList<Skill> skills){
         ArrayList<Skill> skillWithValidTargets = new ArrayList<>();
 
         // store in skillTarget each skill with a valid target
         for (Skill skill : skills){
-            ArrayList<MapObject> targets = skill.getTargets(this);
+            ArrayList<MapObject> targets = skill.getTargets();
             if (targets.size() != 0)
                 skillWithValidTargets.add(skill);
         }
 
-        // nothing skill has a valid target
-        if (skillWithValidTargets.size() == 0)
-            return 0;
-
-        return attackBehavior.chooseSkill(skillWithValidTargets);
+        return skillWithValidTargets.size() == 0 ? null : attackBehavior.chooseSkill(skillWithValidTargets);
     }
 
     @Override
-    protected int chooseTargetSkill(ArrayList<MapObject> targets) {
+    protected MapObject chooseTargetSkill(ArrayList<MapObject> targets) {
         return attackBehavior.chooseTarget(targets);
     }
 

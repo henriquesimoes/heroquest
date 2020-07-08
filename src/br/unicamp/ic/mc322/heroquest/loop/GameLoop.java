@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.loop;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class GameLoop implements GameListener {
 
         GameMonitor gameMonitor = GameMonitor.getInstance();
         gameMonitor.addListener(this);
+        gameMonitor.addListener(map);
     }
 
     public void run() {
@@ -62,36 +64,31 @@ public class GameLoop implements GameListener {
             if (manager.isAlive())
                 manager.playTurn();
 
-        /*for (WalkerManager manager : cloneMonstersAlive)
+        for (WalkerManager manager : cloneMonstersAlive)
             if (manager.isAlive())
-                manager.playTurn();*/
+                manager.playTurn();
     }
 
-
     @Override
-    public void notifyWalkerDeath(WalkerManager managerWalkerDead) {
-        if (heroesAlive.contains(managerWalkerDead)){
-            heroesAlive.remove(managerWalkerDead);
-            map.remove(managerWalkerDead.getWalker(), managerWalkerDead.getWalkerPosition());
-        }
+    public void notifyWalkerDeath(Walker deadWalker) {
+        WalkerManager deadWalkerManager = deadWalker.getManager();
+        heroesAlive.remove(deadWalkerManager);
+        monstersAlive.remove(deadWalkerManager);
 
-        if (monstersAlive.contains(managerWalkerDead)){
-            monstersAlive.remove(managerWalkerDead);
-            map.remove(managerWalkerDead.getWalker(), managerWalkerDead.getWalkerPosition());
-        }
-
-        String message = String.format("%s is dead", managerWalkerDead.getWalkerName());
+        String message = String.format("%s is dead", deadWalkerManager.getWalkerName());
         for (WalkerManager manager : heroes)
             manager.showMessage(message);
     }
 
     @Override
-    public void notifyWalkerDamage(WalkerManager walkerTarget, int damage) {
+    public void notifyWalkerDamage(Walker targetWalker, int damage) {
+        WalkerManager targetWalkerManager = targetWalker.getManager();
         String message;
         if(damage == 0)
-            message = String.format("The %s defended with success", walkerTarget.getWalkerName());
+            message = String.format("The %s defended with success", targetWalkerManager.getWalkerName());
         else
-            message = String.format("The %s suffered %d of damage", walkerTarget.getWalkerName(), damage);
+            message = String.format("The %s suffered %d of damage", targetWalkerManager.getWalkerName(), damage);
+
         for (WalkerManager manager : heroes)
             manager.showMessage(message);
     }

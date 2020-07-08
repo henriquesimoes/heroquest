@@ -11,11 +11,11 @@ public class Coordinate {
     }
 
     public int getX() {
-        return (int) coordinate.x;
+        return coordinate.x;
     }
 
     public int getY() {
-        return (int) coordinate.y;
+        return coordinate.y;
     }
 
     public Coordinate[] getNeighborCoordinates() {
@@ -43,6 +43,12 @@ public class Coordinate {
 
     public void copyValue(Coordinate coordinate){
         this.coordinate.setLocation(coordinate.getX(), coordinate.getY());
+    }
+
+    public Coordinate toRelative() {
+        Coordinate origin = getOrigin();
+
+        return Coordinate.shift(this, -origin.getX(), -origin.getY());
     }
 
     @Override

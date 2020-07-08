@@ -9,7 +9,7 @@ public class AirSpellCard extends SpellCard {
     }
 
     public void useItem(Walker proprietary) {
-        if(proprietary.isAbleLearnAirSpell()){
+        if(proprietary.isAbleToLearnAirSpell()){
             proprietary.addSkill(spell);
             proprietary.destroyItem(this);
         }

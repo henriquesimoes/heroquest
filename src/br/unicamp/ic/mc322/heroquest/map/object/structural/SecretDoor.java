@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.object.structural;
 
+import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class SecretDoor extends Door {
@@ -24,10 +24,7 @@ public class SecretDoor extends Door {
     }
 
     @Override
-    public ObjectView getRepresentation() {
-        if (discovered)
-            return super.getRepresentation();
-
-        return new ObjectView("#");
+    public void accept(ConcreteMapObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }

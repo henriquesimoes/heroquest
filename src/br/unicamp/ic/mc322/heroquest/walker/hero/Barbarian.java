@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
-import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.LongSword;
-import br.unicamp.ic.mc322.heroquest.map.view.ObjectView;
+import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
 public class Barbarian extends Hero {
@@ -21,12 +21,12 @@ public class Barbarian extends Hero {
     }
 
     @Override
-    public ObjectView getRepresentation() {
-        return new ObjectView("B");
+    public String getRepresentationOnMenu() {
+        return "Barbarian " + getName();
     }
 
     @Override
-    public String getRepresentationOnMenu() {
-        return "Barbarian " + getName();
+    public void accept(ConcreteMapObjectVisitor visitor) {
+        visitor.visit(this);
     }
 }
