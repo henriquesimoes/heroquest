@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
-import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemy;
-import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemyInLongDistanceRange;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.Attack;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.LongDistanceAttack;
 
 public class Dagger extends Weapon {
     private static final String DESCRIPTION = "Dagger gives you a bonus of 1 combat dices." +
@@ -14,7 +14,7 @@ public class Dagger extends Weapon {
         setAttackBonus(1);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemy("Hit", this));
-        setNewSkill(new AttackEnemyInLongDistanceRange("Throw dagger", this));
+        addSkill(new Attack("Hit", this));
+        addSkill(new LongDistanceAttack("Throw dagger", this));
     }
 }

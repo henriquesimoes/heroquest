@@ -34,7 +34,7 @@ public abstract class Weapon extends DurableItem {
         this.twoHanded = twoHanded;
     }
 
-    public void setNewSkill(PhysicalSkill skill) {
+    public void addSkill(PhysicalSkill skill) {
         itemSkills.add(skill);
     }
 
@@ -59,7 +59,7 @@ public abstract class Weapon extends DurableItem {
     }
 
     @Override
-    public void useItem(Walker proprietary){
+    public void useItem(Walker proprietary) {
         proprietary.equipWeapon(this);
     }
 

@@ -4,11 +4,11 @@ import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.skills.magicSkill.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 
-public class SkeletonWizard extends Monster {
-    final int numInitialMagicMissile = 2;
+public class WizardSkeleton extends Monster {
+    final int initialNumberOfMagicMissiles = 2;
 
-    public SkeletonWizard(WalkerManager walkerManager) {
-        super(walkerManager, "Skeleton Wizard");
+    public WizardSkeleton(WalkerManager walkerManager) {
+        super(walkerManager, "Wizard Skeleton");
 
         attackDice = 2;
         defenseDice = 1;
@@ -16,13 +16,13 @@ public class SkeletonWizard extends Monster {
         mindPoints = 3;
         ableToLearnAirSpell = true;
 
-        for (int i = 0; i < numInitialMagicMissile; i++)
+        for (int i = 0; i < initialNumberOfMagicMissiles; i++)
             addSkill(new MagicMissile());
     }
 
     @Override
     public String getRepresentationOnMenu() {
-        return "Skeleton Wizard";
+        return name;
     }
 
     @Override

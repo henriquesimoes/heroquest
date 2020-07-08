@@ -7,8 +7,8 @@ import java.util.Objects;
 public abstract class MagicSkill extends Skill {
     private String spellDescription;
 
-    public MagicSkill(String SpellName, String spellDescription) {
-        super(SpellName);
+    public MagicSkill(String spellName, String spellDescription) {
+        super(spellName);
         this.spellDescription = spellDescription;
     }
 

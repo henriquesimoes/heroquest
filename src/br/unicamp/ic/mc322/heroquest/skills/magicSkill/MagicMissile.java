@@ -1,11 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.skills.magicSkill;
 
+import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class MagicMissile extends MagicSkill implements MapObjectVisitor {
+public class MagicMissile extends MagicSkill implements AbstractMapObjectVisitor {
     private static final int TOTAL_DAMAGE = 6;
 
     public MagicMissile() {

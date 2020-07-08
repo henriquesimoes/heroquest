@@ -5,13 +5,14 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 public abstract class Item {
     private String itemName;
     private String itemDescription;
-    private boolean existenceState = true;
+    private boolean existenceState;
     private int goldCoinsValue;
 
     public Item(String itemName, String itemDescription, int goldCoinsValue) {
         this.itemName = itemName;
         this.itemDescription = itemDescription;
         this.goldCoinsValue = goldCoinsValue;
+        this.existenceState = true;
     }
 
     public String getItemName() {
@@ -26,7 +27,7 @@ public abstract class Item {
         existenceState = existence;
     }
 
-    public boolean getExistenceState(){
+    public boolean getExistenceState() {
         return existenceState;
     }
 

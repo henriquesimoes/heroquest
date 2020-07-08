@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.object;
 
+import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
 import br.unicamp.ic.mc322.heroquest.map.core.PlacementStrategy;
 
@@ -18,7 +18,7 @@ public abstract class FixedObject extends MapObject {
     }
 
     @Override
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(AbstractMapObjectVisitor visitor) {
         visitor.visit(this);
     }
 }

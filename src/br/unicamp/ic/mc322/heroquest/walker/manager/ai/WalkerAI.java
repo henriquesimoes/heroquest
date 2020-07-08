@@ -45,11 +45,11 @@ public class WalkerAI extends WalkerManager {
     }
 
     @Override
-    protected Skill chooseSkill(ArrayList<Skill> skills){
+    protected Skill chooseSkill(ArrayList<Skill> skills) {
         ArrayList<Skill> skillWithValidTargets = new ArrayList<>();
 
         // store in skillTarget each skill with a valid target
-        for (Skill skill : skills){
+        for (Skill skill : skills) {
             ArrayList<MapObject> targets = skill.getTargets();
             if (targets.size() != 0)
                 skillWithValidTargets.add(skill);
@@ -59,7 +59,7 @@ public class WalkerAI extends WalkerManager {
     }
 
     @Override
-    protected MapObject chooseTargetSkill(ArrayList<MapObject> targets) {
+    protected MapObject chooseTarget(ArrayList<MapObject> targets) {
         return attackBehavior.chooseTarget(targets);
     }
 

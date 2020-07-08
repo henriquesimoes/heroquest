@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.util.tree;
 
-class Node<T>{
+class Node<T> {
     private T data;
     private Node<T> leftChild;
     private Node<T> rightChild;

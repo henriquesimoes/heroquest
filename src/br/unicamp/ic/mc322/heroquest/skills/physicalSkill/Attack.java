@@ -4,14 +4,19 @@ import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class AttackEnemyInLongDistanceRange extends PhysicalSkill {
-    public AttackEnemyInLongDistanceRange(String skillName, Weapon skilledWeapon) {
+public class Attack extends PhysicalSkill {
+    public Attack(String skillName, Weapon skilledWeapon) {
         super(skillName, skilledWeapon);
     }
 
     @Override
     public void updateTargets() {
-        Region region = userRegionSelector.getRoomRegion(false);
+        Region region;
+
+        if (skilledWeapon.canAttackDiagonally())
+            region = userRegionSelector.getAdjacentRegion(false);
+        else
+            region = userRegionSelector.getCardinalRegion(false);
 
         accept(this, region);
     }

@@ -23,7 +23,7 @@ public abstract class MapObject {
         return position.getY();
     }
 
-    public boolean at(Coordinate coordinate) {
+    public boolean isAt(Coordinate coordinate) {
         return position.equals(coordinate);
     }
 
@@ -35,13 +35,12 @@ public abstract class MapObject {
         this.position.copyValue(position);
     }
 
-    public abstract boolean isAllowedToWalkOver();
     public abstract void interact(Walker agent);
-
+    public abstract boolean isAllowedToWalkOver();
     public abstract String getRepresentationOnMenu();
 
-    public abstract boolean accept(PlacementStrategy strategy, MapObject object);
-    public abstract void accept(MapObjectVisitor visitor);
-    public abstract void accept(ConcreteMapObjectVisitor visitor);
     public abstract void goTo(MapUnit unit);
+    public abstract boolean accept(PlacementStrategy strategy, MapObject object);
+    public abstract void accept(AbstractMapObjectVisitor visitor);
+    public abstract void accept(ConcreteMapObjectVisitor visitor);
 }

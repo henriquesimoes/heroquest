@@ -1,9 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.walker.manager;
 
 import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
@@ -22,26 +22,16 @@ public abstract class WalkerManager {
         this.regionSelector = map.getRegionSelector();
     }
 
-    public void setWalker(Walker walker){
+    public void setWalker(Walker walker) {
         this.walker = walker;
         regionSelector.useAsReference(walker);
     }
-
-    public abstract void playTurn();
-
-    protected abstract CollectableItem chooseItem(ArrayList<CollectableItem> items);
-
-    protected abstract Coordinate chooseMove(ArrayList<Coordinate> possibleMoves);
-
-    protected abstract Skill chooseSkill(ArrayList<Skill> skills);
-
-    protected abstract MapObject chooseTargetSkill(ArrayList<MapObject> targets);
 
     public void moveWalker(Coordinate position) {
         map.move(walker, position);
     }
 
-    public RegionSelector getRegionSelector(){
+    public RegionSelector getRegionSelector() {
         return regionSelector;
     }
 
@@ -73,7 +63,7 @@ public abstract class WalkerManager {
             return false;
 
         ArrayList<MapObject> targets = chosenSkill.getTargets();
-        MapObject target = chooseTargetSkill(targets);
+        MapObject target = chooseTarget(targets);
 
         if (target == null)
             return false;
@@ -85,7 +75,7 @@ public abstract class WalkerManager {
 
     public Coordinate getCoordinateCloserToWalkers(ArrayList<Coordinate> coordinates, ArrayList<Walker> walkers) {
         ArrayList<MapObject> objects = new ArrayList<>();
-        for(Walker walker : walkers)
+        for (Walker walker : walkers)
             objects.add(walker);
 
         return map.getCoordinateCloserToObject(coordinates, objects);
@@ -95,7 +85,7 @@ public abstract class WalkerManager {
         return walker.getPosition();
     }
 
-    public Walker getWalker(){
+    public Walker getWalker() {
         return walker;
     }
 
@@ -103,13 +93,18 @@ public abstract class WalkerManager {
         return walker.isAlive();
     }
 
-    public abstract void showMessage(String message);
-
     public String getWalkerName() {
         return walker.getName();
     }
 
-    public void accept(MapObjectVisitor visitor, Region region) {
+    public void accept(AbstractMapObjectVisitor visitor, Region region) {
         map.accept(visitor, region);
     }
+
+    public abstract void playTurn();
+    public abstract void showMessage(String message);
+    protected abstract CollectableItem chooseItem(ArrayList<CollectableItem> items);
+    protected abstract Coordinate chooseMove(ArrayList<Coordinate> possibleMoves);
+    protected abstract Skill chooseSkill(ArrayList<Skill> skills);
+    protected abstract MapObject chooseTarget(ArrayList<MapObject> targets);
 }

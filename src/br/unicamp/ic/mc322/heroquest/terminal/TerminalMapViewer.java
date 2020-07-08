@@ -14,7 +14,7 @@ import br.unicamp.ic.mc322.heroquest.walker.hero.Elf;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Wizard;
 import br.unicamp.ic.mc322.heroquest.walker.monster.CommonSkeleton;
 import br.unicamp.ic.mc322.heroquest.walker.monster.Goblin;
-import br.unicamp.ic.mc322.heroquest.walker.monster.SkeletonWizard;
+import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
 
 public class TerminalMapViewer implements MapViewer {
     private Map map;
@@ -43,8 +43,10 @@ public class TerminalMapViewer implements MapViewer {
         StringBuilder builder = new StringBuilder();
 
         builder.append("  ");
+
         for (int dx = 0; dx < map.getWidth(); dx++)
             builder.append(String.format("%3d", dx));
+
         builder.append("\n");
 
         for (int dy = 0; dy < map.getHeight(); dy++) {
@@ -88,8 +90,8 @@ public class TerminalMapViewer implements MapViewer {
     }
 
     @Override
-    public void visit(SkeletonWizard skeletonWizard) {
-        setSymbol(skeletonWizard, 'Ŝ');
+    public void visit(WizardSkeleton wizardSkeleton) {
+        setSymbol(wizardSkeleton, 'Ŝ');
     }
 
     @Override

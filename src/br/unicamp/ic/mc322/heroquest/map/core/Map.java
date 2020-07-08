@@ -98,8 +98,8 @@ public class Map implements WalkValidator, GameListener {
 
         while (!queue.isEmpty()) {
             Pair<Coordinate, Coordinate> current = queue.poll();
-            Coordinate moveCoordinate = current.getKey();
-            Coordinate sourceCoordinate = current.getValue();
+            Coordinate moveCoordinate = current.getFirst();
+            Coordinate sourceCoordinate = current.getSecond();
 
             for (Coordinate neighbor : moveCoordinate.getNeighborCoordinates()) {
                 if (destination.contains(neighbor))
@@ -115,7 +115,7 @@ public class Map implements WalkValidator, GameListener {
         return null;
     }
 
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(AbstractMapObjectVisitor visitor) {
         for (Room room : rooms)
             room.accept(visitor);
     }
@@ -127,7 +127,7 @@ public class Map implements WalkValidator, GameListener {
             door.accept(visitor);
     }
 
-    public void accept(MapObjectVisitor visitor, Region region) {
+    public void accept(AbstractMapObjectVisitor visitor, Region region) {
         for (Coordinate coordinate : region) {
             try {
                 Room room = getRoom(coordinate);
@@ -152,7 +152,7 @@ public class Map implements WalkValidator, GameListener {
 
     private Door getDoor(Coordinate coordinate) {
         for (Door door : doors)
-            if (door.at(coordinate))
+            if (door.isAt(coordinate))
                 return door;
 
         return null;

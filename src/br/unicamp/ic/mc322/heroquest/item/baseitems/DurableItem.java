@@ -15,7 +15,7 @@ public abstract class DurableItem extends CollectableItem {
         return itemDurability;
     }
 
-    public void degradeByUse(Walker proprietary){
+    public void degradeByUse(Walker proprietary) {
         itemDurability--;
         if (itemDurability == 0)
             proprietary.destroyItem(this);

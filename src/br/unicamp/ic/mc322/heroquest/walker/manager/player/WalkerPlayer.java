@@ -18,7 +18,7 @@ public class WalkerPlayer extends WalkerManager {
         ioInterface = new PlayerInterface(map);
     }
 
-    public void updateScreen(){
+    public void updateScreen() {
         ioInterface.showMessage(walker.getStatus());
         ioInterface.showMap(walker);
     }
@@ -53,7 +53,7 @@ public class WalkerPlayer extends WalkerManager {
     }
 
     @Override
-    protected CollectableItem chooseItem(ArrayList<CollectableItem> items){
+    protected CollectableItem chooseItem(ArrayList<CollectableItem> items) {
         ArrayList<String> nameList = new ArrayList<>();
 
         for (CollectableItem item : items)
@@ -78,7 +78,7 @@ public class WalkerPlayer extends WalkerManager {
         return choice == 0 ? null : possibleMoves.get(choice - 1);
     }
 
-    protected Skill chooseSkill(ArrayList<Skill> skills){
+    protected Skill chooseSkill(ArrayList<Skill> skills) {
         ArrayList<String> nameList = new ArrayList<>();
 
         for (Skill skill: skills)
@@ -90,7 +90,7 @@ public class WalkerPlayer extends WalkerManager {
         return choice == 0 ? null : skills.get(choice - 1);
     }
 
-    protected MapObject chooseTargetSkill(ArrayList<MapObject> targets){
+    protected MapObject chooseTarget(ArrayList<MapObject> targets) {
         ArrayList<String> targetList = new ArrayList<>();
 
         for (MapObject target : targets)

@@ -38,7 +38,7 @@ class MapCreator {
         objects.put(position, object);
         roomMapping.put(position, object.belongsToARoom() ? UNDEFINED_ROOM : OUTSIDE_ROOM);
 
-        if (!position.inside(dimension))
+        if (!position.isInside(dimension))
             // Update is done by creating a new reference, since the dimension must be immutable for other modules
             dimension = dimension.fit(position);
     }

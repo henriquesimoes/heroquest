@@ -4,10 +4,11 @@ import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class Knapsack {
-    private LinkedHashMap<CollectableItem, Integer> items;
+    private Map<CollectableItem, Integer> items;
 
     Knapsack() {
         items = new LinkedHashMap<>();

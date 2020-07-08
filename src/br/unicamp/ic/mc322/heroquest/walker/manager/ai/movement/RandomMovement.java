@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class RandomMovement extends MovementBehavior {
     @Override
-    public Coordinate chooseMove(ArrayList<Coordinate> possibleMoves){
+    public Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
         possibleMoves.add(walkerManager.getWalkerPosition());
         return possibleMoves.get(Randomizer.nextInt(possibleMoves.size()));
     }

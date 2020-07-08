@@ -39,7 +39,8 @@ public class ChooseMapCommand implements Command {
 
             engine.setMap(map);
         } catch (FileNotFoundException ex) {
-            io.showError("The " + mapOptions[choice] + " map is missing... An error might have during installation.");
+            io.showError("The " + mapOptions[choice] + " map is missing... " +
+                    "An error might have occurred during installation.");
         } catch (CorruptedConfigurationFileException ex) {
             io.showError("The " + mapOptions[choice] + " is corrupted...");
             io.showError(ex.getMessage());

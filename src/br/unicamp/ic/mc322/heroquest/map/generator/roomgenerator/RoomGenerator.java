@@ -9,44 +9,44 @@ import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import java.util.ArrayList;
 
 public class RoomGenerator {
-    private int roomMinWidth;
-    private int roomMinHeight;
+    private int minimumWidth;
+    private int minimumHeight;
     ArrayList<GridContainer> gridSections;
-    private ArrayList<RoomStructure> rooms = new ArrayList<>();
 
-    public RoomGenerator(ArrayList<GridContainer> gridSections, int roomMinWidth, int roomMinHeight) {
+    public RoomGenerator(ArrayList<GridContainer> gridSections, int minimumWidth, int minimumHeight) {
         this.gridSections = gridSections;
-        this.roomMinWidth = roomMinWidth;
-        this.roomMinHeight = roomMinHeight;
+        this.minimumWidth = minimumWidth;
+        this.minimumHeight = minimumHeight;
     }
 
     public ArrayList<RoomStructure> createRandomRooms() {
-        generateRooms();
+        ArrayList<RoomStructure> rooms = new ArrayList<>();
+
+        for (GridContainer container : gridSections) {
+            Dimension dimensions = getRandomRoomDimension(container);
+            Coordinate roomCoordinates = getRandomRoomCoordinates(container, dimensions);
+
+            rooms.add(new RoomStructure(dimensions, roomCoordinates));
+        }
+
         return rooms;
     }
 
-    private void generateRooms() {
-        for (GridContainer container : gridSections) {
-            Dimension dimensions = getRandomRoomDimensions(container);
-            Coordinate roomCoordinates = getRandomRoomCoordinates(container, dimensions);
-            Coordinate doorCoordinates = new Coordinate(0, 0);
-            rooms.add(new RoomStructure(dimensions, roomCoordinates, doorCoordinates));
-        }
-    }
+    private Dimension getRandomRoomDimension(GridContainer container) {
+        int width = Math.max(minimumWidth, Randomizer.nextInt(container.getWidth()) - 2);
+        int height = Math.max(minimumHeight, Randomizer.nextInt(container.getHeight()) - 2);
 
-    private Dimension getRandomRoomDimensions(GridContainer container) {
-        int dimensionX = Math.max(roomMinWidth, Randomizer.nextInt(container.getDimensionX()) - 2);
-        int dimensionY = Math.max(roomMinHeight, Randomizer.nextInt(container.getDimensionY()) - 2);
-
-        return (new Dimension(dimensionX, dimensionY));
+        return new Dimension(width, height);
     }
 
     private Coordinate getRandomRoomCoordinates(GridContainer container, Dimension dimensions) {
-        Coordinate containerCoordinates = container.getTopLeftCornerCoordinate();
+        Coordinate topLeftCoordinate = container.getTopLeftCoordinate();
 
-        int coordY = Randomizer.nextInt(container.getDimensionY() - dimensions.getHeight() + 1) + containerCoordinates.getY();
-        int coordX = Randomizer.nextInt(container.getDimensionX() - dimensions.getWidth() + 1) + containerCoordinates.getX();
+        int coordinateY = Randomizer.nextInt(container.getHeight() - dimensions.getHeight() + 1)
+                + topLeftCoordinate.getY();
+        int coordinateX = Randomizer.nextInt(container.getWidth() - dimensions.getWidth() + 1)
+                + topLeftCoordinate.getX();
 
-        return (new Coordinate(coordX, coordY));
+        return new Coordinate(coordinateX, coordinateY);
     }
 }

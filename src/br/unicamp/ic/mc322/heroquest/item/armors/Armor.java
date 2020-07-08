@@ -17,7 +17,7 @@ public class Armor extends DurableItem {
     }
 
     @Override
-    public void useItem(Walker proprietary){
+    public void useItem(Walker proprietary) {
         proprietary.equipArmor(this);
     }
 

@@ -55,15 +55,15 @@ public class MapUnit {
         return structure;
     }
 
-    public boolean at(Coordinate coordinate) {
-        return this.structure.at(coordinate);
+    public boolean isAt(Coordinate coordinate) {
+        return this.structure.isAt(coordinate);
     }
 
     public boolean accept(PlacementStrategy strategy, MapObject object) {
         return structure.accept(strategy, object);
     }
 
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(AbstractMapObjectVisitor visitor) {
         if (walker != null)
             walker.accept(visitor);
         else if (fixedObject != null)

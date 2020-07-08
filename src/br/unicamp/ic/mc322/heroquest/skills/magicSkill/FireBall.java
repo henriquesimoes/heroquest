@@ -42,7 +42,6 @@ public class FireBall extends MagicSkill {
         // TODO: discover how to set the distance to catch the visible walkers
         Region region = userRegionSelector.getRoomRegion(false);
 
-        targets.clear();
         attacking = false;
         accept(this, region);
     }

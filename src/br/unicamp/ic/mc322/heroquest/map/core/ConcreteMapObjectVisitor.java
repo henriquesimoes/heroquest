@@ -11,7 +11,7 @@ import br.unicamp.ic.mc322.heroquest.walker.hero.Elf;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Wizard;
 import br.unicamp.ic.mc322.heroquest.walker.monster.CommonSkeleton;
 import br.unicamp.ic.mc322.heroquest.walker.monster.Goblin;
-import br.unicamp.ic.mc322.heroquest.walker.monster.SkeletonWizard;
+import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
 
 public interface ConcreteMapObjectVisitor {
     void visit(Barbarian barbarian);
@@ -19,7 +19,7 @@ public interface ConcreteMapObjectVisitor {
     void visit(Elf elf);
     void visit(Wizard wizard);
 
-    void visit(SkeletonWizard skeletonWizard);
+    void visit(WizardSkeleton wizardSkeleton);
     void visit(CommonSkeleton commonSkeleton);
     void visit(Goblin goblin);
 

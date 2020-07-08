@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
-import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemy;
+import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.Attack;
 
 public class Staff extends Weapon {
     private static final String DESCRIPTION = "Staff gives you a bonus of 1 combat dice." +
@@ -12,6 +12,6 @@ public class Staff extends Weapon {
         setAttackBonus(1);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemy("Hit", this));
+        addSkill(new Attack("Hit", this));
     }
 }

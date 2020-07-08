@@ -20,49 +20,49 @@ public class PathGenerator {
     }
 
     public void createPaths() {
-        getCoordsOfTheCenterOfTheRooms();
-        setCorridors();
+        calculateRoomCenterCoordinates();
+        createCorridors();
         connectRoomsWithCorridors();
     }
 
-    private void setCorridors() {
+    private void createCorridors() {
         for (GridContainer container : gridSections) {
-            Coordinate topleft = container.getTopLeftCornerCoordinate();
+            Coordinate topLeft = container.getTopLeftCoordinate();
 
-            setVerticalCorridor(topleft, container);
-            setHorizontalCorridor(topleft, container);
+            createVerticalCorridor(topLeft, container);
+            createHorizontalCorridor(topLeft, container);
         }
     }
 
-    private void setVerticalCorridor(Coordinate containerTopLeft, GridContainer container) {
-        if (containerTopLeft.getX() + container.getDimensionX() >= grid[0].length)
+    private void createVerticalCorridor(Coordinate containerTopLeft, GridContainer container) {
+        if (containerTopLeft.getX() + container.getWidth() >= grid[0].length)
             return;
 
-        for (int i = 0; i < container.getDimensionY() + 2; i++) {
+        for (int i = 0; i < container.getHeight() + 2; i++) {
             if (containerTopLeft.getY() + i >= grid.length)
                 break;
 
             if (containerTopLeft.getY() + i == 0 || containerTopLeft.getY() + i == grid.length - 1)
                 continue;
 
-            grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getDimensionX()] = ' ';
-            grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getDimensionX() + 1] = ' ';
+            grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getWidth()] = ' ';
+            grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getWidth() + 1] = ' ';
         }
     }
 
-    private void setHorizontalCorridor(Coordinate containerTopLeft, GridContainer container) {
-        if (containerTopLeft.getY() + container.getDimensionY() + 1 >= grid.length)
+    private void createHorizontalCorridor(Coordinate containerTopLeft, GridContainer container) {
+        if (containerTopLeft.getY() + container.getHeight() + 1 >= grid.length)
             return;
 
-        for (int i = 0; i < container.getDimensionX() + 2; i++) {
+        for (int i = 0; i < container.getWidth() + 2; i++) {
             if (containerTopLeft.getX() + i >= grid[0].length)
                 break;
 
             if (containerTopLeft.getX() + i == 0 || containerTopLeft.getX() + i == grid[0].length - 1)
                 continue;
 
-            grid[containerTopLeft.getY() + container.getDimensionY()][containerTopLeft.getX() + i] = ' ';
-            grid[containerTopLeft.getY() + container.getDimensionY() + 1][containerTopLeft.getX() + i] = ' ';
+            grid[containerTopLeft.getY() + container.getHeight()][containerTopLeft.getX() + i] = ' ';
+            grid[containerTopLeft.getY() + container.getHeight() + 1][containerTopLeft.getX() + i] = ' ';
         }
     }
 
@@ -73,77 +73,78 @@ public class PathGenerator {
     }
 
     private void tryCorridorConnection(RoomStructure room) {
-        Coordinate roomTopLeftCoords = room.getRoomTopLeftCoordinates();
-        int roomEndXCoordinate = roomTopLeftCoords.getX() + room.getRoomDimension().getWidth() - 1;
+        Coordinate roomTopLeftCoords = room.getTopLeftCoordinate();
+        int roomEndXCoordinate = roomTopLeftCoords.getX() + room.getDimension().getWidth() - 1;
 
-        tryLeftConnection(room, selectVerticalIndex(room), room.getRoomTopLeftCoordinates().getX());
+        tryLeftConnection(room, selectVerticalIndex(room), room.getTopLeftCoordinate().getX());
 
         tryRightConnection(room, selectVerticalIndex(room), roomEndXCoordinate);
 
     }
 
-    private void tryLeftConnection(RoomStructure room, int selectedYCoord, int currentXCoord) {
-        int initialXCoordValue= currentXCoord;
+    private void tryLeftConnection(RoomStructure room, int selectedYCoordinate, int currentXCoordinate) {
+        int initialXCoordinate = currentXCoordinate;
 
         while (true) {
-            if (!canMakeConnection(currentXCoord, 0))
+            if (!canMakeConnection(currentXCoordinate, 0))
                 break;
 
-            if (grid[selectedYCoord][currentXCoord - 1] == ' ') {
-                for (int i = initialXCoordValue; i >= currentXCoord; i--) {
-                    if (i == room.getRoomTopLeftCoordinates().getX())
-                        grid[selectedYCoord][i] = 'D';
+            if (grid[selectedYCoordinate][currentXCoordinate - 1] == ' ') {
+                for (int i = initialXCoordinate; i >= currentXCoordinate; i--) {
+                    if (i == room.getTopLeftCoordinate().getX())
+                        grid[selectedYCoordinate][i] = 'D';
                     else
-                        grid[selectedYCoord][i] = ' ';
+                        grid[selectedYCoordinate][i] = ' ';
                 }
 
                 break;
             }
 
-            currentXCoord--;
+            currentXCoordinate--;
         }
     }
 
-    private void tryRightConnection(RoomStructure room, int selectedYCoord, int currentXCoord) {
-        int initialXCoordValue= currentXCoord;
+    private void tryRightConnection(RoomStructure room, int selectedYCoordinate, int currentXCoordinate) {
+        int initialXCoordinate = currentXCoordinate;
 
         while (true) {
-            if (!canMakeConnection(currentXCoord, grid[0].length - 1)) {
+            if (!canMakeConnection(currentXCoordinate, grid[0].length - 1)) {
                 break;
             }
 
-            if (grid[selectedYCoord][currentXCoord + 1] == ' ') {
-                for (int i = initialXCoordValue; i <= currentXCoord; i++) {
-                    if (i == room.getRoomTopLeftCoordinates().getX() + room.getRoomDimension().getWidth() - 1)
-                        grid[selectedYCoord][i] = 'D';
+            if (grid[selectedYCoordinate][currentXCoordinate + 1] == ' ') {
+                for (int i = initialXCoordinate; i <= currentXCoordinate; i++) {
+                    if (i == room.getTopLeftCoordinate().getX() + room.getDimension().getWidth() - 1)
+                        grid[selectedYCoordinate][i] = 'D';
                     else
-                        grid[selectedYCoord][i] = ' ';
+                        grid[selectedYCoordinate][i] = ' ';
                 }
 
                 break;
             }
 
-            currentXCoord++;
+            currentXCoordinate++;
         }
     }
 
     private boolean canMakeConnection(int coordinateInChosenAxis, int borderLimit) {
-        return !(coordinateInChosenAxis == borderLimit);
+        return coordinateInChosenAxis != borderLimit;
     }
 
     private int selectVerticalIndex(RoomStructure room) {
-        int startingPoint = room.getRoomTopLeftCoordinates().getY() + 2;
-        int finishPoint = room.getRoomTopLeftCoordinates().getY() + room.getRoomDimension().getHeight() - 2;
+        int startingPoint = room.getTopLeftCoordinate().getY() + 2;
+        int finishPoint = room.getTopLeftCoordinate().getY() + room.getDimension().getHeight() - 2;
 
         return Randomizer.randInt(startingPoint, finishPoint - 1);
     }
 
-    private void getCoordsOfTheCenterOfTheRooms() {
+    private void calculateRoomCenterCoordinates() {
         for (RoomStructure room : rooms) {
-            Coordinate roomTopLeftCoordinates = room.getRoomTopLeftCoordinates();
-            int coordY = roomTopLeftCoordinates.getY() + (room.getRoomDimension().getHeight() / 2);
-            int coordX = roomTopLeftCoordinates.getX() + (room.getRoomDimension().getWidth() / 2);
-            roomsCoordinates.add(new Coordinate(coordX, coordY));
+            Coordinate roomTopLeftCoordinates = room.getTopLeftCoordinate();
+            int coordinateY = roomTopLeftCoordinates.getY() + (room.getDimension().getHeight() / 2);
+            int coordinateX = roomTopLeftCoordinates.getX() + (room.getDimension().getWidth() / 2);
+
+            roomsCoordinates.add(new Coordinate(coordinateX, coordinateY));
         }
     }
 }

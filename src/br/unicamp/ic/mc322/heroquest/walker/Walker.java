@@ -5,12 +5,11 @@ import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Fists;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
+import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
 import br.unicamp.ic.mc322.heroquest.map.core.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
-import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
@@ -46,12 +45,12 @@ public abstract class Walker extends MapObject {
         skills = new HashMap<>();
         movementDice = 2;
 
-        //Add skill of attack with the fists
+        // Add fists attack skill
         Weapon fists = new Fists();
         addSkill(fists.getSkills().get(0));
     }
 
-    public String getStatus(){
+    public String getStatus() {
         String status = String.format("Name: %s\n",  name);
         status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
         status += String.format("Armor: %s\n", (armor == null? "none" : armor.getItemName()));
@@ -64,7 +63,7 @@ public abstract class Walker extends MapObject {
         return  status;
     }
 
-    public WalkerManager getManager(){
+    public WalkerManager getManager() {
         return walkerManager;
     }
 
@@ -109,13 +108,13 @@ public abstract class Walker extends MapObject {
 
     public abstract int getDefenseIntensity(int numberOfDices);
 
-    public void notifyDamage(int damage){
+    public void notifyDamage(int damage) {
         GameMonitor gameMonitor = GameMonitor.getInstance();
         gameMonitor.notifyDamage(this, damage);
     }
 
-    public void notifyIfIsDead(){
-        if (!isAlive()){
+    public void notifyIfIsDead() {
+        if (!isAlive()) {
             GameMonitor gameMonitor = GameMonitor.getInstance();
             gameMonitor.notifyDeath(this);
         }
@@ -144,7 +143,10 @@ public abstract class Walker extends MapObject {
         return currentBodyPoints > 0;
     }
 
-    // erase the item of the inventory
+    /**
+     * Erases the given item from the inventory
+     * @param item item to be removed
+     */
     public void destroyItem(CollectableItem item) {
         if (leftWeapon != null && leftWeapon.equals(item))
             unequipWeapon((Weapon) item);
@@ -173,29 +175,23 @@ public abstract class Walker extends MapObject {
             storeLeftWeapon();
             storeRightWeapon();
             leftWeapon = weapon;
-
         } else {
-            if (rightWeapon == null) {
+            if (rightWeapon == null)
                 rightWeapon = weapon;
-
-            } else {
+            else {
                 storeLeftWeapon();
                 leftWeapon = weapon;
             }
         }
 
-        ArrayList<PhysicalSkill> skills = weapon.getSkills();
-
-        for (PhysicalSkill skill : skills)
+        for (Skill skill : weapon.getSkills())
             addSkill(skill);
     }
 
     private void unequipWeapon(Weapon weapon) {
         knapsack.put(weapon);
 
-        ArrayList<PhysicalSkill> skills = weapon.getSkills();
-
-        for (PhysicalSkill skill : skills)
+        for (Skill skill : weapon.getSkills())
             removeSkill(skill);
     }
 
@@ -284,7 +280,7 @@ public abstract class Walker extends MapObject {
     }
 
     @Override
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(AbstractMapObjectVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -300,19 +296,19 @@ public abstract class Walker extends MapObject {
         return team;
     }
 
-    public boolean isAbleToLearnFireSpell(){
+    public boolean isAbleToLearnFireSpell() {
         return ableToLearnFireSpell;
     }
 
-    public boolean isAbleToLearnAirSpell(){
+    public boolean isAbleToLearnAirSpell() {
         return ableToLearnAirSpell;
     }
 
-    public boolean isAbleToLearnEarthSpell(){
+    public boolean isAbleToLearnEarthSpell() {
         return ableToLearnEarthSpell;
     }
 
-    public boolean isAbleToLearnWaterSpell(){
+    public boolean isAbleToLearnWaterSpell() {
         return ableToLearnWaterSpell;
     }
 }

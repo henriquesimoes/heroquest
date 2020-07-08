@@ -9,7 +9,7 @@ public class BSPGrid {
     private int gridWidth;
     private int bspIterations;
 
-    public BSPGrid(int gridWidth, int gridHeight, int bspIterations){
+    public BSPGrid(int gridWidth, int gridHeight, int bspIterations) {
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
         this.bspIterations = bspIterations;
@@ -22,7 +22,7 @@ public class BSPGrid {
     private ArrayList<GridContainer> getBestGrid() {
         ArrayList<GridContainer> bestGrid = null;
 
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++) {
             BSPTree grid = createBSP();
             ArrayList<GridContainer> comparableGrid = grid.getPartitionedGrid();
             if (bestGrid == null || comparableGrid.size() > bestGrid.size())

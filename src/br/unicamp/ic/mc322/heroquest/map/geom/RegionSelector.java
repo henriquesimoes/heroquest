@@ -61,7 +61,9 @@ public class RegionSelector {
 
     public static Region getPlaneRegion(Dimension dimension) {
         Region region = new PlaneRegion(Coordinate.getOrigin(), dimension.toCoordinate());
+
         region.build();
+
         return region;
     }
 }

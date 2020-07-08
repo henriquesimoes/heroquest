@@ -24,18 +24,18 @@ public class LimitedRegion extends Region {
         visited.add(reference);
         queue.add(new Pair<>(reference, 0));
 
-        while (!queue.isEmpty() && queue.peek().getValue() <= limit) {
+        while (!queue.isEmpty() && queue.peek().getSecond() <= limit) {
             Pair<Coordinate, Integer> current = queue.poll();
 
             update(current);
 
-            coordinates.add(current.getKey());
+            coordinates.add(current.getFirst());
         }
     }
 
     private void update(Pair<Coordinate, Integer> lastVisitedPosition) {
-        Coordinate lastCoordinate = lastVisitedPosition.getKey();
-        int distance = lastVisitedPosition.getValue();
+        Coordinate lastCoordinate = lastVisitedPosition.getFirst();
+        int distance = lastVisitedPosition.getSecond();
 
         for (Coordinate neighbor : lastCoordinate.getNeighborCoordinates()) {
             if (!visited.contains(neighbor) && isValid(neighbor)) {

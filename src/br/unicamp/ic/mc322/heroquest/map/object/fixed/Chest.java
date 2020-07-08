@@ -13,64 +13,65 @@ import java.util.ArrayList;
 
 public class Chest extends FixedObject {
     private boolean opened;
-    private ArrayList<CollectableItem> itemsInsideChest = new ArrayList<>();
+    private ArrayList<CollectableItem> items;
 
     public Chest() {
         opened = false;
+        items = new ArrayList<>();
 
-        addRandomQuantityOfGoldToChest();
-        addRandomWeaponsToChest();
-        addRandomArmorToChest();
-    }
-
-    private void addRandomQuantityOfGoldToChest() {
-        int totalInGoldInsideChest = Randomizer.randInt(20, 100);
-
-        GoldCoin coins = new GoldCoin(totalInGoldInsideChest);
-
-        itemsInsideChest.add(coins);
-    }
-
-    /**TODO: Personagem pode não ser capaz de usar uma determinada arma.
-     * Tratar caso, se necessário, no momento de interação.*/
-
-    private void addRandomWeaponsToChest() {
-        int weaponsQuantity = Randomizer.nextInt(5);
-
-        for (int i = 0; i < weaponsQuantity; i++) {
-            Weapon randomWeapon = Weapon.getRandomWeapon();
-            itemsInsideChest.add(randomWeapon);
-        }
-    }
-
-    private void addRandomArmorToChest() {
-        if (willHaveAnArmorInside())
-            itemsInsideChest.add(Armor.getRandomArmor());
-    }
-
-    private boolean willHaveAnArmorInside() {
-        return Randomizer.nextBoolean();
+        addRandomQuantityOfGold();
+        addRandomWeapons();
+        addRandomArmor();
     }
 
     public boolean isOpened() {
         return opened;
     }
 
-    public ArrayList<CollectableItem> getItemsInsideChest() {
-        return itemsInsideChest;
-    }
-
-    @Override
-    public boolean isAllowedToWalkOver() {
-        return false;
+    public ArrayList<CollectableItem> getItems() {
+        return items;
     }
 
     @Override
     public void interact(Walker agent) {
         /**
          * TODO: Implement opening interaction with chest
+         *
+         * Walker might not be able to use the chest weapon. It must be treated during interaction.
          */
+
         return;
+    }
+
+    private void addRandomQuantityOfGold() {
+        int totalInGoldInsideChest = Randomizer.randInt(20, 100);
+
+        GoldCoin coins = new GoldCoin(totalInGoldInsideChest);
+
+        items.add(coins);
+    }
+
+    private void addRandomWeapons() {
+        int weaponsQuantity = Randomizer.nextInt(5);
+
+        for (int i = 0; i < weaponsQuantity; i++) {
+            Weapon randomWeapon = Weapon.getRandomWeapon();
+            items.add(randomWeapon);
+        }
+    }
+
+    private void addRandomArmor() {
+        if (willHaveAnArmorInside())
+            items.add(Armor.getRandomArmor());
+    }
+
+    private boolean willHaveAnArmorInside() {
+        return Randomizer.nextBoolean();
+    }
+
+    @Override
+    public boolean isAllowedToWalkOver() {
+        return false;
     }
 
     @Override

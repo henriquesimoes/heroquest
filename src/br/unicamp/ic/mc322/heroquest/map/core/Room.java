@@ -82,12 +82,12 @@ public class Room {
         return unit.getStructure();
     }
 
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(AbstractMapObjectVisitor visitor) {
         for (MapUnit unit : units)
             unit.accept(visitor);
     }
 
-    public void accept(MapObjectVisitor visitor, Coordinate coordinate) {
+    public void accept(AbstractMapObjectVisitor visitor, Coordinate coordinate) {
         MapUnit unit = getUnit(coordinate);
 
         unit.accept(visitor);
@@ -100,7 +100,7 @@ public class Room {
 
     private MapUnit getUnit(Coordinate coordinate) {
         for (MapUnit unit : units)
-            if (unit.at(coordinate))
+            if (unit.isAt(coordinate))
                 return unit;
 
         return null;
