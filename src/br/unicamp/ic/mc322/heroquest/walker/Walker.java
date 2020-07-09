@@ -48,34 +48,6 @@ public abstract class Walker extends MapObject {
         addSkill(fists.getSkills().get(0));
     }
 
-    protected String getStatus() {
-        String status = String.format("Name: %s\n",  name);
-        status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
-        status += String.format("Armor: %s\n", (armor == null? "none" : armor.getItemName()));
-        if (leftWeapon != null && leftWeapon.isTwoHanded())
-            status += String.format("Weapon: %s\n", leftWeapon.getItemName());
-        else {
-            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.getItemName()));
-            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.getItemName()));
-        }
-        return  status;
-    }
-
-    public WalkerManager getManager() {
-        return walkerManager;
-    }
-
-    protected ArrayList<Skill> getSkills() {
-        ArrayList<Skill> skillList = new ArrayList<>();
-
-        for (Map.Entry<Skill, Integer> pair : skills.entrySet()) {
-            Skill skill = pair.getKey();
-            skillList.add(skill);
-        }
-
-        return skillList;
-    }
-
     protected int getPositionLimitInMovement() {
         int numPos = 0;
 
@@ -100,22 +72,12 @@ public abstract class Walker extends MapObject {
         return redDice.roll() <= mindPoints;
     }
 
-    public int rollRedDice() {
-        return redDice.roll();
+    public void restoreBodyPoints(int delta) {
+        currentBodyPoints = Math.min(currentBodyPoints + delta, maximumBodyPoints);
     }
 
-    protected abstract int getDefenseIntensity(int numberOfDices);
-
-    private void notifyDamage(int damage) {
-        GameMonitor gameMonitor = GameMonitor.getInstance();
-        gameMonitor.notifyDamage(this, damage);
-    }
-
-    private void notifyIfIsDead() {
-        if (!isAlive()) {
-            GameMonitor gameMonitor = GameMonitor.getInstance();
-            gameMonitor.notifyDeath(this);
-        }
+    private void decreaseBodyPoints(int delta) {
+        currentBodyPoints = Math.max(currentBodyPoints - delta, 0);
     }
 
     private void defendFromSkill(int attackIntensity, int defenseIntensity) {
@@ -124,6 +86,8 @@ public abstract class Walker extends MapObject {
         notifyDamage(damage);
         notifyIfIsDead();
     }
+
+    protected abstract int getDefenseIntensity(int numberOfDices);
 
     public void defendFromMagicSkill(int attackIntensity) {
         int defenseIntensity = getDefenseIntensity(mindPoints);
@@ -137,8 +101,20 @@ public abstract class Walker extends MapObject {
             armor.degradeByUse(this);
     }
 
-    protected boolean isAlive() {
-        return currentBodyPoints > 0;
+    private void notifyDamage(int damage) {
+        GameMonitor gameMonitor = GameMonitor.getInstance();
+        gameMonitor.notifyDamage(this, damage);
+    }
+
+    private void notifyIfIsDead() {
+        if (!isAlive()) {
+            GameMonitor gameMonitor = GameMonitor.getInstance();
+            gameMonitor.notifyDeath(this);
+        }
+    }
+
+    protected void collectItem(CollectableItem item) {
+        knapsack.put(item);
     }
 
     /**
@@ -158,12 +134,27 @@ public abstract class Walker extends MapObject {
         knapsack.remove(item);
     }
 
-    public void restoreBodyPoints(int delta) {
-        currentBodyPoints = Math.min(currentBodyPoints + delta, maximumBodyPoints);
+    public void addSkill(Skill skill) {
+        Integer amount = skills.get(skill);
+
+        if (amount == null) {
+            skills.put(skill, 1);
+            skill.setWalkerManager(walkerManager);
+        }
+        else
+            skills.replace(skill, amount + 1);
     }
 
-    private void decreaseBodyPoints(int delta) {
-        currentBodyPoints = Math.max(currentBodyPoints - delta, 0);
+    private void removeSkill(Skill skill) {
+        Integer amount = skills.get(skill);
+
+        if (amount == -1)
+            throw new NoSuchElementException();
+
+        if (amount == 1)
+            skills.remove(skill);
+        else
+            skills.replace(skill, amount - 1);
     }
 
     public void equipWeapon(Weapon weapon) {
@@ -191,29 +182,6 @@ public abstract class Walker extends MapObject {
 
         for (Skill skill : weapon.getSkills())
             removeSkill(skill);
-    }
-
-    public void addSkill(Skill skill) {
-        Integer amount = skills.get(skill);
-
-        if (amount == null) {
-            skills.put(skill, 1);
-            skill.setWalkerManager(walkerManager);
-        }
-        else
-            skills.replace(skill, amount + 1);
-    }
-
-    private void removeSkill(Skill skill) {
-        Integer amount = skills.get(skill);
-
-        if (amount == -1)
-            throw new NoSuchElementException();
-
-        if (amount == 1)
-            skills.remove(skill);
-        else
-            skills.replace(skill, amount - 1);
     }
 
     protected void storeLeftWeapon() {
@@ -245,16 +213,76 @@ public abstract class Walker extends MapObject {
         }
     }
 
-    protected void collectItem(CollectableItem item) {
-        knapsack.put(item);
+    protected String getStatus() {
+        String status = String.format("Name: %s\n",  name);
+        status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
+        status += String.format("Armor: %s\n", (armor == null? "none" : armor.getItemName()));
+        if (leftWeapon != null && leftWeapon.isTwoHanded())
+            status += String.format("Weapon: %s\n", leftWeapon.getItemName());
+        else {
+            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.getItemName()));
+            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.getItemName()));
+        }
+        return  status;
+    }
+
+    protected ArrayList<Skill> getSkills() {
+        ArrayList<Skill> skillList = new ArrayList<>();
+
+        for (Map.Entry<Skill, Integer> pair : skills.entrySet()) {
+            Skill skill = pair.getKey();
+            skillList.add(skill);
+        }
+
+        return skillList;
+    }
+
+    public WalkerManager getManager() {
+        return walkerManager;
     }
 
     protected String getName() {
         return name;
     }
 
+    public Team getTeam() {
+        return team;
+    }
+
     protected ArrayList<CollectableItem> getItems() {
         return knapsack.getItems();
+    }
+
+    protected boolean isAlive() {
+        return currentBodyPoints > 0;
+    }
+
+    public int rollRedDice() {
+        return redDice.roll();
+    }
+
+    public boolean isEnemy(Walker walker) {
+        return this.team != walker.team;
+    }
+
+    public boolean isFriend(Walker walker) {
+        return this.team == walker.team;
+    }
+
+    public boolean isAbleToLearnFireSpell() {
+        return ableToLearnFireSpell;
+    }
+
+    public boolean isAbleToLearnAirSpell() {
+        return ableToLearnAirSpell;
+    }
+
+    public boolean isAbleToLearnEarthSpell() {
+        return ableToLearnEarthSpell;
+    }
+
+    public boolean isAbleToLearnWaterSpell() {
+        return ableToLearnWaterSpell;
     }
 
     @Override
@@ -277,31 +305,4 @@ public abstract class Walker extends MapObject {
         visitor.visit(this);
     }
 
-    public boolean isEnemy(Walker walker) {
-        return this.team != walker.team;
-    }
-
-    public boolean isFriend(Walker walker) {
-        return this.team == walker.team;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public boolean isAbleToLearnFireSpell() {
-        return ableToLearnFireSpell;
-    }
-
-    public boolean isAbleToLearnAirSpell() {
-        return ableToLearnAirSpell;
-    }
-
-    public boolean isAbleToLearnEarthSpell() {
-        return ableToLearnEarthSpell;
-    }
-
-    public boolean isAbleToLearnWaterSpell() {
-        return ableToLearnWaterSpell;
-    }
 }
