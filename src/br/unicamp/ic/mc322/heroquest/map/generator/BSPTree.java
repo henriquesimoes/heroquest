@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.util.tree.Node;
 
 import java.util.ArrayList;
 
-public class BSPTree {
+class BSPTree {
     private final int GRID_MIN_WIDTH = 13;
     private final int GRID_MIN_HEIGHT = 11;
 
@@ -37,6 +37,14 @@ public class BSPTree {
                 new BSPTree(root.getRightChild()).runBSP(numberOfIterations - 1);
             }
         }
+    }
+
+    public ArrayList<GridContainer> getPartitionedGrid() {
+        ArrayList<GridContainer> partitionedGrid = new ArrayList<>();
+
+        createPartitions(partitionedGrid, root);
+
+        return partitionedGrid;
     }
 
     private void splitGrid() {
@@ -104,13 +112,5 @@ public class BSPTree {
 
         createPartitions(partitions, node.getLeftChild());
         createPartitions(partitions, node.getRightChild());
-    }
-
-    public ArrayList<GridContainer> getPartitionedGrid() {
-        ArrayList<GridContainer> partitionedGrid = new ArrayList<>();
-
-        createPartitions(partitionedGrid, root);
-
-        return partitionedGrid;
     }
 }

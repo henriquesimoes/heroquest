@@ -16,14 +16,9 @@ public abstract class WalkerManager {
     protected Map map;
     private RegionSelector regionSelector;
 
-    public WalkerManager(Map map) {
+    protected WalkerManager(Map map) {
         this.map = map;
         this.regionSelector = map.getRegionSelector();
-    }
-
-    public void setWalker(Walker walker) {
-        this.walker = walker;
-        regionSelector.useAsReference(walker);
     }
 
     public void moveWalker(Coordinate position) {
@@ -32,6 +27,43 @@ public abstract class WalkerManager {
 
     public RegionSelector getRegionSelector() {
         return regionSelector;
+    }
+
+    public Coordinate getCoordinateCloserToWalkers(ArrayList<Coordinate> coordinates, ArrayList<Walker> walkers) {
+        ArrayList<MapObject> objects = new ArrayList<>();
+        for(Walker walker : walkers)
+            objects.add(walker);
+
+        return map.getCoordinateCloserToObject(coordinates, objects);
+    }
+
+    public Coordinate getWalkerPosition() {
+        return walker.getPosition();
+    }
+
+    public Walker getWalker() {
+        return walker;
+    }
+
+    public boolean isAlive() {
+        return walker.isAlive();
+    }
+
+    public String getWalkerName() {
+        return walker.getName();
+    }
+
+    public void accept(AbstractMapObjectVisitor visitor, Region region) {
+        map.accept(visitor, region);
+    }
+
+    protected void setWalker(Walker walker) {
+        this.walker = walker;
+        regionSelector.useAsReference(walker);
+    }
+
+    protected String getStatus() {
+        return walker.getStatus();
     }
 
     protected void useItems() {
@@ -70,34 +102,6 @@ public abstract class WalkerManager {
         chosenSkill.useSkill(walker, target);
 
         return true;
-    }
-
-    public Coordinate getCoordinateCloserToWalkers(ArrayList<Coordinate> coordinates, ArrayList<Walker> walkers) {
-        ArrayList<MapObject> objects = new ArrayList<>();
-        for (Walker walker : walkers)
-            objects.add(walker);
-
-        return map.getCoordinateCloserToObject(coordinates, objects);
-    }
-
-    public Coordinate getWalkerPosition() {
-        return walker.getPosition();
-    }
-
-    public Walker getWalker() {
-        return walker;
-    }
-
-    public boolean isAlive() {
-        return walker.isAlive();
-    }
-
-    public String getWalkerName() {
-        return walker.getName();
-    }
-
-    public void accept(AbstractMapObjectVisitor visitor, Region region) {
-        map.accept(visitor, region);
     }
 
     public abstract void playTurn();

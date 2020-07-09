@@ -13,7 +13,7 @@ abstract class Dice {
      * Rolls the dice.
      * @return The face index turned up.
      */
-    int rollIndex() {
+    protected int rollIndex() {
         return Randomizer.randInt(0, numberOfFaces);
     }
 }

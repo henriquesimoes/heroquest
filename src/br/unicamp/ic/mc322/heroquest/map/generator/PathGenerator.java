@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 
 import java.util.ArrayList;
 
-public class PathGenerator {
+class PathGenerator {
     private char[][] grid;
     private ArrayList<RoomStructure> rooms;
     private ArrayList<GridContainer> gridSections;

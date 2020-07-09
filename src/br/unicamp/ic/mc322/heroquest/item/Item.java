@@ -8,7 +8,7 @@ public abstract class Item {
     private boolean existenceState;
     private int goldCoinsValue;
 
-    public Item(String itemName, String itemDescription, int goldCoinsValue) {
+    protected Item(String itemName, String itemDescription, int goldCoinsValue) {
         this.itemName = itemName;
         this.itemDescription = itemDescription;
         this.goldCoinsValue = goldCoinsValue;

@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 public abstract class DurableItem extends CollectableItem {
     private int itemDurability;
 
-    public DurableItem(String itemName, String itemDescription, int itemDurability, int goldCoinsValue) {
+    protected DurableItem(String itemName, String itemDescription, int itemDurability, int goldCoinsValue) {
         super(itemName, itemDescription, goldCoinsValue);
 
         this.itemDurability = itemDurability;

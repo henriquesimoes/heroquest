@@ -41,12 +41,6 @@ public class Map implements WalkValidator, GameListener {
         room.move(walker, destination);
     }
 
-    private void remove(Walker walker) {
-        Room room = getRoom(walker.getPosition());
-
-        room.remove(walker);
-    }
-
     public RegionSelector getRegionSelector() {
         return new RegionSelector(this, this);
     }
@@ -142,6 +136,14 @@ public class Map implements WalkValidator, GameListener {
         }
     }
 
+    @Override
+    public void notifyWalkerDeath(Walker deadWalker) {
+        remove(deadWalker);
+    }
+
+    @Override
+    public void notifyWalkerDamage(Walker walker, int damage) {}
+
     private Room getRoom(Coordinate coordinate) throws OutsideRoomException {
         for (Room room : rooms)
             if (room.contains(coordinate))
@@ -158,11 +160,9 @@ public class Map implements WalkValidator, GameListener {
         return null;
     }
 
-    @Override
-    public void notifyWalkerDeath(Walker deadWalker) {
-        remove(deadWalker);
-    }
+    private void remove(Walker walker) {
+        Room room = getRoom(walker.getPosition());
 
-    @Override
-    public void notifyWalkerDamage(Walker walker, int damage) {}
+        room.remove(walker);
+    }
 }

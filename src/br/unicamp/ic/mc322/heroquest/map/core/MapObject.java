@@ -1,7 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class MapObject {
@@ -41,7 +40,6 @@ public abstract class MapObject {
     public abstract String getRepresentationOnMenu();
 
     public abstract void goTo(MapUnit unit);
-    public abstract boolean accept(PlacementStrategy strategy, MapObject object);
     public abstract void accept(AbstractMapObjectVisitor visitor);
     public abstract void accept(ConcreteMapObjectVisitor visitor);
 }

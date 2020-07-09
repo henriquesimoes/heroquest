@@ -19,7 +19,7 @@ public class WalkerPlayer extends WalkerManager {
     }
 
     public void updateScreen() {
-        ioInterface.showMessage(walker.getStatus());
+        ioInterface.showMessage(getStatus());
         ioInterface.showMap(walker);
     }
 

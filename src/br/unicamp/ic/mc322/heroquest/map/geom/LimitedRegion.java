@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-public class LimitedRegion extends Region {
+class LimitedRegion extends Region {
     private int limit;
     private Queue<Pair<Coordinate, Integer>> queue;
     private Set<Coordinate> visited;

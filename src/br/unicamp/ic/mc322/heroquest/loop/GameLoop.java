@@ -10,12 +10,9 @@ import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import java.util.HashSet;
 
 public class GameLoop implements GameListener, AbstractMapObjectVisitor {
-    HashSet<WalkerManager> heroes, monsters, aliveHeroes, aliveMonsters;
-    boolean running;
-    Map map;
+    private HashSet<WalkerManager> heroes, monsters, aliveHeroes, aliveMonsters;
 
     public GameLoop(Map map) {
-        this.map = map;
         this.heroes = new HashSet<>();
         this.aliveHeroes = new HashSet<>();
         this.monsters = new HashSet<>();
@@ -29,7 +26,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
     }
 
     public void run() {
-        running = true;
+        boolean running = true;
         while (running) {
             playTurn();
             if (isEndGame())

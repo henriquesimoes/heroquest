@@ -8,7 +8,6 @@ import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
-import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
@@ -49,7 +48,7 @@ public abstract class Walker extends MapObject {
         addSkill(fists.getSkills().get(0));
     }
 
-    public String getStatus() {
+    protected String getStatus() {
         String status = String.format("Name: %s\n",  name);
         status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
         status += String.format("Armor: %s\n", (armor == null? "none" : armor.getItemName()));
@@ -66,7 +65,7 @@ public abstract class Walker extends MapObject {
         return walkerManager;
     }
 
-    public ArrayList<Skill> getSkills() {
+    protected ArrayList<Skill> getSkills() {
         ArrayList<Skill> skillList = new ArrayList<>();
 
         for (Map.Entry<Skill, Integer> pair : skills.entrySet()) {
@@ -77,7 +76,7 @@ public abstract class Walker extends MapObject {
         return skillList;
     }
 
-    public int getPositionLimitInMovement() {
+    protected int getPositionLimitInMovement() {
         int numPos = 0;
 
         for (int i = 0; i < movementDice; i++)
@@ -105,21 +104,21 @@ public abstract class Walker extends MapObject {
         return redDice.roll();
     }
 
-    public abstract int getDefenseIntensity(int numberOfDices);
+    protected abstract int getDefenseIntensity(int numberOfDices);
 
-    public void notifyDamage(int damage) {
+    private void notifyDamage(int damage) {
         GameMonitor gameMonitor = GameMonitor.getInstance();
         gameMonitor.notifyDamage(this, damage);
     }
 
-    public void notifyIfIsDead() {
+    private void notifyIfIsDead() {
         if (!isAlive()) {
             GameMonitor gameMonitor = GameMonitor.getInstance();
             gameMonitor.notifyDeath(this);
         }
     }
 
-    public void defendFromSkill(int attackIntensity, int defenseIntensity) {
+    private void defendFromSkill(int attackIntensity, int defenseIntensity) {
         int damage = Math.max(attackIntensity - defenseIntensity, 0);
         decreaseBodyPoints(damage);
         notifyDamage(damage);
@@ -138,7 +137,7 @@ public abstract class Walker extends MapObject {
             armor.degradeByUse(this);
     }
 
-    public boolean isAlive() {
+    protected boolean isAlive() {
         return currentBodyPoints > 0;
     }
 
@@ -250,11 +249,11 @@ public abstract class Walker extends MapObject {
         knapsack.put(item);
     }
 
-    public String getName() {
+    protected String getName() {
         return name;
     }
 
-    public ArrayList<CollectableItem> getItems() {
+    protected ArrayList<CollectableItem> getItems() {
         return knapsack.getItems();
     }
 
@@ -271,11 +270,6 @@ public abstract class Walker extends MapObject {
     @Override
     public void goTo(MapUnit unit) {
         unit.add(this);
-    }
-
-    @Override
-    public boolean accept(PlacementStrategy strategy, MapObject object) {
-        return false;
     }
 
     @Override

@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 
 import java.util.ArrayList;
 
-public class BSPGrid {
+class BSPGrid {
     private int gridHeight;
     private int gridWidth;
     private int bspIterations;

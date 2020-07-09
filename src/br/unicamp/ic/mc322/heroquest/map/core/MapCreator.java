@@ -24,7 +24,7 @@ class MapCreator {
     private static final int UNDEFINED_ROOM = -1;
     private static final int OUTSIDE_ROOM = -2;
 
-    public MapCreator() {
+    protected MapCreator() {
         objects = new HashMap<>();
         roomMapping = new HashMap<>();
         dimension = new Dimension(0, 0);

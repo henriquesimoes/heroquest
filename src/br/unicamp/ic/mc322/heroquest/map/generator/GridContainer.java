@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 
-public class GridContainer {
+class GridContainer {
     private Dimension dimension;
     private Coordinate topLeftCoordinate;
 

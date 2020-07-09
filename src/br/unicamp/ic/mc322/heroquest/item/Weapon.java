@@ -14,28 +14,8 @@ public abstract class Weapon extends DurableItem {
     private boolean twoHanded;
     private ArrayList<PhysicalSkill> itemSkills = new ArrayList<>();
 
-    public Weapon(String name, String description, int weaponDurability, int goldCoinsValue) {
+    protected Weapon(String name, String description, int weaponDurability, int goldCoinsValue) {
         super(name, description, weaponDurability, goldCoinsValue);
-    }
-
-    public void setAttackBonus(int attackBonus) {
-        this.attackBonus = attackBonus;
-    }
-
-    public void setAttackDistance(int attackDistance) {
-        this.attackDistance = attackDistance;
-    }
-
-    public void setAttackDiagonally(boolean attackDiagonally) {
-        this.attackDiagonally = attackDiagonally;
-    }
-
-    public void setTwoHanded(boolean twoHanded) {
-        this.twoHanded = twoHanded;
-    }
-
-    public void addSkill(PhysicalSkill skill) {
-        itemSkills.add(skill);
     }
 
     public ArrayList<PhysicalSkill> getSkills() {
@@ -61,6 +41,26 @@ public abstract class Weapon extends DurableItem {
     @Override
     public void useItem(Walker proprietary) {
         proprietary.equipWeapon(this);
+    }
+
+    protected void setAttackBonus(int attackBonus) {
+        this.attackBonus = attackBonus;
+    }
+
+    protected void setAttackDistance(int attackDistance) {
+        this.attackDistance = attackDistance;
+    }
+
+    protected void setAttackDiagonally(boolean attackDiagonally) {
+        this.attackDiagonally = attackDiagonally;
+    }
+
+    protected void setTwoHanded(boolean twoHanded) {
+        this.twoHanded = twoHanded;
+    }
+
+    protected void addSkill(PhysicalSkill skill) {
+        itemSkills.add(skill);
     }
 
     public static Weapon getRandomWeapon() {
