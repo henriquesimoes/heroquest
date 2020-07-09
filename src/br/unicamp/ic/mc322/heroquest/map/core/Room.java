@@ -1,7 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 

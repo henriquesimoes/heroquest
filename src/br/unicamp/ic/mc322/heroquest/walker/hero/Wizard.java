@@ -1,12 +1,13 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Dagger;
-import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.skills.magicSkill.FireBall;
-import br.unicamp.ic.mc322.heroquest.skills.magicSkill.MagicMissile;
-import br.unicamp.ic.mc322.heroquest.skills.magicSkill.Teleport;
-import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.skills.magic.FireBall;
+import br.unicamp.ic.mc322.heroquest.skills.magic.MagicMissile;
+import br.unicamp.ic.mc322.heroquest.skills.magic.Teleport;
+import br.unicamp.ic.mc322.heroquest.walker.Hero;
+import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 public class Wizard extends Hero {
     private final int initialNumberOfDaggers = 3;

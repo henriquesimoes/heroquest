@@ -2,9 +2,9 @@ package br.unicamp.ic.mc322.heroquest.map.loader;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Wall;
 
 public class MapParser {
     public static void parseAndAdd(char representation, Coordinate coordinate, MapBuilder builder) {

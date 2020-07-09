@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.potions;
 
-import br.unicamp.ic.mc322.heroquest.item.baseitems.HeapItem;
+import br.unicamp.ic.mc322.heroquest.item.HeapItem;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class HealthPotion extends HeapItem {

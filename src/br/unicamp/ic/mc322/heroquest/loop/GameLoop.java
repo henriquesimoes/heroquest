@@ -1,11 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.loop;
 
-import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
-import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 import java.util.HashSet;
 

@@ -1,10 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
-import br.unicamp.ic.mc322.heroquest.map.object.fixed.Chest;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.SecretDoor;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
+import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.SecretDoor;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Wall;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Barbarian;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Dwarf;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Elf;

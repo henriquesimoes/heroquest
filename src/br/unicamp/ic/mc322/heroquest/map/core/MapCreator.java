@@ -3,9 +3,10 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
-import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
+import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 
 import java.util.ArrayList;
 import java.util.Collection;

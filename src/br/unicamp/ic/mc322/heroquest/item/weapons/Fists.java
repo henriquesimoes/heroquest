@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
-import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.Attack;
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.skills.physical.Attack;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class Fists extends Weapon {

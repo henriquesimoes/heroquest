@@ -2,15 +2,11 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
-import br.unicamp.ic.mc322.heroquest.map.core.SinglePlacement;
-import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.BSPGrid;
-import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
-import br.unicamp.ic.mc322.heroquest.map.generator.pathgenerator.PathGenerator;
-import br.unicamp.ic.mc322.heroquest.map.generator.roomgenerator.RoomGenerator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapParser;
+import br.unicamp.ic.mc322.heroquest.map.placement.SinglePlacement;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.ShortSword;
-import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.skills.magicSkill.SimpleHeal;
-import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.skills.magic.SimpleHeal;
+import br.unicamp.ic.mc322.heroquest.walker.Hero;
+import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 public class Elf extends Hero {
     public Elf(WalkerManager walkerManager, String name) {

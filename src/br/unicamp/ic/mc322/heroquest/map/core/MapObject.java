@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class MapObject {

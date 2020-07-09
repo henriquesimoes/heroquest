@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.artifacts;
 
-import br.unicamp.ic.mc322.heroquest.item.baseitems.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class GoldCoin extends CollectableItem {

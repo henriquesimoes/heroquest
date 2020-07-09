@@ -1,8 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.walker.monster;
 
-import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.Monster;
+import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 public class CommonSkeleton extends Monster {
     public CommonSkeleton(WalkerManager walkerManager) {

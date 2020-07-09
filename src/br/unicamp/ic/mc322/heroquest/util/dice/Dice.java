@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.util.dice;
 
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 
-class Dice {
+abstract class Dice {
     private int numberOfFaces;
 
     public Dice(int numberOfFaces) {

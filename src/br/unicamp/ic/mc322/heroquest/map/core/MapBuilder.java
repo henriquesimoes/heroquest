@@ -1,10 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
+import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.Wall;
+import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 
 public class MapBuilder {
     private PlacementStrategy placementStrategy;
