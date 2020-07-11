@@ -6,6 +6,7 @@ import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Fists;
 import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
@@ -15,7 +16,6 @@ import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 public abstract class Walker extends MapObject {
@@ -25,7 +25,7 @@ public abstract class Walker extends MapObject {
     protected Armor armor;
     protected int attackDice, movementDice, defenseDice, bonusDefenseDice;
     protected int maximumBodyPoints, currentBodyPoints, mindPoints;
-    protected HashMap<Skill, Integer> skills;
+    protected java.util.Map<Skill, Integer> skills;
     protected CombatDice combatDice;
     protected RedDice redDice;
     protected Knapsack knapsack;
@@ -33,8 +33,8 @@ public abstract class Walker extends MapObject {
     protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell, ableToLearnWaterSpell;
 
     public Walker(WalkerManager manager, String name) {
-        this.walkerManager = manager;
         this.name = name;
+        this.walkerManager = manager;
         this.walkerManager.setWalker(this);
 
         redDice = new RedDice();
@@ -228,11 +228,8 @@ public abstract class Walker extends MapObject {
 
     protected ArrayList<Skill> getSkills() {
         ArrayList<Skill> skillList = new ArrayList<>();
-
-        for (Map.Entry<Skill, Integer> pair : skills.entrySet()) {
-            Skill skill = pair.getKey();
+        for (Skill skill : skills.keySet())
             skillList.add(skill);
-        }
 
         return skillList;
     }
@@ -305,4 +302,7 @@ public abstract class Walker extends MapObject {
         visitor.visit(this);
     }
 
+    public void setMap(Map map){
+        walkerManager.setMap(map);
+    }
 }

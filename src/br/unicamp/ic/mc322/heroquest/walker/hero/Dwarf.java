@@ -4,11 +4,10 @@ import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.ShortSword;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
-import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 public class Dwarf extends Hero {
-    public Dwarf(WalkerManager walkerManager, String name) {
-        super(walkerManager, name);
+    public Dwarf(String name) {
+        super(name);
 
         attackDice = 2;
         defenseDice = 2;

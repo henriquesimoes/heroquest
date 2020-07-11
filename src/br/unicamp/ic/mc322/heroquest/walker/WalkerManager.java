@@ -14,12 +14,7 @@ import java.util.ArrayList;
 public abstract class WalkerManager {
     protected Walker walker;
     protected Map map;
-    private RegionSelector regionSelector;
-
-    protected WalkerManager(Map map) {
-        this.map = map;
-        this.regionSelector = map.getRegionSelector();
-    }
+    protected RegionSelector regionSelector;
 
     public void moveWalker(Coordinate position) {
         map.move(walker, position);
@@ -55,11 +50,6 @@ public abstract class WalkerManager {
 
     public void accept(AbstractMapObjectVisitor visitor, Region region) {
         map.accept(visitor, region);
-    }
-
-    protected void setWalker(Walker walker) {
-        this.walker = walker;
-        regionSelector.useAsReference(walker);
     }
 
     protected String getStatus() {
@@ -102,6 +92,20 @@ public abstract class WalkerManager {
         chosenSkill.useSkill(walker, target);
 
         return true;
+    }
+
+    protected void setMap(Map map){
+        changeMap(map);
+    }
+
+    protected void changeMap(Map map){
+        this.map = map;
+        this.regionSelector = map.getRegionSelector();
+        regionSelector.useAsReference(walker);
+    }
+
+    void setWalker(Walker walker){
+        this.walker = walker;
     }
 
     public abstract void playTurn();

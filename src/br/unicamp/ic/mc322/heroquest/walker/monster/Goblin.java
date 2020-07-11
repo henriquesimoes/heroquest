@@ -4,13 +4,15 @@ import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.Monster;
-import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerAI;
+import br.unicamp.ic.mc322.heroquest.walker.managers.ai.attack.Bloodthirsty;
+import br.unicamp.ic.mc322.heroquest.walker.managers.ai.movement.Follower;
 
 public class Goblin extends Monster {
     private final int initialNumberOfDaggers = 2;
 
-    public Goblin(WalkerManager walkerManager) {
-        super(walkerManager, "Goblin");
+    public Goblin() {
+        super(new WalkerAI(new Follower(), new Bloodthirsty()), "Goblin");
 
         attackDice = 3;
         defenseDice = 1;
