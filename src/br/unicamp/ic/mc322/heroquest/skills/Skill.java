@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public abstract class Skill implements AbstractMapObjectVisitor {
     private WalkerManager walkerManager;
     protected String skillName;
-    protected RegionSelector userRegionSelector;
     protected Walker skillUser;
     protected ArrayList<MapObject> targets;
 
@@ -25,7 +24,6 @@ public abstract class Skill implements AbstractMapObjectVisitor {
 
     public void setWalkerManager(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;
-        this.userRegionSelector = walkerManager.getRegionSelector();
         this.skillUser = walkerManager.getWalker();
     }
 
@@ -45,6 +43,10 @@ public abstract class Skill implements AbstractMapObjectVisitor {
 
     protected void accept(AbstractMapObjectVisitor visitor, Region region) {
         walkerManager.accept(visitor, region);
+    }
+
+    protected RegionSelector getUserRegionSelector() {
+        return walkerManager.getRegionSelector();
     }
 
     @Override

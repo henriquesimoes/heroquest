@@ -15,9 +15,9 @@ public class Attack extends PhysicalSkill {
         Region region;
 
         if (skilledWeapon.canAttackDiagonally())
-            region = userRegionSelector.getAdjacentRegion(false);
+            region = getUserRegionSelector().getAdjacentRegion(false);
         else
-            region = userRegionSelector.getCardinalRegion(false);
+            region = getUserRegionSelector().getCardinalRegion(false);
 
         accept(this, region);
     }
