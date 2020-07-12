@@ -26,12 +26,14 @@ public class Map implements WalkValidator, GameListener {
     public void add(Walker walker, Coordinate coordinate) {
         Room room = getRoom(coordinate);
 
+        walker.setMap(this);
         room.add(walker, coordinate);
     }
 
     public void add(Walker walker) {
         Room room = rooms[Randomizer.nextInt(rooms.length)];
 
+        walker.setMap(this);
         room.add(walker);
     }
 

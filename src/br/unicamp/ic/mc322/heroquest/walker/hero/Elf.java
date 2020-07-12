@@ -5,11 +5,10 @@ import br.unicamp.ic.mc322.heroquest.item.weapons.ShortSword;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.skills.magic.SimpleHeal;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
-import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 public class Elf extends Hero {
-    public Elf(WalkerManager walkerManager, String name) {
-        super(walkerManager, name);
+    public Elf(String name) {
+        super(name);
 
         attackDice = 2;
         defenseDice = 2;

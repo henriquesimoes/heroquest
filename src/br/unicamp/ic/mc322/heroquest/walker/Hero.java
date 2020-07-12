@@ -1,10 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
+import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerPlayer;
 
 public abstract class Hero extends Walker {
-    protected Hero(WalkerManager manager, String name) {
-        super(manager, name);
+    protected Hero(String name) {
+        super(new WalkerPlayer(), name);
         team = Team.HEROES;
     }
 

@@ -13,11 +13,6 @@ import java.util.ArrayList;
 public class WalkerPlayer extends WalkerManager {
     private PlayerInterface ioInterface;
 
-    public WalkerPlayer(Map map) {
-        super(map);
-        ioInterface = new PlayerInterface(map);
-    }
-
     public void updateScreen() {
         ioInterface.showMessage(getStatus());
         ioInterface.showMap(walker);
@@ -100,6 +95,12 @@ public class WalkerPlayer extends WalkerManager {
         int choice = ioInterface.showOptionsAndGetAnswer(targetList);
 
         return choice == 0 ? null : targets.get(choice - 1);
+    }
+
+    @Override
+    protected void setMap(Map map){
+        changeMap(map);
+        ioInterface = new PlayerInterface(map);
     }
 
     @Override

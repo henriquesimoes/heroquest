@@ -4,11 +4,10 @@ import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.LongSword;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
-import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 public class Barbarian extends Hero {
-    public Barbarian(WalkerManager walkerManager, String name) {
-        super(walkerManager, name);
+    public Barbarian(String name) {
+        super(name);
 
         attackDice = 3;
         defenseDice = 2;

@@ -12,7 +12,7 @@ public class LongDistanceAttack extends PhysicalSkill {
 
     @Override
     public void updateTargets() {
-        Region region = userRegionSelector.getRoomRegion(false);
+        Region region = getUserRegionSelector().getRoomRegion(false);
 
         accept(this, region);
     }

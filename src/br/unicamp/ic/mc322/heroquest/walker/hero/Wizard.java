@@ -7,14 +7,13 @@ import br.unicamp.ic.mc322.heroquest.skills.magic.FireBall;
 import br.unicamp.ic.mc322.heroquest.skills.magic.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.skills.magic.Teleport;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
-import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 public class Wizard extends Hero {
     private final int initialNumberOfDaggers = 3;
     private final int initialNumberOfMagicMissiles = 3;
 
-    public Wizard(WalkerManager walkerManager, String name) {
-        super(walkerManager, name);
+    public Wizard(String name) {
+        super(name);
 
         attackDice = 1;
         defenseDice = 2;

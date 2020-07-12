@@ -3,13 +3,15 @@ package br.unicamp.ic.mc322.heroquest.walker.monster;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.skills.magic.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.walker.Monster;
-import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerAI;
+import br.unicamp.ic.mc322.heroquest.walker.managers.ai.attack.Bloodthirsty;
+import br.unicamp.ic.mc322.heroquest.walker.managers.ai.movement.RandomMovement;
 
 public class WizardSkeleton extends Monster {
     final int initialNumberOfMagicMissiles = 2;
 
-    public WizardSkeleton(WalkerManager walkerManager) {
-        super(walkerManager, "Wizard Skeleton");
+    public WizardSkeleton() {
+        super(new WalkerAI(new RandomMovement(), new Bloodthirsty()), "Wizard Skeleton");
 
         attackDice = 2;
         defenseDice = 1;
