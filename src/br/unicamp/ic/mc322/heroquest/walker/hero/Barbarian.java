@@ -1,9 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.LongSword;
-import br.unicamp.ic.mc322.heroquest.item.weapons.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.Hero;
+import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 public class Barbarian extends Hero {
     public Barbarian(WalkerManager walkerManager, String name) {

@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
-import br.unicamp.ic.mc322.heroquest.skills.physicalSkill.AttackEnemyInLongDistanceRange;
+import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.skills.physical.LongDistanceAttack;
 
 public class Crossbow extends Weapon {
     private static final String DESCRIPTION = "Crossbow gives you a bonus of 3 combat dices." +
@@ -13,6 +14,6 @@ public class Crossbow extends Weapon {
         setAttackBonus(3);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        setNewSkill(new AttackEnemyInLongDistanceRange("Atirar flecha", this));
+        addSkill(new LongDistanceAttack("Atirar flecha", this));
     }
 }

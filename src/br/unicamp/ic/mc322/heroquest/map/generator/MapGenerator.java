@@ -2,15 +2,11 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
-import br.unicamp.ic.mc322.heroquest.map.core.SinglePlacement;
-import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.BSPGrid;
-import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
-import br.unicamp.ic.mc322.heroquest.map.generator.pathgenerator.PathGenerator;
-import br.unicamp.ic.mc322.heroquest.map.generator.roomgenerator.RoomGenerator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapParser;
+import br.unicamp.ic.mc322.heroquest.map.placement.SinglePlacement;
 
 import java.util.ArrayList;
 
@@ -26,7 +22,7 @@ public class MapGenerator {
     private ArrayList<GridContainer> gridSections;
     private ArrayList<RoomStructure> rooms;
 
-    public MapGenerator(){
+    public MapGenerator() {
         rooms = new ArrayList<>();
     }
 
@@ -52,7 +48,7 @@ public class MapGenerator {
         rooms = randomRooms.createRandomRooms();
     }
 
-    private void createMatrixGrid(){
+    private void createMatrixGrid() {
         grid = new char[GRID_HEIGHT][GRID_WIDTH];
 
         fillGridWithWalls();
@@ -74,8 +70,8 @@ public class MapGenerator {
 
     private void fillGridWithRoomsAreas() {
         for (RoomStructure room : rooms) {
-            Coordinate roomCoord = room.getRoomTopLeftCoordinates();
-            Dimension roomDimensions = room.getRoomDimension();
+            Coordinate roomCoord = room.getTopLeftCoordinate();
+            Dimension roomDimensions = room.getDimension();
 
             for (int i = roomCoord.getY(); i < roomCoord.getY() + roomDimensions.getHeight(); i++) {
                 for (int j = roomCoord.getX(); j < roomCoord.getX() + roomDimensions.getWidth(); j++) {

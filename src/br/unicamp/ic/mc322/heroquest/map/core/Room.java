@@ -1,27 +1,28 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Room {
+class Room {
     private Collection<MapUnit> units;
 
     public Room() {
         units = new ArrayList<>();
     }
 
-    protected void add(MapObject object, Coordinate coordinate) {
+    public void add(MapObject object, Coordinate coordinate) {
         MapUnit unit = getUnit(coordinate);
 
         object.goTo(unit);
     }
 
-    protected void add(MapObject object) {
+    public void add(MapObject object) {
         ArrayList<MapUnit> available = new ArrayList<>();
 
         for (MapUnit unit : units)
@@ -36,7 +37,7 @@ public class Room {
         object.goTo(destination);
     }
 
-    protected void add(StructuralObject object) {
+    public void add(StructuralObject object) {
         units.add(new MapUnit(object));
     }
 
@@ -76,18 +77,18 @@ public class Room {
         return result;
     }
 
-    public StructuralObject getStructure(Coordinate coordinate) {
-        MapUnit unit = getUnit(coordinate);
+    public void remove(Walker walker) {
+        MapUnit unit = getUnit(walker.getPosition());
 
-        return unit.getStructure();
+        unit.removeWalker();
     }
 
-    public void accept(MapObjectVisitor visitor) {
+    public void accept(AbstractMapObjectVisitor visitor) {
         for (MapUnit unit : units)
             unit.accept(visitor);
     }
 
-    public void accept(MapObjectVisitor visitor, Coordinate coordinate) {
+    public void accept(AbstractMapObjectVisitor visitor, Coordinate coordinate) {
         MapUnit unit = getUnit(coordinate);
 
         unit.accept(visitor);
@@ -100,15 +101,9 @@ public class Room {
 
     private MapUnit getUnit(Coordinate coordinate) {
         for (MapUnit unit : units)
-            if (unit.at(coordinate))
+            if (unit.isAt(coordinate))
                 return unit;
 
         return null;
-    }
-
-    public void remove(Walker walker) {
-        MapUnit unit = getUnit(walker.getPosition());
-
-        unit.removeWalker();
     }
 }

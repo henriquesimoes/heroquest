@@ -7,9 +7,9 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public abstract class Region implements Iterable<Coordinate> {
-    private WalkValidator walkValidator;
     protected Coordinate reference;
     protected Collection<Coordinate> coordinates;
+    private WalkValidator walkValidator;
 
     Region(Coordinate reference) {
         this.reference = reference;
@@ -25,10 +25,6 @@ public abstract class Region implements Iterable<Coordinate> {
         return reference;
     }
 
-    protected boolean isValid(Coordinate coordinate) {
-        return walkValidator == null || walkValidator.isAllowedToWalkOver(coordinate);
-    }
-
     public ArrayList<Coordinate> toArrayList() {
         return new ArrayList<>(coordinates);
     }
@@ -36,6 +32,10 @@ public abstract class Region implements Iterable<Coordinate> {
     @Override
     public Iterator<Coordinate> iterator() {
         return coordinates.iterator();
+    }
+
+    protected boolean isValid(Coordinate coordinate) {
+        return walkValidator == null || walkValidator.isAllowedToWalkOver(coordinate);
     }
 
     protected abstract void build();

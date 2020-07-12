@@ -30,6 +30,23 @@ public class Coordinate {
         return neighbors;
     }
 
+    public void copyValue(Coordinate coordinate) {
+        this.coordinate.setLocation(coordinate.getX(), coordinate.getY());
+    }
+
+    public Coordinate toRelative() {
+        Coordinate origin = getOrigin();
+
+        return Coordinate.shift(this, -origin.getX(), -origin.getY());
+    }
+
+    public boolean isInside(Dimension dimension) {
+        Coordinate origin = getOrigin();
+
+        return origin.getX() <= this.getX() && this.getX() < dimension.getWidth()
+                && origin.getY() <= this.getY() && this.getY() < dimension.getHeight();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Coordinate) {
@@ -41,16 +58,6 @@ public class Coordinate {
         return false;
     }
 
-    public void copyValue(Coordinate coordinate){
-        this.coordinate.setLocation(coordinate.getX(), coordinate.getY());
-    }
-
-    public Coordinate toRelative() {
-        Coordinate origin = getOrigin();
-
-        return Coordinate.shift(this, -origin.getX(), -origin.getY());
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(this.getX(), this.getY());
@@ -59,13 +66,6 @@ public class Coordinate {
     @Override
     public String toString() {
         return "Coordinate (" + getX() + ',' + getY() + ")";
-    }
-
-    public boolean inside(Dimension dimension) {
-        Coordinate origin = getOrigin();
-
-        return origin.getX() <= this.getX() && this.getX() < dimension.getWidth()
-                && origin.getY() <= this.getY() && this.getY() < dimension.getHeight();
     }
 
     public static Coordinate getOrigin() {

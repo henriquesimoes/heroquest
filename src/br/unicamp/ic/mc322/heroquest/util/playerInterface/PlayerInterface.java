@@ -41,7 +41,7 @@ public class PlayerInterface {
         System.out.println(s + "\n");
     }
 
-    public void showMap(MapObject reference){
+    public void showMap(MapObject reference) {
         mapViewer.display(reference);
     }
 }

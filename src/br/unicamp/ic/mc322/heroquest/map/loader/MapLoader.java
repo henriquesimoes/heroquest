@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.map.loader;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
-import br.unicamp.ic.mc322.heroquest.map.core.SinglePlacement;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.placement.SinglePlacement;
 
 import java.io.File;
 import java.io.FileNotFoundException;

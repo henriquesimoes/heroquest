@@ -27,7 +27,7 @@ class AdjacentRegion extends Region {
         buildDeltas();
 
         for (Pair<Integer, Integer> delta : deltas) {
-            Coordinate coordinate = Coordinate.shift(reference, delta.getKey(), delta.getValue());
+            Coordinate coordinate = Coordinate.shift(reference, delta.getFirst(), delta.getSecond());
 
             if (isValid(coordinate))
                 coordinates.add(coordinate);

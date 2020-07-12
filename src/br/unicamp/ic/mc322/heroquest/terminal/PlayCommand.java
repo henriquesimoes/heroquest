@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.view.Command;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Wizard;
-import br.unicamp.ic.mc322.heroquest.walker.manager.player.WalkerPlayer;
+import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerPlayer;
 
 public class PlayCommand implements Command {
     private TerminalEngine engine;
