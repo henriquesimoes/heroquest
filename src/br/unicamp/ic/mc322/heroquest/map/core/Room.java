@@ -99,6 +99,12 @@ class Room {
             unit.accept(visitor);
     }
 
+    public void accept(ConcreteMapObjectVisitor visitor, Coordinate coordinate) {
+        MapUnit unit = getUnit(coordinate);
+
+        unit.accept(visitor);
+    }
+
     private MapUnit getUnit(Coordinate coordinate) {
         for (MapUnit unit : units)
             if (unit.isAt(coordinate))

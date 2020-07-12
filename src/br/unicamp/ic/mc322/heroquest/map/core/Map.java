@@ -138,6 +138,21 @@ public class Map implements WalkValidator, GameListener {
         }
     }
 
+    public void accept(ConcreteMapObjectVisitor visitor, Region region) {
+        for (Coordinate coordinate : region) {
+            try {
+                Room room = getRoom(coordinate);
+
+                room.accept(visitor, coordinate);
+            } catch (OutsideRoomException ex) {
+                Door door = getDoor(coordinate);
+
+                if (door != null)
+                    door.accept(visitor);
+            }
+        }
+    }
+
     @Override
     public void notifyWalkerDeath(Walker deadWalker) {
         remove(deadWalker);
