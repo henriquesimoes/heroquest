@@ -11,7 +11,7 @@ public class MapUnit {
     private Walker walker;
     private FixedObject fixedObject;
 
-    public MapUnit(StructuralObject object) {
+    MapUnit(StructuralObject object) {
         this.structure = object;
     }
 
@@ -33,48 +33,44 @@ public class MapUnit {
             throw new OccupiedUnitException();
     }
 
-    protected boolean isFree() {
-        return walker == null;
+    void accept(ConcreteMapObjectVisitor visitor) {
+        if (walker != null)
+            walker.accept(visitor);
+        else if (fixedObject != null)
+            fixedObject.accept(visitor);
+        else
+            structure.accept(visitor);
     }
 
-    protected Coordinate getCoordinate() {
+    void accept(AbstractMapObjectVisitor visitor) {
+        if (walker != null)
+            walker.accept(visitor);
+        else if (fixedObject != null)
+            fixedObject.accept(visitor);
+        else
+            structure.accept(visitor);
+    }
+
+    boolean isFree() {
+        return walker == null && fixedObject == null && structure.canPlaceWalkerOn();
+    }
+
+    Coordinate getCoordinate() {
         return structure.getPosition();
     }
 
-    protected boolean isAt(Coordinate coordinate) {
-        return this.structure.isAt(coordinate);
-    }
-
-    protected boolean accept(PlacementStrategy strategy, MapObject object) {
+    boolean accept(PlacementStrategy strategy, MapObject object) {
         return structure.accept(strategy, object);
     }
 
-    protected void accept(AbstractMapObjectVisitor visitor) {
-        if (walker != null)
-            walker.accept(visitor);
-        else if (fixedObject != null)
-            fixedObject.accept(visitor);
-        else
-            structure.accept(visitor);
-    }
-
-    public void accept(ConcreteMapObjectVisitor visitor) {
-        if (walker != null)
-            walker.accept(visitor);
-        else if (fixedObject != null)
-            fixedObject.accept(visitor);
-        else
-            structure.accept(visitor);
-    }
-
-    protected void moveWalker(MapUnit destination) {
+    void moveWalker(MapUnit destination) {
         if (walker != null && destination.isFree()) {
             destination.add(walker);
             removeWalker();
         }
     }
 
-    protected void removeWalker() {
+    void removeWalker() {
         walker = null;
     }
 }

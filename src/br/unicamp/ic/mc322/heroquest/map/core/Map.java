@@ -5,42 +5,42 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
-import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
-import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.*;
 
 public class Map implements WalkValidator, GameListener {
-    private Room[] rooms;
-    private Door[] doors;
+    private java.util.Map<Coordinate, MapUnit> units;
     private Dimension dimension;
 
-    protected Map(Room[] rooms, Door[] doors, Dimension dimension) {
-        this.rooms = rooms;
-        this.doors = doors;
+    Map(java.util.Map<Coordinate, MapUnit> units, Dimension dimension) {
+        this.units = units;
         this.dimension = dimension;
     }
 
     public void add(Walker walker, Coordinate coordinate) {
-        Room room = getRoom(coordinate);
-
+        MapUnit unit = units.get(coordinate);
+        unit.add(walker);
         walker.setMap(this);
-        room.add(walker, coordinate);
     }
 
     public void add(Walker walker) {
-        Room room = rooms[Randomizer.nextInt(rooms.length)];
+        MapUnit unit;
+        do {
+            // TODO: generate random coordinate
+           unit = units.get(dimension.getRandomInsideCoordinate());
+        } while (!unit.isFree());
 
+        unit.add(walker);
         walker.setMap(this);
-        room.add(walker);
     }
 
     public void move(Walker walker, Coordinate destination) {
-        Room room = getRoom(destination);
+        MapUnit originUnit = units.get(walker.getPosition());
+        MapUnit destinationUnit = units.get(destination);
 
-        room.move(walker, destination);
+        originUnit.moveWalker(destinationUnit);
     }
 
     public RegionSelector getRegionSelector() {
@@ -55,25 +55,9 @@ public class Map implements WalkValidator, GameListener {
         return dimension.getHeight();
     }
 
-    public Collection<Coordinate> getRoomCoordinates(Coordinate reference) {
-        Room room = getRoom(reference);
-
-        return room.getCoordinates();
-    }
-
     @Override
     public boolean isAllowedToWalkOver(Coordinate coordinate) {
-        try {
-            Room room = getRoom(coordinate);
-            return !room.isOccupied(coordinate);
-        } catch (OutsideRoomException ex) {
-            Door door = getDoor(coordinate);
-
-            if (door != null)
-                return door.isOpen();
-        }
-
-        return false;
+        return units.get(coordinate).isFree();
     }
 
     public Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
@@ -112,29 +96,19 @@ public class Map implements WalkValidator, GameListener {
     }
 
     public void accept(AbstractMapObjectVisitor visitor) {
-        for (Room room : rooms)
-            room.accept(visitor);
+        for (MapUnit unit : units.values())
+            unit.accept(visitor);
     }
 
     public void accept(ConcreteMapObjectVisitor visitor) {
-        for (Room room : rooms)
-            room.accept(visitor);
-        for (Door door : doors)
-            door.accept(visitor);
+        for (MapUnit unit : units.values())
+            unit.accept(visitor);
     }
 
     public void accept(AbstractMapObjectVisitor visitor, Region region) {
         for (Coordinate coordinate : region) {
-            try {
-                Room room = getRoom(coordinate);
-
-                room.accept(visitor, coordinate);
-            } catch (OutsideRoomException ex) {
-                Door door = getDoor(coordinate);
-
-                if (door != null)
-                    door.accept(visitor);
-            }
+            MapUnit unit = units.get(coordinate);
+            unit.accept(visitor);
         }
     }
 
@@ -146,25 +120,8 @@ public class Map implements WalkValidator, GameListener {
     @Override
     public void notifyWalkerDamage(Walker walker, int damage) {}
 
-    private Room getRoom(Coordinate coordinate) throws OutsideRoomException {
-        for (Room room : rooms)
-            if (room.contains(coordinate))
-                return room;
-
-        throw new OutsideRoomException();
-    }
-
-    private Door getDoor(Coordinate coordinate) {
-        for (Door door : doors)
-            if (door.isAt(coordinate))
-                return door;
-
-        return null;
-    }
-
     private void remove(Walker walker) {
-        Room room = getRoom(walker.getPosition());
-
-        room.remove(walker);
+        MapUnit unit = units.get(walker.getPosition());
+        unit.removeWalker();
     }
 }
