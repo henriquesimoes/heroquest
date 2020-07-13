@@ -37,7 +37,7 @@ public class RegionSelector {
     }
 
     public Region getRoomRegion(Coordinate reference, boolean onlyWalkablePositions){
-        return build(new LimitedRegion(reference, Integer.MAX_VALUE), onlyWalkablePositions);
+        return build(new VisibleRegion(reference), onlyWalkablePositions);
     }
 
     public Region getRoomRegion(boolean onlyWalkablePositions) {

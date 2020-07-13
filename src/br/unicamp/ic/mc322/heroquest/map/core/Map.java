@@ -28,8 +28,7 @@ public class Map implements WalkValidator, GameListener {
     public void add(Walker walker) {
         MapUnit unit;
         do {
-            // TODO: generate random coordinate
-           unit = units.get(dimension.getRandomInsideCoordinate());
+            unit = units.get(dimension.getRandomInsideCoordinate());
         } while (!unit.isFree());
 
         unit.add(walker);
@@ -106,6 +105,13 @@ public class Map implements WalkValidator, GameListener {
     }
 
     public void accept(AbstractMapObjectVisitor visitor, Region region) {
+        for (Coordinate coordinate : region) {
+            MapUnit unit = units.get(coordinate);
+            unit.accept(visitor);
+        }
+    }
+
+    public void accept(ConcreteMapObjectVisitor visitor, Region region) {
         for (Coordinate coordinate : region) {
             MapUnit unit = units.get(coordinate);
             unit.accept(visitor);
