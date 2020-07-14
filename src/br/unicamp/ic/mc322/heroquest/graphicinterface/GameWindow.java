@@ -1,13 +1,15 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
+
 import javax.swing.*;
 
 public class GameWindow extends JFrame {
-    static final int WINDOW_WIDTH = 800;
-    static final int WINDOW_HEIGHT = 500;
+    public static final int WINDOW_WIDTH = 800;
+    public static final int WINDOW_HEIGHT = 500;
+    Map gameMap;
 
-
-    public GameWindow() {
+    public GameWindow(Map gameMap) {
         setTitle("HeroQuest");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(400, 200, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -16,5 +18,7 @@ public class GameWindow extends JFrame {
         pack();
         setResizable(false);
         setVisible(true);
+
+        this.gameMap = gameMap;
     }
 }

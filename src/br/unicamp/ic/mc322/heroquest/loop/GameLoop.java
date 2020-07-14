@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.loop;
 
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
@@ -30,6 +31,8 @@ public class GameLoop implements GameListener {
     }
 
     public void run() {
+        new GameWindow(map);
+
         running = true;
         while (running) {
             playTurn();
