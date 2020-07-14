@@ -2,10 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.OutsideRoomException;
 import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
-
-import java.util.Collection;
 
 public class RegionSelector {
     private Coordinate reference;
@@ -39,15 +36,12 @@ public class RegionSelector {
         return build(new LimitedRegion(reference, limit), onlyWalkablePositions);
     }
 
-    public Region getRoomRegion(Coordinate reference, boolean onlyWalkablePositions)
-            throws OutsideRoomException {
-        Collection<Coordinate> roomCoordinates = map.getRoomCoordinates(reference);
-
-        return build(new RoomRegion(reference, roomCoordinates), onlyWalkablePositions);
+    public Region getVisibleRegion(Coordinate reference, boolean onlyWalkablePositions){
+        return build(new VisibleRegion(reference), onlyWalkablePositions);
     }
 
-    public Region getRoomRegion(boolean onlyWalkablePositions) throws OutsideRoomException {
-        return getRoomRegion(reference, onlyWalkablePositions);
+    public Region getVisibleRegion(boolean onlyWalkablePositions) {
+        return getVisibleRegion(reference, onlyWalkablePositions);
     }
 
     private Region build(Region region, boolean onlyWalkablePositions) {

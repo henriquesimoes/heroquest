@@ -48,6 +48,11 @@ public class Door extends StructuralObject {
     }
 
     @Override
+    public boolean canPlaceWalkerOn() {
+        return opened;
+    }
+
+    @Override
     public void accept(ConcreteMapObjectVisitor visitor) {
         visitor.visit(this);
     }

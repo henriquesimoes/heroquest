@@ -54,11 +54,11 @@ public class MapManager {
     }
 
     private void addWalkers(Map map) {
-        MonsterGenerator generator = new MonsterGenerator();
+        /*MonsterGenerator generator = new MonsterGenerator();
 
         generator.setMinimumPerType(MINIMUM_MONSTER_PER_TYPE);
 
         for (Walker walker : generator.generate(NUMBER_OF_MONSTERS))
-            map.add(walker);
+            map.add(walker);*/
     }
 }
