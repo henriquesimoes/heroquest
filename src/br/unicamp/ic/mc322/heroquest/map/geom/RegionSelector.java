@@ -36,12 +36,12 @@ public class RegionSelector {
         return build(new LimitedRegion(reference, limit), onlyWalkablePositions);
     }
 
-    public Region getRoomRegion(Coordinate reference, boolean onlyWalkablePositions){
+    public Region getVisibleRegion(Coordinate reference, boolean onlyWalkablePositions){
         return build(new VisibleRegion(reference), onlyWalkablePositions);
     }
 
-    public Region getRoomRegion(boolean onlyWalkablePositions) {
-        return getRoomRegion(reference, onlyWalkablePositions);
+    public Region getVisibleRegion(boolean onlyWalkablePositions) {
+        return getVisibleRegion(reference, onlyWalkablePositions);
     }
 
     private Region build(Region region, boolean onlyWalkablePositions) {

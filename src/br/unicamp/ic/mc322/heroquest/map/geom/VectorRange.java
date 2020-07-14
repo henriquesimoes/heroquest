@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class VectorRange {
-    private Vector lowerBound, upperBound, current;
-    private final double RADIUS = 0.5;
+    private Vector lowerBound, upperBound;
+    private final double RADIUS = 0.45;
     private final double EPS = 1e-6;
 
     /**
@@ -22,26 +22,24 @@ public class VectorRange {
         if(reference.equals(object))
             throw new IllegalArgumentException("A point not define a line");
 
-        HashSet<Point2D> tangentPoints = findTangentPoints(reference, object);
-        if (tangentPoints.size() != 2)
+        HashSet<Point2D> points = findTangentPoints(reference, object);
+        if (points.size() != 2)
             throw new IllegalArgumentException("No is possible have more or less than two tangent points");
 
-        Vector[] vectors = new Vector[2];
-        int i = 0;
-        for (Point2D point : tangentPoints)
-            vectors[i++] = new Vector(reference, point);
-        current = new Vector(reference, object);
+        points.add(object);
+        ArrayList<Vector> vectors = new ArrayList<>();
+        for (Point2D point : points)
+            vectors.add(new Vector(reference, point));
 
-        if (vectors[0].compareTo(vectors[1]) > 0){
-            Vector temp = vectors[0];
-            vectors[0] = vectors[1];
-            vectors[1] = temp;
+
+        Vector current = new Vector(reference, object);
+        vectors.sort(Vector::compareTo);
+        while(!vectors.get(1).equals(current)){
+            Vector vector = vectors.remove(0);
+            vectors.add(vector);
         }
-        lowerBound = vectors[0].isProximate(vectors[1]) ? vectors[0] : vectors[1];
-        upperBound = vectors[0].isProximate(vectors[1]) ? vectors[1] : vectors[0];
-
-        lowerBound.bitLeftShift();
-        upperBound.bitRightShift();
+        lowerBound = vectors.get(0);
+        upperBound = vectors.get(2);
     }
 
     private HashSet<Point2D> findTangentPoints(Point2D linePoint, Point2D center) {
@@ -94,9 +92,5 @@ public class VectorRange {
 
     Vector getUpperBound() {
         return upperBound;
-    }
-
-    public Vector getCurrent() {
-        return current;
     }
 }

@@ -4,10 +4,8 @@ import java.awt.geom.Point2D;
 import java.util.Objects;
 
 public class Vector implements Comparable{
-    private Double m, b;
+    private Double angle, b, m;
     private final double EPS = 1e-6;
-    private final double RELATIVE_ERROR = 1e-3;
-    private boolean vertical;
     private Point2D reference, object;
 
     Vector(Point2D reference, Point2D object){
@@ -21,11 +19,14 @@ public class Vector implements Comparable{
         if(reference.equals(object))
             throw new IllegalArgumentException("A point not define a line");
 
-        if(Math.abs(x1 - x2) < EPS)
-            vertical = true;
+        if(Math.abs(x1 - x2) < EPS){
+            angle = Math.PI/2;
+        }
         else{
-            vertical = false;
             m = (y1 - y2) / (x1 - x2);
+            angle = Math.atan(m);
+            if (angle < 0)
+                angle = Math.PI + angle;
             b = y1 - m * x1;
         }
     }
@@ -41,12 +42,7 @@ public class Vector implements Comparable{
             throw new ClassCastException();
 
         Vector vector = (Vector)other;
-        if (this.vertical == vector.vertical){
-            if (this.vertical)
-                return 0;
-            return this.m.compareTo(vector.m);
-        }
-        return this.vertical ? -1 : 1;
+        return this.angle.compareTo(vector.angle);
     }
 
     @Override
@@ -55,25 +51,12 @@ public class Vector implements Comparable{
         if (o == null || getClass() != o.getClass()) return false;
         Vector vector = (Vector) o;
 
-        if (this.vertical == vector.vertical){
-            if (this.vertical)
-                return true;
-            return Math.abs(this.m - vector.m) < EPS;
-        }
-        return false;
+        return Math.abs(this.angle - vector.angle) % Math.PI < EPS;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(m, vertical);
-    }
-
-    void bitLeftShift() {
-        m -= RELATIVE_ERROR * Math.abs(m);
-    }
-
-    void bitRightShift() {
-        m += RELATIVE_ERROR * Math.abs(m);
+        return Objects.hash(angle);
     }
 
     boolean extendsVector(Coordinate current) {
@@ -81,10 +64,5 @@ public class Vector implements Comparable{
         Double referenceToPoint = reference.distance(point);
         Double objectToPoint = object.distance(point);
         return referenceToPoint >= objectToPoint;
-    }
-
-    public boolean isProximate(Vector vector2) {
-        // TODO: FIX IT
-        return true;
     }
 }

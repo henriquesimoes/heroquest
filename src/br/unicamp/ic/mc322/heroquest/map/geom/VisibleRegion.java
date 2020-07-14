@@ -61,10 +61,9 @@ class VisibleRegion extends Region {
         VectorRange vectorRange = new VectorRange(reference, current);
         Vector lowerBound = vectorRange.getLowerBound();
         Vector upperBound = vectorRange.getUpperBound();
-        Vector currentVector = vectorRange.getCurrent();
 
         // prevent problems caused by vertical vector
-        if (lowerBound.equals(currentVector) || upperBound.equals(currentVector))
+        if (vectorsOfObstacle.contains(lowerBound) || vectorsOfObstacle.contains(upperBound))
             return false;
 
         if (lowerBound.compareTo(upperBound) < 0){
