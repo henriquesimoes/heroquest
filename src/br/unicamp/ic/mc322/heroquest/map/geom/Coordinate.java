@@ -18,14 +18,27 @@ public class Coordinate {
         return coordinate.y;
     }
 
+    public Coordinate shift(Direction direction){
+        switch (direction){
+            case NORTH:
+                return new Coordinate(getX(), getY() - 1);
+            case SOUTH:
+                return new Coordinate(getX(), getY() + 1);
+            case EAST:
+                return new Coordinate(getX() + 1, getY());
+            case WEST:
+                return new Coordinate(getX() - 1, getY());
+            default:
+                throw new IllegalArgumentException("Invalid direction");
+        }
+    }
+
     public Coordinate[] getNeighborCoordinates() {
-        int dx[] = {0, 0, 1, -1};
-        int dy[] = {1, -1, 0, 0};
+        Coordinate[] neighbors = new Coordinate[Direction.values().length];
+        int i = 0;
 
-        Coordinate[] neighbors = new Coordinate[dx.length];
-
-        for (int i = 0; i < dx.length; i++)
-            neighbors[i] = new Coordinate(this.getX() + dx[i], this.getY() + dy[i]);
+        for (Direction direction : Direction.values())
+            neighbors[i++] = shift(direction);
 
         return neighbors;
     }

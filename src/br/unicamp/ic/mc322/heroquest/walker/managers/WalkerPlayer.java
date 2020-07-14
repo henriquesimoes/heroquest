@@ -4,6 +4,8 @@ import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.playerInterface.PlayerInterface;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
@@ -60,19 +62,6 @@ public class WalkerPlayer extends WalkerManager {
         return choice == 0 ? null : items.get(choice - 1);
     }
 
-    @Override
-    protected Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
-        ArrayList<String> moveList = new ArrayList<>();
-
-        for (Coordinate coordinate : possibleMoves)
-            moveList.add(coordinate.toString());
-
-        ioInterface.showMessage("Choose a destination position:");
-        int choice = ioInterface.showOptionsAndGetAnswer(moveList);
-
-        return choice == 0 ? null : possibleMoves.get(choice - 1);
-    }
-
     protected Skill chooseSkill(ArrayList<Skill> skills) {
         ArrayList<String> nameList = new ArrayList<>();
 
@@ -95,6 +84,31 @@ public class WalkerPlayer extends WalkerManager {
         int choice = ioInterface.showOptionsAndGetAnswer(targetList);
 
         return choice == 0 ? null : targets.get(choice - 1);
+    }
+
+    @Override
+    protected boolean makeMove() {
+        int limitPositionInMove = walker.getPositionLimitInMovement();
+
+        for (int i = limitPositionInMove; i > 0;){
+            ioInterface.showMessage(String.format("Remaining movements: %d", i));
+            Direction direction = ioInterface.getMoveDirection();
+
+            if (direction == null)
+                break;
+
+            Coordinate chosenMove = walker.getPosition().shift(direction);
+            Region region = regionSelector.getCardinalRegion(true);
+            ArrayList<Coordinate> possibleMoves = region.toArrayList();
+
+            if (possibleMoves.contains(chosenMove)){
+                moveWalker(chosenMove);
+                i--;
+            }else
+                ioInterface.showMessage("Invalid movement");
+            updateScreen();
+        }
+        return true;
     }
 
     @Override
