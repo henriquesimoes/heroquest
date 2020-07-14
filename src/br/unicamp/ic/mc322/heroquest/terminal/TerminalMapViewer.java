@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.terminal;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
@@ -29,11 +30,10 @@ public class TerminalMapViewer implements MapViewer {
     }
 
     @Override
-    public void display(MapObject reference) {
+    public void display(Coordinate reference) {
         clear();
         RegionSelector regionSelector = map.getRegionSelector();
-        regionSelector.useAsReference(reference);
-        Region region = regionSelector.getVisibleRegion(true);
+        Region region = regionSelector.getVisibleRegion(reference, true);
         map.accept(this, region);
         print();
     }
