@@ -1,6 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.loop.GameListener;
+import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.VisionValidator;
+import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.WalkableValidator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
@@ -10,7 +12,7 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.*;
 
-public class Map implements WalkValidator, GameListener {
+public class Map implements GameListener {
     private java.util.Map<Coordinate, MapUnit> units;
     private Dimension dimension;
 
@@ -26,11 +28,14 @@ public class Map implements WalkValidator, GameListener {
     }
 
     public void add(Walker walker) {
-        MapUnit unit;
-        do {
-            unit = units.get(dimension.getRandomInsideCoordinate());
-        } while (!unit.isFree());
+        PositionValidator validator = new WalkableValidator(this);
+        Coordinate coordinate;
 
+        do {
+            coordinate = dimension.getRandomInsideCoordinate();
+        } while (!validator.isValid(coordinate));
+
+        MapUnit unit =units.get(coordinate);
         unit.add(walker);
         walker.setMap(this);
     }
@@ -43,7 +48,7 @@ public class Map implements WalkValidator, GameListener {
     }
 
     public RegionSelector getRegionSelector() {
-        return new RegionSelector(this, this);
+        return new RegionSelector(this);
     }
 
     public int getWidth() {
@@ -54,15 +59,11 @@ public class Map implements WalkValidator, GameListener {
         return dimension.getHeight();
     }
 
-    @Override
-    public boolean isAllowedToWalkOver(Coordinate coordinate) {
-        return units.get(coordinate).isFree();
-    }
-
     public Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
         Queue<Pair<Coordinate, Coordinate>> queue = new LinkedList<>();
         Set<Coordinate> destination = new HashSet<>();
         Set<Coordinate> visited = new HashSet<>();
+        PositionValidator validator = new VisionValidator(this);
 
         if (objects.isEmpty())
             return null;
@@ -84,7 +85,7 @@ public class Map implements WalkValidator, GameListener {
                 if (destination.contains(neighbor))
                     return sourceCoordinate;
 
-                if (!visited.contains(neighbor) && isAllowedToWalkOver(neighbor)) {
+                if (!visited.contains(neighbor) && validator.isValid(neighbor)) {
                     visited.add(neighbor);
                     queue.add(new Pair<>(neighbor, sourceCoordinate));
                 }
@@ -105,10 +106,8 @@ public class Map implements WalkValidator, GameListener {
     }
 
     public void accept(AbstractMapObjectVisitor visitor, Region region) {
-        for (Coordinate coordinate : region) {
-            MapUnit unit = units.get(coordinate);
-            unit.accept(visitor);
-        }
+        for (Coordinate coordinate : region)
+            accept(visitor, coordinate);
     }
 
     public void accept(ConcreteMapObjectVisitor visitor, Region region) {
@@ -116,6 +115,11 @@ public class Map implements WalkValidator, GameListener {
             MapUnit unit = units.get(coordinate);
             unit.accept(visitor);
         }
+    }
+
+    public void accept(AbstractMapObjectVisitor visitor, Coordinate coordinate) {
+        MapUnit unit = units.get(coordinate);
+        unit.accept(visitor);
     }
 
     @Override

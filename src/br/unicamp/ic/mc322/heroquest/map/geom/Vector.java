@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.Objects;
 
 public class Vector implements Comparable{
-    private Double angle, b, m;
+    private Double angle;
     private final double EPS = 1e-6;
     private Point2D reference, object;
 
@@ -23,11 +23,10 @@ public class Vector implements Comparable{
             angle = Math.PI/2;
         }
         else{
-            m = (y1 - y2) / (x1 - x2);
+            Double m = (y1 - y2) / (x1 - x2);
             angle = Math.atan(m);
             if (angle < 0)
                 angle = Math.PI + angle;
-            b = y1 - m * x1;
         }
     }
 

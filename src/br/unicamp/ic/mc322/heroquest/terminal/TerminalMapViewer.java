@@ -33,7 +33,7 @@ public class TerminalMapViewer implements MapViewer {
         clear();
         RegionSelector regionSelector = map.getRegionSelector();
         regionSelector.useAsReference(reference);
-        Region region = regionSelector.getVisibleRegion(true);
+        Region region = regionSelector.getVisibleRegion(false);
         map.accept(this, region);
         print();
     }

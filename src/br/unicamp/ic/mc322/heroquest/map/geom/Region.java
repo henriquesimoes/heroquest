@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
-import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
+import br.unicamp.ic.mc322.heroquest.map.core.PositionValidator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,16 +9,15 @@ import java.util.Iterator;
 public abstract class Region implements Iterable<Coordinate> {
     protected Coordinate reference;
     protected Collection<Coordinate> coordinates;
-    private WalkValidator walkValidator;
+    private PositionValidator positionValidator;
 
     Region(Coordinate reference) {
         this.reference = reference;
         this.coordinates = new ArrayList<>();
-        this.walkValidator = null;
     }
 
-    public void setWalkValidator(WalkValidator validator) {
-        walkValidator = validator;
+    public void setPositionValidator(PositionValidator validator) {
+        positionValidator = validator;
     }
 
     public Coordinate getReference() {
@@ -35,7 +34,11 @@ public abstract class Region implements Iterable<Coordinate> {
     }
 
     protected boolean isValid(Coordinate coordinate) {
-        return walkValidator == null || walkValidator.isAllowedToWalkOver(coordinate);
+        return positionValidator.isValid(coordinate);
+    }
+
+    protected boolean isExpandable(Coordinate coordinate) {
+        return positionValidator.isExpandable(coordinate);
     }
 
     protected abstract void build();

@@ -8,14 +8,12 @@ class VisibleRegion extends Region {
     private final int MAXIMUM_VISIBILITY_RADIUS = Integer.MAX_VALUE;
     private Queue<Pair<Coordinate, Integer>> queue;
     private Set<Coordinate> visited;
-    private Set<Coordinate> obstacles;
     private SortedSet<Vector> vectorsOfObstacle;
 
     VisibleRegion(Coordinate reference) {
         super(reference);
         queue = new LinkedList<>();
         visited = new HashSet<>();
-        obstacles = new HashSet<>();
         vectorsOfObstacle = new TreeSet<>();
     }
 
@@ -35,22 +33,17 @@ class VisibleRegion extends Region {
 
     private void update(Pair<Coordinate, Integer> lastVisitedPosition) {
         Coordinate lastCoordinate = lastVisitedPosition.getFirst();
+        int distance = lastVisitedPosition.getSecond();
 
-        if (!obstacles.contains(lastCoordinate)){
-            int distance = lastVisitedPosition.getSecond();
-
+        if (isExpandable(lastCoordinate) || lastCoordinate.equals(reference)){
             for (Coordinate neighbor : lastCoordinate.getNeighborCoordinates()) {
                 if (!visited.contains(neighbor)){
                     visited.add(neighbor);
 
-                    if (isVisible(neighbor)){
+                    if (isValid(neighbor) && isVisible(neighbor)){
                         queue.add(new Pair<>(neighbor, distance + 1));
-                        visited.add(neighbor);
-
-                        if (!isValid(neighbor)){
-                            obstacles.add(neighbor);
+                        if (!isExpandable(neighbor))
                             vectorsOfObstacle.add(new Vector(reference, neighbor));
-                        }
                     }
                 }
             }
@@ -61,10 +54,6 @@ class VisibleRegion extends Region {
         VectorRange vectorRange = new VectorRange(reference, current);
         Vector lowerBound = vectorRange.getLowerBound();
         Vector upperBound = vectorRange.getUpperBound();
-
-        // prevent problems caused by vertical vector
-        if (vectorsOfObstacle.contains(lowerBound) || vectorsOfObstacle.contains(upperBound))
-            return false;
 
         if (lowerBound.compareTo(upperBound) < 0){
                for (Vector vector : vectorsOfObstacle.subSet(lowerBound, upperBound))
