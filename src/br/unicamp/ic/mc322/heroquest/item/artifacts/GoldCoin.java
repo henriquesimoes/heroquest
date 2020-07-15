@@ -10,6 +10,6 @@ public class GoldCoin extends CollectableItem {
 
     @Override
     public void useItem(Walker proprietary) {
-
+        proprietary.increaseBalance(getGoldCoinsValue());
     }
 }
