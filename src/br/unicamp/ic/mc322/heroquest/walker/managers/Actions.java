@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers;
 
 public enum Actions {
-    USEITEM{
+    USE_ITEM {
         @Override
         public String toString(){
             return "Use items";
@@ -13,7 +13,7 @@ public enum Actions {
             return "Interact with objects";
         }
     },
-    USESKILL{
+    USE_SKILL {
         @Override
         public String toString(){
             return "Use skills";
@@ -23,6 +23,12 @@ public enum Actions {
         @Override
         public String toString(){
             return "Execute movement";
+        }
+    },
+    SEARCH{
+        @Override
+        public String toString(){
+            return "Search hidden objects";
         }
     }
 }

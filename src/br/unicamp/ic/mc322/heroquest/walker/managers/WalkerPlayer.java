@@ -6,7 +6,9 @@ import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.objects.HiddenObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
+import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Trap;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.SecretDoor;
@@ -24,10 +26,18 @@ import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisitor {
     private PlayerInterface ioInterface;
-    ArrayList<MapObject> objectsAdjacent;
+    private Set<MapObject> objectsAdjacent;
+    private Set<HiddenObject> hiddenObjectsDetected;
+
+    public WalkerPlayer(){
+        objectsAdjacent = new HashSet<>();
+        hiddenObjectsDetected = new HashSet<>();
+    }
 
     public void updateScreen() {
         ioInterface.showMessage(getStatus());
@@ -59,14 +69,17 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
                 case MOVE:
                     removeOption = makeMove();
                     break;
-                case USEITEM:
+                case USE_ITEM:
                     removeOption = useItems();
                     break;
-                case USESKILL:
+                case USE_SKILL:
                     removeOption = useSkill();
                     break;
                 case INTERACT:
                     removeOption = interactWithObjects();
+                    break;
+                case SEARCH:
+                    removeOption = searchHiddenObjects();
                     break;
                 default:
                     throw new IllegalArgumentException();
@@ -133,7 +146,8 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
 
     @Override
     public void visit(SecretDoor secretDoor) {
-
+        if (!secretDoor.isDiscovered())
+            hiddenObjectsDetected.add(secretDoor);
     }
 
     @Override
@@ -141,6 +155,11 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
         objectsAdjacent.add(chest);
     }
 
+    @Override
+    public void visit(Trap trap) {
+        if (!trap.isDiscovered())
+            hiddenObjectsDetected.add(trap);
+    }
 
     @Override
     protected CollectableItem chooseItem(ArrayList<CollectableItem> items) {
@@ -199,16 +218,32 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
     }
 
     private boolean interactWithObjects() {
-        objectsAdjacent = new ArrayList<>();
+        objectsAdjacent.clear();
 
         Region region = regionSelector.getAdjacentRegion(false);
         accept(this, region);
 
-        MapObject chosenTarget = chooseTarget(objectsAdjacent);
+        ArrayList<MapObject> arrayObjects = new ArrayList<>();
+        arrayObjects.addAll(objectsAdjacent);
+        MapObject chosenTarget = chooseTarget(arrayObjects);
 
         if (chosenTarget != null)
             chosenTarget.interact(walker);
 
         return false;
+    }
+
+    private boolean searchHiddenObjects() {
+        hiddenObjectsDetected.clear();
+
+        Region region = regionSelector.getLimitedRegion(3, true);
+        accept(this, region);
+
+        for (HiddenObject object : hiddenObjectsDetected){
+            showMessage(String.format("Detected the object: %s", object.getRepresentationOnMenu()));
+            object.discover();
+        }
+
+        return true;
     }
 }

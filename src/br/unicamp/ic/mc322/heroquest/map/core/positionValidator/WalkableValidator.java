@@ -21,7 +21,7 @@ public class WalkableValidator extends PositionValidator implements AbstractMapO
 
     @Override
     public void visit(FixedObject fixedObject) {
-        lastVisitedIsValid = lastVisitedIsExpandable = false;
+        lastVisitedIsValid = lastVisitedIsExpandable = fixedObject.isAllowedToWalkOver();
     }
 
     @Override

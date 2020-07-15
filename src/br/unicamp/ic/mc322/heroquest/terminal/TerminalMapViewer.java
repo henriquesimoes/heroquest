@@ -5,6 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
+import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Trap;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.SecretDoor;
@@ -131,6 +132,12 @@ public class TerminalMapViewer implements MapViewer {
 
     @Override
     public void visit(Chest chest) {
-        setSymbol(chest, 'c');
+        setSymbol(chest, chest.isOpened() ? 'c' : 'C');
     }
+
+    @Override
+    public void visit(Trap trap){
+        setSymbol(trap, trap.isDiscovered()? (trap.isArmed() ? 'T' : 't') : ' ');
+    }
+
 }

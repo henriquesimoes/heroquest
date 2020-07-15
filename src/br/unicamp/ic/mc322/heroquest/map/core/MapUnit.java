@@ -19,6 +19,8 @@ public class MapUnit {
         if (structure.isAllowedToWalkOver() && (fixedObject == null || fixedObject.isAllowedToWalkOver())) {
             this.walker = walker;
             this.walker.setPosition(getCoordinate());
+            if (fixedObject != null)
+                fixedObject.interact(walker);
         }
         else
             throw new IllegalStateException("Not walkable unit...");
