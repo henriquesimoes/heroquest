@@ -32,4 +32,8 @@ public abstract class Item {
     }
 
     public abstract void useItem(Walker proprietary);
+
+    public int getGoldCoinsValue(){
+        return goldCoinsValue;
+    }
 }

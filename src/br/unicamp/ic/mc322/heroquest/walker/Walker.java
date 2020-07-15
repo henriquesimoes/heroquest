@@ -31,11 +31,13 @@ public abstract class Walker extends MapObject {
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
     protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell, ableToLearnWaterSpell;
+    private int balance;
 
     public Walker(WalkerManager manager, String name) {
         this.name = name;
         this.walkerManager = manager;
         this.walkerManager.setWalker(this);
+        this.balance = 1000;
 
         redDice = new RedDice();
         combatDice = new CombatDice();
@@ -113,7 +115,7 @@ public abstract class Walker extends MapObject {
         }
     }
 
-    protected void collectItem(CollectableItem item) {
+    public void collectItem(CollectableItem item) {
         knapsack.put(item);
     }
 
@@ -304,5 +306,9 @@ public abstract class Walker extends MapObject {
 
     public void setMap(Map map){
         walkerManager.setMap(map);
+    }
+
+    public void increaseBalance(int amount) {
+        balance += amount;
     }
 }
