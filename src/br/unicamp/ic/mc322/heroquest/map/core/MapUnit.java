@@ -3,7 +3,6 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
-import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class MapUnit {
@@ -36,29 +35,15 @@ public class MapUnit {
     }
 
     void accept(ConcreteMapObjectVisitor visitor) {
-        if (walker != null)
-            walker.accept(visitor);
-        else if (fixedObject != null)
-            fixedObject.accept(visitor);
-        else
-            structure.accept(visitor);
+        getPreferential().accept(visitor);
     }
 
     void accept(AbstractMapObjectVisitor visitor) {
-        if (walker != null)
-            walker.accept(visitor);
-        else if (fixedObject != null)
-            fixedObject.accept(visitor);
-        else
-            structure.accept(visitor);
+        getPreferential().accept(visitor);
     }
 
     Coordinate getCoordinate() {
         return structure.getPosition();
-    }
-
-    boolean accept(PlacementStrategy strategy, MapObject object) {
-        return structure.accept(strategy, object);
     }
 
     void moveWalker(MapUnit destination) {
@@ -75,4 +60,13 @@ public class MapUnit {
     private boolean isFree() {
         return walker == null;
     }
+
+    private MapObject getPreferential() {
+        if (walker != null)
+            return walker;
+        if (fixedObject != null)
+            return fixedObject;
+        return structure;
+    }
+
 }

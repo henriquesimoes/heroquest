@@ -1,7 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.view;
 
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
 public interface MapViewer extends ConcreteMapObjectVisitor {

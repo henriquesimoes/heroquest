@@ -1,11 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.util.playerInterface;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 import br.unicamp.ic.mc322.heroquest.terminal.TerminalMapViewer;
 import br.unicamp.ic.mc322.heroquest.view.MapViewer;
-import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 
 import java.util.ArrayList;
 import java.util.Scanner;

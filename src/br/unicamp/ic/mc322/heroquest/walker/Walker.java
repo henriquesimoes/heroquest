@@ -8,7 +8,6 @@ import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
@@ -300,11 +299,6 @@ public abstract class Walker implements MapObject {
     @Override
     public void interact(Walker agent) {
         return;
-    }
-
-    @Override
-    public void goTo(MapUnit unit) {
-        unit.add(this);
     }
 
     @Override

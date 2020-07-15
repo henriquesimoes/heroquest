@@ -4,22 +4,19 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
-import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 public class MapBuilder {
-    private PlacementStrategy placementStrategy;
     private Collection<StructuralObject> objects;
     private java.util.Map<Coordinate, MapUnit> units;
     private boolean isBuilt;
     private Dimension dimension;
     private Map result;
 
-    public MapBuilder(PlacementStrategy placementStrategy) {
-        this.placementStrategy = placementStrategy;
+    public MapBuilder() {
         reset();
     }
 
@@ -42,10 +39,7 @@ public class MapBuilder {
 
         MapUnit unit = units.get(object.getPosition());
 
-        if (unit.accept(placementStrategy, object))
-            unit.add(object);
-        else
-            throw new OccupiedUnitException();
+        unit.add(object);
     }
 
     public void reset() {

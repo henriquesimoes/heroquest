@@ -8,7 +8,6 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapParser;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
-import br.unicamp.ic.mc322.heroquest.map.placement.SinglePlacement;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,7 +39,7 @@ public class MapGenerator {
         createRandomRooms();
         createMatrixGrid();
 
-        MapBuilder builder = new MapBuilder(new SinglePlacement());
+        MapBuilder builder = new MapBuilder();
 
         createStructure(builder);
 
