@@ -22,7 +22,7 @@ public class Teleport extends MagicSkill {
 
     @Override
     public void updateTargets() {
-        Region region = getUserRegionSelector().getRoomRegion(true);
+        Region region = getUserRegionSelector().getVisibleRegion(true);
 
         accept(this, region);
     }

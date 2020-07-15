@@ -38,6 +38,11 @@ public class Floor extends StructuralObject {
     }
 
     @Override
+    public boolean canPlaceWalkerOn() {
+        return true;
+    }
+
+    @Override
     public void accept(ConcreteMapObjectVisitor visitor) {
         visitor.visit(this);
     }

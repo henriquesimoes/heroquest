@@ -38,6 +38,11 @@ public class Wall extends StructuralObject {
     }
 
     @Override
+    public boolean canPlaceWalkerOn() {
+        return false;
+    }
+
+    @Override
     public void accept(ConcreteMapObjectVisitor visitor) {
         visitor.visit(this);
     }

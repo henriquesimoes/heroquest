@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.util.playerInterface;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.terminal.TerminalMapViewer;
 import br.unicamp.ic.mc322.heroquest.view.MapViewer;
 
@@ -41,7 +42,7 @@ public class PlayerInterface {
         System.out.println(s + "\n");
     }
 
-    public void showMap(MapObject reference) {
+    public void showMap(Coordinate reference) {
         mapViewer.display(reference);
     }
 }

@@ -22,6 +22,7 @@ public abstract class StructuralObject extends MapObject {
         visitor.visit(this);
     }
 
+
     /**
      * Determines whether a given structural object belongs to a room.
      *
@@ -29,4 +30,5 @@ public abstract class StructuralObject extends MapObject {
      */
     public abstract boolean belongsToARoom();
     public abstract boolean accept(PlacementStrategy strategy, MapObject object);
+    public abstract boolean canPlaceWalkerOn();
 }

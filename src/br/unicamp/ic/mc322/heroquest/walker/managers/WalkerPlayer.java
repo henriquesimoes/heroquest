@@ -15,7 +15,7 @@ public class WalkerPlayer extends WalkerManager {
 
     public void updateScreen() {
         ioInterface.showMessage(getStatus());
-        ioInterface.showMap(walker);
+        ioInterface.showMap(walker.getPosition());
     }
 
     @Override

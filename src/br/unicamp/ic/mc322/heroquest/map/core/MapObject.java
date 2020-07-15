@@ -23,10 +23,6 @@ public abstract class MapObject {
         return position.getY();
     }
 
-    public boolean isAt(Coordinate coordinate) {
-        return position.equals(coordinate);
-    }
-
     public Coordinate getPosition() {
         return position;
     }
