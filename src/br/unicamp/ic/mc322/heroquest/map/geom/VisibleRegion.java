@@ -36,7 +36,7 @@ class VisibleRegion extends Region {
         int distance = lastVisitedPosition.getSecond();
 
         if (isExpandable(lastCoordinate) || lastCoordinate.equals(reference)){
-            for (Coordinate neighbor : lastCoordinate.getNeighborCoordinates()) {
+            for (Coordinate neighbor : lastCoordinate.getCardinalNeighborCoordinates()) {
                 if (!visited.contains(neighbor)){
                     visited.add(neighbor);
 
@@ -57,14 +57,14 @@ class VisibleRegion extends Region {
 
         if (lowerBound.compareTo(upperBound) < 0){
                for (Vector vector : vectorsOfObstacle.subSet(lowerBound, upperBound))
-                    if (vector.extendsVector(current))
+                    if (vector.extendsTo(current))
                         return false;
         }else{
             for (Vector vector : vectorsOfObstacle.tailSet(lowerBound))
-                if (vector.extendsVector(current))
+                if (vector.extendsTo(current))
                     return false;
             for (Vector vector : vectorsOfObstacle.headSet(upperBound))
-                if (vector.extendsVector(current))
+                if (vector.extendsTo(current))
                     return false;
         }
         return true;

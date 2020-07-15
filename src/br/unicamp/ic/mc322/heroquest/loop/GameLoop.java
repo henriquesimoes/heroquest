@@ -107,11 +107,11 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
 
     private boolean isEndGame() {
         int teamsWithWalkersAlive = 0;
+
         for (HashSet<WalkerManager> managers : managersAliveByTeam.values())
             if (managers.size() > 0)
                 teamsWithWalkersAlive ++;
 
         return teamsWithWalkersAlive <= 1;
     }
-
 }

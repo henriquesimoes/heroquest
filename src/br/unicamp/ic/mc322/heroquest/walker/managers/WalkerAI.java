@@ -3,6 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker.managers;
 import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
@@ -33,11 +34,24 @@ public class WalkerAI extends WalkerManager {
     }
 
     @Override
+    protected boolean makeMove() {
+        int limitPositionInMove = walker.getPositionLimitInMovement();
+        Region region = regionSelector.getLimitedRegion(limitPositionInMove, true);
+
+        ArrayList<Coordinate> possibleMoves = region.toArrayList();
+
+        Coordinate chosenMove = chooseMove(possibleMoves);
+        if (chosenMove != null)
+            moveWalker(chosenMove);
+
+        return true;
+    }
+
+    @Override
     protected CollectableItem chooseItem(ArrayList<CollectableItem> items) {
         return items.size() == 0 ? null : items.get(Randomizer.nextInt(items.size()));
     }
 
-    @Override
     protected Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
         return movementBehavior.chooseMove(possibleMoves);
     }

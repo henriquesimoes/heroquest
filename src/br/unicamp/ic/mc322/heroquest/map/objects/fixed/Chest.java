@@ -5,6 +5,7 @@ import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.artifacts.GoldCoin;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 public class Chest extends FixedObject {
     private boolean opened;
     private ArrayList<CollectableItem> items;
+    private GoldCoin coins;
 
-    public Chest() {
+    public Chest(Coordinate position) {
         opened = false;
         items = new ArrayList<>();
+        setPosition(position);
 
         addRandomQuantityOfGold();
         addRandomWeapons();
@@ -34,21 +37,18 @@ public class Chest extends FixedObject {
 
     @Override
     public void interact(Walker agent) {
-        /**
-         * TODO: Implement opening interaction with chest
-         *
-         * Walker might not be able to use the chest weapon. It must be treated during interaction.
-         */
-
-        return;
+        if (opened){
+            for (CollectableItem item : items)
+                agent.collectItem(item);
+            coins.useItem(agent);
+        }else
+            opened = true;
     }
 
     private void addRandomQuantityOfGold() {
         int totalInGoldInsideChest = Randomizer.randInt(20, 100);
 
-        GoldCoin coins = new GoldCoin(totalInGoldInsideChest);
-
-        items.add(coins);
+        coins = new GoldCoin(totalInGoldInsideChest);
     }
 
     private void addRandomWeapons() {
@@ -76,7 +76,10 @@ public class Chest extends FixedObject {
 
     @Override
     public String getRepresentationOnMenu() {
-        return "Chest on " + getPosition();
+        if (opened)
+            return "Opened chest on " + getPosition();
+        else
+            return "Closed chest on " + getPosition();
     }
 
     @Override

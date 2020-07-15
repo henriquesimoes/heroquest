@@ -2,8 +2,10 @@ package br.unicamp.ic.mc322.heroquest.util.playerInterface;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.terminal.TerminalMapViewer;
 import br.unicamp.ic.mc322.heroquest.view.MapViewer;
+import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -41,7 +43,45 @@ public class PlayerInterface {
         System.out.println(s + "\n");
     }
 
-    public void showMap(MapObject reference) {
+    public void showMap(Coordinate reference) {
         mapViewer.display(reference);
+    }
+
+    public Direction getMoveDirection() {
+        System.out.println("Type the direction of movement or Q to quit: ");
+        String answer = "";
+        Direction direction = null;
+        boolean validAnswer = true;
+
+        do{
+            while (answer.isBlank())
+                answer = scanner.nextLine();
+            answer = answer.toUpperCase();
+
+            validAnswer = true;
+            switch (answer){
+                case "W":
+                    direction = Direction.NORTH;
+                    break;
+                case "S":
+                    direction = Direction.SOUTH;
+                    break;
+                case "A":
+                    direction = Direction.WEST;
+                    break;
+                case "D":
+                    direction = Direction.EAST;
+                    break;
+                case "Q":
+                    direction = null;
+                    break;
+                default:
+                    validAnswer = false;
+                    answer = "";
+                    System.out.println("Invalid direction.\nType the direction of movement or Q to quit: ");
+            }
+        }while(!validAnswer);
+
+        return  direction;
     }
 }

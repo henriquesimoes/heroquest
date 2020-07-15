@@ -22,9 +22,34 @@ public class Coordinate {
         return coordinate.y;
     }
 
-    public Coordinate[] getNeighborCoordinates() {
-        int dx[] = {0, 0, 1, -1};
-        int dy[] = {1, -1, 0, 0};
+    public Coordinate shift(Direction direction){
+        switch (direction){
+            case NORTH:
+                return new Coordinate(getX(), getY() - 1);
+            case SOUTH:
+                return new Coordinate(getX(), getY() + 1);
+            case EAST:
+                return new Coordinate(getX() + 1, getY());
+            case WEST:
+                return new Coordinate(getX() - 1, getY());
+            default:
+                throw new IllegalArgumentException("Invalid direction");
+        }
+    }
+
+    public Coordinate[] getCardinalNeighborCoordinates() {
+        Coordinate[] neighbors = new Coordinate[Direction.values().length];
+        int i = 0;
+
+        for (Direction direction : Direction.values())
+            neighbors[i++] = shift(direction);
+
+        return neighbors;
+    }
+
+    public Coordinate[] getAdjacentNeighborCoordinates() {
+        int[] dx = {0, 0, 1, 1, 1, -1, -1, -1};
+        int[] dy = {1, -1, 0, 1, -1, 0, 1, -1};
 
         Coordinate[] neighbors = new Coordinate[dx.length];
 

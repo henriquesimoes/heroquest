@@ -24,7 +24,7 @@ public class VectorRange {
 
         HashSet<Point2D> points = findTangentPoints(reference, object);
         if (points.size() != 2)
-            throw new IllegalArgumentException("No is possible have more or less than two tangent points");
+            throw new IllegalArgumentException("It is not possible have more or less than two tangent points");
 
         points.add(object);
         ArrayList<Vector> vectors = new ArrayList<>();

@@ -33,12 +33,14 @@ public abstract class Walker implements MapObject {
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
     protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell, ableToLearnWaterSpell;
+    private int balance;
 
 
     public Walker(WalkerManager manager, String name) {
         this.name = name;
         this.walkerManager = manager;
         this.walkerManager.setWalker(this);
+        this.balance = 1000;
 
         position = new Coordinate();
         redDice = new RedDice();
@@ -52,7 +54,7 @@ public abstract class Walker implements MapObject {
         addSkill(fists.getSkills().get(0));
     }
 
-    protected int getPositionLimitInMovement() {
+    public int getPositionLimitInMovement() {
         int numPos = 0;
 
         for (int i = 0; i < movementDice; i++)
@@ -116,8 +118,11 @@ public abstract class Walker implements MapObject {
             gameMonitor.notifyDeath(this);
         }
     }
+  
+    public void increaseBalance(int amount) {
+        balance += amount;
 
-    protected void collectItem(CollectableItem item) {
+    public void collectItem(CollectableItem item) {
         knapsack.put(item);
     }
 

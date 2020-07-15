@@ -32,7 +32,7 @@ public class Dimension {
     }
 
     public Coordinate getRandomInsideCoordinate (){
-        return new Coordinate(Randomizer.nextInt(width), Randomizer.nextInt(height));
+        return Coordinate.shift(Coordinate.getOrigin(), Randomizer.nextInt(width), Randomizer.nextInt(height));
     }
 
     public Coordinate toCoordinate() {

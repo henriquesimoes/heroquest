@@ -64,18 +64,7 @@ public abstract class WalkerManager {
         return false;
     }
 
-    protected boolean makeMove() {
-        int limitPositionInMove = walker.getPositionLimitInMovement();
-        Region region = regionSelector.getLimitedRegion(limitPositionInMove, true);
-
-        ArrayList<Coordinate> possibleMoves = region.toArrayList();
-
-        Coordinate chosenMove = chooseMove(possibleMoves);
-        if (chosenMove != null)
-            moveWalker(chosenMove);
-
-        return true;
-    }
+    protected abstract boolean makeMove();
 
     protected boolean useSkill() {
         ArrayList<Skill> skills = walker.getSkills();
@@ -112,7 +101,6 @@ public abstract class WalkerManager {
     public abstract void playTurn();
     public abstract void showMessage(String message);
     protected abstract CollectableItem chooseItem(ArrayList<CollectableItem> items);
-    protected abstract Coordinate chooseMove(ArrayList<Coordinate> possibleMoves);
     protected abstract Skill chooseSkill(ArrayList<Skill> skills);
     protected abstract MapObject chooseTarget(ArrayList<MapObject> targets);
 }

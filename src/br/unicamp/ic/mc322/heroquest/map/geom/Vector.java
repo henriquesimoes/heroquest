@@ -17,7 +17,7 @@ public class Vector implements Comparable{
         this.object = object;
 
         if(reference.equals(object))
-            throw new IllegalArgumentException("A point not define a line");
+            throw new IllegalArgumentException("A point does not define a line");
 
         if(Math.abs(x1 - x2) < EPS){
             angle = Math.PI/2;
@@ -58,7 +58,7 @@ public class Vector implements Comparable{
         return Objects.hash(angle);
     }
 
-    boolean extendsVector(Coordinate current) {
+    boolean extendsTo(Coordinate current) {
         Point2D point = new Point2D.Double(current.getX(), current.getY());
         Double referenceToPoint = reference.distance(point);
         Double objectToPoint = object.distance(point);

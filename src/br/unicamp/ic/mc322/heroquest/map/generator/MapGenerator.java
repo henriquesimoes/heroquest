@@ -1,3 +1,4 @@
+
 package br.unicamp.ic.mc322.heroquest.map.generator;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
@@ -6,9 +7,15 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapParser;
+import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
 import br.unicamp.ic.mc322.heroquest.map.placement.SinglePlacement;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Collections.shuffle;
 
 public class MapGenerator {
     private final int BSP_ITERATIONS = 4;
@@ -17,6 +24,8 @@ public class MapGenerator {
 
     private final int ROOM_MIN_WIDTH = 11;
     private final int ROOM_MIN_HEIGHT = 7;
+
+    private final int NUMBER_OF_CHESTS = 15;
 
     private char[][] grid;
     private ArrayList<GridContainer> gridSections;
@@ -34,6 +43,11 @@ public class MapGenerator {
         MapBuilder builder = new MapBuilder(new SinglePlacement());
 
         createStructure(builder);
+
+        Collection<Chest> chests = generateChests();
+
+        for (Chest chest : chests)
+            builder.add(chest);
 
         return builder;
     }
@@ -79,6 +93,53 @@ public class MapGenerator {
                 }
             }
         }
+    }
+
+    private Collection<Chest> generateChests(){
+        ArrayList<Coordinate> coordinates = new ArrayList<>();
+
+        for (int y = 0; y < GRID_HEIGHT; y++)
+            for (int x = 0; x < GRID_WIDTH; x++)
+                coordinates.add(new Coordinate(x, y));
+
+        shuffle(coordinates);
+
+        int remaining = NUMBER_OF_CHESTS;
+        Set<Coordinate> chosenCoordinates = new HashSet<>();
+
+        for (Coordinate coordinate : coordinates){
+            int x = coordinate.getX();
+            int y = coordinate.getY();
+
+            if (grid[y][x] == ' '){
+                Coordinate[] neighbors = coordinate.getAdjacentNeighborCoordinates();
+                int numberOfNeighborsEmpty = 0;
+
+                for (Coordinate neighbor : neighbors)
+                    if (isEmpty(neighbor) && !chosenCoordinates.contains(neighbor))
+                        numberOfNeighborsEmpty++;
+
+                if (numberOfNeighborsEmpty == 5) {
+                    chosenCoordinates.add(coordinate);
+                    remaining--;
+                    if(remaining <= 0)
+                        break;
+                }
+
+            }
+        }
+
+        Collection<Chest> chests = new ArrayList<>();
+        for (Coordinate coordinate : chosenCoordinates)
+            chests.add(new Chest(coordinate));
+
+        return chests;
+    }
+
+    private boolean isEmpty(Coordinate coordinate){
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+        return x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT && grid[y][x] == ' ';
     }
 
     private boolean isOnBorder(Coordinate coordinates, Dimension dimensions, int i, int j) {

@@ -81,7 +81,7 @@ public class Map implements GameListener {
             Coordinate moveCoordinate = current.getFirst();
             Coordinate sourceCoordinate = current.getSecond();
 
-            for (Coordinate neighbor : moveCoordinate.getNeighborCoordinates()) {
+            for (Coordinate neighbor : moveCoordinate.getCardinalNeighborCoordinates()) {
                 if (destination.contains(neighbor))
                     return sourceCoordinate;
 
