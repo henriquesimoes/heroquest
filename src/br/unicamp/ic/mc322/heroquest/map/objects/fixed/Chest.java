@@ -5,6 +5,7 @@ import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.artifacts.GoldCoin;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
@@ -15,9 +16,10 @@ public class Chest extends FixedObject {
     private boolean opened;
     private ArrayList<CollectableItem> items;
 
-    public Chest() {
+    public Chest(Coordinate position) {
         opened = false;
         items = new ArrayList<>();
+        setPosition(position);
 
         addRandomQuantityOfGold();
         addRandomWeapons();

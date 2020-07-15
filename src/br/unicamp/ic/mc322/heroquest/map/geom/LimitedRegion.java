@@ -38,7 +38,7 @@ class LimitedRegion extends Region {
         int distance = lastVisitedPosition.getSecond();
 
         if (isExpandable(lastCoordinate) || lastCoordinate.equals(reference)){
-            for (Coordinate neighbor : lastCoordinate.getNeighborCoordinates()) {
+            for (Coordinate neighbor : lastCoordinate.getCardinalNeighborCoordinates()) {
                 if (!visited.contains(neighbor) && isValid(neighbor)) {
                     queue.add(new Pair<>(neighbor, distance + 1));
                     visited.add(neighbor);
