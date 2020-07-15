@@ -48,7 +48,7 @@ public abstract class Walker extends MapObject {
         addSkill(fists.getSkills().get(0));
     }
 
-    protected int getPositionLimitInMovement() {
+    public int getPositionLimitInMovement() {
         int numPos = 0;
 
         for (int i = 0; i < movementDice; i++)
