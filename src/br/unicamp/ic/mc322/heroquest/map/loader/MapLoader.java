@@ -1,7 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.loader;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -45,11 +44,8 @@ public class MapLoader {
     private MapBuilder load(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         scanner.useDelimiter("\n");
-        MapBuilder builder = new MapBuilder();
 
-        readStructure(scanner, builder);
-
-        return builder;
+        return readStructure(scanner);
     }
 
     private void readAvailableMapFiles() {
@@ -68,33 +64,17 @@ public class MapLoader {
         return file;
     }
 
-    private void readStructure(Scanner scanner, MapBuilder builder) {
-        Coordinate origin = Coordinate.getOrigin();
-        int dy = 0, width = 0;
+    private MapBuilder readStructure(Scanner scanner) {
+        ArrayList<String> rows = new ArrayList<>();
+        while (scanner.hasNext())
+            rows.add(scanner.nextLine());
 
-        while (scanner.hasNext()) {
-            String line = scanner.next();
-            int size = line.length();
+        char[][] matrix = new char[rows.size()][];
+        for (int i = 0; i < rows.size(); i++)
+            matrix[i] = rows.get(i).toCharArray();
 
-            if (width == 0)
-                width = size;
-            else if (size != width)
-                throw new CorruptedConfigurationFileException("Number of columns is inconsistent...");
+        MapParser parser = new MapParser();
 
-            for (int dx = 0; dx < width; dx++) {
-                Coordinate coordinate = Coordinate.shift(origin, dx, dy);
-
-                try {
-                    MapParser.parseAndAdd(line.charAt(dx), coordinate, builder);
-                } catch (IllegalArgumentException ex) {
-                    throw new CorruptedConfigurationFileException(
-                            String.format("Invalid char `%c` found on map configuration file", line.charAt(dx)));
-                }
-            }
-
-            dy++;
-        }
-
-        builder.buildStructure();
+        return parser.parse(matrix);
     }
 }

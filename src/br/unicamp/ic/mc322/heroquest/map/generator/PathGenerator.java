@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.loader.MapParser;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 
 import java.util.ArrayList;
@@ -44,8 +45,8 @@ class PathGenerator {
             if (containerTopLeft.getY() + i == 0 || containerTopLeft.getY() + i == grid.length - 1)
                 continue;
 
-            grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getWidth()] = ' ';
-            grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getWidth() + 1] = ' ';
+            grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getWidth()] = MapParser.FLOOR;
+            grid[containerTopLeft.getY() + i][containerTopLeft.getX() + container.getWidth() + 1] = MapParser.FLOOR;
         }
     }
 
@@ -60,8 +61,8 @@ class PathGenerator {
             if (containerTopLeft.getX() + i == 0 || containerTopLeft.getX() + i == grid[0].length - 1)
                 continue;
 
-            grid[containerTopLeft.getY() + container.getHeight()][containerTopLeft.getX() + i] = ' ';
-            grid[containerTopLeft.getY() + container.getHeight() + 1][containerTopLeft.getX() + i] = ' ';
+            grid[containerTopLeft.getY() + container.getHeight()][containerTopLeft.getX() + i] = MapParser.FLOOR;
+            grid[containerTopLeft.getY() + container.getHeight() + 1][containerTopLeft.getX() + i] = MapParser.FLOOR;
         }
     }
 
@@ -88,12 +89,12 @@ class PathGenerator {
             if (!canMakeConnection(currentXCoordinate, 0))
                 break;
 
-            if (grid[selectedYCoordinate][currentXCoordinate - 1] == ' ') {
+            if (grid[selectedYCoordinate][currentXCoordinate - 1] == MapParser.FLOOR) {
                 for (int i = initialXCoordinate; i >= currentXCoordinate; i--) {
                     if (i == room.getTopLeftCoordinate().getX())
-                        grid[selectedYCoordinate][i] = 'D';
+                        grid[selectedYCoordinate][i] = MapParser.DOOR;
                     else
-                        grid[selectedYCoordinate][i] = ' ';
+                        grid[selectedYCoordinate][i] = MapParser.FLOOR;
                 }
 
                 break;
@@ -107,11 +108,11 @@ class PathGenerator {
         int initialXCoordinate = currentXCoordinate;
 
         while (canMakeConnection(currentXCoordinate, grid[0].length - 1)) {
-            if (grid[selectedYCoordinate][currentXCoordinate + 1] == ' ') {
+            if (grid[selectedYCoordinate][currentXCoordinate + 1] == MapParser.FLOOR) {
                 int topRightCoordinateX = room.getTopLeftCoordinate().getX() + room.getDimension().getWidth() - 1;
 
                 for (int i = initialXCoordinate; i <= currentXCoordinate; i++)
-                    grid[selectedYCoordinate][i] = (i == topRightCoordinateX) ? 'D' : ' ';
+                    grid[selectedYCoordinate][i] = (i == topRightCoordinateX) ? MapParser.DOOR : MapParser.FLOOR;
 
                 break;
             }
