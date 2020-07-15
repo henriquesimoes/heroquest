@@ -114,5 +114,4 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
 
         return teamsWithWalkersAlive <= 1;
     }
-
 }

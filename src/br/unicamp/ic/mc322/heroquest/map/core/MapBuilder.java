@@ -36,11 +36,11 @@ public class MapBuilder {
             dimension = dimension.fit(position);
     }
 
-    public void add(FixedObject object, Coordinate position) {
+    public void add(FixedObject object) {
         if (!isBuilt)
             throw new IllegalStateException("Structure not built yet...");
 
-        MapUnit unit = units.get(position);
+        MapUnit unit = units.get(object.getPosition());
 
         if (unit.accept(placementStrategy, object))
             unit.add(object);

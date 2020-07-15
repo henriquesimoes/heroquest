@@ -51,10 +51,6 @@ public class MapUnit {
             structure.accept(visitor);
     }
 
-    boolean isFree() {
-        return walker == null && fixedObject == null && structure.canPlaceWalkerOn();
-    }
-
     Coordinate getCoordinate() {
         return structure.getPosition();
     }
@@ -72,5 +68,9 @@ public class MapUnit {
 
     void removeWalker() {
         walker = null;
+    }
+
+    private boolean isFree() {
+        return walker == null;
     }
 }

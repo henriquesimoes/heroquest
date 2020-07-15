@@ -67,8 +67,13 @@ public class TerminalIO implements IOInterface {
     @Override
     public String getStringAnswer(String question) {
         writer.print(question);
+        String answer;
 
-        return reader.nextLine();
+        do{
+            answer = reader.nextLine();
+        }while(answer.isBlank());
+
+        return answer;
     }
 
     public void showSpan() {

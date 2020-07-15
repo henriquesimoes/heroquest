@@ -2,16 +2,15 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.WalkValidator;
+import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.VisionValidator;
+import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.WalkableValidator;
 
 public class RegionSelector {
     private Coordinate reference;
     private Map map;
-    private WalkValidator validator;
 
-    public RegionSelector(Map map, WalkValidator validator) {
+    public RegionSelector(Map map) {
         this.map = map;
-        this.validator = validator;
 
         this.useAsReference(Coordinate.getOrigin());
     }
@@ -45,8 +44,7 @@ public class RegionSelector {
     }
 
     private Region build(Region region, boolean onlyWalkablePositions) {
-        if (onlyWalkablePositions)
-            region.setWalkValidator(validator);
+        region.setPositionValidator(onlyWalkablePositions ? new WalkableValidator(map) : new VisionValidator(map));
 
         region.build();
 

@@ -37,10 +37,12 @@ class LimitedRegion extends Region {
         Coordinate lastCoordinate = lastVisitedPosition.getFirst();
         int distance = lastVisitedPosition.getSecond();
 
-        for (Coordinate neighbor : lastCoordinate.getNeighborCoordinates()) {
-            if (!visited.contains(neighbor) && isValid(neighbor)) {
-                queue.add(new Pair<>(neighbor, distance + 1));
-                visited.add(neighbor);
+        if (isExpandable(lastCoordinate) || lastCoordinate.equals(reference)){
+            for (Coordinate neighbor : lastCoordinate.getCardinalNeighborCoordinates()) {
+                if (!visited.contains(neighbor) && isValid(neighbor)) {
+                    queue.add(new Pair<>(neighbor, distance + 1));
+                    visited.add(neighbor);
+                }
             }
         }
     }

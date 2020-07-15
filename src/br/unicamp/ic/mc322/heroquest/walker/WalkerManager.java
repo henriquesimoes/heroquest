@@ -56,11 +56,12 @@ public abstract class WalkerManager {
         return walker.getStatus();
     }
 
-    protected void useItems() {
+    protected boolean useItems() {
         ArrayList<CollectableItem> items = walker.getItems();
         CollectableItem chosenItem = chooseItem(items);
         if (chosenItem != null)
             chosenItem.useItem(walker);
+        return false;
     }
 
     protected abstract boolean makeMove();
