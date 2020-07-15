@@ -6,10 +6,31 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 
-public abstract class StructuralObject extends MapObject {
+public abstract class StructuralObject implements MapObject {
+    private Coordinate position;
 
+    public StructuralObject(){
+        position = new Coordinate();
+    }
     public StructuralObject(Coordinate coordinate) {
-        super(coordinate);
+        this();
+        setPosition(coordinate);
+    }
+
+    public int getX() {
+        return position.getX();
+    }
+
+    public int getY() {
+        return position.getY();
+    }
+
+    public Coordinate getPosition() {
+        return position;
+    }
+
+    public void setPosition(Coordinate position) {
+        this.position.copyValue(position);
     }
 
     @Override

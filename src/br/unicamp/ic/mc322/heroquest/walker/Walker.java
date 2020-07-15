@@ -9,6 +9,7 @@ import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
@@ -18,7 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
-public abstract class Walker extends MapObject {
+public abstract class Walker implements MapObject {
+    private Coordinate position;
     protected Team team;
     protected String name;
     protected Weapon leftWeapon, rightWeapon;
@@ -32,11 +34,13 @@ public abstract class Walker extends MapObject {
     protected WalkerManager walkerManager;
     protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell, ableToLearnWaterSpell;
 
+
     public Walker(WalkerManager manager, String name) {
         this.name = name;
         this.walkerManager = manager;
         this.walkerManager.setWalker(this);
 
+        position = new Coordinate();
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
@@ -304,5 +308,21 @@ public abstract class Walker extends MapObject {
 
     public void setMap(Map map){
         walkerManager.setMap(map);
+    }
+
+    public int getX() {
+        return position.getX();
+    }
+
+    public int getY() {
+        return position.getY();
+    }
+
+    public Coordinate getPosition() {
+        return position;
+    }
+
+    public void setPosition(Coordinate position) {
+        this.position.copyValue(position);
     }
 }
