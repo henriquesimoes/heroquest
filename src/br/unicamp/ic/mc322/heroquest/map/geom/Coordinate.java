@@ -6,6 +6,10 @@ import java.util.Objects;
 public class Coordinate {
     private Point coordinate;
 
+    public Coordinate() {
+        this.coordinate = new Point();
+    }
+
     public Coordinate(int x, int y) {
         this.coordinate = new Point(x, y);
     }

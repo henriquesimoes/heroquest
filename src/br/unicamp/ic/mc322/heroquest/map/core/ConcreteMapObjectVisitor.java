@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
+import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Trap;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.SecretDoor;
@@ -29,4 +30,5 @@ public interface ConcreteMapObjectVisitor {
     void visit(SecretDoor secretDoor);
 
     void visit(Chest chest);
+    void visit(Trap trap);
 }

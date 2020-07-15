@@ -2,9 +2,10 @@ package br.unicamp.ic.mc322.heroquest.map.objects.structural;
 
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.objects.HiddenObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class SecretDoor extends Door {
+public class SecretDoor extends Door implements HiddenObject {
     private boolean discovered;
 
     public SecretDoor(Coordinate position) {
@@ -14,6 +15,11 @@ public class SecretDoor extends Door {
 
     public void discover() {
         discovered = true;
+    }
+
+    @Override
+    public boolean isDiscovered() {
+        return discovered;
     }
 
     @Override
