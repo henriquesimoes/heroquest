@@ -28,14 +28,7 @@ public class Map implements GameListener {
     }
 
     public void add(Walker walker) {
-        PositionValidator validator = new WalkableValidator(this);
-        Coordinate coordinate;
-
-        do {
-            coordinate = dimension.getRandomInsideCoordinate();
-        } while (!validator.isValid(coordinate));
-
-        MapUnit unit = units.get(coordinate);
+        MapUnit unit = getRandomValidUnit(new WalkableValidator(this));
         unit.add(walker);
         walker.setMap(this);
     }
@@ -134,5 +127,16 @@ public class Map implements GameListener {
     private void remove(Walker walker) {
         MapUnit unit = units.get(walker.getPosition());
         unit.removeWalker();
+    }
+
+    private MapUnit getRandomValidUnit(PositionValidator validator) {
+        List<MapUnit> listUnits = new ArrayList<>(units.values());
+        Collections.shuffle(listUnits);
+
+        for (MapUnit unit : listUnits)
+            if (validator.isValid(unit.getCoordinate()))
+                return unit;
+
+        throw new IllegalStateException("Map is full");
     }
 }
