@@ -1,7 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
-import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
-
 public class Dimension {
     private int width;
     private int height;
@@ -30,10 +28,6 @@ public class Dimension {
         return new Dimension(
                 Math.max(position.getX() + 1, this.getWidth()),
                 Math.max(position.getY() + 1, this.getHeight()));
-    }
-
-    public Coordinate getRandomInsideCoordinate() {
-        return Coordinate.shift(Coordinate.getOrigin(), Randomizer.nextInt(width), Randomizer.nextInt(height));
     }
 
     public Coordinate toCoordinate() {
