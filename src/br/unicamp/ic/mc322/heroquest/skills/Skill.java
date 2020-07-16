@@ -12,10 +12,10 @@ import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import java.util.ArrayList;
 
 public abstract class Skill implements AbstractMapObjectVisitor {
-    private WalkerManager walkerManager;
     protected String skillName;
     protected Walker skillUser;
     protected ArrayList<MapObject> targets;
+    private WalkerManager walkerManager;
 
     public Skill(String skillName) {
         this.skillName = skillName;
@@ -50,11 +50,14 @@ public abstract class Skill implements AbstractMapObjectVisitor {
     }
 
     @Override
-    public void visit(StructuralObject structuralObject) {}
+    public void visit(StructuralObject structuralObject) {
+    }
 
     @Override
-    public void visit(FixedObject fixedObject) {}
+    public void visit(FixedObject fixedObject) {
+    }
 
     @Override
-    public void visit(Walker walker) {}
+    public void visit(Walker walker) {
+    }
 }

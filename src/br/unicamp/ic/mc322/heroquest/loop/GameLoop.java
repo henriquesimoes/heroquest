@@ -18,7 +18,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
         this.managersByTeam = new LinkedHashMap<>();
         this.managersAliveByTeam = new LinkedHashMap<>();
 
-        for (Team team : Team.values()){
+        for (Team team : Team.values()) {
             managersByTeam.put(team, new HashSet<>());
             managersAliveByTeam.put(team, new HashSet<>());
         }
@@ -73,23 +73,25 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
     }
 
     @Override
-    public void visit(StructuralObject structuralObject) {}
+    public void visit(StructuralObject structuralObject) {
+    }
 
     @Override
-    public void visit(FixedObject fixedObject) {}
+    public void visit(FixedObject fixedObject) {
+    }
 
     private void playTurn() {
-        for (HashSet<WalkerManager> managers : managersAliveByTeam.values()){
+        for (HashSet<WalkerManager> managers : managersAliveByTeam.values()) {
             HashSet<WalkerManager> managersClone = (HashSet<WalkerManager>) managers.clone();
 
-            for (WalkerManager manager : managersClone){
+            for (WalkerManager manager : managersClone) {
                 if (manager.isAlive())
                     manager.playTurn();
             }
         }
     }
 
-    private void notifyAllWalkers(String message){
+    private void notifyAllWalkers(String message) {
         for (HashSet<WalkerManager> managers : managersByTeam.values())
             for (WalkerManager manager : managers)
                 manager.showMessage(message);
@@ -97,7 +99,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
 
     private void notifyEndGame() {
         for (HashSet<WalkerManager> managers : managersByTeam.values())
-            for (WalkerManager manager : managers){
+            for (WalkerManager manager : managers) {
                 if (managers.size() > 0)
                     manager.showMessage("Your Team Wins");
                 else
@@ -110,7 +112,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
 
         for (HashSet<WalkerManager> managers : managersAliveByTeam.values())
             if (managers.size() > 0)
-                teamsWithWalkersAlive ++;
+                teamsWithWalkersAlive++;
 
         return teamsWithWalkersAlive <= 1;
     }

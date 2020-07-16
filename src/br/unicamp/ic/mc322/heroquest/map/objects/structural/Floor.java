@@ -22,7 +22,6 @@ public class Floor extends StructuralObject {
 
     @Override
     public void interact(Walker agent) {
-        return;
     }
 
     @Override

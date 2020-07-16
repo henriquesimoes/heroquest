@@ -10,10 +10,10 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class WalkableValidator extends PositionValidator implements AbstractMapObjectVisitor {
 
-    public WalkableValidator(Map map){
+    public WalkableValidator(Map map) {
         super(map);
     }
-    
+
     @Override
     public void visit(StructuralObject structuralObject) {
         lastVisitedIsValid = lastVisitedIsExpandable = structuralObject.canPlaceWalkerOn();

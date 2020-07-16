@@ -36,12 +36,12 @@ public class TerminalEngine implements GameEngine {
         }
     }
 
-    protected void setMap(Map map) {
-        this.map = map;
-    }
-
     protected Map getMap() {
         return map;
+    }
+
+    protected void setMap(Map map) {
+        this.map = map;
     }
 
     protected void addPlayer(Walker walker) {

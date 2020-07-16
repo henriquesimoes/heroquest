@@ -35,7 +35,7 @@ public class ChooseMapCommand implements Command {
             return;
 
         try {
-            Map map =  manager.load(mapOptions[choice]);
+            Map map = manager.load(mapOptions[choice]);
 
             engine.setMap(map);
         } catch (FileNotFoundException ex) {

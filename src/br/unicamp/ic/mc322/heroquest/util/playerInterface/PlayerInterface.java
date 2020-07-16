@@ -32,7 +32,7 @@ public class PlayerInterface {
 
             if (answer >= 0 && answer <= optionList.size())
                 invalidAnswer = false;
-            System.out.println("");
+            System.out.println();
         }
 
         return answer;
@@ -50,15 +50,15 @@ public class PlayerInterface {
         System.out.println("Type the direction of movement or Q to quit: ");
         String answer = "";
         Direction direction = null;
-        boolean validAnswer = true;
+        boolean validAnswer;
 
-        do{
+        do {
             while (answer.isBlank())
                 answer = scanner.nextLine();
             answer = answer.toUpperCase();
 
             validAnswer = true;
-            switch (answer){
+            switch (answer) {
                 case "W":
                     direction = Direction.NORTH;
                     break;
@@ -79,8 +79,8 @@ public class PlayerInterface {
                     answer = "";
                     System.out.println("Invalid direction.\nType the direction of movement or Q to quit: ");
             }
-        }while(!validAnswer);
+        } while (!validAnswer);
 
-        return  direction;
+        return direction;
     }
 }

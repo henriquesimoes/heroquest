@@ -14,6 +14,14 @@ public class Coordinate {
         this.coordinate = new Point(x, y);
     }
 
+    public static Coordinate getOrigin() {
+        return new Coordinate(0, 0);
+    }
+
+    public static Coordinate shift(Coordinate reference, int dx, int dy) {
+        return new Coordinate(reference.getX() + dx, reference.getY() + dy);
+    }
+
     public int getX() {
         return coordinate.x;
     }
@@ -22,8 +30,8 @@ public class Coordinate {
         return coordinate.y;
     }
 
-    public Coordinate shift(Direction direction){
-        switch (direction){
+    public Coordinate shift(Direction direction) {
+        switch (direction) {
             case NORTH:
                 return new Coordinate(getX(), getY() - 1);
             case SOUTH:
@@ -37,26 +45,27 @@ public class Coordinate {
         }
     }
 
-    public Coordinate[] getCardinalNeighborCoordinates() {
-        Coordinate[] neighbors = new Coordinate[Direction.values().length];
-        int i = 0;
-
-        for (Direction direction : Direction.values())
-            neighbors[i++] = shift(direction);
-
-        return neighbors;
-    }
-
-    public Coordinate[] getAdjacentNeighborCoordinates() {
-        int[] dx = {0, 0, 1, 1, 1, -1, -1, -1};
-        int[] dy = {1, -1, 0, 1, -1, 0, 1, -1};
-
+    private Coordinate[] getNeighborCoordinates(int[] dx, int[] dy) {
         Coordinate[] neighbors = new Coordinate[dx.length];
 
         for (int i = 0; i < dx.length; i++)
             neighbors[i] = new Coordinate(this.getX() + dx[i], this.getY() + dy[i]);
 
         return neighbors;
+    }
+
+    public Coordinate[] getCardinalNeighborCoordinates() {
+        int[] dx = {0, 0, 1, -1};
+        int[] dy = {1, -1, 0, 0};
+
+        return getNeighborCoordinates(dx, dy);
+    }
+
+    public Coordinate[] getAdjacentNeighborCoordinates() {
+        int[] dx = {0, 0, 1, 1, 1, -1, -1, -1};
+        int[] dy = {1, -1, 0, 1, -1, 0, 1, -1};
+
+        return getNeighborCoordinates(dx, dy);
     }
 
     public void copyValue(Coordinate coordinate) {
@@ -95,13 +104,5 @@ public class Coordinate {
     @Override
     public String toString() {
         return "Coordinate (" + getX() + ',' + getY() + ")";
-    }
-
-    public static Coordinate getOrigin() {
-        return new Coordinate(0, 0);
-    }
-
-    public static Coordinate shift(Coordinate reference, int dx, int dy) {
-        return new Coordinate(reference.getX() + dx, reference.getY() + dy);
     }
 }

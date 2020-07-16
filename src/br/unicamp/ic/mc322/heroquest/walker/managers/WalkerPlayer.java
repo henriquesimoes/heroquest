@@ -35,7 +35,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
     private Set<MapObject> objectsAdjacent;
     private Set<HiddenObject> hiddenObjectsDetected;
 
-    public WalkerPlayer(){
+    public WalkerPlayer() {
         objectsAdjacent = new HashSet<>();
         hiddenObjectsDetected = new HashSet<>();
     }
@@ -66,7 +66,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
             if (choice == 0)
                 return;
 
-            switch (options.get(choice - 1)){
+            switch (options.get(choice - 1)) {
                 case MOVE:
                     removeOption = makeMove();
                     break;
@@ -203,7 +203,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
     protected boolean makeMove() {
         int limitPositionInMove = walker.getPositionLimitInMovement();
 
-        for (int i = limitPositionInMove; i > 0;){
+        for (int i = limitPositionInMove; i > 0; ) {
             ioInterface.showMessage(String.format("Remaining movements: %d", i));
             Direction direction = ioInterface.getMoveDirection();
 
@@ -214,10 +214,10 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
             Region region = regionSelector.getCardinalRegion(true);
             ArrayList<Coordinate> possibleMoves = region.toArrayList();
 
-            if (possibleMoves.contains(chosenMove)){
+            if (possibleMoves.contains(chosenMove)) {
                 moveWalker(chosenMove);
                 i--;
-            }else
+            } else
                 ioInterface.showMessage("Invalid movement");
             updateScreen();
         }
@@ -225,7 +225,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
     }
 
     @Override
-    protected void setMap(Map map){
+    protected void setMap(Map map) {
         changeMap(map);
         ioInterface = new PlayerInterface(map);
     }
@@ -236,8 +236,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
         Region region = regionSelector.getAdjacentRegion(false);
         accept(this, region);
 
-        ArrayList<MapObject> arrayObjects = new ArrayList<>();
-        arrayObjects.addAll(objectsAdjacent);
+        ArrayList<MapObject> arrayObjects = new ArrayList<>(objectsAdjacent);
         MapObject chosenTarget = chooseTarget(arrayObjects);
 
         if (chosenTarget != null)
@@ -252,7 +251,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
         Region region = regionSelector.getLimitedRegion(3, true);
         accept(this, region);
 
-        for (HiddenObject object : hiddenObjectsDetected){
+        for (HiddenObject object : hiddenObjectsDetected) {
             showMessage(String.format("Detected the object: %s", object.getRepresentationOnMenu()));
             object.discover();
         }

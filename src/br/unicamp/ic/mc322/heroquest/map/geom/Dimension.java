@@ -22,6 +22,7 @@ public class Dimension {
     /**
      * Creates a new dimension which includes the given position, based
      * on this dimension.
+     *
      * @param position Position to be included
      * @return New dimension
      */
@@ -31,7 +32,7 @@ public class Dimension {
                 Math.max(position.getY() + 1, this.getHeight()));
     }
 
-    public Coordinate getRandomInsideCoordinate (){
+    public Coordinate getRandomInsideCoordinate() {
         return Coordinate.shift(Coordinate.getOrigin(), Randomizer.nextInt(width), Randomizer.nextInt(height));
     }
 

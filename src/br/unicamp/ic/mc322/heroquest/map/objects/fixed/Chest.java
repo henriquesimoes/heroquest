@@ -37,11 +37,11 @@ public class Chest extends FixedObject {
 
     @Override
     public void interact(Walker agent) {
-        if (opened){
+        if (opened) {
             for (CollectableItem item : items)
                 agent.collectItem(item);
             coins.useItem(agent);
-        }else
+        } else
             opened = true;
     }
 

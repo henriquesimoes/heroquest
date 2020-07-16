@@ -20,9 +20,11 @@ import br.unicamp.ic.mc322.heroquest.walker.monster.CommonSkeleton;
 import br.unicamp.ic.mc322.heroquest.walker.monster.Goblin;
 import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
 
+import java.util.Arrays;
+
 public class TerminalMapViewer implements MapViewer {
     private Map map;
-    private char output[][];
+    private char[][] output;
 
     public TerminalMapViewer(Map map) {
         this.map = map;
@@ -41,8 +43,7 @@ public class TerminalMapViewer implements MapViewer {
 
     private void clear() {
         for (int i = 0; i < output.length; i++)
-            for (int j = 0; j < output[i].length; j++)
-                output[i][j] = '#';
+            Arrays.fill(output[i], '#');
     }
 
     private void print() {
@@ -136,8 +137,8 @@ public class TerminalMapViewer implements MapViewer {
     }
 
     @Override
-    public void visit(Trap trap){
-        setSymbol(trap, trap.isDiscovered()? (trap.isArmed() ? 'T' : 't') : ' ');
+    public void visit(Trap trap) {
+        setSymbol(trap, trap.isDiscovered() ? (trap.isArmed() ? 'T' : 't') : ' ');
     }
 
 }

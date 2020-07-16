@@ -25,9 +25,7 @@ public abstract class WalkerManager {
     }
 
     public Coordinate getCoordinateCloserToWalkers(ArrayList<Coordinate> coordinates, ArrayList<Walker> walkers) {
-        ArrayList<MapObject> objects = new ArrayList<>();
-        for(Walker walker : walkers)
-            objects.add(walker);
+        ArrayList<MapObject> objects = new ArrayList<>(walkers);
 
         return map.getCoordinateCloserToObject(coordinates, objects);
     }
@@ -38,6 +36,10 @@ public abstract class WalkerManager {
 
     public Walker getWalker() {
         return walker;
+    }
+
+    void setWalker(Walker walker) {
+        this.walker = walker;
     }
 
     public boolean isAlive() {
@@ -84,23 +86,23 @@ public abstract class WalkerManager {
         return true;
     }
 
-    protected void setMap(Map map){
+    protected void setMap(Map map) {
         changeMap(map);
     }
 
-    protected void changeMap(Map map){
+    protected void changeMap(Map map) {
         this.map = map;
         this.regionSelector = map.getRegionSelector();
         regionSelector.useAsReference(walker);
     }
 
-    void setWalker(Walker walker){
-        this.walker = walker;
-    }
-
     public abstract void playTurn();
+
     public abstract void showMessage(String message);
+
     protected abstract CollectableItem chooseItem(ArrayList<CollectableItem> items);
+
     protected abstract Skill chooseSkill(ArrayList<Skill> skills);
+
     protected abstract MapObject chooseTarget(ArrayList<MapObject> targets);
 }

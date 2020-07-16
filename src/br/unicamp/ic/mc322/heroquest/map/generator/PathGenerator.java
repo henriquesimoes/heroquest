@@ -106,22 +106,15 @@ class PathGenerator {
     private void tryRightConnection(RoomStructure room, int selectedYCoordinate, int currentXCoordinate) {
         int initialXCoordinate = currentXCoordinate;
 
-        while (true) {
-            if (!canMakeConnection(currentXCoordinate, grid[0].length - 1)) {
-                break;
-            }
-
+        while (canMakeConnection(currentXCoordinate, grid[0].length - 1)) {
             if (grid[selectedYCoordinate][currentXCoordinate + 1] == ' ') {
-                for (int i = initialXCoordinate; i <= currentXCoordinate; i++) {
-                    if (i == room.getTopLeftCoordinate().getX() + room.getDimension().getWidth() - 1)
-                        grid[selectedYCoordinate][i] = 'D';
-                    else
-                        grid[selectedYCoordinate][i] = ' ';
-                }
+                int topRightCoordinateX = room.getTopLeftCoordinate().getX() + room.getDimension().getWidth() - 1;
+
+                for (int i = initialXCoordinate; i <= currentXCoordinate; i++)
+                    grid[selectedYCoordinate][i] = (i == topRightCoordinateX) ? 'D' : ' ';
 
                 break;
             }
-
             currentXCoordinate++;
         }
     }

@@ -31,10 +31,7 @@ public class Knapsack {
     }
 
     public ArrayList<CollectableItem> getItems() {
-        ArrayList<CollectableItem> items = new ArrayList<>();
-
-        for (CollectableItem item : this.items.keySet())
-            items.add(item);
+        ArrayList<CollectableItem> items = new ArrayList<>(this.items.keySet());
 
         return items;
     }

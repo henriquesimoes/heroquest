@@ -15,6 +15,14 @@ public class RegionSelector {
         this.useAsReference(Coordinate.getOrigin());
     }
 
+    public static Region getPlaneRegion(Dimension dimension) {
+        Region region = new PlaneRegion(Coordinate.getOrigin(), dimension.toCoordinate());
+
+        region.build();
+
+        return region;
+    }
+
     public void useAsReference(Coordinate coordinate) {
         this.reference = coordinate;
     }
@@ -35,7 +43,7 @@ public class RegionSelector {
         return build(new LimitedRegion(reference, limit), onlyWalkablePositions);
     }
 
-    public Region getVisibleRegion(Coordinate reference, boolean onlyWalkablePositions){
+    public Region getVisibleRegion(Coordinate reference, boolean onlyWalkablePositions) {
         return build(new VisibleRegion(reference), onlyWalkablePositions);
     }
 
@@ -45,14 +53,6 @@ public class RegionSelector {
 
     private Region build(Region region, boolean onlyWalkablePositions) {
         region.setPositionValidator(onlyWalkablePositions ? new WalkableValidator(map) : new VisionValidator(map));
-
-        region.build();
-
-        return region;
-    }
-
-    public static Region getPlaneRegion(Dimension dimension) {
-        Region region = new PlaneRegion(Coordinate.getOrigin(), dimension.toCoordinate());
 
         region.build();
 

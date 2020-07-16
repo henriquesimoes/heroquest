@@ -12,7 +12,7 @@ public class Elf extends Hero {
 
         attackDice = 2;
         defenseDice = 2;
-        maximumBodyPoints = currentBodyPoints =  6;
+        maximumBodyPoints = currentBodyPoints = 6;
         mindPoints = 4;
 
         ableToLearnWaterSpell = ableToLearnEarthSpell = true;

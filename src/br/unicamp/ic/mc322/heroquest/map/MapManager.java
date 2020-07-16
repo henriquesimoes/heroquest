@@ -11,11 +11,10 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import java.io.FileNotFoundException;
 
 public class MapManager {
-    private MapLoader loader;
-    private MapGenerator generator;
-
     private static final int NUMBER_OF_MONSTERS = 20;
     private static final int MINIMUM_MONSTER_PER_TYPE = 1;
+    private MapLoader loader;
+    private MapGenerator generator;
 
     public MapManager() {
         loader = new MapLoader();

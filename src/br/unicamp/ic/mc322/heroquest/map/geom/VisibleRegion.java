@@ -35,12 +35,12 @@ class VisibleRegion extends Region {
         Coordinate lastCoordinate = lastVisitedPosition.getFirst();
         int distance = lastVisitedPosition.getSecond();
 
-        if (isExpandable(lastCoordinate) || lastCoordinate.equals(reference)){
+        if (isExpandable(lastCoordinate) || lastCoordinate.equals(reference)) {
             for (Coordinate neighbor : lastCoordinate.getCardinalNeighborCoordinates()) {
-                if (!visited.contains(neighbor)){
+                if (!visited.contains(neighbor)) {
                     visited.add(neighbor);
 
-                    if (isValid(neighbor) && isVisible(neighbor)){
+                    if (isValid(neighbor) && isVisible(neighbor)) {
                         queue.add(new Pair<>(neighbor, distance + 1));
                         if (!isExpandable(neighbor))
                             vectorsOfObstacle.add(new Vector(reference, neighbor));
@@ -55,18 +55,11 @@ class VisibleRegion extends Region {
         Vector lowerBound = vectorRange.getLowerBound();
         Vector upperBound = vectorRange.getUpperBound();
 
-        if (lowerBound.compareTo(upperBound) < 0){
-               for (Vector vector : vectorsOfObstacle.subSet(lowerBound, upperBound))
-                    if (vector.extendsTo(current))
-                        return false;
-        }else{
-            for (Vector vector : vectorsOfObstacle.tailSet(lowerBound))
-                if (vector.extendsTo(current))
-                    return false;
-            for (Vector vector : vectorsOfObstacle.headSet(upperBound))
-                if (vector.extendsTo(current))
-                    return false;
+        if (lowerBound.compareTo(upperBound) < 0) {
+            return vectorsOfObstacle.subSet(lowerBound, upperBound).isEmpty();
+        } else {
+            return vectorsOfObstacle.tailSet(lowerBound).isEmpty() &&
+                    vectorsOfObstacle.headSet(upperBound).isEmpty();
         }
-        return true;
     }
 }

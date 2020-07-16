@@ -17,7 +17,7 @@ public class Wizard extends Hero {
 
         attackDice = 1;
         defenseDice = 2;
-        maximumBodyPoints = currentBodyPoints =  4;
+        maximumBodyPoints = currentBodyPoints = 4;
         mindPoints = 6;
         ableToLearnAirSpell = ableToLearnEarthSpell = ableToLearnFireSpell = true;
 

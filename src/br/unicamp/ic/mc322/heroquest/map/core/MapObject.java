@@ -5,14 +5,20 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public interface MapObject {
     int getX();
+
     int getY();
-    void setPosition(Coordinate position);
+
     Coordinate getPosition();
 
+    void setPosition(Coordinate position);
+
     void interact(Walker agent);
+
     boolean isAllowedToWalkOver();
+
     String getRepresentationOnMenu();
 
     void accept(AbstractMapObjectVisitor visitor);
+
     void accept(ConcreteMapObjectVisitor visitor);
 }
