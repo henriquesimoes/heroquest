@@ -20,8 +20,7 @@ public class MapUnit {
             this.walker.setPosition(getCoordinate());
             if (fixedObject != null)
                 fixedObject.interact(walker);
-        }
-        else
+        } else
             throw new IllegalStateException("Not walkable unit...");
     }
 
@@ -29,8 +28,7 @@ public class MapUnit {
         if (fixedObject == null) {
             fixedObject = object;
             fixedObject.setPosition(getCoordinate());
-        }
-        else
+        } else
             throw new OccupiedUnitException();
     }
 

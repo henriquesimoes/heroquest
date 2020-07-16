@@ -1,4 +1,3 @@
-
 package br.unicamp.ic.mc322.heroquest.map.generator;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
@@ -88,13 +87,13 @@ public class MapGenerator {
 
             for (int i = roomCoord.getY(); i < roomCoord.getY() + roomDimensions.getHeight(); i++) {
                 for (int j = roomCoord.getX(); j < roomCoord.getX() + roomDimensions.getWidth(); j++) {
-                    grid[i][j] = isOnBorder(roomCoord, roomDimensions, i, j) ? '#': ' ';
+                    grid[i][j] = isOnBorder(roomCoord, roomDimensions, i, j) ? '#' : ' ';
                 }
             }
         }
     }
 
-    private Collection<Chest> generateChests(){
+    private Collection<Chest> generateChests() {
         ArrayList<Coordinate> coordinates = new ArrayList<>();
 
         for (int y = 0; y < GRID_HEIGHT; y++)
@@ -106,11 +105,11 @@ public class MapGenerator {
         int remaining = NUMBER_OF_CHESTS;
         Set<Coordinate> chosenCoordinates = new HashSet<>();
 
-        for (Coordinate coordinate : coordinates){
+        for (Coordinate coordinate : coordinates) {
             int x = coordinate.getX();
             int y = coordinate.getY();
 
-            if (grid[y][x] == ' '){
+            if (grid[y][x] == ' ') {
                 Coordinate[] neighbors = coordinate.getAdjacentNeighborCoordinates();
                 int numberOfNeighborsEmpty = 0;
 
@@ -121,7 +120,7 @@ public class MapGenerator {
                 if (numberOfNeighborsEmpty == 5) {
                     chosenCoordinates.add(coordinate);
                     remaining--;
-                    if(remaining <= 0)
+                    if (remaining <= 0)
                         break;
                 }
 
@@ -135,20 +134,16 @@ public class MapGenerator {
         return chests;
     }
 
-    private boolean isEmpty(Coordinate coordinate){
+    private boolean isEmpty(Coordinate coordinate) {
         int x = coordinate.getX();
         int y = coordinate.getY();
         return x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT && grid[y][x] == ' ';
     }
 
     private boolean isOnBorder(Coordinate coordinates, Dimension dimensions, int i, int j) {
-        if (i == coordinates.getY() || j == coordinates.getX()
+        return i == coordinates.getY() || j == coordinates.getX()
                 || i == (coordinates.getY() + dimensions.getHeight() - 1)
-                || j == (coordinates.getX() + dimensions.getWidth() - 1)) {
-            return  true;
-        }
-
-        return false;
+                || j == (coordinates.getX() + dimensions.getWidth() - 1);
     }
 
     private void createStructure(MapBuilder builder) {

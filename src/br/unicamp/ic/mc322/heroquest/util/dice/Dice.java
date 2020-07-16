@@ -11,6 +11,7 @@ abstract class Dice {
 
     /**
      * Rolls the dice.
+     *
      * @return The face index turned up.
      */
     protected int rollIndex() {

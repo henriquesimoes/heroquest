@@ -39,8 +39,10 @@ public class Follower extends MovementBehavior implements AbstractMapObjectVisit
     }
 
     @Override
-    public void visit(StructuralObject structuralObject) {}
+    public void visit(StructuralObject structuralObject) {
+    }
 
     @Override
-    public void visit(FixedObject fixedObject) {}
+    public void visit(FixedObject fixedObject) {
+    }
 }

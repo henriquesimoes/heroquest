@@ -6,7 +6,8 @@ public abstract class PositionValidator {
     protected Map map;
     protected boolean lastVisitedIsValid;
     protected boolean lastVisitedIsExpandable;
-    protected PositionValidator(Map map){
+
+    protected PositionValidator(Map map) {
         this.map = map;
     }
 

@@ -35,7 +35,7 @@ public class Map implements GameListener {
             coordinate = dimension.getRandomInsideCoordinate();
         } while (!validator.isValid(coordinate));
 
-        MapUnit unit =units.get(coordinate);
+        MapUnit unit = units.get(coordinate);
         unit.add(walker);
         walker.setMap(this);
     }
@@ -128,7 +128,8 @@ public class Map implements GameListener {
     }
 
     @Override
-    public void notifyWalkerDamage(Walker walker, int damage) {}
+    public void notifyWalkerDamage(Walker walker, int damage) {
+    }
 
     private void remove(Walker walker) {
         MapUnit unit = units.get(walker.getPosition());

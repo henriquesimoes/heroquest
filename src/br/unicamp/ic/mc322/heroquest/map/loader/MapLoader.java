@@ -13,10 +13,9 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class MapLoader {
-    private Path base;
-
     // TODO: use application general configuration handler to get resources path.
     private static final String MAPS_PATH = "resources/maps";
+    private Path base;
     private Collection<File> files;
 
     public MapLoader() {
@@ -86,7 +85,7 @@ public class MapLoader {
                 Coordinate coordinate = Coordinate.shift(origin, dx, dy);
 
                 try {
-;                    MapParser.parseAndAdd(line.charAt(dx), coordinate, builder);
+                    MapParser.parseAndAdd(line.charAt(dx), coordinate, builder);
                 } catch (IllegalArgumentException ex) {
                     throw new CorruptedConfigurationFileException(
                             String.format("Invalid char `%c` found on map configuration file", line.charAt(dx)));

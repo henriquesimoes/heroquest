@@ -45,13 +45,12 @@ public class MonsterGenerator {
     }
 
     private Monster[] generateMonsters() {
-        Monster[] monsters = {
+
+        return new Monster[]{
                 new CommonSkeleton(),
                 new WizardSkeleton(),
                 new Goblin()
         };
-
-        return monsters;
     }
 
     private void setNumberOfTypes() {

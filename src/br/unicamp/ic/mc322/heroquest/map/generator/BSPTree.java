@@ -95,7 +95,7 @@ class BSPTree {
     }
 
     private int getMaximumSplitValue(boolean splitHorizontally) {
-        return (splitHorizontally ? (currentContainer .getHeight() - GRID_MIN_HEIGHT)
+        return (splitHorizontally ? (currentContainer.getHeight() - GRID_MIN_HEIGHT)
                 : (currentContainer.getWidth() - GRID_MIN_WIDTH));
     }
 

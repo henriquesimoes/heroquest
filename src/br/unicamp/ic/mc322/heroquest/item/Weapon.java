@@ -18,51 +18,6 @@ public abstract class Weapon extends DurableItem {
         super(name, description, weaponDurability, goldCoinsValue);
     }
 
-    public ArrayList<PhysicalSkill> getSkills() {
-        return itemSkills;
-    }
-
-    public int getAttackBonus() {
-        return attackBonus;
-    }
-
-    public int getAttackDistance() {
-        return attackDistance;
-    }
-
-    public boolean canAttackDiagonally() {
-        return attackDiagonally;
-    }
-
-    public boolean isTwoHanded() {
-        return twoHanded;
-    }
-
-    @Override
-    public void useItem(Walker proprietary) {
-        proprietary.equipWeapon(this);
-    }
-
-    protected void setAttackBonus(int attackBonus) {
-        this.attackBonus = attackBonus;
-    }
-
-    protected void setAttackDistance(int attackDistance) {
-        this.attackDistance = attackDistance;
-    }
-
-    protected void setAttackDiagonally(boolean attackDiagonally) {
-        this.attackDiagonally = attackDiagonally;
-    }
-
-    protected void setTwoHanded(boolean twoHanded) {
-        this.twoHanded = twoHanded;
-    }
-
-    protected void addSkill(PhysicalSkill skill) {
-        itemSkills.add(skill);
-    }
-
     public static Weapon getRandomWeapon() {
         Weapon[] possibleWeapons = {
                 new BattleAxe(),
@@ -77,5 +32,46 @@ public abstract class Weapon extends DurableItem {
         int choice = Randomizer.randInt(0, possibleWeapons.length - 1);
 
         return possibleWeapons[choice];
+    }
+
+    public ArrayList<PhysicalSkill> getSkills() {
+        return itemSkills;
+    }
+
+    public int getAttackBonus() {
+        return attackBonus;
+    }
+
+    protected void setAttackBonus(int attackBonus) {
+        this.attackBonus = attackBonus;
+    }
+
+    public boolean canAttackDiagonally() {
+        return attackDiagonally;
+    }
+
+    public boolean isTwoHanded() {
+        return twoHanded;
+    }
+
+    protected void setTwoHanded(boolean twoHanded) {
+        this.twoHanded = twoHanded;
+    }
+
+    @Override
+    public void useItem(Walker proprietary) {
+        proprietary.equipWeapon(this);
+    }
+
+    protected void setAttackDistance(int attackDistance) {
+        this.attackDistance = attackDistance;
+    }
+
+    protected void setAttackDiagonally(boolean attackDiagonally) {
+        this.attackDiagonally = attackDiagonally;
+    }
+
+    protected void addSkill(PhysicalSkill skill) {
+        itemSkills.add(skill);
     }
 }

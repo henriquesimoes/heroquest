@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class Fists extends Weapon {
     private static final String DESCRIPTION = "A well-known primitive weapon: your own fists."
-                                            + "They allow you to cause damage in enemies in the four directions";
+            + "They allow you to cause damage in enemies in the four directions";
 
     public Fists() {
         super("Fists", DESCRIPTION, Integer.MAX_VALUE, 0);

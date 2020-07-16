@@ -8,14 +8,14 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 public class Trap extends FixedObject implements HiddenObject {
     private boolean armed, discovered;
 
-    public Trap(){
+    public Trap() {
         armed = true;
         discovered = false;
     }
 
     @Override
     public void interact(Walker agent) {
-        if(armed){
+        if (armed) {
             armed = false;
             discovered = true;
             agent.defendsPhysicalSkill(1);

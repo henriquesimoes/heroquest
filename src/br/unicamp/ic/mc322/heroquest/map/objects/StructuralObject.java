@@ -7,9 +7,10 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 public abstract class StructuralObject implements MapObject {
     private Coordinate position;
 
-    public StructuralObject(){
+    public StructuralObject() {
         position = new Coordinate();
     }
+
     public StructuralObject(Coordinate coordinate) {
         this();
         setPosition(coordinate);
@@ -43,5 +44,6 @@ public abstract class StructuralObject implements MapObject {
      * @return `true` if it belongs to a room, and `false` otherwise.
      */
     public abstract boolean belongsToARoom();
+
     public abstract boolean canPlaceWalkerOn();
 }

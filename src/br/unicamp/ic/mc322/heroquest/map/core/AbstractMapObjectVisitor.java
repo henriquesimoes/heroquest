@@ -6,6 +6,8 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public interface AbstractMapObjectVisitor {
     void visit(StructuralObject structuralObject);
+
     void visit(FixedObject fixedObject);
+
     void visit(Walker walker);
 }

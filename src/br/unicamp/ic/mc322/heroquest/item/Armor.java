@@ -13,15 +13,6 @@ public abstract class Armor extends DurableItem {
         this.defenseBonus = defenseBonus;
     }
 
-    public int getDefenseBonus() {
-        return defenseBonus;
-    }
-
-    @Override
-    public void useItem(Walker proprietary) {
-        proprietary.equipArmor(this);
-    }
-
     public static Armor getRandomArmor() {
         Armor[] possibleArmors = {
                 new CloakOfProtection(),
@@ -31,5 +22,14 @@ public abstract class Armor extends DurableItem {
         int choice = Randomizer.randInt(0, possibleArmors.length - 1);
 
         return possibleArmors[choice];
+    }
+
+    public int getDefenseBonus() {
+        return defenseBonus;
+    }
+
+    @Override
+    public void useItem(Walker proprietary) {
+        proprietary.equipArmor(this);
     }
 }

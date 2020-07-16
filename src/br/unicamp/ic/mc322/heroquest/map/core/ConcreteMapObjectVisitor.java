@@ -16,19 +16,28 @@ import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
 
 public interface ConcreteMapObjectVisitor {
     void visit(Barbarian barbarian);
+
     void visit(Dwarf dwarf);
+
     void visit(Elf elf);
+
     void visit(Wizard wizard);
 
     void visit(WizardSkeleton wizardSkeleton);
+
     void visit(CommonSkeleton commonSkeleton);
+
     void visit(Goblin goblin);
 
     void visit(Floor floor);
+
     void visit(Wall wall);
+
     void visit(Door door);
+
     void visit(SecretDoor secretDoor);
 
     void visit(Chest chest);
+
     void visit(Trap trap);
 }

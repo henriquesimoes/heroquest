@@ -8,7 +8,7 @@ public abstract class HeapItem extends CollectableItem {
     @Override
     public boolean equals(Object object) {
         if (object instanceof HeapItem) {
-            HeapItem heapItem = (HeapItem)object;
+            HeapItem heapItem = (HeapItem) object;
             return heapItem.getItemName().equals(this.getItemName());
         }
 

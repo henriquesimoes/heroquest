@@ -15,20 +15,20 @@ public class Node<T> {
         return leftChild;
     }
 
-    public Node<T> getRightChild() {
-        return rightChild;
-    }
-
-    public T getData() {
-        return data;
-    }
-
     public void setLeftChild(Node<T> leftChild) {
         this.leftChild = leftChild;
     }
 
+    public Node<T> getRightChild() {
+        return rightChild;
+    }
+
     public void setRightChild(Node<T> rightChild) {
         this.rightChild = rightChild;
+    }
+
+    public T getData() {
+        return data;
     }
 
     public boolean isLeaf() {

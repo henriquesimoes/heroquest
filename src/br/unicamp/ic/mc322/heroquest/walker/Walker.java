@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public abstract class Walker implements MapObject {
-    private Coordinate position;
     protected Team team;
     protected String name;
     protected Weapon leftWeapon, rightWeapon;
@@ -32,6 +31,7 @@ public abstract class Walker implements MapObject {
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
     protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell, ableToLearnWaterSpell;
+    private Coordinate position;
     private int balance;
 
 
@@ -117,7 +117,7 @@ public abstract class Walker implements MapObject {
             gameMonitor.notifyDeath(this);
         }
     }
-  
+
     public void increaseBalance(int amount) {
         balance += amount;
     }
@@ -128,6 +128,7 @@ public abstract class Walker implements MapObject {
 
     /**
      * Erases the given item from the inventory
+     *
      * @param item item to be removed
      */
     public void destroyItem(CollectableItem item) {
@@ -149,8 +150,7 @@ public abstract class Walker implements MapObject {
         if (amount == null) {
             skills.put(skill, 1);
             skill.setWalkerManager(walkerManager);
-        }
-        else
+        } else
             skills.replace(skill, amount + 1);
     }
 
@@ -223,22 +223,20 @@ public abstract class Walker implements MapObject {
     }
 
     protected String getStatus() {
-        String status = String.format("Name: %s\n",  name);
+        String status = String.format("Name: %s\n", name);
         status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
-        status += String.format("Armor: %s\n", (armor == null? "none" : armor.getItemName()));
+        status += String.format("Armor: %s\n", (armor == null ? "none" : armor.getItemName()));
         if (leftWeapon != null && leftWeapon.isTwoHanded())
             status += String.format("Weapon: %s\n", leftWeapon.getItemName());
         else {
             status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.getItemName()));
             status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.getItemName()));
         }
-        return  status;
+        return status;
     }
 
     protected ArrayList<Skill> getSkills() {
-        ArrayList<Skill> skillList = new ArrayList<>();
-        for (Skill skill : skills.keySet())
-            skillList.add(skill);
+        ArrayList<Skill> skillList = new ArrayList<>(skills.keySet());
 
         return skillList;
     }
@@ -298,7 +296,6 @@ public abstract class Walker implements MapObject {
 
     @Override
     public void interact(Walker agent) {
-        return;
     }
 
     @Override
@@ -306,7 +303,7 @@ public abstract class Walker implements MapObject {
         visitor.visit(this);
     }
 
-    public void setMap(Map map){
+    public void setMap(Map map) {
         walkerManager.setMap(map);
     }
 

@@ -23,7 +23,7 @@ public class FireBall extends MagicSkill {
 
     @Override
     public void useSkill(Walker summoner, MapObject targetObject) {
-        Walker targetWalker = (Walker)targetObject;
+        Walker targetWalker = (Walker) targetObject;
 
         if (summoner.attemptMagicalMovement()) {
             WalkerManager targetManager = targetWalker.getManager();

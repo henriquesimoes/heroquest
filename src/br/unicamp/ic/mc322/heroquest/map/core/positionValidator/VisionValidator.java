@@ -10,7 +10,7 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class VisionValidator extends PositionValidator implements AbstractMapObjectVisitor {
 
-    public VisionValidator(Map map){
+    public VisionValidator(Map map) {
         super(map);
     }
 

@@ -17,7 +17,7 @@ public class MagicMissile extends MagicSkill implements AbstractMapObjectVisitor
 
     @Override
     public void useSkill(Walker summoner, MapObject targetObject) {
-        Walker targetWalker = (Walker)targetObject;
+        Walker targetWalker = (Walker) targetObject;
         if (summoner.attemptMagicalMovement())
             targetWalker.defendFromMagicSkill(TOTAL_DAMAGE);
     }

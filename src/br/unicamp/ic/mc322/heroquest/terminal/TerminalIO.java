@@ -33,7 +33,7 @@ public class TerminalIO implements IOInterface {
             if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
                 invalidAnswer = false;
 
-            writer.println("");
+            writer.println();
         }
 
         return answer;
@@ -69,9 +69,9 @@ public class TerminalIO implements IOInterface {
         writer.print(question);
         String answer;
 
-        do{
+        do {
             answer = reader.nextLine();
-        }while(answer.isBlank());
+        } while (answer.isBlank());
 
         return answer;
     }

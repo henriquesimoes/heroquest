@@ -22,14 +22,13 @@ public class Wall extends StructuralObject {
 
     @Override
     public void interact(Walker agent) {
-        return;
     }
 
     @Override
     public String getRepresentationOnMenu() {
         return "Wall on " + getPosition();
     }
-    
+
     @Override
     public boolean canPlaceWalkerOn() {
         return false;
