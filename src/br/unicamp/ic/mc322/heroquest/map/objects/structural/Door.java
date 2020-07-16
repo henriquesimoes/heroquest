@@ -1,10 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.map.objects.structural;
 
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
-import br.unicamp.ic.mc322.heroquest.map.placement.PlacementStrategy;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class Door extends StructuralObject {
@@ -40,11 +38,6 @@ public class Door extends StructuralObject {
     @Override
     public String getRepresentationOnMenu() {
         return (opened ? "Opened" : "Closed") + " door on " + getPosition();
-    }
-
-    @Override
-    public boolean accept(PlacementStrategy strategy, MapObject object) {
-        return strategy.canPlaceOn(this, object);
     }
 
     @Override

@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.map.objects;
 
 import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.MapUnit;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
 public abstract class FixedObject implements MapObject {
@@ -33,11 +32,6 @@ public abstract class FixedObject implements MapObject {
     @Override
     public void setPosition(Coordinate position) {
         this.position.copyValue(position);
-    }
-
-    @Override
-    public void goTo(MapUnit unit) {
-        unit.add(this);
     }
 
     @Override

@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.map.loader;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.placement.SinglePlacement;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,7 +46,7 @@ public class MapLoader {
     private MapBuilder load(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         scanner.useDelimiter("\n");
-        MapBuilder builder = new MapBuilder(new SinglePlacement());
+        MapBuilder builder = new MapBuilder();
 
         readStructure(scanner, builder);
 

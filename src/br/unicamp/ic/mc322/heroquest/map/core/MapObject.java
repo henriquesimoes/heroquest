@@ -13,7 +13,6 @@ public interface MapObject {
     boolean isAllowedToWalkOver();
     String getRepresentationOnMenu();
 
-    void goTo(MapUnit unit);
     void accept(AbstractMapObjectVisitor visitor);
     void accept(ConcreteMapObjectVisitor visitor);
 }
