@@ -18,7 +18,7 @@ public class Trap extends FixedObject implements HiddenObject {
         if (armed) {
             armed = false;
             discovered = true;
-            agent.defendsPhysicalSkill(1);
+            agent.decreaseBodyPoints(1);
         }
     }
 
@@ -29,7 +29,7 @@ public class Trap extends FixedObject implements HiddenObject {
 
     @Override
     public String getRepresentationOnMenu() {
-        return null;
+        return "Trap on " + getPosition();
     }
 
     @Override

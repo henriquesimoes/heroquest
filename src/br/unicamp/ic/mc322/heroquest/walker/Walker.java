@@ -81,15 +81,15 @@ public abstract class Walker implements MapObject {
         currentBodyPoints = Math.min(currentBodyPoints + delta, maximumBodyPoints);
     }
 
-    private void decreaseBodyPoints(int delta) {
+    public void decreaseBodyPoints(int delta) {
         currentBodyPoints = Math.max(currentBodyPoints - delta, 0);
+        notifyDamage(delta);
+        notifyIfIsDead();
     }
 
     private void defendFromSkill(int attackIntensity, int defenseIntensity) {
         int damage = Math.max(attackIntensity - defenseIntensity, 0);
         decreaseBodyPoints(damage);
-        notifyDamage(damage);
-        notifyIfIsDead();
     }
 
     protected abstract int getDefenseIntensity(int numberOfDices);
