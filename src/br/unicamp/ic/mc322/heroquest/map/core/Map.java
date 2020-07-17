@@ -7,6 +7,7 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
+import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Trap;
 import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
@@ -31,6 +32,11 @@ public class Map implements GameListener {
         MapUnit unit = getRandomValidUnit(new WalkableValidator(this));
         unit.add(walker);
         walker.setMap(this);
+    }
+
+    public void add(Trap trap) {
+        MapUnit unit = getRandomValidUnit(new WalkableValidator(this));
+        unit.add(trap);
     }
 
     public void move(Walker walker, Coordinate destination) {
