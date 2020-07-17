@@ -119,10 +119,12 @@ public abstract class Walker implements MapObject {
     }
 
     public void increaseBalance(int amount) {
+        walkerManager.showMessage("Obtained " + amount + " gold coin(s)");
         balance += amount;
     }
 
     public void collectItem(CollectableItem item) {
+        walkerManager.showMessage("Collected the item: " + item.getItemName());
         knapsack.put(item);
     }
 

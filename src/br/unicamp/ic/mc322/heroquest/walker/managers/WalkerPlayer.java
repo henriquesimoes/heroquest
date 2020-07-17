@@ -251,9 +251,13 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
         Region region = regionSelector.getLimitedRegion(3, true);
         accept(this, region);
 
-        for (HiddenObject object : hiddenObjectsDetected) {
-            showMessage(String.format("Detected the object: %s", object.getRepresentationOnMenu()));
-            object.discover();
+        if (hiddenObjectsDetected.size() > 0) {
+            for (HiddenObject object : hiddenObjectsDetected) {
+                showMessage(String.format("Detected the object: %s", object.getRepresentationOnMenu()));
+                object.discover();
+            }
+        }else{
+            showMessage("No objects were detected");
         }
 
         return true;
