@@ -43,7 +43,7 @@ public class TerminalMapViewer implements MapViewer {
 
     private void clear() {
         for (int i = 0; i < output.length; i++)
-            Arrays.fill(output[i], '#');
+            Arrays.fill(output[i], '?');
     }
 
     private void print() {
