@@ -8,10 +8,13 @@ import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class VisionValidator extends PositionValidator implements AbstractMapObjectVisitor {
+public class VisionValidator implements PositionValidator, AbstractMapObjectVisitor {
+    private Map map;
+    private boolean lastVisitedIsValid;
+    private boolean lastVisitedIsExpandable;
 
     public VisionValidator(Map map) {
-        super(map);
+        this.map = map;
     }
 
     @Override
