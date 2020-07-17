@@ -2,14 +2,14 @@ package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
-import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerPlayer;
+import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
 
 import java.util.Set;
 
-public class InteractAction implements Action {
+public class InteractPlayerAction implements Action {
     private WalkerPlayer walkerPlayer;
 
-    public InteractAction(WalkerPlayer walkerPlayer) {
+    InteractPlayerAction(WalkerPlayer walkerPlayer) {
         this.walkerPlayer = walkerPlayer;
     }
 

@@ -5,26 +5,22 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
-import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerPlayer;
+import br.unicamp.ic.mc322.heroquest.walker.managers.MoveAction;
 
 import java.util.ArrayList;
 
-public class MoveAction implements Action {
+public class MovePlayerAction extends MoveAction {
     private WalkerPlayer walkerPlayer;
 
-    public MoveAction(WalkerPlayer walkerPlayer) {
+    MovePlayerAction(WalkerPlayer walkerPlayer) {
+        super(walkerPlayer);
         this.walkerPlayer = walkerPlayer;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Execute movement";
     }
 
     @Override
     public boolean execute() {
         Walker walker = walkerPlayer.getWalker();
-        IOInterface ioInterface = walkerPlayer.getPlayerInterface();
+        IOInterface ioInterface = walkerPlayer.getIOInterface();
         int limitPositionInMove = walker.getPositionLimitInMovement();
 
         for (int i = limitPositionInMove; i > 0; ) {

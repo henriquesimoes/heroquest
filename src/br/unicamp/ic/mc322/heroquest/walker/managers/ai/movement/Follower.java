@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Follower extends MovementBehavior implements AbstractMapObjectVisitor {
 
     @Override
-    public Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
+    protected Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
         Coordinate walkerPosition = walkerManager.getWalkerPosition();
         possibleMoves.add(walkerPosition); // insert "stay still" as a move
         Region region = walkerManager.getRegionSelector().getVisibleRegion(false);

@@ -98,7 +98,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
     }
 
     private void notifyEndGame() {
-        for (HashSet<WalkerManager> managers : managersByTeam.values())
+        for (HashSet<WalkerManager> managers : managersAliveByTeam.values())
             for (WalkerManager manager : managers) {
                 if (managers.size() > 0)
                     manager.showMessage("Your Team Wins");

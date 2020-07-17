@@ -8,6 +8,7 @@ import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.view.MapViewer;
 
 import java.io.PrintStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TerminalIO implements IOInterface {
@@ -33,10 +34,15 @@ public class TerminalIO implements IOInterface {
                 writer.printf("%2d - Return\n", 0);
 
             writer.print("Selected option: ");
-            answer = reader.nextInt();
 
-            if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
-                invalidAnswer = false;
+            try {
+                answer = reader.nextInt();
+                if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
+                    invalidAnswer = false;
+            } catch (InputMismatchException e) {
+                reader.nextLine();
+                writer.printf("Invalid option");
+            }
 
             writer.println();
         }

@@ -1,6 +1,5 @@
-package br.unicamp.ic.mc322.heroquest.walker.managers;
+package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
@@ -12,14 +11,13 @@ import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.SecretDoor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Wall;
-import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Barbarian;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Dwarf;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Elf;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Wizard;
-import br.unicamp.ic.mc322.heroquest.walker.managers.player.*;
+import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
 import br.unicamp.ic.mc322.heroquest.walker.monster.CommonSkeleton;
 import br.unicamp.ic.mc322.heroquest.walker.monster.Goblin;
 import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
@@ -40,7 +38,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
         hiddenObjectsDetected = new HashSet<>();
     }
 
-    public void updateScreen() {
+    void updateScreen() {
         ioInterface.showMessage(getStatus());
         ioInterface.showMap(walker.getPosition());
     }
@@ -52,11 +50,11 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
     @Override
     public void playTurn() {
         ArrayList<Action> options = new ArrayList<>(Arrays.asList(
-                new MoveAction(this),
-                new UseItemAction(this),
-                new UseSkillAction(this),
-                new InteractAction(this),
-                new SearchAction(this)
+                new MovePlayerAction(this),
+                new UseItemPlayerAction(this),
+                new UseSkillPlayerAction(this),
+                new InteractPlayerAction(this),
+                new SearchPlayerAction(this)
         ));
 
         while (true) {
@@ -150,31 +148,6 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
             hiddenObjectsDetected.add(trap);
     }
 
-    @Override
-    protected CollectableItem chooseItem(CollectableItem[] items) {
-        String[] nameList = new String[items.length];
-
-        for (int i = 0; i < items.length; i++)
-            nameList[i] = items[i].getItemName();
-
-        ioInterface.showMessage("Choose an item to use:");
-        int choice = ioInterface.showOptionsAndGetAnswer(nameList, true) - 1;
-
-        return choice == -1 ? null : items[choice];
-    }
-
-    protected Skill chooseSkill(Skill[] skills) {
-        String[] nameList = new String[skills.length];
-
-        for (int i = 0; i < skills.length; i++)
-            nameList[i] = skills[i].getSkillName();
-
-        ioInterface.showMessage("Choose a skill to use:");
-        int choice = ioInterface.showOptionsAndGetAnswer(nameList, true) - 1;
-
-        return choice == -1 ? null : skills[choice];
-    }
-
     public MapObject chooseTarget(MapObject[] targets) {
         String[] targetList = new String[targets.length];
 
@@ -193,15 +166,15 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
         ioInterface.setMap(map);
     }
 
-    public Set<MapObject> getObjectsAdjacent() {
+    Set<MapObject> getObjectsAdjacent() {
         return objectsAdjacent;
     }
 
-    public Set<HiddenObject> getHiddenObjectsDetected() {
+    Set<HiddenObject> getHiddenObjectsDetected() {
         return hiddenObjectsDetected;
     }
 
-    public IOInterface getPlayerInterface() {
+    IOInterface getIOInterface() {
         return ioInterface;
     }
 }

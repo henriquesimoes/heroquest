@@ -12,7 +12,7 @@ public class Dwarf extends Hero {
 
         attackDice = 2;
         defenseDice = 2;
-        maximumBodyPoints = currentBodyPoints = 7;
+        maximumBodyPoints = currentBodyPoints = 30;
         mindPoints = 3;
 
         Weapon currentWeapon = new ShortSword();

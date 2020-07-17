@@ -234,7 +234,7 @@ public abstract class Walker implements MapObject {
         return status;
     }
 
-    protected Skill[] getSkills() {
+    public Skill[] getSkills() {
         return skills.keySet().toArray(new Skill[0]);
     }
 
@@ -250,7 +250,7 @@ public abstract class Walker implements MapObject {
         return team;
     }
 
-    protected CollectableItem[] getItems() {
+    public CollectableItem[] getItems() {
         return knapsack.getItems();
     }
 
