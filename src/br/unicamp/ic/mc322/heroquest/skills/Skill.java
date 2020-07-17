@@ -35,10 +35,10 @@ public abstract class Skill implements AbstractMapObjectVisitor {
 
     public abstract void updateTargets();
 
-    public ArrayList<MapObject> getTargets() {
+    public MapObject[] getTargets() {
         targets.clear();
         updateTargets();
-        return targets;
+        return targets.toArray(new MapObject[0]);
     }
 
     protected void accept(AbstractMapObjectVisitor visitor, Region region) {

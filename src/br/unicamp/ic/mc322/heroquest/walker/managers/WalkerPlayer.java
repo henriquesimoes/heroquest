@@ -13,7 +13,7 @@ import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.SecretDoor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Wall;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
-import br.unicamp.ic.mc322.heroquest.util.playerInterface.PlayerInterface;
+import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Barbarian;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Dwarf;
@@ -30,11 +30,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisitor {
-    private PlayerInterface ioInterface;
+    private IOInterface ioInterface;
     private Set<MapObject> objectsAdjacent;
     private Set<HiddenObject> hiddenObjectsDetected;
 
-    public WalkerPlayer() {
+    public WalkerPlayer(IOInterface ioInterface) {
+        this.ioInterface = ioInterface;
         objectsAdjacent = new HashSet<>();
         hiddenObjectsDetected = new HashSet<>();
     }
@@ -60,17 +61,17 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
 
         while (true) {
             updateScreen();
-            ArrayList<String> messages = new ArrayList<>();
-            for (Action option : options)
-                messages.add(option.getDescription());
+            String[] messages = new String[options.size()];
+            for (int i = 0; i < options.size(); i++)
+                messages[i] = (options.get(i).getDescription());
 
             ioInterface.showMessage("Choose an action:");
-            int choice = ioInterface.showOptionsAndGetAnswer(messages);
+            int choice = ioInterface.showOptionsAndGetAnswer(messages, true) - 1;
 
-            if (choice == 0)
+            if (choice == -1)
                 return;
 
-            Action chosenAction = options.get(choice - 1);
+            Action chosenAction = options.get(choice);
 
             if (chosenAction.execute())
                 options.remove(chosenAction);
@@ -150,46 +151,46 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
     }
 
     @Override
-    protected CollectableItem chooseItem(ArrayList<CollectableItem> items) {
-        ArrayList<String> nameList = new ArrayList<>();
+    protected CollectableItem chooseItem(CollectableItem[] items) {
+        String[] nameList = new String[items.length];
 
-        for (CollectableItem item : items)
-            nameList.add(item.getItemName());
+        for (int i = 0; i < items.length; i++)
+            nameList[i] = items[i].getItemName();
 
         ioInterface.showMessage("Choose an item to use:");
-        int choice = ioInterface.showOptionsAndGetAnswer(nameList);
+        int choice = ioInterface.showOptionsAndGetAnswer(nameList, true) - 1;
 
-        return choice == 0 ? null : items.get(choice - 1);
+        return choice == -1 ? null : items[choice];
     }
 
-    protected Skill chooseSkill(ArrayList<Skill> skills) {
-        ArrayList<String> nameList = new ArrayList<>();
+    protected Skill chooseSkill(Skill[] skills) {
+        String[] nameList = new String[skills.length];
 
-        for (Skill skill : skills)
-            nameList.add(skill.getSkillName());
+        for (int i = 0; i < skills.length; i++)
+            nameList[i] = skills[i].getSkillName();
 
         ioInterface.showMessage("Choose a skill to use:");
-        int choice = ioInterface.showOptionsAndGetAnswer(nameList);
+        int choice = ioInterface.showOptionsAndGetAnswer(nameList, true) - 1;
 
-        return choice == 0 ? null : skills.get(choice - 1);
+        return choice == -1 ? null : skills[choice];
     }
 
-    public MapObject chooseTarget(ArrayList<MapObject> targets) {
-        ArrayList<String> targetList = new ArrayList<>();
+    public MapObject chooseTarget(MapObject[] targets) {
+        String[] targetList = new String[targets.length];
 
-        for (MapObject target : targets)
-            targetList.add(target.getRepresentationOnMenu());
+        for (int i = 0; i < targets.length; i++)
+            targetList[i] = targets[i].getRepresentationOnMenu();
 
         ioInterface.showMessage("Choose a target:");
-        int choice = ioInterface.showOptionsAndGetAnswer(targetList);
+        int choice = ioInterface.showOptionsAndGetAnswer(targetList, true) - 1;
 
-        return choice == 0 ? null : targets.get(choice - 1);
+        return choice == -1 ? null : targets[choice];
     }
 
     @Override
     protected void setMap(Map map) {
         changeMap(map);
-        ioInterface = new PlayerInterface(map);
+        ioInterface.setMap(map);
     }
 
     public Set<MapObject> getObjectsAdjacent() {
@@ -200,7 +201,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
         return hiddenObjectsDetected;
     }
 
-    public PlayerInterface getPlayerInterface() {
+    public IOInterface getPlayerInterface() {
         return ioInterface;
     }
 }

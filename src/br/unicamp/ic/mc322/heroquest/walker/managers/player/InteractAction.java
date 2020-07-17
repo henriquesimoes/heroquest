@@ -4,7 +4,6 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerPlayer;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 public class InteractAction implements Action {
@@ -27,7 +26,7 @@ public class InteractAction implements Action {
         Region region = walkerPlayer.getRegionSelector().getAdjacentRegion(false);
         walkerPlayer.accept(walkerPlayer, region);
 
-        ArrayList<MapObject> arrayObjects = new ArrayList<>(objectsAdjacent);
+        MapObject[] arrayObjects = objectsAdjacent.toArray(new MapObject[0]);
         MapObject chosenTarget = walkerPlayer.chooseTarget(arrayObjects);
 
         if (chosenTarget != null)

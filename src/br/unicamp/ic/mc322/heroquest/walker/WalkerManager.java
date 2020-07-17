@@ -59,7 +59,7 @@ public abstract class WalkerManager {
     }
 
     public boolean useItem() {
-        ArrayList<CollectableItem> items = walker.getItems();
+        CollectableItem[] items = walker.getItems();
         CollectableItem chosenItem = chooseItem(items);
         if (chosenItem != null)
             chosenItem.useItem(walker);
@@ -67,13 +67,13 @@ public abstract class WalkerManager {
     }
 
     public boolean useSkill() {
-        ArrayList<Skill> skills = walker.getSkills();
+        Skill[] skills = walker.getSkills();
         Skill chosenSkill = chooseSkill(skills);
 
         if (chosenSkill == null)
             return false;
 
-        ArrayList<MapObject> targets = chosenSkill.getTargets();
+        MapObject[] targets = chosenSkill.getTargets();
         MapObject target = chooseTarget(targets);
 
         if (target == null)
@@ -98,9 +98,9 @@ public abstract class WalkerManager {
 
     public abstract void showMessage(String message);
 
-    protected abstract CollectableItem chooseItem(ArrayList<CollectableItem> items);
+    protected abstract CollectableItem chooseItem(CollectableItem[] items);
 
-    protected abstract Skill chooseSkill(ArrayList<Skill> skills);
+    protected abstract Skill chooseSkill(Skill[] skills);
 
-    protected abstract MapObject chooseTarget(ArrayList<MapObject> targets);
+    protected abstract MapObject chooseTarget(MapObject[] targets);
 }

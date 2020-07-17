@@ -47,8 +47,8 @@ public class WalkerAI extends WalkerManager {
     }
 
     @Override
-    protected CollectableItem chooseItem(ArrayList<CollectableItem> items) {
-        return items.size() == 0 ? null : items.get(Randomizer.nextInt(items.size()));
+    protected CollectableItem chooseItem(CollectableItem[] items) {
+        return items.length == 0 ? null : items[Randomizer.nextInt(items.length)];
     }
 
     protected Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
@@ -56,21 +56,21 @@ public class WalkerAI extends WalkerManager {
     }
 
     @Override
-    protected Skill chooseSkill(ArrayList<Skill> skills) {
+    protected Skill chooseSkill(Skill[] skills) {
         ArrayList<Skill> skillWithValidTargets = new ArrayList<>();
 
         // store in skillTarget each skill with a valid target
         for (Skill skill : skills) {
-            ArrayList<MapObject> targets = skill.getTargets();
-            if (targets.size() != 0)
+            MapObject[] targets = skill.getTargets();
+            if (targets.length != 0)
                 skillWithValidTargets.add(skill);
         }
 
-        return skillWithValidTargets.size() == 0 ? null : attackBehavior.chooseSkill(skillWithValidTargets);
+        return skillWithValidTargets.size() == 0 ? null : attackBehavior.chooseSkill((Skill[]) skillWithValidTargets.toArray());
     }
 
     @Override
-    protected MapObject chooseTarget(ArrayList<MapObject> targets) {
+    protected MapObject chooseTarget(MapObject[] targets) {
         return attackBehavior.chooseTarget(targets);
     }
 

@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -30,9 +29,7 @@ public class Knapsack {
             items.put(item, currentAmount);
     }
 
-    public ArrayList<CollectableItem> getItems() {
-        ArrayList<CollectableItem> items = new ArrayList<>(this.items.keySet());
-
-        return items;
+    public CollectableItem[] getItems() {
+        return this.items.keySet().toArray((new CollectableItem[0]));
     }
 }

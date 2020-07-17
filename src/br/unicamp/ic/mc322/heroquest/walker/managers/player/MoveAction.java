@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
-import br.unicamp.ic.mc322.heroquest.util.playerInterface.PlayerInterface;
+import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerPlayer;
 
@@ -24,7 +24,7 @@ public class MoveAction implements Action {
     @Override
     public boolean execute() {
         Walker walker = walkerPlayer.getWalker();
-        PlayerInterface ioInterface = walkerPlayer.getPlayerInterface();
+        IOInterface ioInterface = walkerPlayer.getPlayerInterface();
         int limitPositionInMove = walker.getPositionLimitInMovement();
 
         for (int i = limitPositionInMove; i > 0; ) {
