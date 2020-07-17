@@ -4,8 +4,6 @@ import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.objects.HiddenObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
@@ -21,6 +19,7 @@ import br.unicamp.ic.mc322.heroquest.walker.hero.Barbarian;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Dwarf;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Elf;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Wizard;
+import br.unicamp.ic.mc322.heroquest.walker.managers.player.*;
 import br.unicamp.ic.mc322.heroquest.walker.monster.CommonSkeleton;
 import br.unicamp.ic.mc322.heroquest.walker.monster.Goblin;
 import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
@@ -51,14 +50,19 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
 
     @Override
     public void playTurn() {
-        ArrayList<Actions> options = new ArrayList<>(Arrays.asList(Actions.values()));
-        boolean removeOption;
+        ArrayList<Action> options = new ArrayList<>(Arrays.asList(
+                new MoveAction(this),
+                new UseItemAction(this),
+                new UseSkillAction(this),
+                new InteractAction(this),
+                new SearchAction(this)
+        ));
 
         while (true) {
             updateScreen();
             ArrayList<String> messages = new ArrayList<>();
-            for (Actions option : options)
-                messages.add(option.toString());
+            for (Action option : options)
+                messages.add(option.getDescription());
 
             ioInterface.showMessage("Choose an action:");
             int choice = ioInterface.showOptionsAndGetAnswer(messages);
@@ -66,27 +70,10 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
             if (choice == 0)
                 return;
 
-            switch (options.get(choice - 1)) {
-                case MOVE:
-                    removeOption = makeMove();
-                    break;
-                case USE_ITEM:
-                    removeOption = useItems();
-                    break;
-                case USE_SKILL:
-                    removeOption = useSkill();
-                    break;
-                case INTERACT:
-                    removeOption = interactWithObjects();
-                    break;
-                case SEARCH:
-                    removeOption = searchHiddenObjects();
-                    break;
-                default:
-                    throw new IllegalArgumentException();
-            }
-            if (removeOption)
-                options.remove(choice - 1);
+            Action chosenAction = options.get(choice - 1);
+
+            if (chosenAction.execute())
+                options.remove(chosenAction);
         }
     }
 
@@ -187,7 +174,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
         return choice == 0 ? null : skills.get(choice - 1);
     }
 
-    protected MapObject chooseTarget(ArrayList<MapObject> targets) {
+    public MapObject chooseTarget(ArrayList<MapObject> targets) {
         ArrayList<String> targetList = new ArrayList<>();
 
         for (MapObject target : targets)
@@ -200,62 +187,20 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
     }
 
     @Override
-    protected boolean makeMove() {
-        int limitPositionInMove = walker.getPositionLimitInMovement();
-
-        for (int i = limitPositionInMove; i > 0; ) {
-            ioInterface.showMessage(String.format("Remaining movements: %d", i));
-            Direction direction = ioInterface.getMoveDirection();
-
-            if (direction == null)
-                break;
-
-            Coordinate chosenMove = walker.getPosition().shift(direction);
-            Region region = regionSelector.getCardinalRegion(true);
-            ArrayList<Coordinate> possibleMoves = region.toArrayList();
-
-            if (possibleMoves.contains(chosenMove)) {
-                moveWalker(chosenMove);
-                i--;
-            } else
-                ioInterface.showMessage("Invalid movement");
-            updateScreen();
-        }
-        return true;
-    }
-
-    @Override
     protected void setMap(Map map) {
         changeMap(map);
         ioInterface = new PlayerInterface(map);
     }
 
-    private boolean interactWithObjects() {
-        objectsAdjacent.clear();
-
-        Region region = regionSelector.getAdjacentRegion(false);
-        accept(this, region);
-
-        ArrayList<MapObject> arrayObjects = new ArrayList<>(objectsAdjacent);
-        MapObject chosenTarget = chooseTarget(arrayObjects);
-
-        if (chosenTarget != null)
-            chosenTarget.interact(walker);
-
-        return false;
+    public Set<MapObject> getObjectsAdjacent() {
+        return objectsAdjacent;
     }
 
-    private boolean searchHiddenObjects() {
-        hiddenObjectsDetected.clear();
+    public Set<HiddenObject> getHiddenObjectsDetected() {
+        return hiddenObjectsDetected;
+    }
 
-        Region region = regionSelector.getLimitedRegion(3, true);
-        accept(this, region);
-
-        for (HiddenObject object : hiddenObjectsDetected) {
-            showMessage(String.format("Detected the object: %s", object.getRepresentationOnMenu()));
-            object.discover();
-        }
-
-        return true;
+    public PlayerInterface getPlayerInterface() {
+        return ioInterface;
     }
 }

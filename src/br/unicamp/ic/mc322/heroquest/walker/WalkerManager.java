@@ -58,7 +58,7 @@ public abstract class WalkerManager {
         return walker.getStatus();
     }
 
-    protected boolean useItems() {
+    public boolean useItem() {
         ArrayList<CollectableItem> items = walker.getItems();
         CollectableItem chosenItem = chooseItem(items);
         if (chosenItem != null)
@@ -66,9 +66,7 @@ public abstract class WalkerManager {
         return false;
     }
 
-    protected abstract boolean makeMove();
-
-    protected boolean useSkill() {
+    public boolean useSkill() {
         ArrayList<Skill> skills = walker.getSkills();
         Skill chosenSkill = chooseSkill(skills);
 

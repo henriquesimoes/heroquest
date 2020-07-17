@@ -25,15 +25,14 @@ public class WalkerAI extends WalkerManager {
 
     @Override
     public void playTurn() {
-        useItems();
+        useItem();
         boolean successUseSkill = useSkill();
         makeMove();
         if (!successUseSkill)
             useSkill();
-        useItems();
+        useItem();
     }
 
-    @Override
     protected boolean makeMove() {
         int limitPositionInMove = walker.getPositionLimitInMovement();
         Region region = regionSelector.getLimitedRegion(limitPositionInMove, true);
