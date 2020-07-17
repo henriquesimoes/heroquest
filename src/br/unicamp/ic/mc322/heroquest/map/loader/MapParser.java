@@ -5,6 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
@@ -30,7 +31,7 @@ public class MapParser {
             char representation = matrix[relative.getY()][relative.getX()];
 
             try {
-                parseAndAdd(representation, coordinate, builder);
+                builder.add(parseStructuralObject(representation, coordinate));
             } catch (IndexOutOfBoundsException ex) {
                 builder.add(new Wall(coordinate));
             } catch (IllegalStateException ex) {
@@ -49,17 +50,14 @@ public class MapParser {
         return builder;
     }
 
-    private void parseAndAdd(char representation, Coordinate coordinate, MapBuilder builder) {
+    private StructuralObject parseStructuralObject(char representation, Coordinate coordinate) {
         switch (representation) {
             case FLOOR:
-                builder.add(new Floor(coordinate));
-                break;
+                return new Floor(coordinate);
             case WALL:
-                builder.add(new Wall(coordinate));
-                break;
+                return new Wall(coordinate);
             case DOOR:
-                builder.add(new Door(coordinate));
-                break;
+                return new Door(coordinate);
             default:
                 throw new CorruptedConfigurationFileException("Invalid representation `" + representation + "`...");
         }
