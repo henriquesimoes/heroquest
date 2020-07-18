@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenState;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 
 import javax.swing.*;
@@ -7,7 +8,8 @@ import javax.swing.*;
 public class GameWindow extends JFrame {
     public static final int WINDOW_WIDTH = 800;
     public static final int WINDOW_HEIGHT = 500;
-    Map gameMap;
+    private static ScreenState SCREEN_STATE;
+
 
     public GameWindow(Map gameMap) {
         setTitle("HeroQuest");
@@ -19,6 +21,14 @@ public class GameWindow extends JFrame {
         setResizable(false);
         setVisible(true);
 
-        this.gameMap = gameMap;
+        this.SCREEN_STATE = ScreenState.START_MENU;
+    }
+
+    public static ScreenState getScreenState() {
+        return SCREEN_STATE;
+    }
+
+    public static void setScreenState(ScreenState state) {
+        SCREEN_STATE = state;
     }
 }

@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamemenu;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamemenu.buttons;
 
 public enum ButtonType {
     NEW_GAME("New Game"),

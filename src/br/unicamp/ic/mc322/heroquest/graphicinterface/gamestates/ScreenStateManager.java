@@ -19,7 +19,7 @@ public class ScreenStateManager {
     }
 
     public void render() {
-        ScreenState currentState = GameWindow.getScreenState()
+        ScreenState currentState = GameWindow.getScreenState();
         mouseClickCoords = mouseInput.getMouseCoordsOnClick();
 
         switch (currentState) {
