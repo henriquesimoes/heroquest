@@ -69,8 +69,9 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
             if (choice == -1)
                 return;
 
-            Action chosenAction = options.get(choice);
+            updateScreen();
 
+            Action chosenAction = options.get(choice);
             if (chosenAction.execute())
                 options.remove(chosenAction);
         }

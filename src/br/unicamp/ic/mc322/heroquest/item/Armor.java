@@ -19,7 +19,7 @@ public abstract class Armor extends DurableItem {
                 new ChainMail()
         };
 
-        int choice = Randomizer.randInt(0, possibleArmors.length - 1);
+        int choice = Randomizer.nextInt(possibleArmors.length);
 
         return possibleArmors[choice];
     }

@@ -26,7 +26,7 @@ public class Follower extends MovementBehavior implements AbstractMapObjectVisit
 
         Coordinate choice = walkerManager.getCoordinateCloserToWalkers(possibleMoves, enemies);
 
-        if (!possibleMoves.contains(choice))
+        if (!possibleMoves.contains(choice) && choice != null)
             throw new IllegalStateException();
 
         return walkerPosition.equals(choice) ? null : choice;
