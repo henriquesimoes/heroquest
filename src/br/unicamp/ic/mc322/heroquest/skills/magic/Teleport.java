@@ -18,6 +18,8 @@ public class Teleport extends MagicSkill {
         WalkerManager summonerManager = summoner.getManager();
         if (summoner.attemptMagicalMovement())
             summonerManager.moveWalker(targetObject.getPosition());
+
+        summoner.removeSkill(this);
     }
 
     @Override
