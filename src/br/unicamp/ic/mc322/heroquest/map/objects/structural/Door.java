@@ -15,19 +15,12 @@ public class Door extends StructuralObject {
     }
 
     @Override
-    public boolean belongsToARoom() {
-        return false;
-    }
-
-    @Override
     public boolean isAllowedToWalkOver() {
         return opened;
     }
 
     @Override
     public void interact(Walker walker) {
-        // TODO: restrict monsters ability to interact with doors
-
         opened = !opened;
     }
 
@@ -38,11 +31,6 @@ public class Door extends StructuralObject {
     @Override
     public String getRepresentationOnMenu() {
         return (opened ? "Opened" : "Closed") + " door on " + getPosition();
-    }
-
-    @Override
-    public boolean canPlaceWalkerOn() {
-        return opened;
     }
 
     @Override

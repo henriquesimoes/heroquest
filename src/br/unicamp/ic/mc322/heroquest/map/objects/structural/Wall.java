@@ -11,11 +11,6 @@ public class Wall extends StructuralObject {
     }
 
     @Override
-    public boolean belongsToARoom() {
-        return false;
-    }
-
-    @Override
     public boolean isAllowedToWalkOver() {
         return false;
     }
@@ -27,11 +22,6 @@ public class Wall extends StructuralObject {
     @Override
     public String getRepresentationOnMenu() {
         return "Wall on " + getPosition();
-    }
-
-    @Override
-    public boolean canPlaceWalkerOn() {
-        return false;
     }
 
     @Override

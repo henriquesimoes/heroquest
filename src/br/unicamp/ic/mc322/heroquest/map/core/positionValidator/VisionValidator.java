@@ -20,7 +20,7 @@ public class VisionValidator implements PositionValidator, AbstractMapObjectVisi
     @Override
     public void visit(StructuralObject structuralObject) {
         lastVisitedIsValid = true;
-        lastVisitedIsExpandable = structuralObject.canPlaceWalkerOn();
+        lastVisitedIsExpandable = structuralObject.isAllowedToWalkOver();
     }
 
     @Override
