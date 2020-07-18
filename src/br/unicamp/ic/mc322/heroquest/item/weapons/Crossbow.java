@@ -14,6 +14,6 @@ public class Crossbow extends Weapon {
         setAttackBonus(3);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        addSkill(new LongDistanceAttack("Atirar flecha", this));
+        addSkill(new LongDistanceAttack("Fire crossbow", this));
     }
 }
