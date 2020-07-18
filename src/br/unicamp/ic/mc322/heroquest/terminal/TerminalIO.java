@@ -1,14 +1,20 @@
 package br.unicamp.ic.mc322.heroquest.terminal;
 
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 import br.unicamp.ic.mc322.heroquest.view.Command;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
+import br.unicamp.ic.mc322.heroquest.view.MapViewer;
 
 import java.io.PrintStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TerminalIO implements IOInterface {
     private PrintStream writer;
     private Scanner reader;
+    private MapViewer viewer;
 
     public TerminalIO() {
         writer = System.out;
@@ -28,10 +34,15 @@ public class TerminalIO implements IOInterface {
                 writer.printf("%2d - Return\n", 0);
 
             writer.print("Selected option: ");
-            answer = reader.nextInt();
 
-            if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
-                invalidAnswer = false;
+            try {
+                answer = reader.nextInt();
+                if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
+                    invalidAnswer = false;
+            } catch (InputMismatchException e) {
+                reader.nextLine();
+                writer.printf("Invalid option");
+            }
 
             writer.println();
         }
@@ -74,6 +85,55 @@ public class TerminalIO implements IOInterface {
         } while (answer.isBlank());
 
         return answer;
+    }
+
+    @Override
+    public void showMap(Coordinate position) {
+        viewer.display(position);
+    }
+
+    @Override
+    public void setMap(Map map) {
+        viewer = new TerminalMapViewer(map);
+    }
+
+    @Override
+    public Direction getMoveDirection() {
+        System.out.println("Type the direction of movement or Q to quit: ");
+        String answer = "";
+        Direction direction = null;
+        boolean validAnswer;
+
+        do {
+            while (answer.isBlank())
+                answer = reader.nextLine();
+            answer = answer.toUpperCase();
+
+            validAnswer = true;
+            switch (answer) {
+                case "W":
+                    direction = Direction.NORTH;
+                    break;
+                case "S":
+                    direction = Direction.SOUTH;
+                    break;
+                case "A":
+                    direction = Direction.WEST;
+                    break;
+                case "D":
+                    direction = Direction.EAST;
+                    break;
+                case "Q":
+                    direction = null;
+                    break;
+                default:
+                    validAnswer = false;
+                    answer = "";
+                    System.out.println("Invalid direction.\nType the direction of movement or Q to quit: ");
+            }
+        } while (!validAnswer);
+
+        return direction;
     }
 
     public void showSpan() {

@@ -4,15 +4,16 @@ import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.ShortSword;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.skills.magic.SimpleHeal;
+import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
 
 public class Elf extends Hero {
-    public Elf(String name) {
-        super(name);
+    public Elf(String name, IOInterface ioInterface) {
+        super(name, ioInterface);
 
         attackDice = 2;
         defenseDice = 2;
-        maximumBodyPoints = currentBodyPoints = 6;
+        maximumBodyPoints = currentBodyPoints = 20;
         mindPoints = 4;
 
         ableToLearnWaterSpell = ableToLearnEarthSpell = true;

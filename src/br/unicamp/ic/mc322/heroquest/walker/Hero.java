@@ -1,11 +1,12 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
-import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerPlayer;
+import br.unicamp.ic.mc322.heroquest.view.IOInterface;
+import br.unicamp.ic.mc322.heroquest.walker.managers.player.WalkerPlayer;
 
 public abstract class Hero extends Walker {
-    protected Hero(String name) {
-        super(new WalkerPlayer(), name);
+    protected Hero(String name, IOInterface ioInterface) {
+        super(new WalkerPlayer(ioInterface), name);
         team = Team.HEROES;
     }
 
@@ -19,5 +20,4 @@ public abstract class Hero extends Walker {
 
         return intensity;
     }
-
 }

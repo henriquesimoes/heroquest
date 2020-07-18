@@ -5,16 +5,14 @@ import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.managers.ai.AttackBehavior;
 
-import java.util.ArrayList;
-
 public class Bloodthirsty extends AttackBehavior {
     @Override
-    public MapObject chooseTarget(ArrayList<MapObject> targets) {
-        return targets.get(Randomizer.nextInt(targets.size()));
+    protected MapObject chooseTarget(MapObject[] targets) {
+        return targets[Randomizer.nextInt(targets.length)];
     }
 
     @Override
-    public Skill chooseSkill(ArrayList<Skill> skills) {
-        return skills.get(Randomizer.nextInt(skills.size()));
+    protected Skill chooseSkill(Skill[] skills) {
+        return skills[Randomizer.nextInt(skills.length)];
     }
 }

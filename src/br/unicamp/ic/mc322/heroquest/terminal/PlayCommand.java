@@ -33,7 +33,7 @@ public class PlayCommand implements Command {
 
         String name = io.getStringAnswer("What's your character name? ");
 
-        Walker walker = new Wizard(name);
+        Walker walker = new Wizard(name, io);
 
         engine.addPlayer(walker);
 

@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker.monster;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.Monster;
-import br.unicamp.ic.mc322.heroquest.walker.managers.WalkerAI;
+import br.unicamp.ic.mc322.heroquest.walker.managers.ai.WalkerAI;
 import br.unicamp.ic.mc322.heroquest.walker.managers.ai.attack.Bloodthirsty;
 import br.unicamp.ic.mc322.heroquest.walker.managers.ai.movement.RandomMovement;
 

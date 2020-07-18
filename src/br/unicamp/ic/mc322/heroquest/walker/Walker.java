@@ -14,7 +14,6 @@ import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
@@ -235,10 +234,8 @@ public abstract class Walker implements MapObject {
         return status;
     }
 
-    protected ArrayList<Skill> getSkills() {
-        ArrayList<Skill> skillList = new ArrayList<>(skills.keySet());
-
-        return skillList;
+    public Skill[] getSkills() {
+        return skills.keySet().toArray(new Skill[0]);
     }
 
     public WalkerManager getManager() {
@@ -253,7 +250,7 @@ public abstract class Walker implements MapObject {
         return team;
     }
 
-    protected ArrayList<CollectableItem> getItems() {
+    public CollectableItem[] getItems() {
         return knapsack.getItems();
     }
 

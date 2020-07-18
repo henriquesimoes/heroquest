@@ -80,13 +80,15 @@ public class Map implements GameListener {
             Coordinate moveCoordinate = current.getFirst();
             Coordinate sourceCoordinate = current.getSecond();
 
-            for (Coordinate neighbor : moveCoordinate.getCardinalNeighborCoordinates()) {
-                if (destination.contains(neighbor))
-                    return sourceCoordinate;
+            if (validator.isExpandable(moveCoordinate)) {
+                for (Coordinate neighbor : moveCoordinate.getCardinalNeighborCoordinates()) {
+                    if (destination.contains(neighbor))
+                        return sourceCoordinate;
 
-                if (!visited.contains(neighbor) && validator.isValid(neighbor)) {
-                    visited.add(neighbor);
-                    queue.add(new Pair<>(neighbor, sourceCoordinate));
+                    if (!visited.contains(neighbor) && validator.isValid(neighbor)) {
+                        visited.add(neighbor);
+                        queue.add(new Pair<>(neighbor, sourceCoordinate));
+                    }
                 }
             }
         }

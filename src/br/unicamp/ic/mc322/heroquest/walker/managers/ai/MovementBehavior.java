@@ -5,5 +5,5 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import java.util.ArrayList;
 
 public abstract class MovementBehavior extends Behavior {
-    public abstract Coordinate chooseMove(ArrayList<Coordinate> possibleMoves);
+    protected abstract Coordinate chooseMove(ArrayList<Coordinate> possibleMoves);
 }

@@ -9,11 +9,11 @@ public abstract class Behavior {
     protected WalkerManager walkerManager;
     protected ArrayList<Walker> enemies;
 
-    public Behavior() {
+    Behavior() {
         enemies = new ArrayList<>();
     }
 
-    public void setWalkerManager(WalkerManager walkerManager) {
+    void setWalkerManager(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;
     }
 }

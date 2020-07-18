@@ -6,18 +6,19 @@ import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.skills.magic.FireBall;
 import br.unicamp.ic.mc322.heroquest.skills.magic.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.skills.magic.Teleport;
+import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
 
 public class Wizard extends Hero {
     private final int initialNumberOfDaggers = 3;
     private final int initialNumberOfMagicMissiles = 3;
 
-    public Wizard(String name) {
-        super(name);
+    public Wizard(String name, IOInterface ioInterface) {
+        super(name, ioInterface);
 
         attackDice = 1;
         defenseDice = 2;
-        maximumBodyPoints = currentBodyPoints = 4;
+        maximumBodyPoints = currentBodyPoints = 20;
         mindPoints = 6;
         ableToLearnAirSpell = ableToLearnEarthSpell = ableToLearnFireSpell = true;
 
