@@ -36,14 +36,4 @@ public abstract class StructuralObject implements MapObject {
     public void accept(AbstractMapObjectVisitor visitor) {
         visitor.visit(this);
     }
-
-
-    /**
-     * Determines whether a given structural object belongs to a room.
-     *
-     * @return `true` if it belongs to a room, and `false` otherwise.
-     */
-    public abstract boolean belongsToARoom();
-
-    public abstract boolean canPlaceWalkerOn();
 }

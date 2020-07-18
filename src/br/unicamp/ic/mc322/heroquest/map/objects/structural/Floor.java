@@ -11,11 +11,6 @@ public class Floor extends StructuralObject {
     }
 
     @Override
-    public boolean belongsToARoom() {
-        return true;
-    }
-
-    @Override
     public boolean isAllowedToWalkOver() {
         return true;
     }
@@ -27,11 +22,6 @@ public class Floor extends StructuralObject {
     @Override
     public String getRepresentationOnMenu() {
         return "Free space on " + getPosition();
-    }
-
-    @Override
-    public boolean canPlaceWalkerOn() {
-        return true;
     }
 
     @Override

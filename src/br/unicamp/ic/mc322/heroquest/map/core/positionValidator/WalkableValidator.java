@@ -19,7 +19,7 @@ public class WalkableValidator implements PositionValidator, AbstractMapObjectVi
 
     @Override
     public void visit(StructuralObject structuralObject) {
-        lastVisitedIsValid = lastVisitedIsExpandable = structuralObject.canPlaceWalkerOn();
+        lastVisitedIsValid = lastVisitedIsExpandable = structuralObject.isAllowedToWalkOver();
     }
 
     @Override
