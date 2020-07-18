@@ -26,9 +26,13 @@ public class SearchPlayerAction implements Action {
         Region region = walkerPlayer.getRegionSelector().getLimitedRegion(3, true);
         walkerPlayer.accept(walkerPlayer, region);
 
-        for (HiddenObject object : hiddenObjectsDetected) {
-            walkerPlayer.showMessage(String.format("Detected the object: %s", object.getRepresentationOnMenu()));
-            object.discover();
+        if (hiddenObjectsDetected.size() > 0) {
+            for (HiddenObject object : hiddenObjectsDetected) {
+                walkerPlayer.showMessage(String.format("Detected the object: %s", object.getRepresentationOnMenu()));
+                object.discover();
+            }
+        }else{
+            walkerPlayer.showMessage("No objects were detected");
         }
 
         return true;
