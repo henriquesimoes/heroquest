@@ -20,6 +20,7 @@ public class UseItemPlayerAction extends UseItemAction {
             nameList[i] = items[i].getItemName();
 
         IOInterface ioInterface = walkerPlayer.getIOInterface();
+        walkerPlayer.updateScreen();
         ioInterface.showMessage("Choose an item to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList, true) - 1;
 

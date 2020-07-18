@@ -14,11 +14,13 @@ public class UseSkillPlayerAction extends UseSkillAction {
 
     protected Skill chooseSkill(Skill[] skills) {
         IOInterface ioInterface = walkerPlayer.getIOInterface();
+
         String[] nameList = new String[skills.length];
 
         for (int i = 0; i < skills.length; i++)
             nameList[i] = skills[i].getSkillName();
 
+        walkerPlayer.updateScreen();
         ioInterface.showMessage("Choose a skill to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList, true) - 1;
 

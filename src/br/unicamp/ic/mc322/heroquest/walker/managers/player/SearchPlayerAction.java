@@ -31,7 +31,7 @@ public class SearchPlayerAction implements Action {
                 walkerPlayer.showMessage(String.format("Detected the object: %s", object.getRepresentationOnMenu()));
                 object.discover();
             }
-        }else{
+        } else {
             walkerPlayer.showMessage("No objects were detected");
         }
 
