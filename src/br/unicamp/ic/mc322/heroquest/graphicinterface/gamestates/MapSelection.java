@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 //Todo: melhor implementar classe abstrata para guardar as váriaveis em comum
 public class MapSelection implements Renderable {
-    private Graphics2D graphics;
+    private final Graphics2D graphics;
 
     public MapSelection(Graphics2D graphics) {
         this.graphics = graphics;

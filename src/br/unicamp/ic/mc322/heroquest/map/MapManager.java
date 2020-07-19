@@ -9,8 +9,8 @@ import br.unicamp.ic.mc322.heroquest.map.loader.MapLoader;
 import java.io.FileNotFoundException;
 
 public class MapManager {
-    private MapLoader loader;
-    private MapGenerator generator;
+    private final MapLoader loader;
+    private final MapGenerator generator;
 
     public MapManager() {
         loader = new MapLoader();

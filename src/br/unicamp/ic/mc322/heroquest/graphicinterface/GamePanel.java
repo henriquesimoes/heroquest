@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.GameMenu;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.GameState;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenState;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.startmenu.GameMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +11,11 @@ public class GamePanel extends JPanel implements Runnable {
     private boolean running;
     private Thread gameThread;
 
-    private BufferedImage image;
-    private Graphics2D graphics;
+    private final BufferedImage image;
+    private final Graphics2D graphics;
 
-    private GameState screenState;
-    private GameMenu gameMenu;
+    private final ScreenState screenState;
+    private final GameMenu gameMenu;
 
     public GamePanel() {
         Dimension preferredSize = new Dimension(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
@@ -25,9 +25,9 @@ public class GamePanel extends JPanel implements Runnable {
         requestFocus();
 
         image = new BufferedImage(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-        graphics = (Graphics2D) image.createGraphics();
+        graphics = image.createGraphics();
 
-        this.screenState = GameState.MENU;
+        this.screenState = ScreenState.START_MENU;
         this.gameMenu = new GameMenu(graphics);
     }
 
@@ -83,16 +83,13 @@ public class GamePanel extends JPanel implements Runnable {
             throw new NullPointerException();
         }
 
-        if (screenState == GameState.MENU)
-            gameMenu.render();
-//        else
-//            gameloop.render();
+        gameMenu.render();
 
         render();
     }
 
     private void render() {
-        Graphics showInTheScreen = (Graphics) this.getGraphics();
+        Graphics showInTheScreen = this.getGraphics();
         showInTheScreen.drawImage(image, 0, 0, null);
         showInTheScreen.dispose();
     }

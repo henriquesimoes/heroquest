@@ -13,12 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 class MapCreator {
-    private Map<Coordinate, StructuralObject> objects;
-    private Map<Coordinate, Integer> roomMapping;
+    private final Map<Coordinate, StructuralObject> objects;
+    private final Map<Coordinate, Integer> roomMapping;
     private Dimension dimension;
     private int numberOfRooms;
     private Room[] rooms;
-    private Collection<Door> doors;
+    private final Collection<Door> doors;
 
     private static final int UNDEFINED_ROOM = -1;
     private static final int OUTSIDE_ROOM = -2;

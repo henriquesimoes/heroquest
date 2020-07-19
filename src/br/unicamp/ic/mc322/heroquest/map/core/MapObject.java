@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class MapObject {
-    private Coordinate position;
+    private final Coordinate position;
 
     public MapObject() {
         position = new Coordinate(Integer.MIN_VALUE, Integer.MIN_VALUE);

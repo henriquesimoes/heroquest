@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Coordinate {
-    private Point coordinate;
+    private final Point coordinate;
 
     public Coordinate(int x, int y) {
         this.coordinate = new Point(x, y);
@@ -19,8 +19,8 @@ public class Coordinate {
     }
 
     public Coordinate[] getNeighborCoordinates() {
-        int dx[] = {0, 0, 1, -1};
-        int dy[] = {1, -1, 0, 0};
+        int[] dx = {0, 0, 1, -1};
+        int[] dy = {1, -1, 0, 0};
 
         Coordinate[] neighbors = new Coordinate[dx.length];
 

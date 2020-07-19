@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.NoSuchElementException;
 
 public class Knapsack {
-    private LinkedHashMap<CollectableItem, Integer> items;
+    private final LinkedHashMap<CollectableItem, Integer> items;
 
     Knapsack() {
         items = new LinkedHashMap<>();

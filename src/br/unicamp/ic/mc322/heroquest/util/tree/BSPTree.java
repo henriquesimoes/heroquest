@@ -10,9 +10,9 @@ public class BSPTree {
     private final int GRID_MIN_WIDTH = 13;
     private final int GRID_MIN_HEIGHT = 11;
 
-    private Node<GridContainer> root;
-    private GridContainer currentContainer;
-    private Coordinate currentContainerCoords;
+    private final Node<GridContainer> root;
+    private final GridContainer currentContainer;
+    private final Coordinate currentContainerCoords;
     private GridContainer leftChildContainer;
     private GridContainer rightChildContainer;
 
@@ -90,7 +90,7 @@ public class BSPTree {
     }
 
     private int getMaxSplitValue(boolean splitHorizontal) {
-        return (splitHorizontal ? (currentContainer .getDimensionY() - GRID_MIN_HEIGHT)
+        return (splitHorizontal ? (currentContainer.getDimensionY() - GRID_MIN_HEIGHT)
                 : (currentContainer.getDimensionX() - GRID_MIN_WIDTH));
     }
 

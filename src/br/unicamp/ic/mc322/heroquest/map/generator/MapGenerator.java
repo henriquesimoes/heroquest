@@ -86,13 +86,9 @@ public class MapGenerator {
     }
 
     private boolean isOnBorder(Coordinate coordinates, Dimension dimensions, int i, int j) {
-        if (i == coordinates.getY() || j == coordinates.getX()
+        return i == coordinates.getY() || j == coordinates.getX()
                 || i == (coordinates.getY() + dimensions.getHeight() - 1)
-                || j == (coordinates.getX() + dimensions.getWidth() - 1)) {
-            return  true;
-        }
-
-        return false;
+                || j == (coordinates.getX() + dimensions.getWidth() - 1);
     }
 
     private void createStructure(MapBuilder builder) {

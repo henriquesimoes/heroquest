@@ -11,7 +11,7 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
 import java.util.ArrayList;
 
 public class WalkerPlayer extends WalkerManager {
-    private PlayerInterface ioInterface;
+    private final PlayerInterface ioInterface;
 
     public WalkerPlayer(Map map) {
         super(map);

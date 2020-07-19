@@ -5,9 +5,9 @@ import br.unicamp.ic.mc322.heroquest.util.tree.BSPTree;
 import java.util.ArrayList;
 
 public class BSPGrid {
-    private int gridHeight;
-    private int gridWidth;
-    private int bspIterations;
+    private final int gridHeight;
+    private final int gridWidth;
+    private final int bspIterations;
 
     public BSPGrid(int gridWidth, int gridHeight, int bspIterations){
         this.gridWidth = gridWidth;

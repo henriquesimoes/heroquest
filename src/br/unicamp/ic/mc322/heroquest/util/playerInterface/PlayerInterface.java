@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlayerInterface {
-    private Viewer viewer;
-    private Scanner scanner;
+    private final Viewer viewer;
+    private final Scanner scanner;
 
     public PlayerInterface(Map map) {
         scanner = new Scanner(System.in);
@@ -31,7 +31,7 @@ public class PlayerInterface {
 
             if (answer >= 0 && answer <= optionList.size())
                 invalidAnswer = false;
-            System.out.println("");
+            System.out.println();
         }
 
         return answer;

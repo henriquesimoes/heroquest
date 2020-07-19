@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import java.util.Objects;
 
 public abstract class MagicSkill extends Skill {
-    private String spellDescription;
+    private final String spellDescription;
 
     public MagicSkill(String SpellName, String spellDescription) {
         super(SpellName);

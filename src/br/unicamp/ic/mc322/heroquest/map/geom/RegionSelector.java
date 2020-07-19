@@ -9,8 +9,8 @@ import java.util.Collection;
 
 public class RegionSelector {
     private Coordinate reference;
-    private Map map;
-    private WalkValidator validator;
+    private final Map map;
+    private final WalkValidator validator;
 
     public RegionSelector(Map map, WalkValidator validator) {
         this.map = map;

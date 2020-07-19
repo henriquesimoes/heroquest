@@ -12,7 +12,7 @@ public abstract class Weapon extends DurableItem {
     private int attackDistance;
     private boolean attackDiagonally;
     private boolean twoHanded;
-    private ArrayList<PhysicalSkill> itemSkills = new ArrayList<>();
+    private final ArrayList<PhysicalSkill> itemSkills = new ArrayList<>();
 
     public Weapon(String name, String description, int weaponDurability, int goldCoinsValue) {
         super(name, description, weaponDurability, goldCoinsValue);

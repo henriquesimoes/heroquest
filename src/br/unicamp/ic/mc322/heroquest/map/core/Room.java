@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Room {
-    private Collection<MapUnit> units;
+    private final Collection<MapUnit> units;
 
     public Room() {
         units = new ArrayList<>();

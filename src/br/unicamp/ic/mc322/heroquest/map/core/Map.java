@@ -12,9 +12,9 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import java.util.*;
 
 public class Map implements WalkValidator, GameListener {
-    private Room[] rooms;
-    private Door[] doors;
-    private Dimension dimension;
+    private final Room[] rooms;
+    private final Door[] doors;
+    private final Dimension dimension;
 
     protected Map(Room[] rooms, Door[] doors, Dimension dimension) {
         this.rooms = rooms;

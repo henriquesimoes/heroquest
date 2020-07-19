@@ -7,7 +7,7 @@ import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
 
 public class MapBuilder {
-    private PlacementStrategy placementStrategy;
+    private final PlacementStrategy placementStrategy;
     private MapCreator creator;
     private Map result;
 

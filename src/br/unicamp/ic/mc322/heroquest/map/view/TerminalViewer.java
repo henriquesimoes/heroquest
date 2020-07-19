@@ -16,8 +16,8 @@ import br.unicamp.ic.mc322.heroquest.walker.monster.Goblin;
 import br.unicamp.ic.mc322.heroquest.walker.monster.SkeletonWizard;
 
 public class TerminalViewer implements Viewer {
-    private Map map;
-    private char output[][];
+    private final Map map;
+    private final char[][] output;
 
     public TerminalViewer(Map map) {
         this.map = map;

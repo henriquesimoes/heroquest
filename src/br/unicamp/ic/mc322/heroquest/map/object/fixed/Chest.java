@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class Chest extends FixedObject {
-    private boolean opened;
+    private final boolean opened;
 
     // TODO: Introduce storage item management
 

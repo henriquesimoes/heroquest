@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class MapUnit {
-    private StructuralObject structure;
+    private final StructuralObject structure;
     private Walker walker;
     private FixedObject fixedObject;
 

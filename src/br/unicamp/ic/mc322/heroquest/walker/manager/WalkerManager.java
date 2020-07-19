@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public abstract class WalkerManager {
     protected Walker walker;
     protected Map map;
-    private RegionSelector regionSelector;
+    private final RegionSelector regionSelector;
 
     public WalkerManager(Map map) {
         this.map = map;

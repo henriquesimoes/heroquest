@@ -13,8 +13,8 @@ import br.unicamp.ic.mc322.heroquest.walker.manager.ai.movement.MovementBehavior
 import java.util.ArrayList;
 
 public class WalkerAI extends WalkerManager {
-    private MovementBehavior movementBehavior;
-    private AttackBehavior attackBehavior;
+    private final MovementBehavior movementBehavior;
+    private final AttackBehavior attackBehavior;
 
     public WalkerAI(Map map, MovementBehavior movementBehavior, AttackBehavior attackBehavior) {
         super(map);
