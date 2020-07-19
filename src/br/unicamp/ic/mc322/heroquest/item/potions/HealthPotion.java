@@ -14,6 +14,7 @@ public class HealthPotion extends HeapItem {
     public void useItem(Walker proprietary) {
         int pointsToRestore = proprietary.rollRedDice();
         proprietary.restoreBodyPoints(pointsToRestore);
+        proprietary.getManager().showMessage(String.format("The health potion healed %d points of life", pointsToRestore));
         proprietary.destroyItem(this);
     }
 }

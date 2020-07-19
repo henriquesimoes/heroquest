@@ -13,6 +13,7 @@ public abstract class AirSpellCard extends SpellCard {
         if (proprietary.isAbleToLearnAirSpell()) {
             proprietary.addSkill(spell);
             proprietary.destroyItem(this);
-        }
+        } else
+            proprietary.getManager().showMessage("You are not able to learn this spell");
     }
 }
