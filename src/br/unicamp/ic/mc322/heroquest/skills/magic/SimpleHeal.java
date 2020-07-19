@@ -17,6 +17,8 @@ public class SimpleHeal extends MagicSkill {
         Walker walkerTarget = (Walker) targetObject;
         if (summoner.attemptMagicalMovement())
             walkerTarget.restoreBodyPoints(summoner.rollRedDice());
+
+        summoner.removeSkill(this);
     }
 
     @Override

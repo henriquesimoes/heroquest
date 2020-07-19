@@ -36,6 +36,8 @@ public class FireBall extends MagicSkill {
             attacking = true;
             accept(this, region);
         }
+
+        summoner.removeSkill(this);
     }
 
     @Override

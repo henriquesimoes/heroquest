@@ -155,7 +155,7 @@ public abstract class Walker implements MapObject {
             skills.replace(skill, amount + 1);
     }
 
-    private void removeSkill(Skill skill) {
+    public void removeSkill(Skill skill) {
         Integer amount = skills.get(skill);
 
         if (amount == -1)
