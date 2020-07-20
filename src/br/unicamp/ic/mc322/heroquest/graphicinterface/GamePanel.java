@@ -1,7 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenState;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.startmenu.GameMenu;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.MapSelection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +13,6 @@ public class GamePanel extends JPanel implements Runnable {
     private final BufferedImage image;
     private final Graphics2D graphics;
 
-    private final ScreenState screenState;
-    private final GameMenu gameMenu;
-
     public GamePanel() {
         Dimension preferredSize = new Dimension(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
 
@@ -27,8 +23,6 @@ public class GamePanel extends JPanel implements Runnable {
         image = new BufferedImage(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         graphics = image.createGraphics();
 
-        this.screenState = ScreenState.START_MENU;
-        this.gameMenu = new GameMenu(graphics);
     }
 
     @Override
@@ -83,7 +77,8 @@ public class GamePanel extends JPanel implements Runnable {
             throw new NullPointerException();
         }
 
-        gameMenu.render();
+//        new StartMenu(graphics).render();
+        new MapSelection(graphics).render();
 
         render();
     }

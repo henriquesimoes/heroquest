@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.startmenu;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.gametitle;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 

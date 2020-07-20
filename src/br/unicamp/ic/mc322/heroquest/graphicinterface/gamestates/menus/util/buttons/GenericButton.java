@@ -1,0 +1,78 @@
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons;
+
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
+public class GenericButton {
+    private int selectionBoxWidth;
+    private int selectionBoxHeight;
+    private Color boxColor;
+    private BasicStroke boxStroke;
+    private Coordinate boxPosition;
+    private Coordinate innerTextPosition;
+    private String innerText;
+    private Font font;
+    private Graphics2D graphics;
+
+    public GenericButton(String text, Graphics2D graphics) {
+        this.graphics = graphics;
+        this.selectionBoxWidth = 100;
+        this.selectionBoxHeight = 50;
+        this.boxColor = Color.WHITE;
+        this.boxStroke = new BasicStroke(3);
+        this.font = new Font("Helvetica", Font.BOLD, 16);
+    }
+
+    public void render() {
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        renderText();
+        renderSelectionBox();
+    }
+
+    private void renderText() {
+        graphics.setFont(font);
+        graphics.setColor(Color.WHITE);
+        graphics.drawString(innerText, innerTextPosition.getX(), innerTextPosition.getY());
+    }
+
+    public void setBoxColor(Color color) {
+        this.boxColor = color;
+    }
+
+    public void setBoxDimensions(Dimension dimensions) {
+        selectionBoxWidth = dimensions.getWidth();
+        selectionBoxHeight = dimensions.getHeight();
+    }
+
+    public void setFontSize(int fontSize) {
+        font = new Font("Helvetica", Font.BOLD, fontSize);
+    }
+
+    /**Positioned with horizontal alignment in center*/
+    public void setPosition(int y) {
+        int x = (GameWindow.WINDOW_WIDTH - selectionBoxWidth) / 2;
+        boxPosition = new Coordinate(x, y);
+
+        alignInnerTextOnButtonCenter();
+    }
+
+    private void alignInnerTextOnButtonCenter() {
+        Rectangle2D innerTextBounds = font.getStringBounds(innerText, graphics.getFontRenderContext());
+        int x = boxPosition.getX() + (selectionBoxWidth - (int) innerTextBounds.getWidth()) / 2;
+        int y = boxPosition.getY() + (selectionBoxHeight - (int) innerTextBounds.getHeight());
+
+        innerTextPosition = new Coordinate(x, y);
+    }
+
+    private void renderSelectionBox() {
+        graphics.setColor(boxColor);
+
+        graphics.setStroke(boxStroke);
+
+        graphics.drawRect(boxPosition.getX(), boxPosition.getY(), selectionBoxWidth, selectionBoxHeight);
+    }
+}
