@@ -1,6 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.MapSelection;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.StandardMapSelection;
+import br.unicamp.ic.mc322.heroquest.map.MapManager;
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +15,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     private final BufferedImage image;
     private final Graphics2D graphics;
+    //TODO: temporariamente static
+    public static Map map;
+    public static MapManager manager;
 
-    public GamePanel() {
+    public GamePanel(Map map) {
+        GamePanel.map = map;
+        GamePanel.manager = new MapManager();
         Dimension preferredSize = new Dimension(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
 
         setPreferredSize(preferredSize);
@@ -78,8 +86,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
 //        new StartMenu(graphics).render();
-        new MapSelection(graphics).render();
-
+//        new MapSelection(graphics).render();
+        new StandardMapSelection(graphics);
         render();
     }
 

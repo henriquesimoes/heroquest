@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.terminal;
 
 import br.unicamp.ic.mc322.heroquest.GameEngine;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.loop.GameLoop;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
@@ -20,6 +21,7 @@ public class TerminalEngine implements GameEngine {
 
     @Override
     public void run() {
+        new GameWindow(map);
         Command[] commands = {
                 new GenerateMapCommand(this, io),
                 new ChooseMapCommand(this, io),
