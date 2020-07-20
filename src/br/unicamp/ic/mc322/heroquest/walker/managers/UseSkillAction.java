@@ -20,7 +20,7 @@ public abstract class UseSkillAction implements Action {
     @Override
     public boolean execute() {
         Walker walker = walkerManager.getWalker();
-        Skill[] skills = walker.getSkills();
+        Skill[] skills = walker.getSkillsList();
         Skill chosenSkill = chooseSkill(skills);
 
         if (chosenSkill == null)

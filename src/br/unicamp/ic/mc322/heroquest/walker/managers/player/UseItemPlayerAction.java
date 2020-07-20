@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.Item;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
 
@@ -15,11 +15,11 @@ public class UseItemPlayerAction extends UseItemAction {
     }
 
     @Override
-    protected CollectableItem chooseItem(CollectableItem[] items) {
+    protected Item chooseItem(Item[] items) {
         String[] nameList = new String[items.length];
 
         for (int i = 0; i < items.length; i++)
-            nameList[i] = items[i].getItemName();
+            nameList[i] = items[i].getName();
 
         walkerPlayer.updateScreen();
         ioInterface.showMessage("Choose an item to use:");

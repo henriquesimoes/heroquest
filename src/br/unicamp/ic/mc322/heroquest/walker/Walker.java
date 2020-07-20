@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.Armor;
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.Item;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Fists;
 import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
@@ -29,10 +29,9 @@ public abstract class Walker implements MapObject {
     protected RedDice redDice;
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
-    protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell, ableToLearnWaterSpell;
+    protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell;
     private Coordinate position;
     private int balance;
-
 
     public Walker(WalkerManager manager, String name) {
         this.name = name;
@@ -122,8 +121,8 @@ public abstract class Walker implements MapObject {
         balance += amount;
     }
 
-    public void collectItem(CollectableItem item) {
-        walkerManager.showMessage("Collected the item: " + item.getItemName());
+    public void collectItem(Item item) {
+        walkerManager.showMessage("Collected the item: " + item.getName());
         knapsack.put(item);
     }
 
@@ -132,7 +131,7 @@ public abstract class Walker implements MapObject {
      *
      * @param item item to be removed
      */
-    public void destroyItem(CollectableItem item) {
+    public void destroyItem(Item item) {
         if (leftWeapon != null && leftWeapon.equals(item))
             unequipWeapon((Weapon) item);
 
@@ -226,17 +225,17 @@ public abstract class Walker implements MapObject {
     protected String getStatus() {
         String status = String.format("Name: %s\n", name);
         status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
-        status += String.format("Armor: %s\n", (armor == null ? "none" : armor.getItemName()));
+        status += String.format("Armor: %s\n", (armor == null ? "none" : armor.getName()));
         if (leftWeapon != null && leftWeapon.isTwoHanded())
-            status += String.format("Weapon: %s\n", leftWeapon.getItemName());
+            status += String.format("Weapon: %s\n", leftWeapon.getName());
         else {
-            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.getItemName()));
-            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.getItemName()));
+            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.getName()));
+            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.getName()));
         }
         return status;
     }
 
-    public Skill[] getSkills() {
+    public Skill[] getSkillsList() {
         return skills.keySet().toArray(new Skill[0]);
     }
 
@@ -252,7 +251,7 @@ public abstract class Walker implements MapObject {
         return team;
     }
 
-    public CollectableItem[] getItems() {
+    public Item[] getItems() {
         return knapsack.getItemsList();
     }
 
@@ -282,10 +281,6 @@ public abstract class Walker implements MapObject {
 
     public boolean isAbleToLearnEarthSpell() {
         return ableToLearnEarthSpell;
-    }
-
-    public boolean isAbleToLearnWaterSpell() {
-        return ableToLearnWaterSpell;
     }
 
     @Override
@@ -323,10 +318,22 @@ public abstract class Walker implements MapObject {
     }
 
     public String getAttributesList() {
-        return null;
+        String status = getStatus();
+        status += "Attack dices: " + attackDice + "\n";
+        status += "Defence dices: " + defenseDice + (bonusDefenseDice != 0 ? (" + " + bonusDefenseDice) : "") + "\n";
+        status += "Mind points: " + mindPoints + "\n";
+        status += "Can learn fire spells: " + (ableToLearnFireSpell ? "Yes" : "No") + "\n";
+        status += "Can learn air spells: " + (ableToLearnAirSpell ? "Yes" : "No") + "\n";
+        status += "Can learn earth spells: " + (ableToLearnEarthSpell ? "Yes" : "No") + "\n";
+        status += "Balance: " + balance + " gold coin(s)" + "\n";
+        return status;
     }
 
-    public java.util.Map<CollectableItem, Integer> getInventory() {
+    public java.util.Map<Item, Integer> getInventory() {
         return knapsack.getItems();
+    }
+
+    public java.util.Map<Skill, Integer> getSkills() {
+        return skills;
     }
 }

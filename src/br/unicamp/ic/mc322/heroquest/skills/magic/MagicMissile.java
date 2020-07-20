@@ -11,7 +11,7 @@ public class MagicMissile extends MagicSkill {
     public MagicMissile() {
         super("Magic Missile",
                 "Three magic arrows are thrown against the target," +
-                        " with " + TOTAL_DAMAGE / 2 + " damage each");
+                        " with " + TOTAL_DAMAGE / 3 + " damage each");
     }
 
     @Override

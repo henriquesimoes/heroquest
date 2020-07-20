@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item;
 
-public abstract class HeapItem extends CollectableItem {
+public abstract class HeapItem extends Item {
     protected HeapItem(String itemName, String itemDescription, int goldCoinsValue) {
         super(itemName, itemDescription, goldCoinsValue);
     }
@@ -9,7 +9,7 @@ public abstract class HeapItem extends CollectableItem {
     public boolean equals(Object object) {
         if (object instanceof HeapItem) {
             HeapItem heapItem = (HeapItem) object;
-            return heapItem.getItemName().equals(this.getItemName());
+            return heapItem.getName().equals(this.getName());
         }
 
         return false;

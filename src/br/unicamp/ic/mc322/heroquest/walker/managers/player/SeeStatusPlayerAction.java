@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.Item;
+import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
@@ -10,7 +11,7 @@ public class SeeStatusPlayerAction implements Action {
     private Walker walker;
     private IOInterface ioInterface;
 
-    SeeStatusPlayerAction(WalkerPlayer walkerPlayer){
+    SeeStatusPlayerAction(WalkerPlayer walkerPlayer) {
         this.walkerPlayer = walkerPlayer;
         this.walker = walkerPlayer.getWalker();
         this.ioInterface = walkerPlayer.getIOInterface();
@@ -23,13 +24,13 @@ public class SeeStatusPlayerAction implements Action {
 
     @Override
     public boolean execute() {
-        while(true){
-            String [] options = { "See attributes",
+        while (true) {
+            String[] options = {"See attributes",
                     "See inventory",
                     "See skills"
             };
 
-            switch (ioInterface.showOptionsAndGetAnswer(options, true)){
+            switch (ioInterface.showOptionsAndGetAnswer(options, true)) {
                 case 0:
                     return false;
                 case 1:
@@ -45,30 +46,38 @@ public class SeeStatusPlayerAction implements Action {
         }
     }
 
-    private void seeAttributes(){
+    private void seeAttributes() {
         ioInterface.showMessage(walker.getAttributesList());
     }
 
     private void seeInventory() {
-        java.util.Map<CollectableItem, Integer> items = walker.getInventory();
-        CollectableItem[] itemsList = items.keySet().toArray(new CollectableItem[0]);
+        java.util.Map<Item, Integer> items = walker.getInventory();
+        Describable[] describable = items.keySet().toArray(new Describable[0]);
+        Integer[] amounts = items.values().toArray(new Integer[0]);
+        seeDescription("Select a item to see your description", describable, amounts);
+    }
 
-        String [] options = new String[items.size()];
+    private void seeSkills() {
+        java.util.Map<Skill, Integer> skills = walker.getSkills();
+        Describable[] describable = skills.keySet().toArray(new Describable[0]);
+        Integer[] amounts = skills.values().toArray(new Integer[0]);
+        seeDescription("Select a skill to see your description", describable, amounts);
+    }
+
+
+    private void seeDescription(String message, Describable[] describable, Integer[] amounts) {
+        String[] options = new String[describable.length];
         for (int i = 0; i < options.length; i++)
-            options[i] = itemsList[i].getItemName() + " - amount : " + items.get(itemsList[i]);
+            options[i] = describable[i].getName() + " - amount: " + amounts[i];
 
-        while(true){
-            ioInterface.showMessage("Select a item to see your description");
+        while (true) {
+            ioInterface.showMessage(message);
             int choose = ioInterface.showOptionsAndGetAnswer(options, true) - 1;
 
             if (choose == -1)
                 return;
 
-            ioInterface.showMessage(itemsList[choose].getItemDescription());
+            ioInterface.showMessage(describable[choose].getDescription() + "\n");
         }
     }
-
-    private void seeSkills() {
-    }
-
 }
