@@ -253,7 +253,7 @@ public abstract class Walker implements MapObject {
     }
 
     public CollectableItem[] getItems() {
-        return knapsack.getItems();
+        return knapsack.getItemsList();
     }
 
     protected boolean isAlive() {
@@ -320,5 +320,13 @@ public abstract class Walker implements MapObject {
 
     public void setPosition(Coordinate position) {
         this.position.copyValue(position);
+    }
+
+    public String getAttributesList() {
+        return null;
+    }
+
+    public java.util.Map<CollectableItem, Integer> getInventory() {
+        return knapsack.getItems();
     }
 }

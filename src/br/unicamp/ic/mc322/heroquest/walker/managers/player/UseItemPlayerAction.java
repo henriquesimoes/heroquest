@@ -6,10 +6,12 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
 
 public class UseItemPlayerAction extends UseItemAction {
     private WalkerPlayer walkerPlayer;
+    private IOInterface ioInterface;
 
     UseItemPlayerAction(WalkerPlayer walkerPlayer) {
         super(walkerPlayer);
         this.walkerPlayer = walkerPlayer;
+        this.ioInterface = walkerPlayer.getIOInterface();
     }
 
     @Override
@@ -19,7 +21,6 @@ public class UseItemPlayerAction extends UseItemAction {
         for (int i = 0; i < items.length; i++)
             nameList[i] = items[i].getItemName();
 
-        IOInterface ioInterface = walkerPlayer.getIOInterface();
         walkerPlayer.updateScreen();
         ioInterface.showMessage("Choose an item to use:");
         int choice = ioInterface.showOptionsAndGetAnswer(nameList, true) - 1;

@@ -29,7 +29,11 @@ public class Knapsack {
             items.put(item, currentAmount);
     }
 
-    public CollectableItem[] getItems() {
-        return this.items.keySet().toArray((new CollectableItem[0]));
+    CollectableItem[] getItemsList() {
+        return items.keySet().toArray((new CollectableItem[0]));
+    }
+
+    Map<CollectableItem, Integer> getItems(){
+        return items;
     }
 }
