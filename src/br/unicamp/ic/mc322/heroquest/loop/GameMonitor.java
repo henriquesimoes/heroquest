@@ -32,4 +32,9 @@ public class GameMonitor {
         for (GameListener listener : gameListeners)
             listener.notifyWalkerDamage(walker, damage);
     }
+
+    public void add(Walker walker) {
+        for (GameListener listener : gameListeners)
+            listener.add(walker);
+    }
 }

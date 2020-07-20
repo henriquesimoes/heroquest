@@ -7,7 +7,7 @@ public class Coordinate {
     private Point coordinate;
 
     public Coordinate() {
-        this.coordinate = new Point();
+        this.coordinate = null;
     }
 
     public Coordinate(int x, int y) {
@@ -69,7 +69,7 @@ public class Coordinate {
     }
 
     public void copyValue(Coordinate coordinate) {
-        this.coordinate.setLocation(coordinate.getX(), coordinate.getY());
+        this.coordinate = new Point(coordinate.getX(), coordinate.getY());
     }
 
     public Coordinate toRelative() {
@@ -86,14 +86,11 @@ public class Coordinate {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Coordinate) {
-            Coordinate coordinate = (Coordinate) obj;
-
-            return coordinate.getX() == this.getX() && coordinate.getY() == this.getY();
-        }
-
-        return false;
+    public boolean equals(Object o) {
+        if (this == o || (o == null && coordinate == null)) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinate that = (Coordinate) o;
+        return coordinate != null && coordinate.equals(that.coordinate);
     }
 
     @Override

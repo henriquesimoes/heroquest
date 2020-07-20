@@ -63,13 +63,18 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
     }
 
     @Override
-    public void visit(Walker walker) {
+    public void add(Walker walker) {
         WalkerManager manager = walker.getManager();
         Team team = walker.getTeam();
         HashSet<WalkerManager> managers = managersByTeam.get(team);
         HashSet<WalkerManager> managersAlive = managersAliveByTeam.get(team);
         managers.add(manager);
         managersAlive.add(manager);
+    }
+
+    @Override
+    public void visit(Walker walker) {
+        add(walker);
     }
 
     @Override

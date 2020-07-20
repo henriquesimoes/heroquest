@@ -22,14 +22,9 @@ public class Map implements GameListener {
         this.dimension = dimension;
     }
 
-    public void add(Walker walker, Coordinate coordinate) {
-        MapUnit unit = units.get(coordinate);
-        unit.add(walker);
-        walker.setMap(this);
-    }
-
     public void add(Walker walker) {
-        MapUnit unit = getRandomValidUnit(new WalkableValidator(this));
+        Coordinate coordinate = walker.getPosition();
+        MapUnit unit = coordinate.equals(null) ? getRandomValidUnit(new WalkableValidator(this)) : units.get(coordinate);
         unit.add(walker);
         walker.setMap(this);
     }
@@ -134,7 +129,7 @@ public class Map implements GameListener {
 
     private void remove(Walker walker) {
         MapUnit unit = units.get(walker.getPosition());
-        unit.removeWalker();
+        unit.remove(walker);
     }
 
     private MapUnit getRandomValidUnit(PositionValidator validator) {
