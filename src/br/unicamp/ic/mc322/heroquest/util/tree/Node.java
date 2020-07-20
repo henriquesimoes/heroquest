@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.util.tree;
 
-class Node<T>{
-    private final T data;
+public class Node<T> {
+    private T data;
     private Node<T> leftChild;
     private Node<T> rightChild;
 
@@ -15,20 +15,20 @@ class Node<T>{
         return leftChild;
     }
 
-    public Node<T> getRightChild() {
-        return rightChild;
-    }
-
-    public T getData() {
-        return data;
-    }
-
     public void setLeftChild(Node<T> leftChild) {
         this.leftChild = leftChild;
     }
 
+    public Node<T> getRightChild() {
+        return rightChild;
+    }
+
     public void setRightChild(Node<T> rightChild) {
         this.rightChild = rightChild;
+    }
+
+    public T getData() {
+        return data;
     }
 
     public boolean isLeaf() {

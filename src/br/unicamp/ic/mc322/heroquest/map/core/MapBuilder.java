@@ -1,54 +1,52 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Door;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Floor;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.Wall;
+import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
+import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 public class MapBuilder {
-    private final PlacementStrategy placementStrategy;
-    private MapCreator creator;
+    private Collection<StructuralObject> objects;
+    private java.util.Map<Coordinate, MapUnit> units;
+    private boolean isBuilt;
+    private Dimension dimension;
     private Map result;
 
-    private boolean isBuilt;
-
-    public MapBuilder(PlacementStrategy placementStrategy) {
-        this.placementStrategy = placementStrategy;
+    public MapBuilder() {
         reset();
     }
 
-    public void add(Door door) {
+    public void add(StructuralObject structuralObject) {
         if (isBuilt)
             throw new IllegalStateException("Structure already built...");
 
-        creator.add(door);
+        Coordinate position = structuralObject.getPosition();
+
+        objects.add(structuralObject);
+
+        if (!position.isInside(dimension))
+            // Update is done by creating a new reference, since the dimension must be immutable for other modules
+            dimension = dimension.fit(position);
     }
 
-    public void add(Wall wall) {
-        if (isBuilt)
-            throw new IllegalStateException("Structure already built...");
-
-        creator.add(wall);
-    }
-
-    public void add(Floor floor) {
-        if (isBuilt)
-            throw new IllegalStateException("Structure already built...");
-
-        creator.add(floor);
-    }
-
-    public void add(FixedObject object, Coordinate position) {
+    public void add(FixedObject object) {
         if (!isBuilt)
             throw new IllegalStateException("Structure not built yet...");
 
-        creator.add(placementStrategy, object, position);
+        MapUnit unit = units.get(object.getPosition());
+
+        unit.add(object);
     }
 
     public void reset() {
+        dimension = new Dimension(0, 0);
+        objects = new ArrayList<>();
+        units = new HashMap<>();
         isBuilt = false;
-        creator = new MapCreator();
         result = null;
     }
 
@@ -56,7 +54,8 @@ public class MapBuilder {
         if (isBuilt)
             throw new IllegalStateException("Structure already built...");
 
-        creator.create();
+        for (StructuralObject object : objects)
+            units.put(object.getPosition(), new MapUnit(object));
         isBuilt = true;
     }
 
@@ -64,10 +63,11 @@ public class MapBuilder {
         if (!isBuilt)
             throw new IllegalStateException("Structure must be built first...");
 
-        result = new Map(creator.getRooms(), creator.getDoors(), creator.getDimension());
+        result = new Map(units, dimension);
     }
 
     public Map getResult() {
         return result;
     }
+
 }

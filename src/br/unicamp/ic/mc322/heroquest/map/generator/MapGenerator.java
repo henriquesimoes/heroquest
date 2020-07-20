@@ -2,17 +2,17 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
-import br.unicamp.ic.mc322.heroquest.map.core.SinglePlacement;
-import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.BSPGrid;
-import br.unicamp.ic.mc322.heroquest.map.generator.gridgenerator.GridContainer;
-import br.unicamp.ic.mc322.heroquest.map.generator.pathgenerator.PathGenerator;
-import br.unicamp.ic.mc322.heroquest.map.generator.roomgenerator.RoomGenerator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
-import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapParser;
+import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Collections.shuffle;
 
 public class MapGenerator {
     private final int BSP_ITERATIONS = 4;
@@ -22,11 +22,13 @@ public class MapGenerator {
     private final int ROOM_MIN_WIDTH = 11;
     private final int ROOM_MIN_HEIGHT = 7;
 
+    private final int NUMBER_OF_CHESTS = 15;
+
     private char[][] grid;
     private ArrayList<GridContainer> gridSections;
     private ArrayList<RoomStructure> rooms;
 
-    public MapGenerator(){
+    public MapGenerator() {
         rooms = new ArrayList<>();
     }
 
@@ -35,9 +37,13 @@ public class MapGenerator {
         createRandomRooms();
         createMatrixGrid();
 
-        MapBuilder builder = new MapBuilder(new SinglePlacement());
+        MapParser parser = new MapParser();
+        MapBuilder builder = parser.parse(grid);
 
-        createStructure(builder);
+        Collection<Chest> chests = generateChests();
+
+        for (Chest chest : chests)
+            builder.add(chest);
 
         return builder;
     }
@@ -67,39 +73,74 @@ public class MapGenerator {
     private void fillGridWithWalls() {
         for (int i = 0; i < GRID_HEIGHT; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                grid[i][j] = '#';
+                grid[i][j] = MapParser.WALL;
             }
         }
     }
 
     private void fillGridWithRoomsAreas() {
         for (RoomStructure room : rooms) {
-            Coordinate roomCoord = room.getRoomTopLeftCoordinates();
-            Dimension roomDimensions = room.getRoomDimension();
+            Coordinate roomCoord = room.getTopLeftCoordinate();
+            Dimension roomDimensions = room.getDimension();
 
             for (int i = roomCoord.getY(); i < roomCoord.getY() + roomDimensions.getHeight(); i++) {
                 for (int j = roomCoord.getX(); j < roomCoord.getX() + roomDimensions.getWidth(); j++) {
-                    grid[i][j] = isOnBorder(roomCoord, roomDimensions, i, j) ? '#': ' ';
+                    grid[i][j] = isOnBorder(roomCoord, roomDimensions, i, j) ? MapParser.WALL : MapParser.FLOOR;
                 }
             }
         }
+    }
+
+    private Collection<Chest> generateChests() {
+        ArrayList<Coordinate> coordinates = new ArrayList<>();
+
+        for (int y = 0; y < GRID_HEIGHT; y++)
+            for (int x = 0; x < GRID_WIDTH; x++)
+                coordinates.add(new Coordinate(x, y));
+
+        shuffle(coordinates);
+
+        int remaining = NUMBER_OF_CHESTS;
+        Set<Coordinate> chosenCoordinates = new HashSet<>();
+
+        for (Coordinate coordinate : coordinates) {
+            int x = coordinate.getX();
+            int y = coordinate.getY();
+
+            if (grid[y][x] == MapParser.FLOOR) {
+                Coordinate[] neighbors = coordinate.getAdjacentNeighborCoordinates();
+                int numberOfNeighborsEmpty = 0;
+
+                for (Coordinate neighbor : neighbors)
+                    if (isEmpty(neighbor) && !chosenCoordinates.contains(neighbor))
+                        numberOfNeighborsEmpty++;
+
+                if (numberOfNeighborsEmpty == 5) {
+                    chosenCoordinates.add(coordinate);
+                    remaining--;
+                    if (remaining <= 0)
+                        break;
+                }
+
+            }
+        }
+
+        Collection<Chest> chests = new ArrayList<>();
+        for (Coordinate coordinate : chosenCoordinates)
+            chests.add(new Chest(coordinate));
+
+        return chests;
+    }
+
+    private boolean isEmpty(Coordinate coordinate) {
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+        return x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT && grid[y][x] == MapParser.FLOOR;
     }
 
     private boolean isOnBorder(Coordinate coordinates, Dimension dimensions, int i, int j) {
         return i == coordinates.getY() || j == coordinates.getX()
                 || i == (coordinates.getY() + dimensions.getHeight() - 1)
                 || j == (coordinates.getX() + dimensions.getWidth() - 1);
-    }
-
-    private void createStructure(MapBuilder builder) {
-        Dimension dimension = new Dimension(GRID_WIDTH, GRID_HEIGHT);
-
-        for (Coordinate coordinate : RegionSelector.getPlaneRegion(dimension)) {
-            Coordinate relative = coordinate.toRelative();
-
-            MapParser.parseAndAdd(grid[relative.getY()][relative.getX()], coordinate, builder);
-        }
-
-        builder.buildStructure();
     }
 }

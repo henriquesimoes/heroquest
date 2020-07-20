@@ -5,15 +5,15 @@ import java.util.Random;
 public class Randomizer {
     private static Random random;
 
-    private static void create(){
-        if(random == null)
+    private static void create() {
+        if (random == null)
             random = new Random();
     }
 
     /**
      * @return a random integer in range [min, max]
      */
-    public static int randInt(int min, int max){
+    public static int randInt(int min, int max) {
         create();
         return random.nextInt(max - min + 1) + min;
     }
@@ -21,7 +21,7 @@ public class Randomizer {
     /**
      * @return a random integer in range [0, max)
      */
-    public static int nextInt(int max){
+    public static int nextInt(int max) {
         create();
         return random.nextInt(max);
     }
@@ -29,7 +29,7 @@ public class Randomizer {
     /**
      * @return a random boolean
      */
-    public static boolean nextBoolean(){
+    public static boolean nextBoolean() {
         create();
         return random.nextBoolean();
     }

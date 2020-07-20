@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class GameMonitor {
     private static GameMonitor gameMonitor;
-    ArrayList<GameListener> gameListeners;
+    private ArrayList<GameListener> gameListeners;
 
-    private GameMonitor(){
+    private GameMonitor() {
         gameListeners = new ArrayList<>();
     }
 
-    public static GameMonitor getInstance(){
+    public static GameMonitor getInstance() {
         if (gameMonitor == null)
             gameMonitor = new GameMonitor();
 
@@ -24,7 +24,7 @@ public class GameMonitor {
             listener.notifyWalkerDeath(walker);
     }
 
-    public void addListener(GameListener listener){
+    public void addListener(GameListener listener) {
         gameListeners.add(listener);
     }
 

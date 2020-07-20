@@ -1,22 +1,21 @@
 package br.unicamp.ic.mc322.heroquest.skills;
 
+import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.core.MapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
-import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
-import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 import java.util.ArrayList;
 
-public abstract class Skill implements MapObjectVisitor {
-    private WalkerManager walkerManager;
+public abstract class Skill implements AbstractMapObjectVisitor {
     protected String skillName;
-    protected RegionSelector userRegionSelector;
     protected Walker skillUser;
     protected ArrayList<MapObject> targets;
+    private WalkerManager walkerManager;
 
     public Skill(String skillName) {
         this.skillName = skillName;
@@ -25,7 +24,6 @@ public abstract class Skill implements MapObjectVisitor {
 
     public void setWalkerManager(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;
-        this.userRegionSelector = walkerManager.getRegionSelector();
         this.skillUser = walkerManager.getWalker();
     }
 
@@ -37,22 +35,29 @@ public abstract class Skill implements MapObjectVisitor {
 
     public abstract void updateTargets();
 
-    public ArrayList<MapObject> getTargets() {
+    public MapObject[] getTargets() {
         targets.clear();
         updateTargets();
-        return targets;
+        return targets.toArray(new MapObject[0]);
     }
 
-    protected void accept(MapObjectVisitor visitor, Region region) {
+    protected void accept(AbstractMapObjectVisitor visitor, Region region) {
         walkerManager.accept(visitor, region);
     }
 
-    @Override
-    public void visit(StructuralObject structuralObject) {}
+    protected RegionSelector getUserRegionSelector() {
+        return walkerManager.getRegionSelector();
+    }
 
     @Override
-    public void visit(FixedObject fixedObject) {}
+    public void visit(StructuralObject structuralObject) {
+    }
 
     @Override
-    public void visit(Walker walker) {}
+    public void visit(FixedObject fixedObject) {
+    }
+
+    @Override
+    public void visit(Walker walker) {
+    }
 }

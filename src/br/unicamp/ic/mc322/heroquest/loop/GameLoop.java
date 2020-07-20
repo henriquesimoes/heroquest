@@ -1,29 +1,29 @@
 package br.unicamp.ic.mc322.heroquest.loop;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
+import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.walker.Team;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
-import br.unicamp.ic.mc322.heroquest.walker.manager.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 
-public class GameLoop implements GameListener {
-    HashSet<WalkerManager> heroes, monsters, heroesAlive, monstersAlive;
-    boolean running;
-    Map map;
+public class GameLoop implements GameListener, AbstractMapObjectVisitor {
+    private LinkedHashMap<Team, HashSet<WalkerManager>> managersByTeam, managersAliveByTeam;
 
-    public GameLoop(Map map, ArrayList<WalkerManager> heroes, ArrayList<WalkerManager> monsters) {
-        this.map = map;
-        this.heroes = new HashSet<>();
-        this.heroesAlive = new HashSet<>();
-        this.monsters = new HashSet<>();
-        this.monstersAlive = new HashSet<>();
+    public GameLoop(Map map) {
+        this.managersByTeam = new LinkedHashMap<>();
+        this.managersAliveByTeam = new LinkedHashMap<>();
 
-        this.heroes.addAll(heroes);
-        this.heroesAlive.addAll(heroes);
-        this.monsters.addAll(monsters);
-        this.monstersAlive.addAll(monsters);
+        for (Team team : Team.values()) {
+            managersByTeam.put(team, new HashSet<>());
+            managersAliveByTeam.put(team, new HashSet<>());
+        }
+
+        map.accept(this);
 
         GameMonitor gameMonitor = GameMonitor.getInstance();
         gameMonitor.addListener(this);
@@ -31,68 +31,89 @@ public class GameLoop implements GameListener {
     }
 
     public void run() {
-        new GameWindow(map);
-
-        running = true;
+        boolean running = true;
         while (running) {
             playTurn();
             if (isEndGame())
                 running = false;
         }
-        notifyEndGameToHeroes();
-    }
-
-    private void notifyEndGameToHeroes() {
-        if (heroesAlive.size() == 0 && monstersAlive.size() == 0) {
-            for (WalkerManager manager : heroes)
-                manager.showMessage("Game Draw");
-        } else if (heroesAlive.size() == 0) {
-            for (WalkerManager manager : heroes)
-                manager.showMessage("Your Team Lost");
-        } else {
-            for (WalkerManager manager : heroes)
-                manager.showMessage("Your Team Wins");
-        }
-    }
-
-    private boolean isEndGame() {
-        return heroesAlive.size() == 0 || monstersAlive.size() == 0;
-    }
-
-    private void playTurn() {
-        HashSet<WalkerManager> cloneHeroesAlive = (HashSet<WalkerManager>) heroesAlive.clone();
-        HashSet<WalkerManager> cloneMonstersAlive = (HashSet<WalkerManager>) monstersAlive.clone();
-
-        for (WalkerManager manager : cloneHeroesAlive)
-            if (manager.isAlive())
-                manager.playTurn();
-
-        for (WalkerManager manager : cloneMonstersAlive)
-            if (manager.isAlive())
-                manager.playTurn();
+        notifyEndGame();
     }
 
     @Override
     public void notifyWalkerDeath(Walker deadWalker) {
         WalkerManager deadWalkerManager = deadWalker.getManager();
-        heroesAlive.remove(deadWalkerManager);
-        monstersAlive.remove(deadWalkerManager);
-
+        HashSet<WalkerManager> managersAlive = managersAliveByTeam.get(deadWalker.getTeam());
+        managersAlive.remove(deadWalkerManager);
         String message = String.format("%s is dead", deadWalkerManager.getWalkerName());
-        for (WalkerManager manager : heroes)
-            manager.showMessage(message);
+        notifyAllWalkers(message);
     }
 
     @Override
     public void notifyWalkerDamage(Walker targetWalker, int damage) {
         WalkerManager targetWalkerManager = targetWalker.getManager();
         String message;
-        if(damage == 0)
-            message = String.format("The %s defended with success", targetWalkerManager.getWalkerName());
-        else
-            message = String.format("The %s suffered %d of damage", targetWalkerManager.getWalkerName(), damage);
 
-        for (WalkerManager manager : heroes)
-            manager.showMessage(message);
+        if (damage == 0)
+            message = String.format("%s defended with success", targetWalkerManager.getWalkerName());
+        else
+            message = String.format("%s suffered %d of damage", targetWalkerManager.getWalkerName(), damage);
+
+        notifyAllWalkers(message);
+    }
+
+    @Override
+    public void visit(Walker walker) {
+        WalkerManager manager = walker.getManager();
+        Team team = walker.getTeam();
+        HashSet<WalkerManager> managers = managersByTeam.get(team);
+        HashSet<WalkerManager> managersAlive = managersAliveByTeam.get(team);
+        managers.add(manager);
+        managersAlive.add(manager);
+    }
+
+    @Override
+    public void visit(StructuralObject structuralObject) {
+    }
+
+    @Override
+    public void visit(FixedObject fixedObject) {
+    }
+
+    private void playTurn() {
+        for (HashSet<WalkerManager> managers : managersAliveByTeam.values()) {
+            HashSet<WalkerManager> managersClone = (HashSet<WalkerManager>) managers.clone();
+
+            for (WalkerManager manager : managersClone) {
+                if (manager.isAlive())
+                    manager.playTurn();
+            }
+        }
+    }
+
+    private void notifyAllWalkers(String message) {
+        for (HashSet<WalkerManager> managers : managersByTeam.values())
+            for (WalkerManager manager : managers)
+                manager.showMessage(message);
+    }
+
+    private void notifyEndGame() {
+        for (HashSet<WalkerManager> managers : managersAliveByTeam.values())
+            for (WalkerManager manager : managers) {
+                if (managers.size() > 0)
+                    manager.showMessage("Your Team Wins");
+                else
+                    manager.showMessage("Your Team Lost");
+            }
+    }
+
+    private boolean isEndGame() {
+        int teamsWithWalkersAlive = 0;
+
+        for (HashSet<WalkerManager> managers : managersAliveByTeam.values())
+            if (managers.size() > 0)
+                teamsWithWalkersAlive++;
+
+        return teamsWithWalkersAlive <= 1;
     }
 }

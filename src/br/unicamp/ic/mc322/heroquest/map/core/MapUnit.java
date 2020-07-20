@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.object.FixedObject;
-import br.unicamp.ic.mc322.heroquest.map.object.structural.StructuralObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
+import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class MapUnit {
@@ -10,72 +10,61 @@ public class MapUnit {
     private Walker walker;
     private FixedObject fixedObject;
 
-    public MapUnit(StructuralObject object) {
+    MapUnit(StructuralObject object) {
         this.structure = object;
     }
 
     public void add(Walker walker) {
         if (structure.isAllowedToWalkOver() && (fixedObject == null || fixedObject.isAllowedToWalkOver())) {
             this.walker = walker;
-            this.walker.setPosition(structure.getPosition());
-        }
-        else
+            this.walker.setPosition(getCoordinate());
+            if (fixedObject != null)
+                fixedObject.interact(walker);
+        } else
             throw new IllegalStateException("Not walkable unit...");
     }
 
     public void add(FixedObject object) {
-        if (fixedObject == null)
+        if (fixedObject == null) {
             fixedObject = object;
-        else
+            fixedObject.setPosition(getCoordinate());
+        } else
             throw new OccupiedUnitException();
     }
 
-    public void moveWalker(MapUnit destination) {
+    void accept(ConcreteMapObjectVisitor visitor) {
+        getPreferential().accept(visitor);
+    }
+
+    void accept(AbstractMapObjectVisitor visitor) {
+        getPreferential().accept(visitor);
+    }
+
+    Coordinate getCoordinate() {
+        return structure.getPosition();
+    }
+
+    void moveWalker(MapUnit destination) {
         if (walker != null && destination.isFree()) {
             destination.add(walker);
             removeWalker();
         }
     }
 
-    protected void removeWalker() {
+    void removeWalker() {
         walker = null;
     }
 
-    public boolean isFree() {
+    private boolean isFree() {
         return walker == null;
     }
 
-    public Coordinate getCoordinate() {
-        return structure.getPosition();
-    }
-
-    public StructuralObject getStructure() {
+    private MapObject getPreferential() {
+        if (walker != null)
+            return walker;
+        if (fixedObject != null)
+            return fixedObject;
         return structure;
     }
 
-    public boolean at(Coordinate coordinate) {
-        return this.structure.at(coordinate);
-    }
-
-    public boolean accept(PlacementStrategy strategy, MapObject object) {
-        return structure.accept(strategy, object);
-    }
-
-    public void accept(MapObjectVisitor visitor) {
-        if (walker != null)
-            walker.accept(visitor);
-        else if (fixedObject != null)
-            fixedObject.accept(visitor);
-        else
-            structure.accept(visitor);
-    }
-
-    public void accept(ConcreteMapObjectVisitor visitor) {
-        if (walker != null)
-            walker.accept(visitor);
-        else if (fixedObject != null)
-            fixedObject.accept(visitor);
-        else
-            structure.accept(visitor);
-    }
 }

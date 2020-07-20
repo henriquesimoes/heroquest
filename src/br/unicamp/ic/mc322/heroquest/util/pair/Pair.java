@@ -1,23 +1,19 @@
 package br.unicamp.ic.mc322.heroquest.util.pair;
 
 public class Pair<T, U> {
-    private final T key;
-    private U value;
+    private T first;
+    private U second;
 
-    public Pair(T key, U value) {
-        this.key = key;
-        this.value = value;
+    public Pair(T first, U second) {
+        this.first = first;
+        this.second = second;
     }
 
-    public T getKey() {
-        return key;
+    public T getFirst() {
+        return first;
     }
 
-    public U getValue() {
-        return value;
-    }
-
-    public void setValue(U value) {
-        this.value = value;
+    public U getSecond() {
+        return second;
     }
 }

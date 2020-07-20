@@ -3,45 +3,22 @@ package br.unicamp.ic.mc322.heroquest.map.core;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public abstract class MapObject {
-    private final Coordinate position;
+public interface MapObject {
+    int getX();
 
-    public MapObject() {
-        position = new Coordinate(Integer.MIN_VALUE, Integer.MIN_VALUE);
-    }
+    int getY();
 
-    public MapObject(Coordinate coordinate) {
-        this();
-        setPosition(coordinate);
-    }
+    Coordinate getPosition();
 
-    public int getX() {
-        return position.getX();
-    }
+    void setPosition(Coordinate position);
 
-    public int getY() {
-        return position.getY();
-    }
+    void interact(Walker agent);
 
-    public boolean at(Coordinate coordinate) {
-        return position.equals(coordinate);
-    }
+    boolean isAllowedToWalkOver();
 
-    public Coordinate getPosition() {
-        return position;
-    }
+    String getRepresentationOnMenu();
 
-    protected void setPosition(Coordinate position) {
-        this.position.copyValue(position);
-    }
+    void accept(AbstractMapObjectVisitor visitor);
 
-    public abstract boolean isAllowedToWalkOver();
-    public abstract void interact(Walker agent);
-
-    public abstract String getRepresentationOnMenu();
-
-    public abstract boolean accept(PlacementStrategy strategy, MapObject object);
-    public abstract void accept(MapObjectVisitor visitor);
-    public abstract void accept(ConcreteMapObjectVisitor visitor);
-    public abstract void goTo(MapUnit unit);
+    void accept(ConcreteMapObjectVisitor visitor);
 }

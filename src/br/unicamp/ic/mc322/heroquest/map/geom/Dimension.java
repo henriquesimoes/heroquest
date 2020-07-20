@@ -20,6 +20,7 @@ public class Dimension {
     /**
      * Creates a new dimension which includes the given position, based
      * on this dimension.
+     *
      * @param position Position to be included
      * @return New dimension
      */

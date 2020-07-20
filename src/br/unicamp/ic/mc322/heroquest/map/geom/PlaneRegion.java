@@ -9,7 +9,7 @@ class PlaneRegion extends Region {
     }
 
     @Override
-    public void build() {
+    protected void build() {
         for (int x = reference.getX(); x < end.getX(); x++)
             for (int y = reference.getY(); y < end.getY(); y++)
                 coordinates.add(new Coordinate(x, y));
