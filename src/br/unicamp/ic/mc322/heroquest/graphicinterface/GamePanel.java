@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.MapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.StandardMapSelection;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.startmenu.StartMenu;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 
@@ -30,7 +31,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         image = new BufferedImage(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         graphics = image.createGraphics();
-
     }
 
     @Override
@@ -77,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void renderGraphics() {
         if (graphics != null) {
-            graphics.setColor(Color.BLACK);
+            graphics.setColor(new Color(41, 43, 46));
             graphics.fillRect(0, 0, GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
         }
         // Todo: como tratar melhor essa exceção?
@@ -86,8 +86,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
 //        new StartMenu(graphics).render();
-//        new MapSelection(graphics).render();
-        new StandardMapSelection(graphics);
+        new MapSelection(graphics).render();
+//        new StandardMapSelection(graphics).render();
         render();
     }
 
@@ -96,6 +96,5 @@ public class GamePanel extends JPanel implements Runnable {
         showInTheScreen.drawImage(image, 0, 0, null);
         showInTheScreen.dispose();
     }
-
 }
 

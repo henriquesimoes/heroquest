@@ -19,4 +19,6 @@ public abstract class MenuButton extends GenericButton{
         setPosition(y);
         super.render();
     }
+
+
 }

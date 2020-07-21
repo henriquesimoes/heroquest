@@ -20,6 +20,7 @@ public class GenericButton {
 
     public GenericButton(String text, Graphics2D graphics) {
         this.graphics = graphics;
+        this.innerText = text;
         this.selectionBoxWidth = 100;
         this.selectionBoxHeight = 50;
         this.boxColor = Color.WHITE;
@@ -63,7 +64,7 @@ public class GenericButton {
     private void alignInnerTextOnButtonCenter() {
         Rectangle2D innerTextBounds = font.getStringBounds(innerText, graphics.getFontRenderContext());
         int x = boxPosition.getX() + (selectionBoxWidth - (int) innerTextBounds.getWidth()) / 2;
-        int y = boxPosition.getY() + (selectionBoxHeight - (int) innerTextBounds.getHeight());
+        int y = boxPosition.getY() + selectionBoxHeight - (int) innerTextBounds.getHeight() + 5;
 
         innerTextPosition = new Coordinate(x, y);
     }
@@ -72,7 +73,7 @@ public class GenericButton {
         graphics.setColor(boxColor);
 
         graphics.setStroke(boxStroke);
-
-        graphics.drawRect(boxPosition.getX(), boxPosition.getY(), selectionBoxWidth, selectionBoxHeight);
+        Rectangle2D box = new Rectangle2D.Double(boxPosition.getX(), boxPosition.getY(), selectionBoxWidth, selectionBoxHeight);
+        graphics.draw(box);
     }
 }

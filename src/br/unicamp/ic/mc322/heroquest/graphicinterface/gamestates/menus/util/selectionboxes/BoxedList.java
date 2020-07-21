@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class BoxedList {
     private final int STANDARD_BOX_WIDTH = 400;
+    private int boxHeightBaseInQuantityOfItems = 0;
     private String[] dataCells;
     private Graphics2D graphics;
     private int fontSize;
@@ -32,6 +33,7 @@ public class BoxedList {
     public void render(int y) {
         setBoxPosition(y);
         renderListItems();
+        setBoxDimension();
         renderBox();
     }
 
@@ -41,10 +43,11 @@ public class BoxedList {
 
         for (String item : dataCells) {
             BoxFreeText toGraphics = new BoxFreeText(item, graphics);
-            toGraphics.render(nextItemPosition);
-
             itemBounds = toGraphics.getTextBounds();
-            nextItemPosition += itemBounds.getHeight() + 5;
+            nextItemPosition += itemBounds.getHeight() + 10;
+            boxHeightBaseInQuantityOfItems += itemBounds.getHeight();
+
+            toGraphics.render(nextItemPosition);
         }
     }
 
@@ -61,6 +64,6 @@ public class BoxedList {
     }
 
     private void setBoxDimension() {
-        boxDimension = new Dimension(STANDARD_BOX_WIDTH, dataCells.length * (fontSize));
+        boxDimension = new Dimension(STANDARD_BOX_WIDTH, boxHeightBaseInQuantityOfItems + 20 * dataCells.length);
     }
 }

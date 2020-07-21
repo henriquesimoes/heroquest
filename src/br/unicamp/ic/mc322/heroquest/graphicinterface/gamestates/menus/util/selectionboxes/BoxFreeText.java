@@ -14,7 +14,7 @@ public class BoxFreeText {
     public BoxFreeText(String text, Graphics2D graphics) {
         this.graphics = graphics;
         this.text = text;
-        this.boxFont = new Font("Helvetica", Font.BOLD, 30);
+        this.boxFont = new Font("Helvetica", Font.BOLD, 20);
     }
 
     //** Horizontal aligned in center */
