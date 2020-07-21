@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.ShortSword;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
@@ -14,6 +15,7 @@ public class Dwarf extends Hero {
         defenseDice = 2;
         maximumBodyPoints = currentBodyPoints = 30;
         mindPoints = 3;
+        itemsAbleToUse.add(ItemClass.WARRIOR);
 
         Weapon currentWeapon = new ShortSword();
         knapsack.put(currentWeapon);

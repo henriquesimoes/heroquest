@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.skills.physical.Attack;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
@@ -9,7 +10,7 @@ public class Fists extends Weapon {
             "They allow you to cause damage in enemies in the four directions";
 
     public Fists() {
-        super("Fists", DESCRIPTION, Integer.MAX_VALUE, 0);
+        super("Fists", DESCRIPTION, Integer.MAX_VALUE, 0, ItemClass.NEUTRAL);
         addSkill(new Attack("Punch", this));
     }
 

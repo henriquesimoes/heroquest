@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.skills.physical.Attack;
 
@@ -8,8 +9,7 @@ public class LongSword extends Weapon {
             "Because of its length, the longsword enables you to attack your enemies diagonally.";
 
     public LongSword() {
-        super("Longsword", DESCRIPTION, 6, 350);
-
+        super("Longsword", DESCRIPTION, 6, 350, ItemClass.WARRIOR);
         setAttackBonus(3);
         setTwoHanded(true);
         setAttackDiagonally(true);

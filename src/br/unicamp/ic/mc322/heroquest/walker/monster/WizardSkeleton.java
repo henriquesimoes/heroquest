@@ -1,5 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.monster;
 
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
+import br.unicamp.ic.mc322.heroquest.item.cards.SpellElement;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.skills.magic.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.walker.Monster;
@@ -17,7 +19,8 @@ public class WizardSkeleton extends Monster {
         defenseDice = 1;
         maximumBodyPoints = currentBodyPoints = 2;
         mindPoints = 3;
-        ableToLearnAirSpell = true;
+        itemsAbleToUse.add(ItemClass.MAGICIAN);
+        spellsAbleToLearn.add(SpellElement.AIR);
 
         for (int i = 0; i < initialNumberOfMagicMissiles; i++)
             addSkill(new MagicMissile());

@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.skills.physical.Attack;
 import br.unicamp.ic.mc322.heroquest.skills.physical.ThrowWeaponAttack;
@@ -9,8 +10,7 @@ public class Flail extends Weapon {
             "Flail this and struck your enemies with a powerful steel sphere with spikes.";
 
     public Flail() {
-        super("Flail", DESCRIPTION, 4, 350);
-
+        super("Flail", DESCRIPTION, 4, 350, ItemClass.WARRIOR);
         setAttackBonus(3);
         setTwoHanded(false);
         setAttackDiagonally(true);

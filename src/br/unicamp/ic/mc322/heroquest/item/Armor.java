@@ -8,8 +8,8 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 public abstract class Armor extends DurableItem {
     private int defenseBonus;
 
-    protected Armor(String itemName, String itemDescription, int defenseBonus, int durability, int goldCoinsValue) {
-        super(itemName, itemDescription, durability, goldCoinsValue);
+    protected Armor(String itemName, String itemDescription, int defenseBonus, int durability, int goldCoinsValue, ItemClass itemClass) {
+        super(itemName, itemDescription, durability, goldCoinsValue, itemClass);
         this.defenseBonus = defenseBonus;
     }
 
@@ -30,6 +30,9 @@ public abstract class Armor extends DurableItem {
 
     @Override
     public void useItem(Walker proprietary) {
-        proprietary.equipArmor(this);
+        if (proprietary.isAbleToUse(itemClass))
+            proprietary.equipArmor(this);
+        else
+            proprietary.getManager().showMessage("You are not able to use this armor");
     }
 }

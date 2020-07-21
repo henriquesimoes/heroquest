@@ -5,8 +5,8 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 public abstract class DurableItem extends Item {
     private int currentDurability, maximumDurability;
 
-    protected DurableItem(String itemName, String itemDescription, int currentDurability, int goldCoinsValue) {
-        super(itemName, itemDescription, goldCoinsValue);
+    protected DurableItem(String itemName, String itemDescription, int currentDurability, int goldCoinsValue, ItemClass itemClass) {
+        super(itemName, itemDescription, goldCoinsValue, itemClass);
 
         this.currentDurability = this.maximumDurability = currentDurability;
     }

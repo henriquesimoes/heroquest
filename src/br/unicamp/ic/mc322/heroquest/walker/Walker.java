@@ -2,7 +2,9 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.item.Armor;
 import br.unicamp.ic.mc322.heroquest.item.Item;
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.cards.SpellElement;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Fists;
 import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
@@ -14,8 +16,7 @@ import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 
-import java.util.HashMap;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public abstract class Walker implements MapObject {
     protected Team team;
@@ -29,7 +30,8 @@ public abstract class Walker implements MapObject {
     protected RedDice redDice;
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
-    protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell;
+    protected Collection<SpellElement> spellsAbleToLearn;
+    protected Collection<ItemClass> itemsAbleToUse;
     private Coordinate position;
     private int balance;
 
@@ -44,6 +46,8 @@ public abstract class Walker implements MapObject {
         combatDice = new CombatDice();
         knapsack = new Knapsack();
         skills = new HashMap<>();
+        spellsAbleToLearn = new ArrayList<>();
+        itemsAbleToUse = new ArrayList<>(Arrays.asList(ItemClass.NEUTRAL));
         movementDice = 2;
 
         // Add fists attack skill
@@ -272,16 +276,12 @@ public abstract class Walker implements MapObject {
         return this.team == walker.team;
     }
 
-    public boolean isAbleToLearnFireSpell() {
-        return ableToLearnFireSpell;
+    public boolean isAbleToLearn(SpellElement spellElement) {
+        return spellsAbleToLearn.contains(spellElement);
     }
 
-    public boolean isAbleToLearnAirSpell() {
-        return ableToLearnAirSpell;
-    }
-
-    public boolean isAbleToLearnEarthSpell() {
-        return ableToLearnEarthSpell;
+    public boolean isAbleToUse(ItemClass itemClass) {
+        return itemsAbleToUse.contains(itemClass);
     }
 
     @Override
@@ -320,12 +320,27 @@ public abstract class Walker implements MapObject {
 
     public String getAttributeList() {
         String status = getStatus();
-        status += "Attack dices: " + attackDice + "\n";
+        status += "Attack dices: " + attackDice;
+        status += (leftWeapon != null ? " + " + leftWeapon.getAttackBonus() : "");
+        status += (rightWeapon != null ? " + " + rightWeapon.getAttackBonus() : "") + "\n";
         status += "Defence dices: " + defenseDice + (bonusDefenseDice != 0 ? (" + " + bonusDefenseDice) : "") + "\n";
         status += "Mind points: " + mindPoints + "\n";
-        status += "Can learn fire spells: " + (ableToLearnFireSpell ? "Yes" : "No") + "\n";
-        status += "Can learn air spells: " + (ableToLearnAirSpell ? "Yes" : "No") + "\n";
-        status += "Can learn earth spells: " + (ableToLearnEarthSpell ? "Yes" : "No") + "\n";
+
+        status += "Class of items able to use: ";
+        for (ItemClass itemClass : itemsAbleToUse)
+            status += itemClass.toString() + ", ";
+        status = status.substring(0, status.length() - 2) + "\n";
+
+
+        status += "Elements of spells able to learn: ";
+        if (spellsAbleToLearn.size() == 0)
+            status += "none\n";
+        else {
+            for (SpellElement spellElement : spellsAbleToLearn)
+                status += spellElement.toString() + ", ";
+            status = status.substring(0, status.length() - 2) + "\n";
+        }
+
         status += "Balance: " + balance + " gold coin(s)" + "\n";
         return status;
     }

@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.skills.physical.ThrowProjectileAttack;
 
@@ -9,8 +10,7 @@ public class Crossbow extends Weapon {
             "However, you can't attack a monster adjacent to you.";
 
     public Crossbow() {
-        super("Crossbow", DESCRIPTION, 6, 350);
-
+        super("Crossbow", DESCRIPTION, 6, 350, ItemClass.NEUTRAL);
         setAttackBonus(3);
         setTwoHanded(true);
         setAttackDiagonally(true);

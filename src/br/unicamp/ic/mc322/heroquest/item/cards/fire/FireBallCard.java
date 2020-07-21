@@ -11,5 +11,4 @@ public class FireBallCard extends FireSpellCard {
 
         spell = new FireBall();
     }
-
 }
