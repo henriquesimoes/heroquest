@@ -11,7 +11,6 @@ public class MoveAIAction extends MoveAction {
     private WalkerAI walkerAI;
 
     MoveAIAction(WalkerAI walkerAI) {
-        super(walkerAI);
         this.walkerAI = walkerAI;
     }
 

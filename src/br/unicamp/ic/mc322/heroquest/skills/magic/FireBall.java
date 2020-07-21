@@ -3,6 +3,7 @@ package br.unicamp.ic.mc322.heroquest.skills.magic;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
+import br.unicamp.ic.mc322.heroquest.skills.DisplayTargetsMode;
 import br.unicamp.ic.mc322.heroquest.skills.MagicSkill;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
@@ -16,7 +17,7 @@ public class FireBall extends MagicSkill {
     public FireBall() {
         super("Fireball",
                 "It causes " + DAMAGE_TO_PRIMARY_TARGET + " units of damage to the target," +
-                        " and " + ADJACENT_DAMAGE + " to the adjacent positions");
+                        " and " + ADJACENT_DAMAGE + " to the adjacent positions", DisplayTargetsMode.SHOW_OPTIONS);
 
         attacking = false;
     }

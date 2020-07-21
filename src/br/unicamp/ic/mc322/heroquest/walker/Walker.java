@@ -133,10 +133,10 @@ public abstract class Walker implements MapObject {
      */
     public void destroyItem(Item item) {
         if (leftWeapon != null && leftWeapon.equals(item))
-            unequipWeapon((Weapon) item);
+            storeLeftWeapon();
 
         if (rightWeapon != null && rightWeapon.equals(item))
-            unequipWeapon((Weapon) item);
+            storeRightWeapon();
 
         if (armor != null && armor.equals(item))
             unequipArmor();
@@ -218,6 +218,7 @@ public abstract class Walker implements MapObject {
     protected void unequipArmor() {
         if (armor != null) {
             knapsack.put(armor);
+            armor = null;
             bonusDefenseDice -= armor.getDefenseBonus();
         }
     }
@@ -225,17 +226,17 @@ public abstract class Walker implements MapObject {
     protected String getStatus() {
         String status = String.format("Name: %s\n", name);
         status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
-        status += String.format("Armor: %s\n", (armor == null ? "none" : armor.getName()));
+        status += String.format("Armor: %s\n", (armor == null ? "none" : armor.representationOnStatus()));
         if (leftWeapon != null && leftWeapon.isTwoHanded())
-            status += String.format("Weapon: %s\n", leftWeapon.getName());
+            status += String.format("Weapon: %s\n", leftWeapon.representationOnStatus());
         else {
-            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.getName()));
-            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.getName()));
+            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.representationOnStatus()));
+            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.representationOnStatus()));
         }
         return status;
     }
 
-    public Skill[] getSkillsList() {
+    public Skill[] getSkillList() {
         return skills.keySet().toArray(new Skill[0]);
     }
 
@@ -252,7 +253,7 @@ public abstract class Walker implements MapObject {
     }
 
     public Item[] getItems() {
-        return knapsack.getItemsList();
+        return knapsack.getItemList();
     }
 
     protected boolean isAlive() {
@@ -317,7 +318,7 @@ public abstract class Walker implements MapObject {
         this.position.copyValue(position);
     }
 
-    public String getAttributesList() {
+    public String getAttributeList() {
         String status = getStatus();
         status += "Attack dices: " + attackDice + "\n";
         status += "Defence dices: " + defenseDice + (bonusDefenseDice != 0 ? (" + " + bonusDefenseDice) : "") + "\n";

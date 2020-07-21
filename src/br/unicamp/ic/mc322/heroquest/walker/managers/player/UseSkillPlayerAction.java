@@ -1,29 +1,51 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
+import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.skills.Skill;
-import br.unicamp.ic.mc322.heroquest.view.IOInterface;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseSkillAction;
 
 public class UseSkillPlayerAction extends UseSkillAction {
     private WalkerPlayer walkerPlayer;
-    private IOInterface ioInterface;
+    private Walker walker;
 
     UseSkillPlayerAction(WalkerPlayer walkerPlayer) {
-        super(walkerPlayer);
         this.walkerPlayer = walkerPlayer;
-        this.ioInterface = walkerPlayer.getIOInterface();
+        this.walker = walkerPlayer.getWalker();
     }
 
-    protected Skill chooseSkill(Skill[] skills) {
-        String[] nameList = new String[skills.length];
+    @Override
+    public boolean execute() {
+        Skill chosenSkill = chooseSkill();
 
-        for (int i = 0; i < skills.length; i++)
-            nameList[i] = skills[i].getName();
+        if (chosenSkill == null)
+            return false;
 
-        walkerPlayer.updateScreen();
-        ioInterface.showMessage("Choose a skill to use:");
-        int choice = ioInterface.showOptionsAndGetAnswer(nameList, true) - 1;
+        MapObject target = chooseTarget(chosenSkill);
 
-        return choice == -1 ? null : skills[choice];
+        if (target == null)
+            return false;
+
+        chosenSkill.useSkill(walker, target);
+
+        return true;
+    }
+
+    private Skill chooseSkill() {
+        Skill[] skills = walker.getSkillList();
+        return (Skill) walkerPlayer.chooseDescribable(skills, "Choose a skill to use:");
+    }
+
+    private MapObject chooseTarget(Skill skill) {
+        MapObject[] targets = skill.getTargets();
+
+        switch (skill.getDisplayTargetsMode()) {
+            case SHOW_OPTIONS:
+                return walkerPlayer.chooseTarget(targets);
+            case GET_COORDINATE:
+                return walkerPlayer.chooseTargetByCoordinate(targets);
+            default:
+                throw new IllegalStateException("The target display mode is not valid!");
+        }
     }
 }

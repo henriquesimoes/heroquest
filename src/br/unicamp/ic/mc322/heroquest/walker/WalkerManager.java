@@ -69,6 +69,4 @@ public abstract class WalkerManager {
     public abstract void playTurn();
 
     public abstract void showMessage(String message);
-
-    public abstract MapObject chooseTarget(MapObject[] targets);
 }

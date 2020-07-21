@@ -15,7 +15,6 @@ public class MovePlayerAction extends MoveAction {
     private IOInterface ioInterface;
 
     MovePlayerAction(WalkerPlayer walkerPlayer) {
-        super(walkerPlayer);
         this.walkerPlayer = walkerPlayer;
         this.walker = walkerPlayer.getWalker();
         this.ioInterface = walkerPlayer.getIOInterface();
