@@ -23,7 +23,7 @@ public class SearchPlayerAction implements Action {
         Set<HiddenObject> hiddenObjectsDetected = walkerPlayer.getHiddenObjectsDetected();
         hiddenObjectsDetected.clear();
 
-        Region region = walkerPlayer.getRegionSelector().getLimitedRegion(3, true);
+        Region region = walkerPlayer.getRegionSelector().getLimitedRegion(3, false);
         walkerPlayer.accept(walkerPlayer, region);
 
         if (hiddenObjectsDetected.size() > 0) {
