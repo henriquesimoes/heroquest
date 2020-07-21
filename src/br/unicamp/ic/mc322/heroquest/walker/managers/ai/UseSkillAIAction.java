@@ -17,7 +17,7 @@ public class UseSkillAIAction extends UseSkillAction {
     @Override
     public boolean execute() {
         Walker walker = walkerAI.getWalker();
-        Skill[] skills = walker.getSkillsList();
+        Skill[] skills = walker.getSkillList();
         Skill chosenSkill = chooseSkill(skills);
 
         if (chosenSkill == null)

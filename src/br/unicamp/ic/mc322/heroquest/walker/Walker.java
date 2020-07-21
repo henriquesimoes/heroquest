@@ -236,7 +236,7 @@ public abstract class Walker implements MapObject {
         return status;
     }
 
-    public Skill[] getSkillsList() {
+    public Skill[] getSkillList() {
         return skills.keySet().toArray(new Skill[0]);
     }
 
@@ -253,7 +253,7 @@ public abstract class Walker implements MapObject {
     }
 
     public Item[] getItems() {
-        return knapsack.getItemsList();
+        return knapsack.getItemList();
     }
 
     protected boolean isAlive() {
@@ -318,7 +318,7 @@ public abstract class Walker implements MapObject {
         this.position.copyValue(position);
     }
 
-    public String getAttributesList() {
+    public String getAttributeList() {
         String status = getStatus();
         status += "Attack dices: " + attackDice + "\n";
         status += "Defence dices: " + defenseDice + (bonusDefenseDice != 0 ? (" + " + bonusDefenseDice) : "") + "\n";

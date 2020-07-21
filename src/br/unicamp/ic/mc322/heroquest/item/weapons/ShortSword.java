@@ -4,8 +4,8 @@ import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.skills.physical.Attack;
 
 public class ShortSword extends Weapon {
-    private static final String DESCRIPTION = "Short sword gives you a bonus of 2 combat dice." +
-            " This is a light and useful weapon to fight against enemies (if they aren't too... strong) " +
+    private static final String DESCRIPTION = "Short sword gives you a bonus of 2 combat dice.\n" +
+            "This is a light and useful weapon to fight against enemies (if they aren't too... strong) " +
             "in a short distance";
 
     public ShortSword() {

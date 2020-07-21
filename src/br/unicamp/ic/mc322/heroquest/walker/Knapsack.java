@@ -29,7 +29,7 @@ public class Knapsack {
             items.put(item, currentAmount);
     }
 
-    Item[] getItemsList() {
+    Item[] getItemList() {
         return items.keySet().toArray((new Item[0]));
     }
 

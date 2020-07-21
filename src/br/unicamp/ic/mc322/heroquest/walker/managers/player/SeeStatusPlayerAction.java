@@ -25,7 +25,8 @@ public class SeeStatusPlayerAction implements Action {
     @Override
     public boolean execute() {
         while (true) {
-            String[] options = {"See attributes",
+            String[] options = {
+                    "See attributes",
                     "See inventory",
                     "See skills"
             };
@@ -47,21 +48,21 @@ public class SeeStatusPlayerAction implements Action {
     }
 
     private void seeAttributes() {
-        ioInterface.showMessage(walker.getAttributesList());
+        ioInterface.showMessage(walker.getAttributeList());
     }
 
     private void seeInventory() {
         java.util.Map<Item, Integer> items = walker.getInventory();
         Describable[] describable = items.keySet().toArray(new Describable[0]);
         Integer[] amounts = items.values().toArray(new Integer[0]);
-        seeDescription("Select a item to see your description", describable, amounts);
+        seeDescription("Select a item to see its description", describable, amounts);
     }
 
     private void seeSkills() {
         java.util.Map<Skill, Integer> skills = walker.getSkills();
         Describable[] describable = skills.keySet().toArray(new Describable[0]);
         Integer[] amounts = skills.values().toArray(new Integer[0]);
-        seeDescription("Select a skill to see your description", describable, amounts);
+        seeDescription("Select a skill to see its description", describable, amounts);
     }
 
 

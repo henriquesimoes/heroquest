@@ -32,7 +32,7 @@ public class UseSkillPlayerAction extends UseSkillAction {
     }
 
     private Skill chooseSkill() {
-        Skill[] skills = walker.getSkillsList();
+        Skill[] skills = walker.getSkillList();
         return (Skill) walkerPlayer.chooseDescribable(skills, "Choose a skill to use:");
     }
 
