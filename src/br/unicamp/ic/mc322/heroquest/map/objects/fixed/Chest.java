@@ -10,16 +10,19 @@ import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
+import br.unicamp.ic.mc322.heroquest.walker.MonsterGenerator;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 import java.util.ArrayList;
 
 public class Chest extends FixedObject {
-    private int MINIMUM_GOLD_QUANTITY = 20;
-    private int MAXIMUM_GOLD_QUANTITY = 100;
-    private int MAXIMUM_WEAPONS_QUANTITY = 3;
-    private int MAXIMUM_HEALTH_POTIONS_QUANTITY = 3;
-    private int MAXIMUM_SPELL_CARD_QUANTITY = 3;
+    private static final int MINIMUM_GOLD_QUANTITY = 20;
+    private static final int MAXIMUM_GOLD_QUANTITY = 100;
+    private static final int MAXIMUM_WEAPONS_QUANTITY = 3;
+    private static final int MAXIMUM_HEALTH_POTIONS_QUANTITY = 3;
+    private static final int MAXIMUM_SPELL_CARD_QUANTITY = 3;
+    private static final double PROBABILITY_OF_APPEARING_AN_ARMOR = .3;
+    private static final double PROBABILITY_OF_APPEARING_A_MONSTER = 0.3;
     private boolean opened;
     private ArrayList<Item> items;
     private GoldCoin coins;
@@ -40,18 +43,23 @@ public class Chest extends FixedObject {
         return opened;
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
-    }
-
     @Override
     public void interact(Walker agent) {
         if (opened) {
             for (Item item : items)
                 agent.collectItem(item);
+            items.clear();
+
             coins.useItem(agent);
-        } else
+            coins = null;
+        } else {
             opened = true;
+            if (PROBABILITY_OF_APPEARING_A_MONSTER >= Randomizer.nextDouble()) {
+                // Maybe there is not an empty position for the monster to appear; in this case, nothing happens
+                if (MonsterGenerator.appearMonsterClose(agent, this.getPosition()))
+                    agent.getManager().showMessage("A monster appeared");
+            }
+        }
     }
 
     private void addRandomQuantityOfGold() {
@@ -87,7 +95,7 @@ public class Chest extends FixedObject {
     }
 
     private boolean willHaveAnArmorInside() {
-        return Randomizer.nextBoolean();
+        return PROBABILITY_OF_APPEARING_AN_ARMOR >= Randomizer.nextDouble();
     }
 
     @Override

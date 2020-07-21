@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class MapUnit {
-    private StructuralObject structure;
+    private final StructuralObject structure;
     private Walker walker;
     private FixedObject fixedObject;
 
@@ -47,12 +47,13 @@ public class MapUnit {
     void moveWalker(MapUnit destination) {
         if (walker != null && destination.isFree()) {
             destination.add(walker);
-            removeWalker();
+            remove(walker);
         }
     }
 
-    void removeWalker() {
-        walker = null;
+    void remove(Walker walker) {
+        if (walker != null && walker.equals(this.walker))
+            this.walker = null;
     }
 
     private boolean isFree() {

@@ -7,4 +7,6 @@ public interface GameListener {
     void notifyWalkerDeath(Walker walker);
 
     void notifyWalkerDamage(Walker walker, int damage);
+
+    void add(Walker walker);
 }
