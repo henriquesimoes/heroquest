@@ -49,12 +49,13 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
 
     @Override
     public void playTurn() {
-        ArrayList<Action> options = new ArrayList<>(Arrays.asList(
+        ArrayList<Action> options = new ArrayList<Action>(Arrays.asList(
                 new MovePlayerAction(this),
                 new UseItemPlayerAction(this),
                 new UseSkillPlayerAction(this),
                 new InteractPlayerAction(this),
-                new SearchPlayerAction(this)
+                new SearchPlayerAction(this),
+                new SeeStatusPlayerAction(this)
         ));
 
         while (true) {

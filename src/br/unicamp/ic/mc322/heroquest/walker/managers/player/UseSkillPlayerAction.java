@@ -6,19 +6,19 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.UseSkillAction;
 
 public class UseSkillPlayerAction extends UseSkillAction {
     private WalkerPlayer walkerPlayer;
+    private IOInterface ioInterface;
 
     UseSkillPlayerAction(WalkerPlayer walkerPlayer) {
         super(walkerPlayer);
         this.walkerPlayer = walkerPlayer;
+        this.ioInterface = walkerPlayer.getIOInterface();
     }
 
     protected Skill chooseSkill(Skill[] skills) {
-        IOInterface ioInterface = walkerPlayer.getIOInterface();
-
         String[] nameList = new String[skills.length];
 
         for (int i = 0; i < skills.length; i++)
-            nameList[i] = skills[i].getSkillName();
+            nameList[i] = skills[i].getName();
 
         walkerPlayer.updateScreen();
         ioInterface.showMessage("Choose a skill to use:");

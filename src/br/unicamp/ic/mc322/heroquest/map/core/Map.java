@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
 import br.unicamp.ic.mc322.heroquest.loop.GameListener;
+import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.TrapPositionValidator;
 import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.VisionValidator;
 import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.WalkableValidator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
@@ -30,7 +31,7 @@ public class Map implements GameListener {
     }
 
     public void add(Trap trap) {
-        MapUnit unit = getRandomValidUnit(new WalkableValidator(this));
+        MapUnit unit = getRandomValidUnit(new TrapPositionValidator(this));
         unit.add(trap);
     }
 
@@ -107,13 +108,16 @@ public class Map implements GameListener {
     }
 
     public void accept(ConcreteMapObjectVisitor visitor, Region region) {
-        for (Coordinate coordinate : region) {
-            MapUnit unit = units.get(coordinate);
-            unit.accept(visitor);
-        }
+        for (Coordinate coordinate : region)
+            accept(visitor, coordinate);
     }
 
     public void accept(AbstractMapObjectVisitor visitor, Coordinate coordinate) {
+        MapUnit unit = units.get(coordinate);
+        unit.accept(visitor);
+    }
+
+    public void accept(ConcreteMapObjectVisitor visitor, Coordinate coordinate) {
         MapUnit unit = units.get(coordinate);
         unit.accept(visitor);
     }

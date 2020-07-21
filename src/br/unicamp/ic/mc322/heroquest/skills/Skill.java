@@ -8,17 +8,19 @@ import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.managers.player.Describable;
 
 import java.util.ArrayList;
 
-public abstract class Skill implements AbstractMapObjectVisitor {
-    protected String skillName;
+public abstract class Skill implements AbstractMapObjectVisitor, Describable {
+    protected String skillName, skillDescription;
     protected Walker skillUser;
     protected ArrayList<MapObject> targets;
     private WalkerManager walkerManager;
 
-    public Skill(String skillName) {
+    public Skill(String skillName, String skillDescription) {
         this.skillName = skillName;
+        this.skillDescription = skillDescription;
         this.targets = new ArrayList<>();
     }
 
@@ -29,8 +31,13 @@ public abstract class Skill implements AbstractMapObjectVisitor {
 
     public abstract void useSkill(Walker summoner, MapObject targetObject);
 
-    public String getSkillName() {
+    public String getName() {
         return skillName;
+    }
+
+    @Override
+    public String getDescription() {
+        return skillDescription;
     }
 
     public abstract void updateTargets();

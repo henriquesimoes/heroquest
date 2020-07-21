@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.walker.managers.ai;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
+import br.unicamp.ic.mc322.heroquest.walker.managers.MoveAction;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseSkillAction;
 
@@ -20,7 +21,7 @@ public class WalkerAI extends WalkerManager {
     public void playTurn() {
         UseItemAction useItemAction = new UseItemAIAction(this);
         UseSkillAction useSkillAction = new UseSkillAIAction(this);
-        MoveAIAction moveAction = new MoveAIAction(this);
+        MoveAction moveAction = new MoveAIAction(this);
 
         useItemAction.execute();
         boolean successUseSkill = useSkillAction.execute();

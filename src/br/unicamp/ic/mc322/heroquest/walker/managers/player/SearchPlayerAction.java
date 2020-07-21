@@ -28,7 +28,7 @@ public class SearchPlayerAction implements Action {
 
         if (hiddenObjectsDetected.size() > 0) {
             for (HiddenObject object : hiddenObjectsDetected) {
-                walkerPlayer.showMessage(String.format("Detected the object: %s", object.getRepresentationOnMenu()));
+                walkerPlayer.showMessage("Detected the object: " + object.getRepresentationOnMenu());
                 object.discover();
             }
         } else {

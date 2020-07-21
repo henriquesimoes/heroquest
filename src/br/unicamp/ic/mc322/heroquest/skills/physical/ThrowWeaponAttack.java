@@ -5,9 +5,11 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.skills.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public class LongDistanceAttack extends PhysicalSkill {
-    public LongDistanceAttack(String skillName, Weapon skilledWeapon) {
-        super(skillName, skilledWeapon);
+public class ThrowWeaponAttack extends PhysicalSkill {
+    private static final String DESCRIPTION = "Attacks the enemy by throwing the weapon";
+
+    public ThrowWeaponAttack(String skillName, Weapon skilledWeapon) {
+        super(skillName, DESCRIPTION, skilledWeapon);
     }
 
     @Override
@@ -21,5 +23,10 @@ public class LongDistanceAttack extends PhysicalSkill {
     public void visit(Walker walker) {
         if (walker.isEnemy(skillUser))
             targets.add(walker);
+    }
+
+    @Override
+    protected void degradeWeaponByUse(Walker summoner) {
+        summoner.destroyItem(skilledWeapon);
     }
 }
