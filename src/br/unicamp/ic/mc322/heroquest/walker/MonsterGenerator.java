@@ -2,9 +2,9 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
-import br.unicamp.ic.mc322.heroquest.walker.monster.CommonSkeleton;
-import br.unicamp.ic.mc322.heroquest.walker.monster.Goblin;
-import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
+import br.unicamp.ic.mc322.heroquest.walker.monsters.CommonSkeleton;
+import br.unicamp.ic.mc322.heroquest.walker.monsters.Goblin;
+import br.unicamp.ic.mc322.heroquest.walker.monsters.WizardSkeleton;
 
 public class MonsterGenerator {
     private int minimumPerType;

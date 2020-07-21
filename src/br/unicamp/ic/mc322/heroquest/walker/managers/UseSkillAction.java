@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.skills.Skill;
+import br.unicamp.ic.mc322.heroquest.walker.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 

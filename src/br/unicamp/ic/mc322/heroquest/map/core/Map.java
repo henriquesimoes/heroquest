@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
-import br.unicamp.ic.mc322.heroquest.loop.GameListener;
+import br.unicamp.ic.mc322.heroquest.engine.GameListener;
 import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.TrapPositionValidator;
 import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.VisionValidator;
 import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.WalkableValidator;

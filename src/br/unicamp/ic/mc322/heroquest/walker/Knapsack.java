@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.walker.items.CollectableItem;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

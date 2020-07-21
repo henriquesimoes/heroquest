@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.walker.items.CollectableItem;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
 
