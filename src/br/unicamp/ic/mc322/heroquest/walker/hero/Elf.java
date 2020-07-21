@@ -1,6 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.cards.SpellElement;
 import br.unicamp.ic.mc322.heroquest.item.weapons.ShortSword;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.skills.magic.SimpleHeal;
@@ -15,8 +17,8 @@ public class Elf extends Hero {
         defenseDice = 2;
         maximumBodyPoints = currentBodyPoints = 20;
         mindPoints = 4;
-
-        ableToLearnEarthSpell = true;
+        itemsAbleToUse.add(ItemClass.MAGICIAN);
+        spellsAbleToLearn.add(SpellElement.EARTH);
 
         Weapon currentWeapon = new ShortSword();
         knapsack.put(currentWeapon);

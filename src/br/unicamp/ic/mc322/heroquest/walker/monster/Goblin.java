@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.monster;
 
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
@@ -18,6 +19,7 @@ public class Goblin extends Monster {
         defenseDice = 1;
         maximumBodyPoints = currentBodyPoints = 2;
         mindPoints = 2;
+        itemsAbleToUse.add(ItemClass.WARRIOR);
 
         Weapon currentWeapon = new Dagger();
         knapsack.put(currentWeapon);

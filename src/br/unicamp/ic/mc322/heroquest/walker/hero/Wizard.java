@@ -1,6 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.walker.hero;
 
+import br.unicamp.ic.mc322.heroquest.item.ItemClass;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
+import br.unicamp.ic.mc322.heroquest.item.cards.SpellElement;
 import br.unicamp.ic.mc322.heroquest.item.weapons.Dagger;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.skills.magic.FireBall;
@@ -8,6 +10,8 @@ import br.unicamp.ic.mc322.heroquest.skills.magic.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.skills.magic.Teleport;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
+
+import java.util.Arrays;
 
 public class Wizard extends Hero {
     private final int initialNumberOfDaggers = 3;
@@ -20,7 +24,8 @@ public class Wizard extends Hero {
         defenseDice = 2;
         maximumBodyPoints = currentBodyPoints = 20;
         mindPoints = 6;
-        ableToLearnAirSpell = ableToLearnEarthSpell = ableToLearnFireSpell = true;
+        itemsAbleToUse.add(ItemClass.MAGICIAN);
+        spellsAbleToLearn.addAll(Arrays.asList(SpellElement.AIR, SpellElement.EARTH, SpellElement.FIRE));
 
         Weapon currentWeapon = new Dagger();
         knapsack.put(currentWeapon);
