@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.item.weapons;
 
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
-import br.unicamp.ic.mc322.heroquest.skills.physical.LongDistanceAttack;
+import br.unicamp.ic.mc322.heroquest.skills.physical.ThrowProjectileAttack;
 
 public class Crossbow extends Weapon {
     private static final String DESCRIPTION = "Crossbow gives you a bonus of 3 combat dices." +
@@ -14,6 +14,6 @@ public class Crossbow extends Weapon {
         setAttackBonus(3);
         setTwoHanded(true);
         setAttackDiagonally(true);
-        addSkill(new LongDistanceAttack("Fire crossbow", this));
+        addSkill(new ThrowProjectileAttack("Fire crossbow", this));
     }
 }

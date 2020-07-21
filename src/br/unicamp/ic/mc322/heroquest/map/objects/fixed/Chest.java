@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.objects.fixed;
 
 import br.unicamp.ic.mc322.heroquest.item.Armor;
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.item.Item;
 import br.unicamp.ic.mc322.heroquest.item.SpellCard;
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.item.artifacts.GoldCoin;
@@ -21,7 +21,7 @@ public class Chest extends FixedObject {
     private int MAXIMUM_HEALTH_POTIONS_QUANTITY = 3;
     private int MAXIMUM_SPELL_CARD_QUANTITY = 3;
     private boolean opened;
-    private ArrayList<CollectableItem> items;
+    private ArrayList<Item> items;
     private GoldCoin coins;
 
     public Chest(Coordinate position) {
@@ -40,14 +40,14 @@ public class Chest extends FixedObject {
         return opened;
     }
 
-    public ArrayList<CollectableItem> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
     @Override
     public void interact(Walker agent) {
         if (opened) {
-            for (CollectableItem item : items)
+            for (Item item : items)
                 agent.collectItem(item);
             coins.useItem(agent);
         } else

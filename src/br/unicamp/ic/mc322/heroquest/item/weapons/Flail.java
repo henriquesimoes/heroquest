@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.item.weapons;
 
 import br.unicamp.ic.mc322.heroquest.item.Weapon;
 import br.unicamp.ic.mc322.heroquest.skills.physical.Attack;
-import br.unicamp.ic.mc322.heroquest.skills.physical.LongDistanceAttack;
+import br.unicamp.ic.mc322.heroquest.skills.physical.ThrowWeaponAttack;
 
 public class Flail extends Weapon {
     private static final String DESCRIPTION = "Flail gives you a bonus of 3 combat dice." +
@@ -15,6 +15,6 @@ public class Flail extends Weapon {
         setTwoHanded(false);
         setAttackDiagonally(true);
         addSkill(new Attack("Hit", this));
-        addSkill(new LongDistanceAttack("Throw", this));
+        addSkill(new ThrowWeaponAttack("Throw", this));
     }
 }
