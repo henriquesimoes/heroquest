@@ -45,7 +45,7 @@ public class UseSkillPlayerAction extends UseSkillAction {
             case GET_COORDINATE:
                 return walkerPlayer.chooseTargetByCoordinate(targets);
             default:
-                throw new IllegalStateException("The mode of display the targets is not valid!");
+                throw new IllegalStateException("The target display mode is not valid!");
         }
     }
 }

@@ -165,7 +165,7 @@ public class TerminalIO implements IOInterface {
                 if (Arrays.asList(coordinates).contains(coordinate))
                     chosenCoordinate = coordinate;
                 else {
-                    writer.println("This coordinate not is a valid option.");
+                    writer.println("This coordinate is not a valid option.");
                 }
             } catch (IndexOutOfBoundsException e) {
                 writer.println("Please, type the two numbers on the same line");
