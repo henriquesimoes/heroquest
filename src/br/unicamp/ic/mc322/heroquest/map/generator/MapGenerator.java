@@ -109,13 +109,17 @@ public class MapGenerator {
 
             if (grid[y][x] == MapParser.FLOOR) {
                 Coordinate[] neighbors = coordinate.getAdjacentNeighborCoordinates();
-                int numberOfNeighborsEmpty = 0;
+                int numberOfNeighborsWall = 0;
+                boolean hasNeighborUsed = false;
 
-                for (Coordinate neighbor : neighbors)
-                    if (isEmpty(neighbor) && !chosenCoordinates.contains(neighbor))
-                        numberOfNeighborsEmpty++;
+                for (Coordinate neighbor : neighbors){
+                    if(chosenCoordinates.contains(neighbor))
+                        hasNeighborUsed = true;
+                    if (isWall(neighbor))
+                        numberOfNeighborsWall++;
+                }
 
-                if (numberOfNeighborsEmpty == 5) {
+                if (!hasNeighborUsed && numberOfNeighborsWall == 3) {
                     chosenCoordinates.add(coordinate);
                     remaining--;
                     if (remaining <= 0)
@@ -132,10 +136,10 @@ public class MapGenerator {
         return chests;
     }
 
-    private boolean isEmpty(Coordinate coordinate) {
+    private boolean isWall(Coordinate coordinate) {
         int x = coordinate.getX();
         int y = coordinate.getY();
-        return x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT && grid[y][x] == MapParser.FLOOR;
+        return x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT && grid[y][x] == MapParser.WALL;
     }
 
     private boolean isOnBorder(Coordinate coordinates, Dimension dimensions, int i, int j) {
