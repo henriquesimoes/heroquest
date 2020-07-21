@@ -13,7 +13,7 @@ public class Dagger extends Weapon {
         super("Dagger", DESCRIPTION, 6, 25);
 
         setAttackBonus(1);
-        setTwoHanded(true);
+        setTwoHanded(false);
         setAttackDiagonally(true);
         addSkill(new Attack("Hit", this));
         addSkill(new ThrowWeaponAttack("Throw dagger", this));

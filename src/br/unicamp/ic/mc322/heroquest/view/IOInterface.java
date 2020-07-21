@@ -20,4 +20,6 @@ public interface IOInterface {
     void setMap(Map map);
 
     Direction getMoveDirection();
+
+    Coordinate getCoordinate(Coordinate[] coordinates);
 }

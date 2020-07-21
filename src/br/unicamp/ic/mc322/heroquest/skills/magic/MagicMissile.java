@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.skills.magic;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.skills.DisplayTargetsMode;
 import br.unicamp.ic.mc322.heroquest.skills.MagicSkill;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
@@ -11,7 +12,7 @@ public class MagicMissile extends MagicSkill {
     public MagicMissile() {
         super("Magic Missile",
                 "Three magic arrows are thrown against the target," +
-                        " with " + TOTAL_DAMAGE / 3 + " damage each");
+                        " with " + TOTAL_DAMAGE / 3 + " damage each", DisplayTargetsMode.SHOW_OPTIONS);
     }
 
     @Override

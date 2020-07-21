@@ -3,6 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
+import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.objects.HiddenObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
@@ -49,7 +50,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
 
     @Override
     public void playTurn() {
-        ArrayList<Action> options = new ArrayList<Action>(Arrays.asList(
+        ArrayList<Action> options = new ArrayList<>(Arrays.asList(
                 new MovePlayerAction(this),
                 new UseItemPlayerAction(this),
                 new UseSkillPlayerAction(this),
@@ -150,7 +151,31 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
             hiddenObjectsDetected.add(trap);
     }
 
-    public MapObject chooseTarget(MapObject[] targets) {
+    @Override
+    protected void setMap(Map map) {
+        changeMap(map);
+        ioInterface.setMap(map);
+    }
+
+    MapObject chooseTargetByCoordinate(MapObject[] targets) {
+        Coordinate[] coordinates = new Coordinate[targets.length];
+        for (int i = 0; i < coordinates.length; i++)
+            coordinates[i] = targets[i].getPosition();
+
+        Coordinate chosenCoordinate = ioInterface.getCoordinate(coordinates);
+        MapObject chosenObject = null;
+
+        for (int i = 0; i < targets.length; i++) {
+            if (chosenCoordinate.equals(targets[i].getPosition())) {
+                chosenObject = targets[i];
+                break;
+            }
+        }
+
+        return chosenObject;
+    }
+
+    MapObject chooseTarget(MapObject[] targets) {
         String[] targetList = new String[targets.length];
 
         for (int i = 0; i < targets.length; i++)
@@ -162,10 +187,17 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
         return choice == -1 ? null : targets[choice];
     }
 
-    @Override
-    protected void setMap(Map map) {
-        changeMap(map);
-        ioInterface.setMap(map);
+    Describable chooseDescribable(Describable[] describable, String message) {
+        String[] nameList = new String[describable.length];
+
+        for (int i = 0; i < describable.length; i++)
+            nameList[i] = describable[i].getName();
+
+        updateScreen();
+        ioInterface.showMessage(message);
+        int choice = ioInterface.showOptionsAndGetAnswer(nameList, true) - 1;
+
+        return choice == -1 ? null : describable[choice];
     }
 
     Set<MapObject> getObjectsAdjacent() {

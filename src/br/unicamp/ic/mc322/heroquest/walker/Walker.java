@@ -133,10 +133,10 @@ public abstract class Walker implements MapObject {
      */
     public void destroyItem(Item item) {
         if (leftWeapon != null && leftWeapon.equals(item))
-            unequipWeapon((Weapon) item);
+            storeLeftWeapon();
 
         if (rightWeapon != null && rightWeapon.equals(item))
-            unequipWeapon((Weapon) item);
+            storeRightWeapon();
 
         if (armor != null && armor.equals(item))
             unequipArmor();
@@ -218,6 +218,7 @@ public abstract class Walker implements MapObject {
     protected void unequipArmor() {
         if (armor != null) {
             knapsack.put(armor);
+            armor = null;
             bonusDefenseDice -= armor.getDefenseBonus();
         }
     }
@@ -225,12 +226,12 @@ public abstract class Walker implements MapObject {
     protected String getStatus() {
         String status = String.format("Name: %s\n", name);
         status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
-        status += String.format("Armor: %s\n", (armor == null ? "none" : armor.getName()));
+        status += String.format("Armor: %s\n", (armor == null ? "none" : armor.representationOnStatus()));
         if (leftWeapon != null && leftWeapon.isTwoHanded())
-            status += String.format("Weapon: %s\n", leftWeapon.getName());
+            status += String.format("Weapon: %s\n", leftWeapon.representationOnStatus());
         else {
-            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.getName()));
-            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.getName()));
+            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.representationOnStatus()));
+            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.representationOnStatus()));
         }
         return status;
     }

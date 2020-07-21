@@ -3,17 +3,26 @@ package br.unicamp.ic.mc322.heroquest.item;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class DurableItem extends Item {
-    private int itemDurability;
+    private int currentDurability, maximumDurability;
 
-    protected DurableItem(String itemName, String itemDescription, int itemDurability, int goldCoinsValue) {
+    protected DurableItem(String itemName, String itemDescription, int currentDurability, int goldCoinsValue) {
         super(itemName, itemDescription, goldCoinsValue);
 
-        this.itemDurability = itemDurability;
+        this.currentDurability = this.maximumDurability = currentDurability;
     }
 
     public void degradeByUse(Walker proprietary) {
-        itemDurability--;
-        if (itemDurability == 0)
+        currentDurability--;
+        if (currentDurability == 0)
             proprietary.destroyItem(this);
+    }
+
+    public String representationOnStatus() {
+        return getName() + " - durability: " + getDurability();
+    }
+
+    private String getDurability() {
+        int percentage = currentDurability * 100 / maximumDurability;
+        return String.format("%d%%", percentage);
     }
 }

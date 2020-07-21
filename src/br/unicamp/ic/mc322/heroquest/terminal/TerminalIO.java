@@ -8,6 +8,7 @@ import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.view.MapViewer;
 
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -84,6 +85,8 @@ public class TerminalIO implements IOInterface {
             answer = reader.nextLine();
         } while (answer.isBlank());
 
+        showSpan();
+
         return answer;
     }
 
@@ -99,7 +102,7 @@ public class TerminalIO implements IOInterface {
 
     @Override
     public Direction getMoveDirection() {
-        System.out.println("Type the direction of movement or Q to quit: ");
+        writer.println("Type the direction of movement or Q to quit: ");
         String answer = "";
         Direction direction = null;
         boolean validAnswer;
@@ -129,11 +132,50 @@ public class TerminalIO implements IOInterface {
                 default:
                     validAnswer = false;
                     answer = "";
-                    System.out.println("Invalid direction.\nType the direction of movement or Q to quit: ");
+                    writer.println("Invalid direction.\nType the direction of movement or Q to quit: ");
             }
         } while (!validAnswer);
 
+        showSpan();
+
         return direction;
+    }
+
+    @Override
+    public Coordinate getCoordinate(Coordinate[] coordinates) {
+        Coordinate chosenCoordinate = null;
+
+        while (chosenCoordinate == null) {
+            String answer = "";
+            writer.print("Type the coordinate of destiny as two numbers separated by spaces or Q to exit: ");
+
+            while (answer.isBlank())
+                answer = reader.nextLine();
+            answer = answer.toUpperCase();
+
+            if (answer.equals("Q"))
+                break;
+
+            try {
+                String[] numbers = answer.split(" ");
+                int coordinateX = Integer.parseInt(numbers[0]);
+                int coordinateY = Integer.parseInt(numbers[1]);
+                Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
+
+                if (Arrays.asList(coordinates).contains(coordinate))
+                    chosenCoordinate = coordinate;
+                else {
+                    writer.println("This coordinate not is a valid option.");
+                }
+            } catch (IndexOutOfBoundsException e) {
+                writer.println("Please, type the two numbers on the same line");
+            } catch (NumberFormatException e) {
+                writer.println("Please, type only numbers.");
+            }
+        }
+        showSpan();
+
+        return chosenCoordinate;
     }
 
     public void showSpan() {

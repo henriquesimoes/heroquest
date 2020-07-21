@@ -11,16 +11,19 @@ import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.managers.player.Describable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Skill implements AbstractMapObjectVisitor, Describable {
-    protected String skillName, skillDescription;
     protected Walker skillUser;
     protected ArrayList<MapObject> targets;
+    private String skillName, skillDescription;
     private WalkerManager walkerManager;
+    private DisplayTargetsMode displayTargetsMode;
 
-    public Skill(String skillName, String skillDescription) {
+    public Skill(String skillName, String skillDescription, DisplayTargetsMode displayTargetsMode) {
         this.skillName = skillName;
         this.skillDescription = skillDescription;
+        this.displayTargetsMode = displayTargetsMode;
         this.targets = new ArrayList<>();
     }
 
@@ -38,6 +41,10 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable {
     @Override
     public String getDescription() {
         return skillDescription;
+    }
+
+    public DisplayTargetsMode getDisplayTargetsMode() {
+        return displayTargetsMode;
     }
 
     public abstract void updateTargets();
@@ -66,5 +73,18 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable {
 
     @Override
     public void visit(Walker walker) {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Skill that = (Skill) o;
+        return Objects.equals(skillName, that.skillName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(skillName);
     }
 }

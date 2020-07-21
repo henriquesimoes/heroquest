@@ -7,8 +7,8 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 public abstract class PhysicalSkill extends Skill {
     protected Weapon skilledWeapon;
 
-    public PhysicalSkill(String skillName, String skillDescription, Weapon skilledWeapon) {
-        super(skillName, skillDescription);
+    public PhysicalSkill(String skillName, String skillDescription, DisplayTargetsMode displayTargetsMode, Weapon skilledWeapon) {
+        super(skillName, skillDescription, displayTargetsMode);
         this.skilledWeapon = skilledWeapon;
     }
 
