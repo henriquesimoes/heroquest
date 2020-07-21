@@ -47,27 +47,13 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         running = true;
 
-        final double ONE_SECOND_IN_NANOSECONDS = 1000000000;
-        final double FRAMES_PER_SECOND = 61.0;
-        final double TIME_PER_FRAME = ONE_SECOND_IN_NANOSECONDS / FRAMES_PER_SECOND;
+        GameFPSManager teste = new GameFPSManager();
 
-        double lastUpdateTime = System.nanoTime();
-        int framesCnt = 0;
-
-        double firstUpdate = lastUpdateTime;
         while (running) {
-            double now = System.nanoTime();
-            if (now - lastUpdateTime >= TIME_PER_FRAME) {
-                lastUpdateTime = now;
+            if (teste.shouldUpdate()) {
                 tick();
-                framesCnt++;
             }
 
-            if (lastUpdateTime - firstUpdate >= ONE_SECOND_IN_NANOSECONDS) {
-                firstUpdate = lastUpdateTime;
-                System.out.println(framesCnt);
-                framesCnt = 0;
-            }
             renderGraphics();
         }
     }
@@ -85,8 +71,8 @@ public class GamePanel extends JPanel implements Runnable {
             throw new NullPointerException();
         }
 
-//        new StartMenu(graphics).render();
-        new MapSelection(graphics).render();
+        new StartMenu(graphics).render();
+//        new MapSelection(graphics).render();
 //        new StandardMapSelection(graphics).render();
         render();
     }

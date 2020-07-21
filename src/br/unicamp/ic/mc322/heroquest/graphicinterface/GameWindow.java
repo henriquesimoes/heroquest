@@ -17,9 +17,8 @@ public class GameWindow extends JFrame {
         setTitle("HeroQuest");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(400, 80, WINDOW_WIDTH, WINDOW_HEIGHT);
+        setContentPane(new GamePanel(gameMap));
 
-        contentPane = getContentPane();
-        contentPane.add(new )
         setResizable(false);
         setVisible(true);
         pack();
@@ -32,9 +31,5 @@ public class GameWindow extends JFrame {
     }
 
     public static void setScreenState(ScreenState state) {
-        switch (state) {
-            case MAP_SELECTION:
-                SCREEN_STATE = state;
-        }
     }
 }
