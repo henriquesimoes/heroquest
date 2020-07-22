@@ -112,8 +112,8 @@ public class MapGenerator {
                 int numberOfNeighborsWall = 0;
                 boolean hasNeighborUsed = false;
 
-                for (Coordinate neighbor : neighbors){
-                    if(chosenCoordinates.contains(neighbor))
+                for (Coordinate neighbor : neighbors) {
+                    if (chosenCoordinates.contains(neighbor))
                         hasNeighborUsed = true;
                     if (isWall(neighbor))
                         numberOfNeighborsWall++;

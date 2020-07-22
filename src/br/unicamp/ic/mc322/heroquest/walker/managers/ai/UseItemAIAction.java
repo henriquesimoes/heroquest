@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.ai;
 
-import br.unicamp.ic.mc322.heroquest.item.Item;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.items.Item;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
 
 public class UseItemAIAction extends UseItemAction {

@@ -1,17 +1,17 @@
 package br.unicamp.ic.mc322.heroquest.map.objects.fixed;
 
-import br.unicamp.ic.mc322.heroquest.item.Armor;
-import br.unicamp.ic.mc322.heroquest.item.Item;
-import br.unicamp.ic.mc322.heroquest.item.SpellCard;
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
-import br.unicamp.ic.mc322.heroquest.item.artifacts.GoldCoin;
-import br.unicamp.ic.mc322.heroquest.item.potions.HealthPotion;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.MonsterGenerator;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.items.Armor;
+import br.unicamp.ic.mc322.heroquest.walker.items.Item;
+import br.unicamp.ic.mc322.heroquest.walker.items.SpellCard;
+import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
+import br.unicamp.ic.mc322.heroquest.walker.items.artifacts.GoldCoin;
+import br.unicamp.ic.mc322.heroquest.walker.items.potions.HealthPotion;
 
 import java.util.ArrayList;
 

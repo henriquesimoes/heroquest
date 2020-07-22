@@ -1,10 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
-import br.unicamp.ic.mc322.heroquest.item.Item;
-import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.items.Item;
 import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
+import br.unicamp.ic.mc322.heroquest.walker.skills.Skill;
 
 public class SeeStatusPlayerAction implements Action {
     private WalkerPlayer walkerPlayer;

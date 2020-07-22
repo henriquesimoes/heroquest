@@ -1,9 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseSkillAction;
+import br.unicamp.ic.mc322.heroquest.walker.skills.Skill;
 
 public class UseSkillPlayerAction extends UseSkillAction {
     private WalkerPlayer walkerPlayer;

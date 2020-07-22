@@ -1,13 +1,12 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
-import br.unicamp.ic.mc322.heroquest.item.Item;
+import br.unicamp.ic.mc322.heroquest.walker.items.Item;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class Knapsack {
-    private Map<Item, Integer> items;
+    private java.util.Map<Item, Integer> items;
 
     Knapsack() {
         items = new LinkedHashMap<>();
@@ -33,7 +32,7 @@ public class Knapsack {
         return items.keySet().toArray((new Item[0]));
     }
 
-    Map<Item, Integer> getItems() {
+    java.util.Map<Item, Integer> getItems() {
         return items;
     }
 }

@@ -12,7 +12,6 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.ai.MovementBehavior;
 import java.util.ArrayList;
 
 public class Follower extends MovementBehavior implements AbstractMapObjectVisitor {
-
     @Override
     protected Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
         Coordinate walkerPosition = walkerManager.getWalkerPosition();

@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
-import br.unicamp.ic.mc322.heroquest.item.Item;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.items.Item;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
 
 public class UseItemPlayerAction extends UseItemAction {

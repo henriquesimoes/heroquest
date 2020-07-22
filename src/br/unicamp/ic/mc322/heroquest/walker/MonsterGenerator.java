@@ -1,13 +1,13 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
-import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
+import br.unicamp.ic.mc322.heroquest.engine.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
-import br.unicamp.ic.mc322.heroquest.walker.monster.CommonSkeleton;
-import br.unicamp.ic.mc322.heroquest.walker.monster.Goblin;
-import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
+import br.unicamp.ic.mc322.heroquest.walker.monsters.CommonSkeleton;
+import br.unicamp.ic.mc322.heroquest.walker.monsters.Goblin;
+import br.unicamp.ic.mc322.heroquest.walker.monsters.WizardSkeleton;
 
 import java.util.ArrayList;
 import java.util.Arrays;

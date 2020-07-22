@@ -1,9 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.ai;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseSkillAction;
+import br.unicamp.ic.mc322.heroquest.walker.skills.Skill;
 
 import java.util.ArrayList;
 
