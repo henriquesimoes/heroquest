@@ -12,7 +12,7 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.player.Describable;
 
 import java.util.ArrayList;
 
-public abstract class Skill implements AbstractMapObjectVisitor, Describable {
+public abstract class Skill implements AbstractMapObjectVisitor, Describable, Comparable {
     protected Walker skillUser;
     protected ArrayList<MapObject> targets;
     protected String skillName;
@@ -73,5 +73,12 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable {
 
     @Override
     public void visit(Walker walker) {
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Skill that = (Skill) o;
+        int order = getName().compareTo(that.getName());
+        return order != 0 ? order : Integer.compare(this.hashCode(), that.hashCode());
     }
 }

@@ -46,7 +46,7 @@ public abstract class Walker implements MapObject {
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
-        skills = new HashMap<>();
+        skills = new TreeMap<>();
         spellsAbleToLearn = new ArrayList<>();
         itemsAbleToUse = new ArrayList<>(Arrays.asList(ItemClass.NEUTRAL));
         movementDice = 2;
