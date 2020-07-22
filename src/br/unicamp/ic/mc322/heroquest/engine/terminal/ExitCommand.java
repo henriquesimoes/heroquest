@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.engine.terminal;
 
-import br.unicamp.ic.mc322.heroquest.view.Command;
-import br.unicamp.ic.mc322.heroquest.view.IOInterface;
+import br.unicamp.ic.mc322.heroquest.engine.Command;
+import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 
 public class ExitCommand implements Command {
     private IOInterface io;

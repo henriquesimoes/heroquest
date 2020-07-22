@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.walker.heroes;
 
+import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
 import br.unicamp.ic.mc322.heroquest.walker.items.ItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;

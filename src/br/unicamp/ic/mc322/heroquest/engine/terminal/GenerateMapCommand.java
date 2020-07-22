@@ -1,9 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.engine.terminal;
 
+import br.unicamp.ic.mc322.heroquest.engine.Command;
+import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.view.Command;
-import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 
 public class GenerateMapCommand implements Command {
     private TerminalEngine engine;

@@ -1,10 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.engine.terminal;
 
+import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.engine.GameEngine;
 import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.view.Command;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class TerminalEngine implements GameEngine {
