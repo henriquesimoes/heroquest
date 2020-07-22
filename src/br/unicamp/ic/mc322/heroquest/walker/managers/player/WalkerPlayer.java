@@ -40,8 +40,8 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
     }
 
     void updateScreen() {
-        ioInterface.showMessage(getStatus());
         ioInterface.showMap(walker.getPosition());
+        ioInterface.showMessage(getStatus());
     }
 
     public void accept(ConcreteMapObjectVisitor visitor, Region region) {
