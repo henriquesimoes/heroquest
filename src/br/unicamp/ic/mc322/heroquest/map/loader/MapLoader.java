@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class MapLoader {
     // TODO: use application general configuration handler to get resources path.
     private static final String MAPS_PATH = "resources/maps";
-    private Path base;
+    private final Path base;
     private Collection<File> files;
 
     public MapLoader() {

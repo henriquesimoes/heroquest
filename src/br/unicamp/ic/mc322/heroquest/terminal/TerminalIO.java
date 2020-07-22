@@ -12,8 +12,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TerminalIO implements IOInterface {
-    private PrintStream writer;
-    private Scanner reader;
+    private final PrintStream writer;
+    private final Scanner reader;
     private MapViewer viewer;
 
     public TerminalIO() {

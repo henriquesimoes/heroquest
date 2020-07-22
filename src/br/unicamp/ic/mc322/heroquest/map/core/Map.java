@@ -14,8 +14,8 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import java.util.*;
 
 public class Map implements GameListener {
-    private java.util.Map<Coordinate, MapUnit> units;
-    private Dimension dimension;
+    private final java.util.Map<Coordinate, MapUnit> units;
+    private final Dimension dimension;
 
     Map(java.util.Map<Coordinate, MapUnit> units, Dimension dimension) {
         this.units = units;

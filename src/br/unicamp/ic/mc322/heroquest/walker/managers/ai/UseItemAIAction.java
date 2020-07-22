@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
 
 public class UseItemAIAction extends UseItemAction {
-    private WalkerAI walkerAI;
+    private final WalkerAI walkerAI;
 
     UseItemAIAction(WalkerAI walkerAI) {
         super(walkerAI);

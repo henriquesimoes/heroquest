@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseSkillAction;
 
 public class UseSkillPlayerAction extends UseSkillAction {
-    private WalkerPlayer walkerPlayer;
+    private final WalkerPlayer walkerPlayer;
 
     UseSkillPlayerAction(WalkerPlayer walkerPlayer) {
         super(walkerPlayer);

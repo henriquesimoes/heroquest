@@ -6,8 +6,8 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.hero.Wizard;
 
 public class PlayCommand implements Command {
-    private TerminalEngine engine;
-    private IOInterface io;
+    private final TerminalEngine engine;
+    private final IOInterface io;
 
     public PlayCommand(TerminalEngine engine, IOInterface io) {
         this.engine = engine;

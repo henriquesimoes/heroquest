@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GameMonitor {
     private static GameMonitor gameMonitor;
-    private ArrayList<GameListener> gameListeners;
+    private final ArrayList<GameListener> gameListeners;
 
     private GameMonitor() {
         gameListeners = new ArrayList<>();

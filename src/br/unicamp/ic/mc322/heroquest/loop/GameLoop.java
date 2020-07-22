@@ -12,7 +12,8 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 public class GameLoop implements GameListener, AbstractMapObjectVisitor {
-    private LinkedHashMap<Team, HashSet<WalkerManager>> managersByTeam, managersAliveByTeam;
+    private final LinkedHashMap<Team, HashSet<WalkerManager>> managersByTeam;
+    private final LinkedHashMap<Team, HashSet<WalkerManager>> managersAliveByTeam;
 
     public GameLoop(Map map) {
         this.managersByTeam = new LinkedHashMap<>();

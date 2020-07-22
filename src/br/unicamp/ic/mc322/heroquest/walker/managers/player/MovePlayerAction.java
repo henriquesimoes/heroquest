@@ -10,7 +10,7 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.MoveAction;
 import java.util.ArrayList;
 
 public class MovePlayerAction extends MoveAction {
-    private WalkerPlayer walkerPlayer;
+    private final WalkerPlayer walkerPlayer;
 
     MovePlayerAction(WalkerPlayer walkerPlayer) {
         super(walkerPlayer);

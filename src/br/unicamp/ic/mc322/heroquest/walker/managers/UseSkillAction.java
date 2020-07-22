@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 
 public abstract class UseSkillAction implements Action {
-    private WalkerManager walkerManager;
+    private final WalkerManager walkerManager;
 
     public UseSkillAction(WalkerManager walkerManager) {
         this.walkerManager = walkerManager;

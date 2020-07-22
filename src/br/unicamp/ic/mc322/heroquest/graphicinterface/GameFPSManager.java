@@ -1,7 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenStates;
-
 public class GameFPSManager {
     final double ONE_SECOND_IN_NANOSECONDS = 1000000000;
     final double FRAMES_PER_SECOND = 65.0;

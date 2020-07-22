@@ -11,13 +11,13 @@ public class GenericButton {
     private int selectionBoxWidth;
     private int selectionBoxHeight;
     private Color boxColor;
-    private BasicStroke boxStroke;
+    private final BasicStroke boxStroke;
     private Coordinate boxPosition;
     private Rectangle2D boxBounds;
     private Coordinate innerTextPosition;
-    private String innerText;
+    private final String innerText;
     private Font font;
-    private Graphics2D graphics;
+    private final Graphics2D graphics;
 
     public GenericButton(String text, Graphics2D graphics) {
         this.graphics = graphics;

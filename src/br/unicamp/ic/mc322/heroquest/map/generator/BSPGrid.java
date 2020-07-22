@@ -3,9 +3,9 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 import java.util.ArrayList;
 
 class BSPGrid {
-    private int gridHeight;
-    private int gridWidth;
-    private int bspIterations;
+    private final int gridHeight;
+    private final int gridWidth;
+    private final int bspIterations;
 
     public BSPGrid(int gridWidth, int gridHeight, int bspIterations) {
         this.gridWidth = gridWidth;

@@ -28,9 +28,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisitor {
-    private IOInterface ioInterface;
-    private Set<MapObject> objectsAdjacent;
-    private Set<HiddenObject> hiddenObjectsDetected;
+    private final IOInterface ioInterface;
+    private final Set<MapObject> objectsAdjacent;
+    private final Set<HiddenObject> hiddenObjectsDetected;
 
     public WalkerPlayer(IOInterface ioInterface) {
         this.ioInterface = ioInterface;

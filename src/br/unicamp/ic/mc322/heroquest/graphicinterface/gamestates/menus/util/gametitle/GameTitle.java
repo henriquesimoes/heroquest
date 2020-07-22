@@ -7,9 +7,9 @@ import java.awt.geom.Rectangle2D;
 
 public class GameTitle {
     private static final String TITLE = "HeroQuest";
-    private Graphics2D graphics;
-    private Font titleFont = new Font("Helvetica", Font.BOLD, 60);
-    private int yCoord;
+    private final Graphics2D graphics;
+    private final Font titleFont = new Font("Helvetica", Font.BOLD, 60);
+    private final int yCoord;
     private int xCoord;
 
     //** Horizontal aligned in center*/

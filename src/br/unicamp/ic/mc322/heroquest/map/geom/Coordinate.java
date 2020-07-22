@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Coordinate {
-    private Point coordinate;
+    private final Point coordinate;
 
     public Coordinate() {
         this.coordinate = new Point();

@@ -7,9 +7,9 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class BoxFreeText implements Clickable {
-    private Graphics2D graphics;
-    private String text;
-    private Font boxFont;
+    private final Graphics2D graphics;
+    private final String text;
+    private final Font boxFont;
     private Rectangle2D textBounds;
 
     public BoxFreeText(String text, Graphics2D graphics) {

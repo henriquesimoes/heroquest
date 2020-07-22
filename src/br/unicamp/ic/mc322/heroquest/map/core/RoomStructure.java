@@ -4,8 +4,8 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 
 public class RoomStructure {
-    private Dimension dimension;
-    private Coordinate topLeftCoordinate;
+    private final Dimension dimension;
+    private final Coordinate topLeftCoordinate;
 
     public RoomStructure(Dimension dimension, Coordinate topLeftCoordinate) {
         this.dimension = dimension;

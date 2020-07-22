@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class StandardMapSelection implements Renderable {
     private final GameTitle GAME_TITLE;
     private final BoxedList LIST_OF_MAPS;
-    private ScreenStateManager screenStateManager;
+    private final ScreenStateManager screenStateManager;
 
     public StandardMapSelection(Graphics2D graphics, ScreenStateManager screenStateManager) {
         this.screenStateManager = screenStateManager;

@@ -3,10 +3,10 @@ package br.unicamp.ic.mc322.heroquest.item;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class Item {
-    private String itemName;
-    private String itemDescription;
+    private final String itemName;
+    private final String itemDescription;
     private boolean existenceState;
-    private int goldCoinsValue;
+    private final int goldCoinsValue;
 
     protected Item(String itemName, String itemDescription, int goldCoinsValue) {
         this.itemName = itemName;

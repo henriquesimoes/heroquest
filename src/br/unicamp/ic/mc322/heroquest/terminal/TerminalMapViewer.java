@@ -23,8 +23,8 @@ import br.unicamp.ic.mc322.heroquest.walker.monster.WizardSkeleton;
 import java.util.Arrays;
 
 public class TerminalMapViewer implements MapViewer {
-    private Map map;
-    private char[][] output;
+    private final Map map;
+    private final char[][] output;
 
     public TerminalMapViewer(Map map) {
         this.map = map;

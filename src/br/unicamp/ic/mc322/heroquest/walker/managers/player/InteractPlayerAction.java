@@ -7,7 +7,7 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
 import java.util.Set;
 
 public class InteractPlayerAction implements Action {
-    private WalkerPlayer walkerPlayer;
+    private final WalkerPlayer walkerPlayer;
 
     InteractPlayerAction(WalkerPlayer walkerPlayer) {
         this.walkerPlayer = walkerPlayer;

@@ -15,13 +15,13 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import java.util.ArrayList;
 
 public class Chest extends FixedObject {
-    private int MINIMUM_GOLD_QUANTITY = 20;
-    private int MAXIMUM_GOLD_QUANTITY = 100;
-    private int MAXIMUM_WEAPONS_QUANTITY = 3;
-    private int MAXIMUM_HEALTH_POTIONS_QUANTITY = 3;
-    private int MAXIMUM_SPELL_CARD_QUANTITY = 3;
+    private final int MINIMUM_GOLD_QUANTITY = 20;
+    private final int MAXIMUM_GOLD_QUANTITY = 100;
+    private final int MAXIMUM_WEAPONS_QUANTITY = 3;
+    private final int MAXIMUM_HEALTH_POTIONS_QUANTITY = 3;
+    private final int MAXIMUM_SPELL_CARD_QUANTITY = 3;
     private boolean opened;
-    private ArrayList<CollectableItem> items;
+    private final ArrayList<CollectableItem> items;
     private GoldCoin coins;
 
     public Chest(Coordinate position) {

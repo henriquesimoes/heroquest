@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public abstract class Armor extends DurableItem {
-    private int defenseBonus;
+    private final int defenseBonus;
 
     protected Armor(String itemName, String itemDescription, int defenseBonus, int durability, int goldCoinsValue) {
         super(itemName, itemDescription, durability, goldCoinsValue);

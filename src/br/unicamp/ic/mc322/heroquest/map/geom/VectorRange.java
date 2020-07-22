@@ -7,7 +7,8 @@ import java.util.HashSet;
 public class VectorRange {
     private final double EPS = 1e-6;
     private final double RADIUS = 0.5 + EPS;
-    private Vector lowerBound, upperBound;
+    private final Vector lowerBound;
+    private final Vector upperBound;
 
     /**
      * This Class puts a circle in coordinateObject,

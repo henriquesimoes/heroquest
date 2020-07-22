@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 class RoomGenerator {
     ArrayList<GridContainer> gridSections;
-    private int minimumWidth;
-    private int minimumHeight;
+    private final int minimumWidth;
+    private final int minimumHeight;
 
     public RoomGenerator(ArrayList<GridContainer> gridSections, int minimumWidth, int minimumHeight) {
         this.gridSections = gridSections;

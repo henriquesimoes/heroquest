@@ -6,9 +6,9 @@ import java.util.*;
 
 class VisibleRegion extends Region {
     private final int MAXIMUM_VISIBILITY_RADIUS = Integer.MAX_VALUE;
-    private Queue<Pair<Coordinate, Integer>> queue;
-    private Set<Coordinate> visited;
-    private SortedSet<Vector> vectorsOfObstacle;
+    private final Queue<Pair<Coordinate, Integer>> queue;
+    private final Set<Coordinate> visited;
+    private final SortedSet<Vector> vectorsOfObstacle;
 
     VisibleRegion(Coordinate reference) {
         super(reference);

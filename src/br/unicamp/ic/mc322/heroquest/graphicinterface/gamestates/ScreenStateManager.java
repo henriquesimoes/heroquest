@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScreenStateManager {
-    private Map<String, Renderable> states;
+    private final Map<String, Renderable> states;
     private Renderable prevState;
     private Renderable currentState;
-    private MouseInput mouseInput;
+    private final MouseInput mouseInput;
 
     public ScreenStateManager(MouseInput mouseInput) {
         states = new HashMap<>();
@@ -24,7 +24,6 @@ public class ScreenStateManager {
     }
 
     public void render() {
-
         currentState.render();
     }
 

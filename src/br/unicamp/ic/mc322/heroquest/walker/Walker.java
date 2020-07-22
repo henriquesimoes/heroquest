@@ -30,7 +30,7 @@ public abstract class Walker implements MapObject {
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
     protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell, ableToLearnWaterSpell;
-    private Coordinate position;
+    private final Coordinate position;
     private int balance;
 
 

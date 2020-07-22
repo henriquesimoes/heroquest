@@ -9,7 +9,7 @@ import br.unicamp.ic.mc322.heroquest.view.Command;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
 public class TerminalEngine implements GameEngine {
-    private TerminalIO io;
+    private final TerminalIO io;
     private Map map;
 
     public TerminalEngine() {

@@ -14,15 +14,15 @@ import java.util.ArrayList;
 public class BoxedList {
     private final int STANDARD_BOX_WIDTH = 400;
     private int boxHeightBasedInQuantityOfItems = 0;
-    private String[] dataCells;
-    private ArrayList<Clickable> options;
-    private Graphics2D graphics;
-    private int fontSize;
+    private final String[] dataCells;
+    private final ArrayList<Clickable> options;
+    private final Graphics2D graphics;
+    private final int fontSize;
     private Coordinate boxPosition;
     private Dimension boxDimension;
-    private BasicStroke boxStroke;
-    private Color boxColor;
-    private ScreenStateManager screenStateManager;
+    private final BasicStroke boxStroke;
+    private final Color boxColor;
+    private final ScreenStateManager screenStateManager;
 
     public BoxedList(String[] dataCells, Graphics2D graphics, ScreenStateManager screenStateManager) {
         this.screenStateManager = screenStateManager;

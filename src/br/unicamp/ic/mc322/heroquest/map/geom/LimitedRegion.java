@@ -8,9 +8,9 @@ import java.util.Queue;
 import java.util.Set;
 
 class LimitedRegion extends Region {
-    private int limit;
-    private Queue<Pair<Coordinate, Integer>> queue;
-    private Set<Coordinate> visited;
+    private final int limit;
+    private final Queue<Pair<Coordinate, Integer>> queue;
+    private final Set<Coordinate> visited;
 
     LimitedRegion(Coordinate reference, int limit) {
         super(reference);

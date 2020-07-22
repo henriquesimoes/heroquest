@@ -7,7 +7,7 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.UseSkillAction;
 import java.util.ArrayList;
 
 public class UseSkillAIAction extends UseSkillAction {
-    private WalkerAI walkerAI;
+    private final WalkerAI walkerAI;
 
     UseSkillAIAction(WalkerAI walkerAI) {
         super(walkerAI);

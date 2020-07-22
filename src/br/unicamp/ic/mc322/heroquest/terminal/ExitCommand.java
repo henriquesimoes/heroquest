@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.view.Command;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 
 public class ExitCommand implements Command {
-    private IOInterface io;
+    private final IOInterface io;
 
     public ExitCommand(IOInterface io) {
         this.io = io;

@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
 
 public class UseItemPlayerAction extends UseItemAction {
-    private WalkerPlayer walkerPlayer;
+    private final WalkerPlayer walkerPlayer;
 
     UseItemPlayerAction(WalkerPlayer walkerPlayer) {
         super(walkerPlayer);

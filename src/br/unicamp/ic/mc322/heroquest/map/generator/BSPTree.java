@@ -10,9 +10,9 @@ class BSPTree {
     private final int GRID_MIN_WIDTH = 13;
     private final int GRID_MIN_HEIGHT = 11;
 
-    private Node<GridContainer> root;
-    private GridContainer currentContainer;
-    private Coordinate currentContainerCoordinate;
+    private final Node<GridContainer> root;
+    private final GridContainer currentContainer;
+    private final Coordinate currentContainerCoordinate;
     private GridContainer leftChildContainer;
     private GridContainer rightChildContainer;
 

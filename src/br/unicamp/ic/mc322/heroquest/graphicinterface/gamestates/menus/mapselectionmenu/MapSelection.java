@@ -9,13 +9,15 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.butt
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons.definedbuttons.RandomMapButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.gametitle.GameTitle;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class MapSelection implements Renderable {
     private final GameTitle GAME_TITLE;
-    private ArrayList<MenuButton> options;
-    private ScreenStateManager screenStateManager;
+    private final ArrayList<MenuButton> options;
+    private final ScreenStateManager screenStateManager;
+    private String path;
 
     public MapSelection(Graphics2D graphics, ScreenStateManager screenStateManager) {
         this.screenStateManager = screenStateManager;
@@ -24,6 +26,7 @@ public class MapSelection implements Renderable {
         options.add(new RandomMapButton(graphics, screenStateManager));
         options.add(new ListOfExistentMapsButton(graphics, screenStateManager));
         options.add(new QuitButton(graphics, screenStateManager));
+        path = JOptionPane.showInputDialog("Enter a path");
     }
 
     public void render() {

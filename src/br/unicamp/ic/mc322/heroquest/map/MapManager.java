@@ -16,8 +16,8 @@ public class MapManager {
     private static final int NUMBER_OF_MONSTERS = 20;
     private static final int MINIMUM_MONSTER_PER_TYPE = 1;
     private static final int NUMBER_OF_TRAPS = 20;
-    private MapLoader loader;
-    private MapGenerator generator;
+    private final MapLoader loader;
+    private final MapGenerator generator;
 
     public MapManager() {
         loader = new MapLoader();

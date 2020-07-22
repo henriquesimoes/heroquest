@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class RandomMapButton extends MenuButton {
-    private static final String BUTTON_TEXT = "Random map";;
+    private static final String BUTTON_TEXT = "Random map";
 
     public RandomMapButton(Graphics2D graphics, ScreenStateManager screenStateManager) {
         super(BUTTON_TEXT, graphics, screenStateManager);

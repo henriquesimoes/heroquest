@@ -8,10 +8,10 @@ import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import java.util.ArrayList;
 
 class PathGenerator {
-    private char[][] grid;
-    private ArrayList<RoomStructure> rooms;
-    private ArrayList<GridContainer> gridSections;
-    private ArrayList<Coordinate> roomsCoordinates = new ArrayList<>();
+    private final char[][] grid;
+    private final ArrayList<RoomStructure> rooms;
+    private final ArrayList<GridContainer> gridSections;
+    private final ArrayList<Coordinate> roomsCoordinates = new ArrayList<>();
 
     public PathGenerator(char[][] grid, ArrayList<RoomStructure> rooms, ArrayList<GridContainer> gridSections) {
         this.grid = grid;

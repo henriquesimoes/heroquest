@@ -19,15 +19,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     private final BufferedImage image;
     private final Graphics2D graphics;
-    private ScreenStateManager screenStateManager;
-    private MouseInput mouseInput;
+    private final ScreenStateManager screenStateManager;
+    private final MouseInput mouseInput;
     public Map map;
     //TODO: temporariamente static
     public static MapManager manager;
 
     public GamePanel(Map map) {
         this.map = map;
-        this.manager = new MapManager();
+        manager = new MapManager();
         Dimension preferredSize = new Dimension(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
 
         setPreferredSize(preferredSize);
