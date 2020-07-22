@@ -14,6 +14,7 @@ import br.unicamp.ic.mc322.heroquest.walker.items.ItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
 import br.unicamp.ic.mc322.heroquest.walker.items.cards.SpellElement;
 import br.unicamp.ic.mc322.heroquest.walker.items.weapons.Fists;
+import br.unicamp.ic.mc322.heroquest.walker.skills.PhysicalSkill;
 import br.unicamp.ic.mc322.heroquest.walker.skills.Skill;
 
 import java.util.*;
@@ -172,29 +173,35 @@ public abstract class Walker implements MapObject {
 
     public void equipWeapon(Weapon weapon) {
         knapsack.remove(weapon);
+        String suffixDescription = " - Left Hand";
 
         if (weapon.isTwoHanded()) {
             storeLeftWeapon();
             storeRightWeapon();
             leftWeapon = weapon;
         } else {
-            if (rightWeapon == null)
+            if (rightWeapon == null) {
                 rightWeapon = weapon;
-            else {
+                suffixDescription = " - Right Hand";
+            } else {
                 storeLeftWeapon();
                 leftWeapon = weapon;
             }
         }
 
-        for (Skill skill : weapon.getSkills())
+        for (PhysicalSkill skill : weapon.getSkills()) {
+            skill.setNameSuffix(suffixDescription);
             addSkill(skill);
+        }
     }
 
     private void unequipWeapon(Weapon weapon) {
         knapsack.put(weapon);
 
-        for (Skill skill : weapon.getSkills())
+        for (PhysicalSkill skill : weapon.getSkills()) {
+            skill.clearNameSuffix();
             removeSkill(skill);
+        }
     }
 
     protected void storeLeftWeapon() {

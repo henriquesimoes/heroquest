@@ -6,10 +6,12 @@ import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
 
 public abstract class PhysicalSkill extends Skill {
     protected Weapon skilledWeapon;
+    private String skillNameSuffix;
 
     public PhysicalSkill(String skillName, String skillDescription, DisplayTargetsMode displayTargetsMode, Weapon skilledWeapon) {
         super(skillName, skillDescription, displayTargetsMode);
         this.skilledWeapon = skilledWeapon;
+        this.skillNameSuffix = "";
     }
 
     @Override
@@ -22,5 +24,18 @@ public abstract class PhysicalSkill extends Skill {
 
     protected void degradeWeaponByUse(Walker summoner) {
         skilledWeapon.degradeByUse(summoner);
+    }
+
+    public void setNameSuffix(String suffixName) {
+        this.skillNameSuffix = suffixName;
+    }
+
+    public void clearNameSuffix() {
+        this.skillNameSuffix = "";
+    }
+
+    @Override
+    public String getName() {
+        return skillName + skillNameSuffix;
     }
 }

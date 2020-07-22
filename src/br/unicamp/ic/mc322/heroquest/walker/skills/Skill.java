@@ -15,7 +15,8 @@ import java.util.ArrayList;
 public abstract class Skill implements AbstractMapObjectVisitor, Describable {
     protected Walker skillUser;
     protected ArrayList<MapObject> targets;
-    protected String skillName, skillDescription;
+    protected String skillName;
+    private String skillDescription;
     private WalkerManager walkerManager;
     private DisplayTargetsMode displayTargetsMode;
 
