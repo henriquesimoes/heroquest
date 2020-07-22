@@ -1,31 +1,39 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.selectionboxes;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.Clickable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class BoxedList {
     private final int STANDARD_BOX_WIDTH = 400;
-    private int boxHeightBaseInQuantityOfItems = 0;
+    private int boxHeightBasedInQuantityOfItems = 0;
     private String[] dataCells;
+    private ArrayList<Clickable> options;
     private Graphics2D graphics;
     private int fontSize;
     private Coordinate boxPosition;
     private Dimension boxDimension;
     private BasicStroke boxStroke;
     private Color boxColor;
+    private ScreenStateManager screenStateManager;
 
-    public BoxedList(String[] dataCells, Graphics2D graphics) {
+    public BoxedList(String[] dataCells, Graphics2D graphics, ScreenStateManager screenStateManager) {
+        this.screenStateManager = screenStateManager;
         this.graphics = graphics;
+        this.options = new ArrayList<>();
         this.dataCells = dataCells;
         this.fontSize = 16;
         this.boxStroke = new BasicStroke(3);
         this.boxColor = Color.WHITE;
 
+        createList();
         setBoxDimension();
     }
 
@@ -37,17 +45,18 @@ public class BoxedList {
         renderBox();
     }
 
+    public ArrayList<Clickable> getOptions() {
+        return options;
+    }
+
     private void renderListItems() {
-        int nextItemPosition = boxPosition.getY();
-        Rectangle2D itemBounds;
+        int nextItemPosition = boxPosition.getY() + 30;
 
-        for (String item : dataCells) {
-            BoxFreeText toGraphics = new BoxFreeText(item, graphics);
-            itemBounds = toGraphics.getTextBounds();
-            nextItemPosition += itemBounds.getHeight() + 10;
-            boxHeightBaseInQuantityOfItems += itemBounds.getHeight();
+        for (Clickable listItem : options) {
+            BoxFreeText item = (BoxFreeText) listItem;
 
-            toGraphics.render(nextItemPosition);
+            item.render(nextItemPosition);
+            nextItemPosition += listItem.getBounds().getHeight() + 20;
         }
     }
 
@@ -57,6 +66,18 @@ public class BoxedList {
         graphics.drawRect(boxPosition.getX(), boxPosition.getY() , boxDimension.getWidth(), boxDimension.getHeight());
     }
 
+    private void createList() {
+        Rectangle2D itemBounds;
+
+        for (String item : dataCells) {
+            BoxFreeText toGraphics = new BoxFreeText(item, graphics);
+            itemBounds = toGraphics.getBounds();
+            boxHeightBasedInQuantityOfItems += itemBounds.getHeight();
+
+            options.add(toGraphics);
+        }
+    }
+
     private void setBoxPosition(int y) {
         int x = (GameWindow.WINDOW_WIDTH - boxDimension.getWidth()) / 2;
 
@@ -64,6 +85,6 @@ public class BoxedList {
     }
 
     private void setBoxDimension() {
-        boxDimension = new Dimension(STANDARD_BOX_WIDTH, boxHeightBaseInQuantityOfItems + 20 * dataCells.length);
+        boxDimension = new Dimension(STANDARD_BOX_WIDTH, boxHeightBasedInQuantityOfItems + 20 * (dataCells.length));
     }
 }

@@ -36,6 +36,7 @@ public class ScreenStateManager {
             Coordinate mouseCoords = mouseInput.getMouseCoordsOnClick();
 
             if (bounds.contains(mouseCoords.getX(), mouseCoords.getY())) {
+                mouseInput.clear();
                 clickable.executeAction();
             }
         }

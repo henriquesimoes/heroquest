@@ -32,4 +32,10 @@ public class MouseInput extends MouseAdapter {
         return coords;
     }
 
+    public void clear() {
+        previousCoords = new Coordinate(-1, -1);
+        mouseClickedXCoordinate = -1;
+        mouseClickedYCoordinate = -1;
+    }
+
 }

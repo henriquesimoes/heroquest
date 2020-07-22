@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons.definedbuttons;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenStateManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenStates;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons.MenuButton;
 
 import java.awt.*;
@@ -20,6 +21,6 @@ public class RandomMapButton extends MenuButton {
 
     @Override
     public void executeAction() {
-
+        getScreenStateManager().setState(ScreenStates.LIST_OF_MAPS);
     }
 }

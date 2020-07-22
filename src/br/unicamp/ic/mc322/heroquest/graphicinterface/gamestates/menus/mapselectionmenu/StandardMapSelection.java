@@ -10,6 +10,7 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class StandardMapSelection implements Renderable {
@@ -19,10 +20,11 @@ public class StandardMapSelection implements Renderable {
 
     public StandardMapSelection(Graphics2D graphics, ScreenStateManager screenStateManager) {
         this.screenStateManager = screenStateManager;
-        this.LIST_OF_MAPS = new BoxedList(GamePanel.manager.getExistingMapNames(), graphics);
+        this.LIST_OF_MAPS = new BoxedList(GamePanel.manager.getExistingMapNames(), graphics, screenStateManager);
         this.GAME_TITLE = new GameTitle(graphics, 200);
     }
 
+    @Override
     public void render() {
         GAME_TITLE.render();
         LIST_OF_MAPS.render(350);
@@ -30,8 +32,7 @@ public class StandardMapSelection implements Renderable {
 
     @Override
     public ArrayList<Clickable> getClickableZones() {
-        return null;
+        return LIST_OF_MAPS.getOptions();
     }
-
 
 }

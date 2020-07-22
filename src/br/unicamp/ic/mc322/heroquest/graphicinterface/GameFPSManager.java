@@ -9,21 +9,12 @@ public class GameFPSManager {
 
     double lastUpdateTime = System.nanoTime();
     double now = System.nanoTime();
-    double firstUp = lastUpdateTime;
-    int cnt = 0;
 
     public boolean shouldUpdate() {
         now = System.nanoTime();
 
         if (now - lastUpdateTime >= TIME_PER_FRAME) {
             lastUpdateTime = now;
-            cnt++;
-
-            if (lastUpdateTime - firstUp >= ONE_SECOND_IN_NANOSECONDS) {
-                System.out.println(cnt + ScreenStates.LIST_OF_MAPS.toString());
-                cnt = 0;
-                firstUp = lastUpdateTime;
-            }
             return true;
         }
 

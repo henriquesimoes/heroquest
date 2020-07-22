@@ -63,10 +63,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         running = true;
 
-        GameFPSManager teste = new GameFPSManager();
+        GameFPSManager fpsController = new GameFPSManager();
 
         while (running) {
-            if (teste.shouldUpdate()) {
+            if (fpsController.shouldUpdate()) {
                 tick();
             }
             renderGraphics();
