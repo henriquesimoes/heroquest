@@ -7,5 +7,5 @@ import java.util.ArrayList;
 public interface Renderable {
     void render();
 
-    ArrayList<Coordinate> getClickableZones();
+    ArrayList<Clickable> getClickableZones();
 }

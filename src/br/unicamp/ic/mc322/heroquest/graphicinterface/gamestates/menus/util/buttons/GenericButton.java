@@ -13,6 +13,7 @@ public class GenericButton {
     private Color boxColor;
     private BasicStroke boxStroke;
     private Coordinate boxPosition;
+    private Rectangle2D boxBounds;
     private Coordinate innerTextPosition;
     private String innerText;
     private Font font;
@@ -29,7 +30,6 @@ public class GenericButton {
     }
 
     public void render() {
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         renderText();
         renderSelectionBox();
     }
@@ -38,6 +38,19 @@ public class GenericButton {
         graphics.setFont(font);
         graphics.setColor(Color.WHITE);
         graphics.drawString(innerText, innerTextPosition.getX(), innerTextPosition.getY());
+    }
+
+    private void renderSelectionBox() {
+        graphics.setColor(boxColor);
+
+        graphics.setStroke(boxStroke);
+        boxBounds = new Rectangle2D.Double(boxPosition.getX(), boxPosition.getY(), selectionBoxWidth, selectionBoxHeight);
+
+        graphics.draw(boxBounds);
+    }
+
+    public Rectangle2D getBoxBounds() {
+        return boxBounds;
     }
 
     public void setBoxColor(Color color) {
@@ -67,13 +80,5 @@ public class GenericButton {
         int y = boxPosition.getY() + selectionBoxHeight - (int) innerTextBounds.getHeight() + 5;
 
         innerTextPosition = new Coordinate(x, y);
-    }
-
-    private void renderSelectionBox() {
-        graphics.setColor(boxColor);
-
-        graphics.setStroke(boxStroke);
-        Rectangle2D box = new Rectangle2D.Double(boxPosition.getX(), boxPosition.getY(), selectionBoxWidth, selectionBoxHeight);
-        graphics.draw(box);
     }
 }
