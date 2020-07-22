@@ -12,11 +12,12 @@ public abstract class MagicSkill extends Skill {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Skill that = (Skill) o;
-        return Objects.equals(skillName, that.skillName);
+        return Objects.equals(getName(), that.getName());
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(skillName);
+    public int compareTo(Object o) {
+        Skill that = (Skill) o;
+        return getName().compareTo(that.getName());
     }
 }

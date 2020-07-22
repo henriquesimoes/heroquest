@@ -2,14 +2,14 @@ package br.unicamp.ic.mc322.heroquest.walker;
 
 import br.unicamp.ic.mc322.heroquest.walker.items.Item;
 
-import java.util.LinkedHashMap;
 import java.util.NoSuchElementException;
+import java.util.TreeMap;
 
 public class Knapsack {
     private java.util.Map<Item, Integer> items;
 
     Knapsack() {
-        items = new LinkedHashMap<>();
+        items = new TreeMap<>();
     }
 
     public void put(Item item) {
