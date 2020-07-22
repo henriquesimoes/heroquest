@@ -7,12 +7,10 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
 import br.unicamp.ic.mc322.heroquest.walker.skills.Skill;
 
 public class SeeStatusPlayerAction implements Action {
-    private WalkerPlayer walkerPlayer;
     private Walker walker;
     private IOInterface ioInterface;
 
     SeeStatusPlayerAction(WalkerPlayer walkerPlayer) {
-        this.walkerPlayer = walkerPlayer;
         this.walker = walkerPlayer.getWalker();
         this.ioInterface = walkerPlayer.getIOInterface();
     }
