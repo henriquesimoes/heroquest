@@ -20,11 +20,6 @@ public abstract class PhysicalSkill extends Skill {
         degradeWeaponByUse(summoner);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        return o == this;
-    }
-
     protected void degradeWeaponByUse(Walker summoner) {
         skilledWeapon.degradeByUse(summoner);
     }
