@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.engine.terminal;
 
 import br.unicamp.ic.mc322.heroquest.engine.GameEngine;
+import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
 import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
@@ -10,17 +11,21 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 public class TerminalEngine implements GameEngine {
     private TerminalIO io;
     private Map map;
+    private GameLevel level;
 
     public TerminalEngine() {
-        MapManager manager = new MapManager();
+        level = GameLevel.EASY;
 
+        MapManager manager = new MapManager(level);
         map = manager.generate();
+
         io = new TerminalIO();
     }
 
     @Override
     public void run() {
         Command[] commands = {
+                new ChooseLevelCommand(this, io),
                 new GenerateMapCommand(this, io),
                 new ChooseMapCommand(this, io),
                 new PlayCommand(this, io),
@@ -36,16 +41,20 @@ public class TerminalEngine implements GameEngine {
         }
     }
 
-    protected Map getMap() {
-        return map;
-    }
-
     protected void setMap(Map map) {
         this.map = map;
     }
 
     protected void addPlayer(Walker walker) {
         map.add(walker);
+    }
+
+    protected void setLevel(GameLevel level) {
+        this.level = level;
+    }
+
+    protected GameLevel getLevel() {
+        return level;
     }
 
     protected void runLoop() {

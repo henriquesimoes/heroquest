@@ -21,7 +21,7 @@ public class GenerateMapCommand implements Command {
 
     @Override
     public void execute() {
-        MapManager manager = new MapManager();
+        MapManager manager = new MapManager(engine.getLevel());
 
         Map map = manager.generate();
         io.showMessage("Map generated successfully!");

@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map;
 
+import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.generator.MapGenerator;
 import br.unicamp.ic.mc322.heroquest.map.loader.CorruptedConfigurationFileException;
@@ -11,15 +12,16 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import java.io.FileNotFoundException;
 
 public class MapManager {
-    private static final int NUMBER_OF_MONSTERS = 20;
     private static final int MINIMUM_MONSTER_PER_TYPE = 1;
     private static final int NUMBER_OF_TRAPS = 20;
     private final MapLoader loader;
     private final MapGenerator generator;
+    private final GameLevel level;
 
-    public MapManager() {
+    public MapManager(GameLevel level) {
         loader = new MapLoader();
         generator = new MapGenerator();
+        this.level = level;
     }
 
     public Map load(String name) throws FileNotFoundException, CorruptedConfigurationFileException {
@@ -59,7 +61,9 @@ public class MapManager {
 
         generator.setMinimumPerType(MINIMUM_MONSTER_PER_TYPE);
 
-        for (Walker walker : generator.generate(NUMBER_OF_MONSTERS))
+        int numberOfMonsters = level.getNumberOfMonsters(map.getHeight() * map.getWidth());
+
+        for (Walker walker : generator.generate(numberOfMonsters))
             map.add(walker);
     }
 }
