@@ -1,7 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.generator.MapGenerator;
 import br.unicamp.ic.mc322.heroquest.map.loader.CorruptedConfigurationFileException;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapLoader;
@@ -15,8 +14,8 @@ public class MapManager {
     private static final int NUMBER_OF_MONSTERS = 20;
     private static final int MINIMUM_MONSTER_PER_TYPE = 1;
     private static final int NUMBER_OF_TRAPS = 20;
-    private MapLoader loader;
-    private MapGenerator generator;
+    private final MapLoader loader;
+    private final MapGenerator generator;
 
     public MapManager() {
         loader = new MapLoader();
@@ -24,25 +23,22 @@ public class MapManager {
     }
 
     public Map load(String name) throws FileNotFoundException, CorruptedConfigurationFileException {
-        MapBuilder builder = loader.load(name);
+        Map map = loader.load(name);
 
-        return populate(builder);
+        return populate(map);
     }
 
     public Map generate() {
-        MapBuilder builder = generator.generate();
+        Map map = generator.generate();
 
-        return populate(builder);
+        return populate(map);
     }
 
     public String[] getExistingMapNames() {
         return loader.getMapNames();
     }
 
-    private Map populate(MapBuilder builder) {
-        builder.buildMap();
-        Map map = builder.getResult();
-
+    private Map populate(Map map) {
         addWalkers(map);
         addFixedObjects(map);
 
