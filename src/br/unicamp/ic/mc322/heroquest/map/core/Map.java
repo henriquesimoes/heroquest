@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.map.core;
 
-import br.unicamp.ic.mc322.heroquest.loop.GameListener;
+import br.unicamp.ic.mc322.heroquest.engine.GameListener;
+import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.TrapPositionValidator;
 import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.VisionValidator;
 import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.WalkableValidator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
@@ -22,20 +23,15 @@ public class Map implements GameListener {
         this.dimension = dimension;
     }
 
-    public void add(Walker walker, Coordinate coordinate) {
-        MapUnit unit = units.get(coordinate);
-        unit.add(walker);
-        walker.setMap(this);
-    }
-
     public void add(Walker walker) {
-        MapUnit unit = getRandomValidUnit(new WalkableValidator(this));
+        Coordinate coordinate = walker.getPosition();
+        MapUnit unit = coordinate.equals(null) ? getRandomValidUnit(new WalkableValidator(this)) : units.get(coordinate);
         unit.add(walker);
         walker.setMap(this);
     }
 
     public void add(Trap trap) {
-        MapUnit unit = getRandomValidUnit(new WalkableValidator(this));
+        MapUnit unit = getRandomValidUnit(new TrapPositionValidator(this));
         unit.add(trap);
     }
 
@@ -112,13 +108,16 @@ public class Map implements GameListener {
     }
 
     public void accept(ConcreteMapObjectVisitor visitor, Region region) {
-        for (Coordinate coordinate : region) {
-            MapUnit unit = units.get(coordinate);
-            unit.accept(visitor);
-        }
+        for (Coordinate coordinate : region)
+            accept(visitor, coordinate);
     }
 
     public void accept(AbstractMapObjectVisitor visitor, Coordinate coordinate) {
+        MapUnit unit = units.get(coordinate);
+        unit.accept(visitor);
+    }
+
+    public void accept(ConcreteMapObjectVisitor visitor, Coordinate coordinate) {
         MapUnit unit = units.get(coordinate);
         unit.accept(visitor);
     }
@@ -134,7 +133,7 @@ public class Map implements GameListener {
 
     private void remove(Walker walker) {
         MapUnit unit = units.get(walker.getPosition());
-        unit.removeWalker();
+        unit.remove(walker);
     }
 
     private MapUnit getRandomValidUnit(PositionValidator validator) {

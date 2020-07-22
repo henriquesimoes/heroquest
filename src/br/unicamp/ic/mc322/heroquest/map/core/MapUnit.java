@@ -47,12 +47,13 @@ public class MapUnit {
     void moveWalker(MapUnit destination) {
         if (walker != null && destination.isFree()) {
             destination.add(walker);
-            removeWalker();
+            remove(walker);
         }
     }
 
-    void removeWalker() {
-        walker = null;
+    void remove(Walker walker) {
+        if (walker != null && walker.equals(this.walker))
+            this.walker = null;
     }
 
     private boolean isFree() {

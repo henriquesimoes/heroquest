@@ -1,21 +1,23 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
-import br.unicamp.ic.mc322.heroquest.item.Armor;
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
-import br.unicamp.ic.mc322.heroquest.item.weapons.Fists;
-import br.unicamp.ic.mc322.heroquest.loop.GameMonitor;
+import br.unicamp.ic.mc322.heroquest.engine.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.skills.Skill;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
+import br.unicamp.ic.mc322.heroquest.walker.items.Armor;
+import br.unicamp.ic.mc322.heroquest.walker.items.Item;
+import br.unicamp.ic.mc322.heroquest.walker.items.ItemClass;
+import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
+import br.unicamp.ic.mc322.heroquest.walker.items.cards.SpellElement;
+import br.unicamp.ic.mc322.heroquest.walker.items.weapons.Fists;
+import br.unicamp.ic.mc322.heroquest.walker.skills.PhysicalSkill;
+import br.unicamp.ic.mc322.heroquest.walker.skills.Skill;
 
-import java.util.HashMap;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public abstract class Walker implements MapObject {
     protected Team team;
@@ -29,10 +31,10 @@ public abstract class Walker implements MapObject {
     protected RedDice redDice;
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
-    protected boolean ableToLearnFireSpell, ableToLearnAirSpell, ableToLearnEarthSpell, ableToLearnWaterSpell;
-    private final Coordinate position;
+    protected Collection<SpellElement> spellsAbleToLearn;
+    protected Collection<ItemClass> itemsAbleToUse;
+    private Coordinate position;
     private int balance;
-
 
     public Walker(WalkerManager manager, String name) {
         this.name = name;
@@ -44,7 +46,9 @@ public abstract class Walker implements MapObject {
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
-        skills = new HashMap<>();
+        skills = new TreeMap<>();
+        spellsAbleToLearn = new ArrayList<>();
+        itemsAbleToUse = new ArrayList<>(Arrays.asList(ItemClass.NEUTRAL));
         movementDice = 2;
 
         // Add fists attack skill
@@ -122,8 +126,8 @@ public abstract class Walker implements MapObject {
         balance += amount;
     }
 
-    public void collectItem(CollectableItem item) {
-        walkerManager.showMessage("Collected the item: " + item.getItemName());
+    public void collectItem(Item item) {
+        walkerManager.showMessage("Collected the item: " + item.getName());
         knapsack.put(item);
     }
 
@@ -132,12 +136,12 @@ public abstract class Walker implements MapObject {
      *
      * @param item item to be removed
      */
-    public void destroyItem(CollectableItem item) {
+    public void destroyItem(Item item) {
         if (leftWeapon != null && leftWeapon.equals(item))
-            unequipWeapon((Weapon) item);
+            storeLeftWeapon();
 
         if (rightWeapon != null && rightWeapon.equals(item))
-            unequipWeapon((Weapon) item);
+            storeRightWeapon();
 
         if (armor != null && armor.equals(item))
             unequipArmor();
@@ -155,7 +159,7 @@ public abstract class Walker implements MapObject {
             skills.replace(skill, amount + 1);
     }
 
-    private void removeSkill(Skill skill) {
+    public void removeSkill(Skill skill) {
         Integer amount = skills.get(skill);
 
         if (amount == -1)
@@ -169,29 +173,35 @@ public abstract class Walker implements MapObject {
 
     public void equipWeapon(Weapon weapon) {
         knapsack.remove(weapon);
+        String suffixDescription = " - Left Hand";
 
         if (weapon.isTwoHanded()) {
             storeLeftWeapon();
             storeRightWeapon();
             leftWeapon = weapon;
         } else {
-            if (rightWeapon == null)
+            if (rightWeapon == null) {
                 rightWeapon = weapon;
-            else {
+                suffixDescription = " - Right Hand";
+            } else {
                 storeLeftWeapon();
                 leftWeapon = weapon;
             }
         }
 
-        for (Skill skill : weapon.getSkills())
+        for (PhysicalSkill skill : weapon.getSkills()) {
+            skill.setNameSuffix(suffixDescription);
             addSkill(skill);
+        }
     }
 
     private void unequipWeapon(Weapon weapon) {
         knapsack.put(weapon);
 
-        for (Skill skill : weapon.getSkills())
+        for (PhysicalSkill skill : weapon.getSkills()) {
+            skill.clearNameSuffix();
             removeSkill(skill);
+        }
     }
 
     protected void storeLeftWeapon() {
@@ -219,6 +229,7 @@ public abstract class Walker implements MapObject {
     protected void unequipArmor() {
         if (armor != null) {
             knapsack.put(armor);
+            armor = null;
             bonusDefenseDice -= armor.getDefenseBonus();
         }
     }
@@ -226,17 +237,17 @@ public abstract class Walker implements MapObject {
     protected String getStatus() {
         String status = String.format("Name: %s\n", name);
         status += String.format("Life: %d/%d\n", currentBodyPoints, maximumBodyPoints);
-        status += String.format("Armor: %s\n", (armor == null ? "none" : armor.getItemName()));
+        status += String.format("Armor: %s\n", (armor == null ? "none" : armor.representationOnStatus()));
         if (leftWeapon != null && leftWeapon.isTwoHanded())
-            status += String.format("Weapon: %s\n", leftWeapon.getItemName());
+            status += String.format("Weapon: %s\n", leftWeapon.representationOnStatus());
         else {
-            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.getItemName()));
-            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.getItemName()));
+            status += String.format("Left Weapon: %s\n", (leftWeapon == null ? "none" : leftWeapon.representationOnStatus()));
+            status += String.format("Right Weapon: %s\n", (rightWeapon == null ? "none" : rightWeapon.representationOnStatus()));
         }
         return status;
     }
 
-    public Skill[] getSkills() {
+    public Skill[] getSkillList() {
         return skills.keySet().toArray(new Skill[0]);
     }
 
@@ -252,8 +263,8 @@ public abstract class Walker implements MapObject {
         return team;
     }
 
-    public CollectableItem[] getItems() {
-        return knapsack.getItems();
+    public Item[] getItems() {
+        return knapsack.getItemList();
     }
 
     protected boolean isAlive() {
@@ -272,20 +283,12 @@ public abstract class Walker implements MapObject {
         return this.team == walker.team;
     }
 
-    public boolean isAbleToLearnFireSpell() {
-        return ableToLearnFireSpell;
+    public boolean isAbleToLearn(SpellElement spellElement) {
+        return spellsAbleToLearn.contains(spellElement);
     }
 
-    public boolean isAbleToLearnAirSpell() {
-        return ableToLearnAirSpell;
-    }
-
-    public boolean isAbleToLearnEarthSpell() {
-        return ableToLearnEarthSpell;
-    }
-
-    public boolean isAbleToLearnWaterSpell() {
-        return ableToLearnWaterSpell;
+    public boolean isAbleToUse(ItemClass itemClass) {
+        return itemsAbleToUse.contains(itemClass);
     }
 
     @Override
@@ -320,5 +323,40 @@ public abstract class Walker implements MapObject {
 
     public void setPosition(Coordinate position) {
         this.position.copyValue(position);
+    }
+
+    public String getAttributeList() {
+        String status = getStatus();
+        status += "Attack dices: " + attackDice;
+        status += (leftWeapon != null ? " + " + leftWeapon.getAttackBonus() : "");
+        status += (rightWeapon != null ? " + " + rightWeapon.getAttackBonus() : "") + "\n";
+        status += "Defence dices: " + defenseDice + (bonusDefenseDice != 0 ? (" + " + bonusDefenseDice) : "") + "\n";
+        status += "Mind points: " + mindPoints + "\n";
+
+        status += "Class of items able to use: ";
+        for (ItemClass itemClass : itemsAbleToUse)
+            status += itemClass.toString() + ", ";
+        status = status.substring(0, status.length() - 2) + "\n";
+
+
+        status += "Elements of spells able to learn: ";
+        if (spellsAbleToLearn.size() == 0)
+            status += "none\n";
+        else {
+            for (SpellElement spellElement : spellsAbleToLearn)
+                status += spellElement.toString() + ", ";
+            status = status.substring(0, status.length() - 2) + "\n";
+        }
+
+        status += "Balance: " + balance + " gold coin(s)" + "\n";
+        return status;
+    }
+
+    public java.util.Map<Item, Integer> getInventory() {
+        return knapsack.getItems();
+    }
+
+    public java.util.Map<Skill, Integer> getSkills() {
+        return skills;
     }
 }

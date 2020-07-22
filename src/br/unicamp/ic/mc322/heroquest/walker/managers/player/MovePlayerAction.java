@@ -10,17 +10,18 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.MoveAction;
 import java.util.ArrayList;
 
 public class MovePlayerAction extends MoveAction {
-    private final WalkerPlayer walkerPlayer;
+    private WalkerPlayer walkerPlayer;
+    private Walker walker;
+    private IOInterface ioInterface;
 
     MovePlayerAction(WalkerPlayer walkerPlayer) {
-        super(walkerPlayer);
         this.walkerPlayer = walkerPlayer;
+        this.walker = walkerPlayer.getWalker();
+        this.ioInterface = walkerPlayer.getIOInterface();
     }
 
     @Override
     public boolean execute() {
-        Walker walker = walkerPlayer.getWalker();
-        IOInterface ioInterface = walkerPlayer.getIOInterface();
         int limitPositionInMove = walker.getPositionLimitInMovement();
 
         for (int i = limitPositionInMove; i > 0; ) {

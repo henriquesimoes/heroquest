@@ -1,8 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.ai;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.skills.Skill;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseSkillAction;
+import br.unicamp.ic.mc322.heroquest.walker.skills.Skill;
 
 import java.util.ArrayList;
 
@@ -10,8 +11,27 @@ public class UseSkillAIAction extends UseSkillAction {
     private final WalkerAI walkerAI;
 
     UseSkillAIAction(WalkerAI walkerAI) {
-        super(walkerAI);
         this.walkerAI = walkerAI;
+    }
+
+    @Override
+    public boolean execute() {
+        Walker walker = walkerAI.getWalker();
+        Skill[] skills = walker.getSkillList();
+        Skill chosenSkill = chooseSkill(skills);
+
+        if (chosenSkill == null)
+            return false;
+
+        MapObject[] targets = chosenSkill.getTargets();
+        MapObject target = walkerAI.chooseTarget(targets);
+
+        if (target == null)
+            return false;
+
+        chosenSkill.useSkill(walker, target);
+
+        return true;
     }
 
     protected Skill chooseSkill(Skill[] skills) {

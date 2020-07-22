@@ -1,25 +1,24 @@
 package br.unicamp.ic.mc322.heroquest.walker;
 
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
+import br.unicamp.ic.mc322.heroquest.walker.items.Item;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.TreeMap;
 
 public class Knapsack {
-    private final Map<CollectableItem, Integer> items;
+    private java.util.Map<Item, Integer> items;
 
     Knapsack() {
-        items = new LinkedHashMap<>();
+        items = new TreeMap<>();
     }
 
-    public void put(CollectableItem item) {
+    public void put(Item item) {
         Integer oldAmount = items.get(item);
         Integer currentAmount = oldAmount == null ? 1 : oldAmount + 1;
         items.put(item, currentAmount);
     }
 
-    public void remove(CollectableItem item) {
+    public void remove(Item item) {
         Integer currentAmount = items.remove(item);
         if (currentAmount == null)
             throw new NoSuchElementException();
@@ -29,7 +28,11 @@ public class Knapsack {
             items.put(item, currentAmount);
     }
 
-    public CollectableItem[] getItems() {
-        return this.items.keySet().toArray((new CollectableItem[0]));
+    Item[] getItemList() {
+        return items.keySet().toArray((new Item[0]));
+    }
+
+    java.util.Map<Item, Integer> getItems() {
+        return items;
     }
 }

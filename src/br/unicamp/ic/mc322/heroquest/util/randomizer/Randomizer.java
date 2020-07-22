@@ -33,4 +33,9 @@ public class Randomizer {
         create();
         return random.nextBoolean();
     }
+
+    public static double nextDouble() {
+        create();
+        return random.nextDouble();
+    }
 }

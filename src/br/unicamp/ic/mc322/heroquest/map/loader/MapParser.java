@@ -9,6 +9,7 @@ import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
+import br.unicamp.ic.mc322.heroquest.map.objects.structural.SecretDoor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Wall;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class MapParser {
     public static final char DOOR = 'D';
     public static final char WALL = '#';
     public static final char CHEST = 'C';
+    public static final char SECRET_DOOR = 'P';
 
     public MapBuilder parse(char[][] matrix) {
         MapBuilder builder = new MapBuilder();
@@ -58,6 +60,8 @@ public class MapParser {
                 return new Wall(coordinate);
             case DOOR:
                 return new Door(coordinate);
+            case SECRET_DOOR:
+                return new SecretDoor(coordinate);
             default:
                 throw new CorruptedConfigurationFileException("Invalid representation `" + representation + "`...");
         }

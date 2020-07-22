@@ -2,8 +2,7 @@ package br.unicamp.ic.mc322.heroquest.walker.managers.ai;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
-import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
-import br.unicamp.ic.mc322.heroquest.walker.managers.UseSkillAction;
+import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
 
 public class WalkerAI extends WalkerManager {
     private final MovementBehavior movementBehavior;
@@ -18,9 +17,9 @@ public class WalkerAI extends WalkerManager {
 
     @Override
     public void playTurn() {
-        UseItemAction useItemAction = new UseItemAIAction(this);
-        UseSkillAction useSkillAction = new UseSkillAIAction(this);
-        MoveAIAction moveAction = new MoveAIAction(this);
+        Action useItemAction = new UseItemAIAction(this);
+        Action useSkillAction = new UseSkillAIAction(this);
+        Action moveAction = new MoveAIAction(this);
 
         useItemAction.execute();
         boolean successUseSkill = useSkillAction.execute();
@@ -30,8 +29,7 @@ public class WalkerAI extends WalkerManager {
         useItemAction.execute();
     }
 
-    @Override
-    public MapObject chooseTarget(MapObject[] targets) {
+    MapObject chooseTarget(MapObject[] targets) {
         return attackBehavior.chooseTarget(targets);
     }
 

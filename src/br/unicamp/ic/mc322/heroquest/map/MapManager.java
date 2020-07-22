@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.map;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
-import br.unicamp.ic.mc322.heroquest.map.core.OccupiedUnitException;
 import br.unicamp.ic.mc322.heroquest.map.generator.MapGenerator;
 import br.unicamp.ic.mc322.heroquest.map.loader.CorruptedConfigurationFileException;
 import br.unicamp.ic.mc322.heroquest.map.loader.MapLoader;
@@ -55,13 +54,8 @@ public class MapManager {
     }
 
     private void addTraps(Map map) {
-        for (int i = 0; i < NUMBER_OF_TRAPS; i++) {
-            try {
-                map.add(new Trap());
-            } catch (OccupiedUnitException ex) {
-                i--;
-            }
-        }
+        for (int i = 0; i < NUMBER_OF_TRAPS; i++)
+            map.add(new Trap());
     }
 
     private void addWalkers(Map map) {

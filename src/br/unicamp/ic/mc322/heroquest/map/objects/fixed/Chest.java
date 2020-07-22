@@ -1,27 +1,30 @@
 package br.unicamp.ic.mc322.heroquest.map.objects.fixed;
 
-import br.unicamp.ic.mc322.heroquest.item.Armor;
-import br.unicamp.ic.mc322.heroquest.item.CollectableItem;
-import br.unicamp.ic.mc322.heroquest.item.SpellCard;
-import br.unicamp.ic.mc322.heroquest.item.Weapon;
-import br.unicamp.ic.mc322.heroquest.item.artifacts.GoldCoin;
-import br.unicamp.ic.mc322.heroquest.item.potions.HealthPotion;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
+import br.unicamp.ic.mc322.heroquest.walker.MonsterGenerator;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.items.Armor;
+import br.unicamp.ic.mc322.heroquest.walker.items.Item;
+import br.unicamp.ic.mc322.heroquest.walker.items.SpellCard;
+import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
+import br.unicamp.ic.mc322.heroquest.walker.items.artifacts.GoldCoin;
+import br.unicamp.ic.mc322.heroquest.walker.items.potions.HealthPotion;
 
 import java.util.ArrayList;
 
 public class Chest extends FixedObject {
-    private final int MINIMUM_GOLD_QUANTITY = 20;
-    private final int MAXIMUM_GOLD_QUANTITY = 100;
-    private final int MAXIMUM_WEAPONS_QUANTITY = 3;
-    private final int MAXIMUM_HEALTH_POTIONS_QUANTITY = 3;
-    private final int MAXIMUM_SPELL_CARD_QUANTITY = 3;
+    private static final int MINIMUM_GOLD_QUANTITY = 20;
+    private static final int MAXIMUM_GOLD_QUANTITY = 100;
+    private static final int MAXIMUM_WEAPONS_QUANTITY = 3;
+    private static final int MAXIMUM_HEALTH_POTIONS_QUANTITY = 3;
+    private static final int MAXIMUM_SPELL_CARD_QUANTITY = 3;
+    private static final double PROBABILITY_OF_APPEARING_AN_ARMOR = .3;
+    private static final double PROBABILITY_OF_APPEARING_A_MONSTER = 0.3;
     private boolean opened;
-    private final ArrayList<CollectableItem> items;
+    private ArrayList<Item> items;
     private GoldCoin coins;
 
     public Chest(Coordinate position) {
@@ -40,18 +43,23 @@ public class Chest extends FixedObject {
         return opened;
     }
 
-    public ArrayList<CollectableItem> getItems() {
-        return items;
-    }
-
     @Override
     public void interact(Walker agent) {
         if (opened) {
-            for (CollectableItem item : items)
+            for (Item item : items)
                 agent.collectItem(item);
+            items.clear();
+
             coins.useItem(agent);
-        } else
+            coins = null;
+        } else {
             opened = true;
+            if (PROBABILITY_OF_APPEARING_A_MONSTER >= Randomizer.nextDouble()) {
+                // Maybe there is not an empty position for the monster to appear; in this case, nothing happens
+                if (MonsterGenerator.appearMonsterClose(agent, this.getPosition()))
+                    agent.getManager().showMessage("A monster appeared");
+            }
+        }
     }
 
     private void addRandomQuantityOfGold() {
@@ -87,7 +95,7 @@ public class Chest extends FixedObject {
     }
 
     private boolean willHaveAnArmorInside() {
-        return Randomizer.nextBoolean();
+        return PROBABILITY_OF_APPEARING_AN_ARMOR >= Randomizer.nextDouble();
     }
 
     @Override
