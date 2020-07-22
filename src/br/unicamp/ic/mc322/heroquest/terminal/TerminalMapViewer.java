@@ -128,7 +128,10 @@ public class TerminalMapViewer implements MapViewer {
 
     @Override
     public void visit(SecretDoor secretDoor) {
-        setSymbol(secretDoor, secretDoor.isDiscovered() ? 'D' : '#');
+        if (secretDoor.isDiscovered())
+            visit((Door) secretDoor);
+        else
+            setSymbol(secretDoor, '#');
     }
 
     @Override
