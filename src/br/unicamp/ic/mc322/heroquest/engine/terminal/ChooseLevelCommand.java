@@ -29,7 +29,10 @@ public class ChooseLevelCommand implements Command {
         io.showMessage("Choose a level:");
         int answer = io.showOptionsAndGetAnswer(options, true) - 1;
 
-        if (answer != -1)
+        if (answer != -1) {
             engine.setLevel(levels[answer]);
+
+            io.showMessage(String.format("Level `%s` has been set. ", levels[answer]));
+        }
     }
 }

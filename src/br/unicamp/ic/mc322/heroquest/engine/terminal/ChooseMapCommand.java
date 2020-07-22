@@ -24,7 +24,7 @@ public class ChooseMapCommand implements Command {
 
     @Override
     public void execute() {
-        MapManager manager = new MapManager(engine.getLevel());
+        MapManager manager = new MapManager();
 
         String[] mapOptions = manager.getExistingMapNames();
 
