@@ -136,7 +136,9 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
 
     @Override
     public void visit(SecretDoor secretDoor) {
-        if (!secretDoor.isDiscovered())
+        if (secretDoor.isDiscovered())
+            objectsAdjacent.add(secretDoor);
+        else
             hiddenObjectsDetected.add(secretDoor);
     }
 
