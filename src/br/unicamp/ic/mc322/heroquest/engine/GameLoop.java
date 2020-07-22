@@ -103,13 +103,17 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
     }
 
     private void notifyEndGame() {
-        for (HashSet<WalkerManager> managers : managersAliveByTeam.values())
+        for (Team team : managersByTeam.keySet()){
+            HashSet<WalkerManager> managers = managersByTeam.get(team);
+            boolean haveSurvivors = managersAliveByTeam.get(team).size() > 0;
+
             for (WalkerManager manager : managers) {
-                if (managers.size() > 0)
+                if (haveSurvivors)
                     manager.showMessage("Your Team Wins");
                 else
                     manager.showMessage("Your Team Lost");
             }
+        }
     }
 
     private boolean isEndGame() {
