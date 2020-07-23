@@ -3,9 +3,9 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 import java.awt.*;
 
 public class Line {
-    static final int attenuator = 6;
+    static final int attenuator = 4;
 
-    static boolean isCollinear(Coordinate point1, Coordinate point2, Coordinate point3) {
+    static boolean isAlmostCollinear(Coordinate point1, Coordinate point2, Coordinate point3) {
         int x1 = point1.getX();
         int y1 = point1.getY();
         int x2 = point2.getX();
@@ -25,7 +25,7 @@ public class Line {
 
         double angle = Math.acos(dot(vector1, vector2) / (norm(vector1) * norm(vector2)));
 
-        return angle >= 0 && (Math.PI - angle) < Math.PI / (distance12 * attenuator);
+        return Math.PI - angle < Math.PI / (Math.pow(distance12, 0.66) * attenuator);
     }
 
     private static double dot(Point vector1, Point vector2) {

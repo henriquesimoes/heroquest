@@ -44,7 +44,8 @@ class VisibleRegion extends Region {
                         queue.add(new Pair<>(neighbor, distance + 1));
                         if (!isExpandable(neighbor))
                             obstacles.add(neighbor);
-                    }
+                    } else
+                        obstacles.add(neighbor);
                 }
             }
         }
@@ -52,7 +53,7 @@ class VisibleRegion extends Region {
 
     private boolean isVisible(Coordinate current) {
         for (Coordinate obstacle : obstacles)
-            if (Line.isCollinear(reference, obstacle, current))
+            if (Line.isAlmostCollinear(reference, obstacle, current))
                 return false;
 
         return true;
