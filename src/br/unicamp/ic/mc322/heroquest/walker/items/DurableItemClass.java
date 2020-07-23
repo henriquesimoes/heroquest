@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.items;
 
-public enum ItemClass {
+public enum DurableItemClass {
     WARRIOR {
         @Override
         public String toString() {

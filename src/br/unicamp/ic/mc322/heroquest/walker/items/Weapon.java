@@ -13,8 +13,8 @@ public abstract class Weapon extends DurableItem {
     private boolean twoHanded;
     private ArrayList<PhysicalSkill> itemSkills = new ArrayList<>();
 
-    protected Weapon(String name, String description, int weaponDurability, int goldCoinsValue, ItemClass itemClass) {
-        super(name, description, weaponDurability, goldCoinsValue, itemClass);
+    protected Weapon(String name, String description, int weaponDurability, int goldCoinsValue, DurableItemClass durableItemClass) {
+        super(name, description, weaponDurability, goldCoinsValue, durableItemClass);
     }
 
     public static Weapon getRandomWeapon() {
@@ -59,7 +59,7 @@ public abstract class Weapon extends DurableItem {
 
     @Override
     public void useItem(Walker proprietary) {
-        if (proprietary.isAbleToUse(itemClass))
+        if (proprietary.isAbleToUse(durableItemClass))
             proprietary.equipWeapon(this);
         else
             proprietary.getManager().showMessage("You are not able to use this weapon");

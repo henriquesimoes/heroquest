@@ -14,7 +14,7 @@ public abstract class SpellCard extends HeapItem {
     private SpellElement spellElement;
 
     protected SpellCard(String itemName, String itemDescription, int goldCoinsValue, SpellElement spellElement) {
-        super(itemName, itemDescription + "\nSpell Element: " + spellElement.toString(), goldCoinsValue, ItemClass.NEUTRAL);
+        super(itemName, itemDescription + "\nSpell Element: " + spellElement.toString(), goldCoinsValue);
         this.spellElement = spellElement;
     }
 

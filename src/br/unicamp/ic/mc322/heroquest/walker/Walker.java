@@ -9,8 +9,8 @@ import br.unicamp.ic.mc322.heroquest.util.dice.CombatDice;
 import br.unicamp.ic.mc322.heroquest.util.dice.CombatDiceFace;
 import br.unicamp.ic.mc322.heroquest.util.dice.RedDice;
 import br.unicamp.ic.mc322.heroquest.walker.items.Armor;
+import br.unicamp.ic.mc322.heroquest.walker.items.DurableItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.Item;
-import br.unicamp.ic.mc322.heroquest.walker.items.ItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
 import br.unicamp.ic.mc322.heroquest.walker.items.cards.SpellElement;
 import br.unicamp.ic.mc322.heroquest.walker.items.weapons.Fists;
@@ -32,7 +32,7 @@ public abstract class Walker implements MapObject {
     protected Knapsack knapsack;
     protected WalkerManager walkerManager;
     protected Collection<SpellElement> spellsAbleToLearn;
-    protected Collection<ItemClass> itemsAbleToUse;
+    protected Collection<DurableItemClass> durableItemsAbleToUse;
     private Coordinate position;
     private int balance;
 
@@ -48,7 +48,7 @@ public abstract class Walker implements MapObject {
         knapsack = new Knapsack();
         skills = new TreeMap<>();
         spellsAbleToLearn = new ArrayList<>();
-        itemsAbleToUse = new ArrayList<>(Arrays.asList(ItemClass.NEUTRAL));
+        durableItemsAbleToUse = new ArrayList<>(Arrays.asList(DurableItemClass.NEUTRAL));
         movementDice = 2;
 
         // Add fists attack skill
@@ -287,8 +287,8 @@ public abstract class Walker implements MapObject {
         return spellsAbleToLearn.contains(spellElement);
     }
 
-    public boolean isAbleToUse(ItemClass itemClass) {
-        return itemsAbleToUse.contains(itemClass);
+    public boolean isAbleToUse(DurableItemClass durableItemClass) {
+        return durableItemsAbleToUse.contains(durableItemClass);
     }
 
     @Override
@@ -333,9 +333,9 @@ public abstract class Walker implements MapObject {
         status += "Defence dices: " + defenseDice + (bonusDefenseDice != 0 ? (" + " + bonusDefenseDice) : "") + "\n";
         status += "Mind points: " + mindPoints + "\n";
 
-        status += "Class of items able to use: ";
-        for (ItemClass itemClass : itemsAbleToUse)
-            status += itemClass.toString() + ", ";
+        status += "Class of durable items able to use: ";
+        for (DurableItemClass durableItemClass : durableItemsAbleToUse)
+            status += durableItemClass.toString() + ", ";
         status = status.substring(0, status.length() - 2) + "\n";
 
 

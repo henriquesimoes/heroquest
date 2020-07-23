@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker.heroes;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
-import br.unicamp.ic.mc322.heroquest.walker.items.ItemClass;
+import br.unicamp.ic.mc322.heroquest.walker.items.DurableItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
 import br.unicamp.ic.mc322.heroquest.walker.items.cards.SpellElement;
 import br.unicamp.ic.mc322.heroquest.walker.items.weapons.Dagger;
@@ -24,7 +24,7 @@ public class Wizard extends Hero {
         defenseDice = 2;
         maximumBodyPoints = currentBodyPoints = 20;
         mindPoints = 6;
-        itemsAbleToUse.add(ItemClass.MAGICIAN);
+        durableItemsAbleToUse.add(DurableItemClass.MAGICIAN);
         spellsAbleToLearn.addAll(Arrays.asList(SpellElement.AIR, SpellElement.EARTH, SpellElement.FIRE));
 
         Weapon currentWeapon = new Dagger();
