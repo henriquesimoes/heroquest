@@ -11,6 +11,8 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.ai.MovementBehavior;
 
 import java.util.ArrayList;
 
+
+// This class chooses the coordinate that more get closer to some enemy
 public class Follower extends MovementBehavior implements AbstractMapObjectVisitor {
     @Override
     protected Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {

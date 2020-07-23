@@ -35,6 +35,8 @@ public class FireBall extends MagicSkill {
             targetWalker.defendFromMagicSkill(DAMAGE_TO_PRIMARY_TARGET);
 
             attacking = true;
+
+            // Request to the map to visit the region, and if visited unit is a walker, then he is a possible main target
             accept(this, region);
         }
 
@@ -43,13 +45,18 @@ public class FireBall extends MagicSkill {
 
     @Override
     public void updateTargets() {
-        // TODO: discover how to set the distance to catch the visible walkers
         Region region = getUserRegionSelector().getVisibleRegion(false);
 
         attacking = false;
+
+        // Request to the map to visit the region, and if visited unit is a walker, then he is a possible main target
         accept(this, region);
     }
 
+    /**
+     * See that if attacking is false, then we are searching the possibles main targets of the skill
+     * While if attacking is true, then we are searching the walkers in adjacent positions of the main target
+     */
     @Override
     public void visit(Walker walker) {
         if (attacking)

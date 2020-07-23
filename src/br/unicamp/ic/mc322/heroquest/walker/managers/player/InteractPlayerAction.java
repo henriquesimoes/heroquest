@@ -6,6 +6,8 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
 
 import java.util.Set;
 
+
+// This class allows the interacting with fixed objects in adjacent positions
 public class InteractPlayerAction implements Action {
     private WalkerPlayer walkerPlayer;
 

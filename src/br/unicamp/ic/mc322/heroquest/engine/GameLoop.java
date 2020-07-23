@@ -23,6 +23,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
             managersAliveByTeam.put(team, new HashSet<>());
         }
 
+        // Request to the map to visit all units, and if visited unit is a walker, then he is add in the LinkedHashMap
         map.accept(this);
 
         GameMonitor gameMonitor = GameMonitor.getInstance();

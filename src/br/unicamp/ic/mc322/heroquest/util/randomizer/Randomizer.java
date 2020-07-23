@@ -2,6 +2,10 @@ package br.unicamp.ic.mc322.heroquest.util.randomizer;
 
 import java.util.Random;
 
+/**
+ * This class concentrates all use of class Random, and also simplifies the code,
+ * since preventing the creates of an instance of the Random that is used for calls only a method
+ */
 public class Randomizer {
     private static Random random;
 
