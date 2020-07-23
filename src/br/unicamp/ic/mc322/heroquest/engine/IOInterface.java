@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.view;
+package br.unicamp.ic.mc322.heroquest.engine;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;

@@ -1,9 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
+import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
-import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.managers.MoveAction;
 
