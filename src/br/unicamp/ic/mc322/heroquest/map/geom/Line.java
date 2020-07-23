@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 import java.awt.*;
 
 public class Line {
-    static final int attenuator = 4;
+    static final int attenuator = 6;
 
     static boolean isAlmostCollinear(Coordinate point1, Coordinate point2, Coordinate point3) {
         int x1 = point1.getX();
