@@ -173,7 +173,7 @@ public abstract class Walker implements MapObject {
 
     public void equipWeapon(Weapon weapon) {
         knapsack.remove(weapon);
-        String suffixDescription = " - Left Hand";
+        String suffixDescription = "";
 
         if (weapon.isTwoHanded()) {
             storeLeftWeapon();
@@ -186,6 +186,7 @@ public abstract class Walker implements MapObject {
             } else {
                 storeLeftWeapon();
                 leftWeapon = weapon;
+                suffixDescription = " - Left Hand";
             }
         }
 
