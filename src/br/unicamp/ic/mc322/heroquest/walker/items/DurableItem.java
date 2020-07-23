@@ -10,6 +10,7 @@ public abstract class DurableItem extends Item {
         super(itemName, itemDescription, goldCoinsValue);
 
         this.currentDurability = this.maximumDurability = currentDurability;
+        this.durableItemClass = durableItemClass;
 
         if (durableItemClass != DurableItemClass.NEUTRAL)
             this.itemDescription += "\nItem Class: " + durableItemClass.toString();
