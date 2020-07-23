@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public abstract class Weapon extends DurableItem {
     private int attackBonus;
-    private int attackDistance;
     private boolean attackDiagonally;
     private boolean twoHanded;
     private ArrayList<PhysicalSkill> itemSkills = new ArrayList<>();
@@ -64,10 +63,6 @@ public abstract class Weapon extends DurableItem {
             proprietary.equipWeapon(this);
         else
             proprietary.getManager().showMessage("You are not able to use this weapon");
-    }
-
-    protected void setAttackDistance(int attackDistance) {
-        this.attackDistance = attackDistance;
     }
 
     protected void setAttackDiagonally(boolean attackDiagonally) {

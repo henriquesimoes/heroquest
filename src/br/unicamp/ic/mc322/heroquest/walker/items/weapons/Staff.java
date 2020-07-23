@@ -10,7 +10,6 @@ public class Staff extends Weapon {
 
     public Staff() {
         super("Staff", DESCRIPTION, 3, 100, ItemClass.MAGICIAN);
-        setAttackDistance(4);
         setAttackBonus(1);
         setTwoHanded(true);
         setAttackDiagonally(true);
