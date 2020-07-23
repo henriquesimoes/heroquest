@@ -15,11 +15,11 @@ public abstract class PhysicalSkill extends Skill {
     }
 
     @Override
-    public void useSkill(Walker summoner, MapObject targetObject) {
+    public void useSkill(MapObject targetObject) {
         Walker targetWalker = (Walker) targetObject;
-        int attackIntensity = summoner.getPhysicalAttackPower(skilledWeapon);
+        int attackIntensity = skillUser.getPhysicalAttackPower(skilledWeapon);
         targetWalker.defendsPhysicalSkill(attackIntensity);
-        degradeWeaponByUse(summoner);
+        degradeWeaponByUse(skillUser);
     }
 
     protected void degradeWeaponByUse(Walker summoner) {

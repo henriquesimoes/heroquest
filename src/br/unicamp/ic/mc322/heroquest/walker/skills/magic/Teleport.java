@@ -3,7 +3,6 @@ package br.unicamp.ic.mc322.heroquest.walker.skills.magic;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
-import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.skills.DisplayTargetsMode;
 import br.unicamp.ic.mc322.heroquest.walker.skills.MagicSkill;
@@ -15,12 +14,12 @@ public class Teleport extends MagicSkill {
     }
 
     @Override
-    public void useSkill(Walker summoner, MapObject targetObject) {
-        WalkerManager summonerManager = summoner.getManager();
-        if (summoner.attemptMagicalMovement())
+    public void useSkill(MapObject targetObject) {
+        WalkerManager summonerManager = skillUser.getManager();
+        if (skillUser.attemptMagicalMovement())
             summonerManager.moveWalker(targetObject.getPosition());
 
-        summoner.removeSkill(this);
+        skillUser.removeSkill(this);
     }
 
     @Override
