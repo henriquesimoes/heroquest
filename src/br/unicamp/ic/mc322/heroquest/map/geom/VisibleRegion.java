@@ -8,13 +8,13 @@ class VisibleRegion extends Region {
     private final int MAXIMUM_VISIBILITY_RADIUS = Integer.MAX_VALUE;
     private Queue<Pair<Coordinate, Integer>> queue;
     private Set<Coordinate> visited;
-    private SortedSet<Vector> vectorsOfObstacle;
+    private Collection<Coordinate> obstacles;
 
     VisibleRegion(Coordinate reference) {
         super(reference);
         queue = new LinkedList<>();
         visited = new HashSet<>();
-        vectorsOfObstacle = new TreeSet<>();
+        obstacles = new ArrayList<>();
     }
 
     @Override
@@ -43,7 +43,7 @@ class VisibleRegion extends Region {
                     if (isValid(neighbor) && isVisible(neighbor)) {
                         queue.add(new Pair<>(neighbor, distance + 1));
                         if (!isExpandable(neighbor))
-                            vectorsOfObstacle.add(new Vector(reference, neighbor));
+                            obstacles.add(neighbor);
                     }
                 }
             }
@@ -51,15 +51,10 @@ class VisibleRegion extends Region {
     }
 
     private boolean isVisible(Coordinate current) {
-        VectorRange vectorRange = new VectorRange(reference, current);
-        Vector lowerBound = vectorRange.getLowerBound();
-        Vector upperBound = vectorRange.getUpperBound();
+        for (Coordinate obstacle : obstacles)
+            if (Line.isCollinear(reference, obstacle, current))
+                return false;
 
-        if (lowerBound.compareTo(upperBound) < 0) {
-            return vectorsOfObstacle.subSet(lowerBound, upperBound).isEmpty();
-        } else {
-            return vectorsOfObstacle.tailSet(lowerBound).isEmpty() &&
-                    vectorsOfObstacle.headSet(upperBound).isEmpty();
-        }
+        return true;
     }
 }
