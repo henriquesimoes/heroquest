@@ -36,10 +36,6 @@ public class TerminalEngine implements GameEngine {
         }
     }
 
-    protected Map getMap() {
-        return map;
-    }
-
     protected void setMap(Map map) {
         this.map = map;
     }

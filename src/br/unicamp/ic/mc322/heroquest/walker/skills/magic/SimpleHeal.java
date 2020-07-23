@@ -14,12 +14,12 @@ public class SimpleHeal extends MagicSkill {
     }
 
     @Override
-    public void useSkill(Walker summoner, MapObject targetObject) {
+    public void useSkill(MapObject targetObject) {
         Walker walkerTarget = (Walker) targetObject;
-        if (summoner.attemptMagicalMovement())
-            walkerTarget.restoreBodyPoints(summoner.rollRedDice());
+        if (skillUser.attemptMagicalMovement())
+            walkerTarget.restoreBodyPoints(skillUser.rollRedDice());
 
-        summoner.removeSkill(this);
+        skillUser.removeSkill(this);
     }
 
     @Override

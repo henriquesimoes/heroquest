@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker.heroes;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Hero;
-import br.unicamp.ic.mc322.heroquest.walker.items.ItemClass;
+import br.unicamp.ic.mc322.heroquest.walker.items.DurableItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
 import br.unicamp.ic.mc322.heroquest.walker.items.weapons.LongSword;
 
@@ -15,7 +15,7 @@ public class Barbarian extends Hero {
         defenseDice = 2;
         maximumBodyPoints = currentBodyPoints = 40;
         mindPoints = 2;
-        itemsAbleToUse.add(ItemClass.WARRIOR);
+        durableItemsAbleToUse.add(DurableItemClass.WARRIOR);
 
         Weapon currentWeapon = new LongSword();
         knapsack.put(currentWeapon);

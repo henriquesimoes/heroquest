@@ -6,11 +6,9 @@ import br.unicamp.ic.mc322.heroquest.walker.items.Item;
 import br.unicamp.ic.mc322.heroquest.walker.managers.UseItemAction;
 
 public class UseItemAIAction extends UseItemAction {
-    private WalkerAI walkerAI;
     private Walker walker;
 
     UseItemAIAction(WalkerAI walkerAI) {
-        this.walkerAI = walkerAI;
         this.walker = walkerAI.getWalker();
     }
 

@@ -26,7 +26,7 @@ public class UseSkillPlayerAction extends UseSkillAction {
         if (target == null)
             return false;
 
-        chosenSkill.useSkill(walker, target);
+        chosenSkill.useSkill(target);
 
         return true;
     }
