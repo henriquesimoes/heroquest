@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.engine.terminal;
 
+import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
-import br.unicamp.ic.mc322.heroquest.view.Command;
-import br.unicamp.ic.mc322.heroquest.view.IOInterface;
+import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 
 public class ChooseLevelCommand implements Command {
     private final TerminalEngine engine;
