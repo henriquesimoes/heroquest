@@ -1,6 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates;
-
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager;
 
 import java.util.ArrayList;
 

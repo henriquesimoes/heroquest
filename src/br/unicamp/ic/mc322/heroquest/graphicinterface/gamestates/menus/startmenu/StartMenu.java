@@ -1,13 +1,12 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.startmenu;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.Renderable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenStateManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Clickable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons.MenuButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons.definedbuttons.NewGameButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons.definedbuttons.QuitButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.gametitle.GameTitle;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
 import java.awt.*;
 import java.util.ArrayList;

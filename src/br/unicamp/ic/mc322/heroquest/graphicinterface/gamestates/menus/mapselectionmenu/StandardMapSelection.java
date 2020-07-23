@@ -1,16 +1,13 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.Renderable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenStateManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Clickable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.gametitle.GameTitle;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.selectionboxes.BoxedList;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class StandardMapSelection implements Renderable {

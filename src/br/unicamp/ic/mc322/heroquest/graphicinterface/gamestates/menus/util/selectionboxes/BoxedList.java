@@ -1,12 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.selectionboxes;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenStateManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Clickable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;

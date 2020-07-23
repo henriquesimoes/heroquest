@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScreenStateManager {
-    private final Map<String, Renderable> states;
+    private final Map<ScreenStates, Renderable> states;
     private Renderable prevState;
     private Renderable currentState;
     private final MouseInput mouseInput;
@@ -20,7 +20,7 @@ public class ScreenStateManager {
     }
 
     public void addState(Renderable state, ScreenStates stateName) {
-        states.put(stateName.toString(), state);
+        states.put(stateName, state);
     }
 
     public void render() {
@@ -43,9 +43,8 @@ public class ScreenStateManager {
 
     public void setState(ScreenStates state) {
         prevState = getCurrentState();
-        currentState = states.get(state.toString());
+        currentState = states.get(state);
     }
-
 
     public Renderable getCurrentState() {
         return currentState;

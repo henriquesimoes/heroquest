@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons.definedbuttons;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenStateManager;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.ScreenStates;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStates;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons.MenuButton;
 
 import java.awt.*;

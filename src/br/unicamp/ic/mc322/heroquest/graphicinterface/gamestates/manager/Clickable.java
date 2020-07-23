@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager;
 
 import java.awt.geom.Rectangle2D;
 
