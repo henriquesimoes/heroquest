@@ -19,15 +19,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     private final BufferedImage image;
     private final Graphics2D graphics;
+    private final Settings SETTINGS;
     private final ScreenStateManager screenStateManager;
     private final MouseInput mouseInput;
     public Map map;
-    //TODO: temporariamente static
-    public static MapManager manager;
 
     public GamePanel(Map map) {
         this.map = map;
-        manager = new MapManager();
         Dimension preferredSize = new Dimension(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
 
         setPreferredSize(preferredSize);
@@ -41,10 +39,11 @@ public class GamePanel extends JPanel implements Runnable {
         graphics = image.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        this.SETTINGS = new Settings();
         screenStateManager = new ScreenStateManager(mouseInput);
         screenStateManager.addState(new StartMenu(graphics, screenStateManager), ScreenStates.START_MENU);
-        screenStateManager.addState(new MapSelection(graphics, screenStateManager), ScreenStates.MAP_SELECTION);
-        screenStateManager.addState(new StandardMapSelection(graphics, screenStateManager), ScreenStates.LIST_OF_MAPS);
+        screenStateManager.addState(new MapSelection(graphics, SETTINGS, screenStateManager), ScreenStates.MAP_SELECTION);
+        screenStateManager.addState(new StandardMapSelection(graphics, SETTINGS, screenStateManager), ScreenStates.LIST_OF_MAPS);
 
         screenStateManager.setState(ScreenStates.START_MENU);
     }

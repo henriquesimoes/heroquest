@@ -18,8 +18,8 @@ public class MapSelection implements Renderable {
     private final ArrayList<MenuButton> options;
     private final Settings SETTINGS;
 
-    public MapSelection(Graphics2D graphics, ScreenStateManager screenStateManager) {
-        this.SETTINGS = new Settings();
+    public MapSelection(Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager) {
+        this.SETTINGS = settings;
         this.options = new ArrayList<>();
         this.GAME_TITLE = new GameTitle(graphics, 200);
         options.add(new RandomMapButton(graphics, SETTINGS, screenStateManager));

@@ -42,7 +42,7 @@ public class TerminalIO implements IOInterface {
                     invalidAnswer = false;
             } catch (InputMismatchException e) {
                 reader.nextLine();
-                writer.printf("Invalid option");
+                writer.print("Invalid option");
             }
 
             writer.println();
