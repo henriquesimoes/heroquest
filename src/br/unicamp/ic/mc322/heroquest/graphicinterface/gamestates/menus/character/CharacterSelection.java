@@ -9,16 +9,14 @@ import java.util.ArrayList;
 
 public class CharacterSelection implements Renderable {
     Graphics2D graphics;
-    Image characterImage;
 
-    public CharacterSelection(Image characterImage, Graphics2D graphics) {
+    public CharacterSelection(Graphics2D graphics) {
         this.graphics = graphics;
-        this.characterImage = characterImage;
+
     }
 
     @Override
     public void render() {
-        new Card(characterImage, "teste", "teste", graphics).render(20, 20);
     }
 
     @Override
