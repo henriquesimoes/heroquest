@@ -23,15 +23,17 @@ import br.unicamp.ic.mc322.heroquest.walker.monsters.WizardSkeleton;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GraphicMapViewer implements Renderable, MapViewer {
     private final ArrayList<Clickable> options;
     private final Settings SETTINGS;
     private final Graphics2D graphics;
     private final char[][] output;
-    private volatile boolean needUpdateMap;
+    HashMap<Character, Image> images;
     int cellHeight = 20, cellWidth = 20;
     Map map;
+    private volatile boolean needUpdateMap;
 
     public GraphicMapViewer(Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager, Map map) {
         this.SETTINGS = settings;
@@ -39,6 +41,8 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         this.graphics = graphics;
         this.map = map;
         this.needUpdateMap = true;
+        LoaderImages loaderImages = new LoaderImages();
+        images = loaderImages.getImages();
 
         output = new char[map.getHeight()][map.getWidth()];
         for (int i = 0; i < output.length; i++)
@@ -63,14 +67,14 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         display(new Coordinate(0, 0));
     }
 
-    public void updateMap(){
-        if(needUpdateMap){
+    public void updateMap() {
+        if (needUpdateMap) {
             map.accept(this);
             needUpdateMap = false;
         }
     }
 
-    public void setNeedUpdateMap(){
+    public void setNeedUpdateMap() {
         needUpdateMap = true;
     }
 
@@ -84,30 +88,19 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         updateMap();
         for (int i = 0; i < output.length; i++)
             for (int j = 0; j < output[i].length; j++) {
-                switch (output[i][j]) {
-                    case '#':
-                        graphics.setColor(new Color(97, 63, 44));
-                        break;
-                    case ' ':
-                        graphics.setColor(new Color(100, 100, 100));
-                        break;
-                    case 'W':
-                        graphics.setColor(new Color(255, 255, 0));
-                        break;
-                    case 'S':
-                        graphics.setColor(new Color(255, 127, 0));
-                        break;
-                    case 'Ŝ':
-                        graphics.setColor(new Color(127, 255, 0));
-                        break;
-                    case 'G':
-                        graphics.setColor(new Color(127, 127, 255));
-                        break;
-                    default:
-                        graphics.setColor(new Color(255, 255, 255));
-                        break;
+                if (images.containsKey(output[i][j])) {
+                    graphics.drawImage(images.get(output[i][j]), getX(j), getY(i), cellWidth, cellHeight, new Color(100, 100, 100), null);
+                } else {
+                    switch (output[i][j]) {
+                        case ' ':
+                            graphics.setColor(new Color(100, 100, 100));
+                            break;
+                        default:
+                            graphics.setColor(new Color(255, 255, 255));
+                            break;
+                    }
+                    graphics.fillRect(getX(j), getY(i), getX(j + 1), getY(i + 1));
                 }
-                graphics.fillRect(getX(j), getY(i), getX(j + 1), getY(i + 1));
             }
     }
 

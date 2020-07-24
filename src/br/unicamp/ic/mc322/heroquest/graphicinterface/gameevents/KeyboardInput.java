@@ -17,7 +17,7 @@ public class KeyboardInput implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(waiting)
+        if (waiting)
             key = e.getKeyChar();
     }
 
@@ -26,9 +26,9 @@ public class KeyboardInput implements KeyListener {
         waiting = false;
     }
 
-    public char getKey(){
+    public char getKey() {
         waiting = true;
-        while(waiting);
+        while (waiting) ;
         System.out.printf("Pressed %c\n", key);
         return key;
     }

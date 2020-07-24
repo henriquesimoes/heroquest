@@ -7,11 +7,8 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 import br.unicamp.ic.mc322.heroquest.view.Command;
 import br.unicamp.ic.mc322.heroquest.view.IOInterface;
-import br.unicamp.ic.mc322.heroquest.view.MapViewer;
 
 import java.io.PrintStream;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class GraphicIO implements IOInterface {
     private final PrintStream writer;
