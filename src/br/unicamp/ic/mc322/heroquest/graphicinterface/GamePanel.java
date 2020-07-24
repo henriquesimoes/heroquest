@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
+import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStates;
@@ -14,18 +15,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable {
-    private boolean running;
-    private Thread gameThread;
-
     private final BufferedImage image;
     private final Graphics2D graphics;
     private final Settings SETTINGS;
     private final ScreenStateManager screenStateManager;
     private final MouseInput mouseInput;
-    public Map map;
+    private Map map;
+    private boolean running;
+    private Thread gameThread;
 
-    public GamePanel(Map map) {
-        this.map = map;
+    public GamePanel() {
         Dimension preferredSize = new Dimension(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
 
         setPreferredSize(preferredSize);
@@ -45,7 +44,19 @@ public class GamePanel extends JPanel implements Runnable {
         screenStateManager.addState(new MapSelection(graphics, SETTINGS, screenStateManager), ScreenStates.MAP_SELECTION);
         screenStateManager.addState(new StandardMapSelection(graphics, SETTINGS, screenStateManager), ScreenStates.LIST_OF_MAPS);
 
-        screenStateManager.setState(ScreenStates.START_MENU);
+        MapManager mapManager = new MapManager();
+
+        try {
+            map = mapManager.load("small_02.map");
+        } catch (Exception e) {
+        }
+
+        Thread loop = new Thread(new GameLoop(map));
+        loop.start();
+
+        screenStateManager.addState(new GraphicMapViewer(graphics, SETTINGS, screenStateManager, map), ScreenStates.GAME_RUNNING);
+
+        screenStateManager.setState(ScreenStates.GAME_RUNNING);
     }
 
     @Override
@@ -86,8 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (graphics != null) {
             graphics.setColor(new Color(41, 43, 46));
             graphics.fillRect(0, 0, GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
-        }
-        else {
+        } else {
             throw new NullPointerException();
         }
     }

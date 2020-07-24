@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class ScreenStateManager {
     private final Map<ScreenStates, Renderable> states;
+    private final MouseInput mouseInput;
     private Renderable prevState;
     private Renderable currentState;
-    private final MouseInput mouseInput;
 
     public ScreenStateManager(MouseInput mouseInput) {
         states = new HashMap<>();

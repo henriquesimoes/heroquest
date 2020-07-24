@@ -23,7 +23,7 @@ public class GameTitle {
     private void alignCenter() {
         Rectangle2D titleBounds = titleFont.getStringBounds(TITLE, graphics.getFontRenderContext());
         int stringWidth = (int) titleBounds.getWidth();
-        xCoord = (GameWindow.WINDOW_WIDTH -  stringWidth) / 2;
+        xCoord = (GameWindow.WINDOW_WIDTH - stringWidth) / 2;
     }
 
     public void render() {

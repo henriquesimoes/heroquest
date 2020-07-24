@@ -1,6 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Settings;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Renderable;
@@ -15,8 +14,8 @@ import java.util.ArrayList;
 public class StandardMapSelection implements Renderable {
     private final GameTitle GAME_TITLE;
     private final BoxedList LIST_OF_MAPS;
-    private MapManager mapManager;
     private final Settings SETTINGS;
+    private MapManager mapManager;
     private ScreenStateManager screenStateManager;
 
     public StandardMapSelection(Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager) {

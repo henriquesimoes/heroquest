@@ -6,8 +6,8 @@ import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.VisionValidator;
 import br.unicamp.ic.mc322.heroquest.map.core.positionValidator.WalkableValidator;
 
 public class RegionSelector {
-    private Coordinate reference;
     private final Map map;
+    private Coordinate reference;
 
     public RegionSelector(Map map) {
         this.map = map;

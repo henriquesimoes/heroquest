@@ -43,7 +43,7 @@ public class MapManager {
         builder.buildMap();
         Map map = builder.getResult();
 
-        addWalkers(map);
+        //addWalkers(map);
         addFixedObjects(map);
 
         return map;

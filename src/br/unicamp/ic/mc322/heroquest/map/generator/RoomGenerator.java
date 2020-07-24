@@ -8,9 +8,9 @@ import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import java.util.ArrayList;
 
 class RoomGenerator {
-    ArrayList<GridContainer> gridSections;
     private final int minimumWidth;
     private final int minimumHeight;
+    ArrayList<GridContainer> gridSections;
 
     public RoomGenerator(ArrayList<GridContainer> gridSections, int minimumWidth, int minimumHeight) {
         this.gridSections = gridSections;

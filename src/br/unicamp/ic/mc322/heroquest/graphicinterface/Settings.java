@@ -6,7 +6,8 @@ public class Settings {
     private Map map;
     private String nickname;
 
-    public Settings() {}
+    public Settings() {
+    }
 
     public void setMap(Map map) {
         this.map = map;

@@ -11,7 +11,7 @@ import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 
-public class GameLoop implements GameListener, AbstractMapObjectVisitor {
+public class GameLoop implements GameListener, AbstractMapObjectVisitor, Runnable {
     private final LinkedHashMap<Team, HashSet<WalkerManager>> managersByTeam;
     private final LinkedHashMap<Team, HashSet<WalkerManager>> managersAliveByTeam;
 

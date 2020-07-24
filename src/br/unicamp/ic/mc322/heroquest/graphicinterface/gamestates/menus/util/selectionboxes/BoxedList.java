@@ -10,20 +10,19 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class BoxedList {
     private final int STANDARD_BOX_WIDTH = 400;
-    private int boxHeightBasedInQuantityOfItems = 0;
     private final String[] dataCells;
     private final ArrayList<Clickable> options;
     private final Graphics2D graphics;
-    private Coordinate boxPosition;
-    private Dimension boxDimension;
     private final BasicStroke boxStroke;
     private final Color boxColor;
     private final Settings SETTINGS;
     private final ScreenStateManager screenStateManager;
+    private int boxHeightBasedInQuantityOfItems = 0;
+    private Coordinate boxPosition;
+    private Dimension boxDimension;
 
     public BoxedList(String[] dataCells, Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager) {
         this.SETTINGS = settings;
@@ -38,7 +37,9 @@ public class BoxedList {
         setBoxDimension();
     }
 
-    /** Horizontal aligned nn center */
+    /**
+     * Horizontal aligned nn center
+     */
     public void render(int y) {
         setBoxPosition(y);
         renderListItems();
@@ -64,7 +65,7 @@ public class BoxedList {
     private void renderBox() {
         graphics.setColor(boxColor);
         graphics.setStroke(boxStroke);
-        graphics.drawRect(boxPosition.getX(), boxPosition.getY() , boxDimension.getWidth(), boxDimension.getHeight());
+        graphics.drawRect(boxPosition.getX(), boxPosition.getY(), boxDimension.getWidth(), boxDimension.getHeight());
     }
 
     private void createList() {
