@@ -2,14 +2,14 @@ package br.unicamp.ic.mc322.heroquest.engine;
 
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class GameMonitor {
     private static GameMonitor gameMonitor;
-    private ArrayList<GameListener> gameListeners;
+    private HashSet<GameListener> listeners;
 
     private GameMonitor() {
-        gameListeners = new ArrayList<>();
+        listeners = new HashSet<>();
     }
 
     public static GameMonitor getInstance() {
@@ -19,22 +19,33 @@ public class GameMonitor {
         return gameMonitor;
     }
 
+    public void subscribe(GameListener listener) {
+        listeners.add(listener);
+    }
+
+    public void unsubscribe(GameListener listener) {
+        listeners.remove(listener);
+    }
+
     public void notifyDeath(Walker walker) {
-        for (GameListener listener : gameListeners)
+        for (GameListener listener : listeners)
             listener.notifyWalkerDeath(walker);
     }
 
-    public void addListener(GameListener listener) {
-        gameListeners.add(listener);
-    }
-
     public void notifyDamage(Walker walker, int damage) {
-        for (GameListener listener : gameListeners)
+        for (GameListener listener : listeners)
             listener.notifyWalkerDamage(walker, damage);
     }
 
-    public void add(Walker walker) {
-        for (GameListener listener : gameListeners)
+    /**
+     * Notifies that a new walker is coming into the game.
+     * This might occur when a walker gets out of a hidden
+     * place, such as a chest.
+     *
+     * @param walker Upcoming walker
+     */
+    public void notifyUpcoming(Walker walker) {
+        for (GameListener listener : listeners)
             listener.add(walker);
     }
 }
