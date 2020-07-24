@@ -27,7 +27,7 @@ public class MapLoader {
 
     /**
      * Loads a file from the disk with the given name.
-     * @param filename map file name, including extension
+     * @param filename - map file name, including extension
      * @return loaded map
      * @throws FileNotFoundException file does not exist on the resources folder
      */
@@ -78,7 +78,7 @@ public class MapLoader {
     /**
      * Converts the map from the file to a concrete map object.
      *
-     * @param scanner wrapped file
+     * @param scanner - wrapped file
      * @return file map
      */
     private MapBuilder readStructure(Scanner scanner) {

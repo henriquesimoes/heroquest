@@ -27,7 +27,7 @@ public class MapManager {
      * Loads a file from the disk. The map name must be of one the existing
      * maps, which can be obtained through the `getExistingMapNames` method.
      *
-     * @param name map name
+     * @param name - map name
      * @return loaded map
      * @throws FileNotFoundException given map name could not be found
      * @throws CorruptedConfigurationFileException map file is corrupted

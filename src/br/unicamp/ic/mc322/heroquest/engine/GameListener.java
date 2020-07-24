@@ -7,15 +7,15 @@ public interface GameListener {
     /**
      * Notifies the listeners that the walker no longer takes
      * turns.
-     * @param walker dead walker
+     * @param walker - dead walker
      */
     void notifyWalkerDeath(Walker walker);
 
     /**
      * Notifies all listeners the damage the walker has suffered.
      *
-     * @param walker
-     * @param damage
+     * @param walker - walker that suffered the damage
+     * @param damage - damage value
      */
     void notifyWalkerDamage(Walker walker, int damage);
 
@@ -23,7 +23,7 @@ public interface GameListener {
      * Adds a new walker into the game.
      * Usually a monster coming out of strange places.
      *
-     * @param walker walker to be processed by the listeners
+     * @param walker - walker to be processed by the listeners
      */
     void add(Walker walker);
 }

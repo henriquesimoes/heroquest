@@ -74,7 +74,7 @@ public abstract class WalkerManager {
     /**
      * Displays a message to the user.
      *
-     * @param message content
+     * @param message - content
      */
     public abstract void showMessage(String message);
 }

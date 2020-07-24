@@ -36,7 +36,7 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable, Co
      * Defines how a skill is used by the `skillUser` and how it impacts
      * the chosen target.
      *
-     * @param targetObject skill target.
+     * @param targetObject - skill target.
      */
     public abstract void useSkill(MapObject targetObject);
 
@@ -72,7 +72,7 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable, Co
      * The region objects are then accessible by the `visit` methods of
      * the `AbstractMapObjectVisitor` interface.
      *
-     * @param region map region to be visited
+     * @param region - map region to be visited
      */
     protected void use(Region region) {
         walkerManager.accept(this, region);

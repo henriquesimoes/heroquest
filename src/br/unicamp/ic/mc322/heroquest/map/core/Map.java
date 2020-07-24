@@ -26,7 +26,7 @@ public class Map implements GameListener {
     /**
      * Adds a walker in a random position in the map.
      *
-     * @param walker walker to be added.
+     * @param walker - walker to be added.
      */
     public void add(Walker walker) {
         Coordinate coordinate = walker.getPosition();
@@ -38,7 +38,7 @@ public class Map implements GameListener {
     /**
      * Adds a trap on a random position of the map.
      *
-     * @param trap new trap
+     * @param trap - new trap
      */
     public void add(Trap trap) {
         MapUnit unit = getRandomValidUnit(new TrapPositionValidator(this));
@@ -68,8 +68,8 @@ public class Map implements GameListener {
      * Finds the coordinate among the given ones which is can be used
      * to be closest to one of the given objects.
      *
-     * @param coordinates all coordinates to be
-     * @param objects target objects
+     * @param coordinates - all coordinates to be
+     * @param objects - target objects
      * @return best coordinate to be used to get closer to a target
      */
     public Coordinate getCoordinateCloserToObject(ArrayList<Coordinate> coordinates, ArrayList<MapObject> objects) {
@@ -86,7 +86,7 @@ public class Map implements GameListener {
         for (MapObject target : objects)
             destination.add(target.getPosition());
 
-        // add all sources for the multi-source beneath first search (BFS)
+        // add all sources for the multi-source breadth first search (BFS)
         for (Coordinate source : coordinates) {
             queue.add(new Pair<>(source, source));
             visited.add(source);
@@ -130,7 +130,7 @@ public class Map implements GameListener {
      * 2. Fixed object;
      * 3. Structural object;
      *
-     * @param visitor
+     * @param visitor - map visitor
      */
     public void accept(AbstractMapObjectVisitor visitor) {
         for (MapUnit unit : units.values())
@@ -148,7 +148,7 @@ public class Map implements GameListener {
      * 2. Fixed object;
      * 3. Structural object;
      *
-     * @param visitor
+     * @param visitor - map visitor
      */
     public void accept(ConcreteMapObjectVisitor visitor) {
         for (MapUnit unit : units.values())
@@ -167,7 +167,7 @@ public class Map implements GameListener {
      * 2. Fixed object;
      * 3. Structural object;
      *
-     * @param visitor
+     * @param visitor - map visitor
      */
     public void accept(AbstractMapObjectVisitor visitor, Region region) {
         for (Coordinate coordinate : region)
@@ -186,7 +186,7 @@ public class Map implements GameListener {
      * 2. Fixed object;
      * 3. Structural object;
      *
-     * @param visitor
+     * @param visitor - map visitor
      */
     public void accept(ConcreteMapObjectVisitor visitor, Region region) {
         for (Coordinate coordinate : region)
@@ -204,7 +204,7 @@ public class Map implements GameListener {
      * 2. Fixed object;
      * 3. Structural object;
      *
-     * @param visitor
+     * @param visitor - map visitor
      */
     public void accept(AbstractMapObjectVisitor visitor, Coordinate coordinate) {
         MapUnit unit = units.get(coordinate);
@@ -222,7 +222,7 @@ public class Map implements GameListener {
      * 2. Fixed object;
      * 3. Structural object;
      *
-     * @param visitor
+     * @param visitor - map visitor
      */
     public void accept(ConcreteMapObjectVisitor visitor, Coordinate coordinate) {
         MapUnit unit = units.get(coordinate);

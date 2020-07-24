@@ -9,7 +9,7 @@ public interface PositionValidator {
     /**
      * Defines whether a object should be considered part of the map region.
      *
-     * @param coordinate object coordinate
+     * @param coordinate - object coordinate
      * @return `true` if it is valid and `false` otherwise
      */
     boolean isValid(Coordinate coordinate);
@@ -21,7 +21,7 @@ public interface PositionValidator {
      * itself is part or not of the region; `isValid` should be
      * used to check that instead.
      *
-     * @param coordinate coordinate to be checked
+     * @param coordinate - coordinate to be checked
      * @return `false` if it blocks the region, and `true` otherwise.
      */
     boolean isExpandable(Coordinate coordinate);

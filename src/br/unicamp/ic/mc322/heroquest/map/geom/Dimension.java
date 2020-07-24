@@ -21,8 +21,8 @@ public class Dimension {
      * Creates a new dimension which includes the given position, based
      * on this dimension.
      *
-     * @param position Position to be included
-     * @return New dimension
+     * @param position - position to be included
+     * @return new dimension
      */
     public Dimension fit(Coordinate position) {
         return new Dimension(

@@ -25,7 +25,7 @@ public abstract class Item implements Describable, Comparable {
     /**
      * Defines how an item is used by the `proprietary`
      *
-     * @param proprietary the walker who is handling the item
+     * @param proprietary - the walker who is handling the item
      */
     public abstract void useItem(Walker proprietary);
 

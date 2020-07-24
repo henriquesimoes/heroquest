@@ -31,7 +31,7 @@ public class MapParser {
      * Parses the given matrix to a map. The chars used must follow the constant
      * values defined in this class.
      *
-     * @param matrix map matrix
+     * @param matrix - map matrix
      * @return map object
      */
     public MapBuilder parse(char[][] matrix) {

@@ -10,11 +10,11 @@ public class VectorRange {
     private Vector lowerBound, upperBound;
 
     /**
-     * This Class puts a circle in coordinateObject,
-     * and find the vectors lowerBound and upperBound, which are the vectors tangent to circle.
+     * This class puts a circle in `coordinateObject`, and finds the lowerBound and upperBound vectors,
+     * which are the vectors tangent to circle.
      *
-     * @param coordinateReference
-     * @param coordinateObject
+     * @param coordinateReference - vector range origin
+     * @param coordinateObject - vector range circle center
      */
     public VectorRange(Coordinate coordinateReference, Coordinate coordinateObject) {
         Point2D reference = new Point2D.Double(coordinateReference.getX(), coordinateReference.getY());

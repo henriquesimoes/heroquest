@@ -18,8 +18,8 @@ import br.unicamp.ic.mc322.heroquest.walker.monsters.WizardSkeleton;
  * Visitor interface for concrete map objects.
  *
  * This should be used when a specific map object needs to be
- * visited. If a standard behavior is expected for all group
- * of walkers, an `AbstractMapObjectVisitor` realization should
+ * visited. If a standard behavior is expected for all groups
+ * of objects, an `AbstractMapObjectVisitor` realization should
  * be chosen.
  */
 public interface ConcreteMapObjectVisitor {

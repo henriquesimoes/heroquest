@@ -18,7 +18,7 @@ public interface MapObject {
     /**
      * Defines how an object state changes due to an interaction.
      *
-     * @param agent walker that is interacting with the map object
+     * @param agent - walker that is interacting with the map object
      */
     void interact(Walker agent);
 

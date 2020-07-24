@@ -15,7 +15,7 @@ public abstract class Region implements Iterable<Coordinate> {
      * Creates a region based on the given reference. The reference is usually
      * the coordinate of a walker, which needs to look something up in the map.
      *
-     * @param reference region base coordinate
+     * @param reference - region base coordinate
      */
     Region(Coordinate reference) {
         this.reference = reference;
@@ -38,7 +38,7 @@ public abstract class Region implements Iterable<Coordinate> {
     /**
      * Defines whether a object should be considered part of the map region.
      *
-     * @param coordinate object coordinate
+     * @param coordinate - object coordinate
      * @return `true` if it is valid and `false` otherwise
      */
     protected boolean isValid(Coordinate coordinate) {
@@ -52,7 +52,7 @@ public abstract class Region implements Iterable<Coordinate> {
      * itself is part or not of the region; `isValid` should be
      * used to check that instead.
      *
-     * @param coordinate coordinate to be checked
+     * @param coordinate - coordinate to be checked
      * @return `false` if it blocks the region, and `true` otherwise.
      */
     protected boolean isExpandable(Coordinate coordinate) {

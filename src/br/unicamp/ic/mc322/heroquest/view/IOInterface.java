@@ -11,8 +11,8 @@ public interface IOInterface {
     /**
      * Shows a list of options to the user and returns the index of the answer.
      *
-     * @param options   list of string options
-     * @param allowBack whether is it allowed not to answer and get back
+     * @param options   - list of string options
+     * @param allowBack - whether is it allowed not to answer and get back
      * @return 0 for the back command, and 1-based index of the choice otherwise
      */
     int showOptionsAndGetAnswer(String[] options, boolean allowBack);
@@ -20,22 +20,22 @@ public interface IOInterface {
     /**
      * Shows a list of commands to the user and executes the selected one
      *
-     * @param commands  list of commands
-     * @param allowBack whether it is allowed not to execute a command
+     * @param commands  - list of commands
+     * @param allowBack - whether it is allowed not to execute a command
      */
     void selectAndExecute(Command[] commands, boolean allowBack);
 
     /**
      * Displays an ordinary message to the user.
      *
-     * @param message content
+     * @param message - content
      */
     void showMessage(String message);
 
     /**
      * Warns the user that a error has occurred.
      *
-     * @param message error message
+     * @param message - error message
      */
     void showError(String message);
 
@@ -43,7 +43,7 @@ public interface IOInterface {
      * Gets a string answer from the user. This string may contain more than one word.
      * Moreover, an answer is always a non-blank string.
      *
-     * @param question message in which the user will answer
+     * @param question - message in which the user will answer
      * @return non-blank answer
      */
     String getStringAnswer(String question);
@@ -51,7 +51,7 @@ public interface IOInterface {
     /**
      * Triggers the map display event
      *
-     * @param position point of view coordinate to use in the map display.
+     * @param position - point of view coordinate to use in the map display.
      *                 The point of view is used to define the visible region of the map
      *                 to be displayed.
      */
@@ -60,7 +60,7 @@ public interface IOInterface {
     /**
      * Defines the map to be display along with the messages
      *
-     * @param map new map to be displayed
+     * @param map - new map to be displayed
      */
     void setMap(Map map);
 
@@ -74,7 +74,7 @@ public interface IOInterface {
     /**
      * Requests the user to select a coordinate among the given ones.
      *
-     * @param coordinates all possible coordinates
+     * @param coordinates - all possible coordinates
      * @return selected coordinate
      */
     Coordinate getCoordinate(Coordinate[] coordinates);
