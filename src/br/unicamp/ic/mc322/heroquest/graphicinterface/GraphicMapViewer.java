@@ -29,6 +29,7 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     private final Settings SETTINGS;
     private final Graphics2D graphics;
     private final char[][] output;
+    private volatile boolean needUpdateMap;
     int cellHeight = 20, cellWidth = 20;
     Map map;
 
@@ -37,13 +38,12 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         this.options = new ArrayList<>();
         this.graphics = graphics;
         this.map = map;
+        this.needUpdateMap = true;
 
         output = new char[map.getHeight()][map.getWidth()];
         for (int i = 0; i < output.length; i++)
             for (int j = 0; j < output[i].length; j++)
-                options.add(new CellMap(this, i, j, cellHeight, cellWidth));
-
-        map.accept(this);
+                options.add(new CellMap(this, j, i, cellHeight, cellWidth));
     }
 
     void changeState(int i, int j) {
@@ -63,6 +63,17 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         display(new Coordinate(0, 0));
     }
 
+    public void updateMap(){
+        if(needUpdateMap){
+            map.accept(this);
+            needUpdateMap = false;
+        }
+    }
+
+    public void setNeedUpdateMap(){
+        needUpdateMap = true;
+    }
+
     @Override
     public ArrayList<Clickable> getClickableZones() {
         return new ArrayList<>(options);
@@ -70,6 +81,7 @@ public class GraphicMapViewer implements Renderable, MapViewer {
 
     @Override
     public void display(Coordinate coordinate) {
+        updateMap();
         for (int i = 0; i < output.length; i++)
             for (int j = 0; j < output[i].length; j++) {
                 switch (output[i][j]) {
@@ -79,14 +91,23 @@ public class GraphicMapViewer implements Renderable, MapViewer {
                     case ' ':
                         graphics.setColor(new Color(100, 100, 100));
                         break;
-                    case 'a':
+                    case 'W':
                         graphics.setColor(new Color(255, 255, 0));
+                        break;
+                    case 'S':
+                        graphics.setColor(new Color(255, 127, 0));
+                        break;
+                    case 'Ŝ':
+                        graphics.setColor(new Color(127, 255, 0));
+                        break;
+                    case 'G':
+                        graphics.setColor(new Color(127, 127, 255));
                         break;
                     default:
                         graphics.setColor(new Color(255, 255, 255));
                         break;
                 }
-                graphics.fillRect(getX(i), getY(j), getX(i + 1), getY(j + 1));
+                graphics.fillRect(getX(j), getY(i), getX(j + 1), getY(i + 1));
             }
     }
 

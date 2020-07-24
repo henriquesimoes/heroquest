@@ -1,6 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
 import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStates;
@@ -9,6 +10,9 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselect
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.startmenu.StartMenu;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.heroes.Wizard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +24,8 @@ public class GamePanel extends JPanel implements Runnable {
     private final Settings SETTINGS;
     private final ScreenStateManager screenStateManager;
     private final MouseInput mouseInput;
+    private final KeyboardInput keyboardInput;
+    private GraphicIO graphicIO;
     private Map map;
     private boolean running;
     private Thread gameThread;
@@ -32,7 +38,10 @@ public class GamePanel extends JPanel implements Runnable {
         requestFocus();
 
         this.mouseInput = new MouseInput();
+        this.keyboardInput = new KeyboardInput();
+
         addMouseListener(mouseInput);
+        addKeyListener(keyboardInput);
 
         image = new BufferedImage(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         graphics = image.createGraphics();
@@ -51,10 +60,16 @@ public class GamePanel extends JPanel implements Runnable {
         } catch (Exception e) {
         }
 
+        GraphicMapViewer graphicMapViewer = new GraphicMapViewer(graphics, SETTINGS, screenStateManager, map);
+        this.graphicIO = new GraphicIO(mouseInput, keyboardInput, graphicMapViewer);
+
+        Walker walker = new Wizard("G", graphicIO);
+        map.add(walker);
         Thread loop = new Thread(new GameLoop(map));
         loop.start();
 
-        screenStateManager.addState(new GraphicMapViewer(graphics, SETTINGS, screenStateManager, map), ScreenStates.GAME_RUNNING);
+
+        screenStateManager.addState(graphicMapViewer, ScreenStates.GAME_RUNNING);
 
         screenStateManager.setState(ScreenStates.GAME_RUNNING);
     }

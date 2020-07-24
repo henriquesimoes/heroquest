@@ -12,7 +12,7 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import java.io.FileNotFoundException;
 
 public class MapManager {
-    private static final int NUMBER_OF_MONSTERS = 20;
+    private static final int NUMBER_OF_MONSTERS = 3;
     private static final int MINIMUM_MONSTER_PER_TYPE = 1;
     private static final int NUMBER_OF_TRAPS = 20;
     private final MapLoader loader;
@@ -43,7 +43,7 @@ public class MapManager {
         builder.buildMap();
         Map map = builder.getResult();
 
-        //addWalkers(map);
+        addWalkers(map);
         addFixedObjects(map);
 
         return map;
