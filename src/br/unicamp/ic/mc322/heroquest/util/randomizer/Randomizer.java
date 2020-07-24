@@ -3,8 +3,8 @@ package br.unicamp.ic.mc322.heroquest.util.randomizer;
 import java.util.Random;
 
 /**
- * This class concentrates all use of class Random, and also simplifies the code,
- * since preventing the creates of an instance of the Random that is used for calls only a method
+ * This class concentrates all the use of the class `Random`, and also simplifies the code,
+ * since it is preventing the creation of a `Random` instance that is used for calling a single method
  */
 public class Randomizer {
     private static Random random;
@@ -38,6 +38,9 @@ public class Randomizer {
         return random.nextBoolean();
     }
 
+    /**
+     * @return a random double in range [0, 1)
+     */
     public static double nextDouble() {
         create();
         return random.nextDouble();

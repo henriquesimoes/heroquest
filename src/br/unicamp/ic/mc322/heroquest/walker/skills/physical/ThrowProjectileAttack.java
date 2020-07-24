@@ -17,7 +17,7 @@ public class ThrowProjectileAttack extends PhysicalSkill {
     public void updateTargets() {
         Region region = getUserRegionSelector().getVisibleRegion(false);
 
-        // Request to the map to visit the region, and if visited unit is a walker, then he is a possible target
+        // Request to the map to visit the region, and if the visited unit has a walker, then it is a possible target
         accept(this, region);
     }
 

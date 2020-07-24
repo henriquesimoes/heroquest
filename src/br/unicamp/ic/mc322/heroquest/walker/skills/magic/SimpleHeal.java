@@ -26,7 +26,7 @@ public class SimpleHeal extends MagicSkill {
     public void updateTargets() {
         Region region = getUserRegionSelector().getVisibleRegion(false);
 
-        // Request to the map to visit the region, and if visited unit is a walker, then he is a possible target
+        // Request to the map to visit the region, and if visited unit has a walker, then he is a possible target
         accept(this, region);
     }
 

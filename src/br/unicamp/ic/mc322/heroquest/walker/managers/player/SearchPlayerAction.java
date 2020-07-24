@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
 
 import java.util.Set;
 
-// This class discover hidden object that are at a distance of up to three units (in Manhattan distance)
+// This class discovers hidden objects that are at a (Manhattan) distance of up to three units
 public class SearchPlayerAction implements Action {
     private WalkerPlayer walkerPlayer;
 
