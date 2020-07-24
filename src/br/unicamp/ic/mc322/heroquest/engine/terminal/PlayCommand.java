@@ -35,7 +35,7 @@ public class PlayCommand implements Command {
 
         String name = io.getStringAnswer("What's your character name? ");
 
-        /* Is needed to use `choice - 1` because the choice index starts in index 1, while
+        /* It is needed to use `choice - 1` because the choice index starts in index 1, while
         *  the array of options starts in 0 */
         String selectedOption = options[choice - 1].toUpperCase();
         Heroes hero = Heroes.valueOf(selectedOption);
