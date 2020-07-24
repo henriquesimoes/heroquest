@@ -30,6 +30,12 @@ public class Dimension {
                 Math.max(position.getY() + 1, this.getHeight()));
     }
 
+    /**
+     * Creates a coordinate that corresponds to the end coordinate
+     * on the plane by using the origin.
+     *
+     * @return coordinate representation of the dimension
+     */
     public Coordinate toCoordinate() {
         return Coordinate.shift(Coordinate.getOrigin(), width, height);
     }

@@ -23,12 +23,26 @@ public class MapManager {
         generator = new MapGenerator();
     }
 
+    /**
+     * Loads a file from the disk. The map name must be of one the existing
+     * maps, which can be obtained through the `getExistingMapNames` method.
+     *
+     * @param name map name
+     * @return loaded map
+     * @throws FileNotFoundException given map name could not be found
+     * @throws CorruptedConfigurationFileException map file is corrupted
+     */
     public Map load(String name) throws FileNotFoundException, CorruptedConfigurationFileException {
         MapBuilder builder = loader.load(name);
 
         return populate(builder);
     }
 
+    /**
+     * Generates a random map.
+     *
+     * @return generated map
+     */
     public Map generate() {
         MapBuilder builder = generator.generate();
 

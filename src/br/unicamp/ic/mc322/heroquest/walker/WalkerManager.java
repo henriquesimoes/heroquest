@@ -66,7 +66,15 @@ public abstract class WalkerManager {
         regionSelector.useAsReference(walker);
     }
 
+    /**
+     * Defines how a player will play its turn.
+     */
     public abstract void playTurn();
 
+    /**
+     * Displays a message to the user.
+     *
+     * @param message content
+     */
     public abstract void showMessage(String message);
 }

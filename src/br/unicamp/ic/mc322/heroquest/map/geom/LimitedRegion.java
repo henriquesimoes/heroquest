@@ -7,6 +7,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
+/**
+ * Region that includes all coordinates within a (Manhattan) distance
+ * range. In other words, the distance unit corresponds to a single
+ * walk move in the map.
+ */
 class LimitedRegion extends Region {
     private int limit;
     private Queue<Pair<Coordinate, Integer>> queue;

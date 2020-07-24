@@ -27,7 +27,7 @@ public class Teleport extends MagicSkill {
         Region region = getUserRegionSelector().getVisibleRegion(true);
 
         // Request to the map to visit the region, and if the visited unit is a floor, then it is a possible target
-        accept(this, region);
+        use(region);
     }
 
     /**

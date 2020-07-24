@@ -1,5 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
+/**
+ * Squared region of the place. This region simplifies the iteration
+ * over a map, reducing the need of nested loops over coordinates.
+ */
 class PlaneRegion extends Region {
     private Coordinate end;
 

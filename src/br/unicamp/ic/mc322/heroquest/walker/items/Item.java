@@ -22,6 +22,11 @@ public abstract class Item implements Describable, Comparable {
         return itemDescription;
     }
 
+    /**
+     * Defines how an item is used by the `proprietary`
+     *
+     * @param proprietary the walker who is handling the item
+     */
     public abstract void useItem(Walker proprietary);
 
     public int getGoldCoinsValue() {

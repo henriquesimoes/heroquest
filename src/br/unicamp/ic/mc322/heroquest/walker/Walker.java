@@ -56,6 +56,10 @@ public abstract class Walker implements MapObject {
         addSkill(fists.getSkills().get(0));
     }
 
+    /**
+     * @return the maximum number of movements the walker
+     * can currently do for walking.
+     */
     public int getPositionLimitInMovement() {
         int numPos = 0;
 

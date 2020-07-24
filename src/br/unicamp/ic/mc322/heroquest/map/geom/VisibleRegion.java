@@ -4,6 +4,9 @@ import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 
 import java.util.*;
 
+/**
+ * Region that is seen by something on the reference coordinate.
+ */
 class VisibleRegion extends Region {
     private final int MAXIMUM_VISIBILITY_RADIUS = Integer.MAX_VALUE;
     private Queue<Pair<Coordinate, Integer>> queue;

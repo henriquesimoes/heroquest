@@ -23,7 +23,7 @@ public class Attack extends PhysicalSkill {
             region = getUserRegionSelector().getCardinalRegion(false);
 
         // Request to the map to visit the region, and if the visited unit has a walker, then it is a possible target
-        accept(this, region);
+        use(region);
     }
 
     @Override

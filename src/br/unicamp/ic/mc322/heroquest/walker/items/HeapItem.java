@@ -2,8 +2,6 @@ package br.unicamp.ic.mc322.heroquest.walker.items;
 
 import java.util.Objects;
 
-
-// Two HeapItems are the same if they have the same name
 public abstract class HeapItem extends Item {
     protected HeapItem(String itemName, String itemDescription, int goldCoinsValue) {
         super(itemName, itemDescription, goldCoinsValue);
