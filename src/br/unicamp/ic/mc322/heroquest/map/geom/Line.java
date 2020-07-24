@@ -3,7 +3,18 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
 import java.awt.*;
 
 public class Line {
-    static final int attenuator = 6;
+    private int a, b, c;
+
+    private Line(Coordinate point1, Coordinate point2) {
+        int x1 = point1.getX();
+        int y1 = point1.getY();
+        int x2 = point2.getX();
+        int y2 = point2.getY();
+
+        a = y1 - y2;
+        b = x2 - x1;
+        c = x1 * y2 - x2 * y1;
+    }
 
     static boolean isAlmostCollinear(Coordinate point1, Coordinate point2, Coordinate point3) {
         int x1 = point1.getX();
@@ -20,19 +31,12 @@ public class Line {
         if (distance23 >= distance13 || distance12 >= distance13)
             return false;
 
-        Point vector1 = new Point(x1 - x2, y1 - y2);
-        Point vector2 = new Point(x3 - x2, y3 - y2);
+        Line line = new Line(point1, point3);
 
-        double angle = Math.acos(dot(vector1, vector2) / (norm(vector1) * norm(vector2)));
-
-        return Math.PI - angle < Math.PI / (Math.pow(distance12, 0.66) * attenuator);
+        return line.getDistanceToPoint(point2) < 0.3;
     }
 
-    private static double dot(Point vector1, Point vector2) {
-        return vector1.getX() * vector2.getX() + vector1.getY() * vector2.getY();
-    }
-
-    private static double norm(Point vector) {
-        return Math.sqrt(dot(vector, vector));
+    private double getDistanceToPoint(Coordinate point) {
+        return Math.abs(a * point.getX() + b * point.getY() + c) / Math.sqrt(a * a + b * b);
     }
 }
