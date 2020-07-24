@@ -89,11 +89,11 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         for (int i = 0; i < output.length; i++)
             for (int j = 0; j < output[i].length; j++) {
                 if (images.containsKey(output[i][j])) {
-                    graphics.drawImage(images.get(output[i][j]), getX(j), getY(i), cellWidth, cellHeight, new Color(100, 100, 100), null);
+                    graphics.drawImage(images.get(output[i][j]), getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
                 } else {
                     switch (output[i][j]) {
                         case ' ':
-                            graphics.setColor(new Color(100, 100, 100));
+                            graphics.setColor(new Color(72, 59, 58));
                             break;
                         default:
                             graphics.setColor(new Color(255, 255, 255));

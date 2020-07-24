@@ -1,7 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class LoaderImages {
@@ -12,14 +15,28 @@ public class LoaderImages {
 
     public LoaderImages() {
         images = new HashMap<>();
-        images.put('W', new ImageIcon(getFullName("wizzard_m_hit_anim_f0.png")).getImage());
-        images.put('E', new ImageIcon(getFullName("elf_f_hit_anim_f0.png")).getImage());
-        images.put('S', new ImageIcon(getFullName("skelet_idle_anim_f0.png")).getImage());
-        images.put('Ŝ', new ImageIcon(getFullName("orc_shaman_idle_anim_f0.png")).getImage());
-        images.put('G', new ImageIcon(getFullName("goblin_idle_anim_f0.png")).getImage());
-        images.put('#', new ImageIcon(getFullName("wall_mid.png")).getImage());
-        images.put('C', new ImageIcon(getFullName("chest_full_open_anim_f0.png")).getImage());
-        images.put('c', new ImageIcon(getFullName("chest_empty_open_anim_f2.png")).getImage());
+        images.put('W', readImage(getFullName("wizzard_m_hit_anim_f0.png")));
+        images.put('E', readImage(getFullName("elf_f_hit_anim_f0.png")));
+        images.put('S', readImage(getFullName("skelet_idle_anim_f0.png")));
+        images.put('Ŝ', readImage(getFullName("orc_shaman_idle_anim_f0.png")));
+        images.put('G', readImage(getFullName("goblin_idle_anim_f0.png")));
+        images.put('#', readImage(getFullName("wall_mid.png")));
+        images.put('C', readImage(getFullName("chest_full_open_anim_f0.png")));
+        images.put('c', readImage(getFullName("chest_empty_open_anim_f2.png")));
+        images.put('t', readImage(getFullName("floor_spikes_anim_f0.png")));
+        images.put('T', readImage(getFullName("floor_spikes_anim_f3.png")));
+        images.put(' ', readImage(getFullName("floor_1.png")));
+
+    }
+
+    public static BufferedImage readImage(String fileLocation) {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(fileLocation));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return img;
     }
 
     public HashMap<Character, Image> getImages() {
