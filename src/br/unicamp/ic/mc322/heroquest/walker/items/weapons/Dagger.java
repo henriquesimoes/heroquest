@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.items.weapons;
 
-import br.unicamp.ic.mc322.heroquest.walker.items.ItemClass;
+import br.unicamp.ic.mc322.heroquest.walker.items.DurableItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
 import br.unicamp.ic.mc322.heroquest.walker.skills.physical.Attack;
 import br.unicamp.ic.mc322.heroquest.walker.skills.physical.ThrowWeaponAttack;
@@ -11,7 +11,7 @@ public class Dagger extends Weapon {
             "You can throw it diagonally, but you can't not attack diagonally to stab a monster";
 
     public Dagger() {
-        super("Dagger", DESCRIPTION, 6, 25, ItemClass.NEUTRAL);
+        super("Dagger", DESCRIPTION, 6, 25, DurableItemClass.NEUTRAL);
         setAttackBonus(1);
         setTwoHanded(false);
         setAttackDiagonally(true);

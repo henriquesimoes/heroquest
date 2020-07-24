@@ -8,8 +8,8 @@ import br.unicamp.ic.mc322.heroquest.walker.items.armors.CloakOfProtection;
 public abstract class Armor extends DurableItem {
     private final int defenseBonus;
 
-    protected Armor(String itemName, String itemDescription, int defenseBonus, int durability, int goldCoinsValue, ItemClass itemClass) {
-        super(itemName, itemDescription, durability, goldCoinsValue, itemClass);
+    protected Armor(String itemName, String itemDescription, int defenseBonus, int durability, int goldCoinsValue, DurableItemClass durableItemClass) {
+        super(itemName, itemDescription, durability, goldCoinsValue, durableItemClass);
         this.defenseBonus = defenseBonus;
     }
 
@@ -30,7 +30,7 @@ public abstract class Armor extends DurableItem {
 
     @Override
     public void useItem(Walker proprietary) {
-        if (proprietary.isAbleToUse(itemClass))
+        if (proprietary.isAbleToUse(durableItemClass))
             proprietary.equipArmor(this);
         else
             proprietary.getManager().showMessage("You are not able to use this armor");

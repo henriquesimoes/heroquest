@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.walker.managers.player;
 
+import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
@@ -12,7 +13,6 @@ import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.SecretDoor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Wall;
-import br.unicamp.ic.mc322.heroquest.view.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.Barbarian;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.Dwarf;

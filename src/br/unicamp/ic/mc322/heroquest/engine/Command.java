@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.view;
+package br.unicamp.ic.mc322.heroquest.engine;
 
 public interface Command {
     String getDescription();
