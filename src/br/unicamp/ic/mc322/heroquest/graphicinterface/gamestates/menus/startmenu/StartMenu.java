@@ -14,10 +14,8 @@ import java.util.ArrayList;
 public class StartMenu implements Renderable {
     private final GameTitle GAME_TITLE;
     private final ArrayList<MenuButton> options;
-    private final ScreenStateManager screenStateManager;
 
     public StartMenu(Graphics2D graphics2D, ScreenStateManager screenStateManager) {
-        this.screenStateManager = screenStateManager;
         this.options = new ArrayList<>();
         this.GAME_TITLE = new GameTitle(graphics2D, 200);
 

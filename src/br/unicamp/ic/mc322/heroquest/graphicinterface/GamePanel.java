@@ -3,6 +3,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStates;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.character.CharacterSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.MapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.StandardMapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.startmenu.StartMenu;
@@ -24,8 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
     private final MouseInput mouseInput;
     public Map map;
 
-    public GamePanel(Map map) {
-        this.map = map;
+    public GamePanel() {
         Dimension preferredSize = new Dimension(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
 
         setPreferredSize(preferredSize);
@@ -44,8 +44,9 @@ public class GamePanel extends JPanel implements Runnable {
         screenStateManager.addState(new StartMenu(graphics, screenStateManager), ScreenStates.START_MENU);
         screenStateManager.addState(new MapSelection(graphics, SETTINGS, screenStateManager), ScreenStates.MAP_SELECTION);
         screenStateManager.addState(new StandardMapSelection(graphics, SETTINGS, screenStateManager), ScreenStates.LIST_OF_MAPS);
+        screenStateManager.addState(new CharacterSelection(graphics), ScreenStates.CHOOSE_CHARACTER);
 
-        screenStateManager.setState(ScreenStates.START_MENU);
+        screenStateManager.setState(ScreenStates.CHOOSE_CHARACTER);
     }
 
     @Override
