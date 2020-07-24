@@ -8,7 +8,7 @@ import br.unicamp.ic.mc322.heroquest.walker.skills.MagicSkill;
 
 public class SimpleHeal extends MagicSkill {
     public SimpleHeal() {
-        super("Simple Heal spell",
+        super("Simple Heal",
                 "It heals from 1 to 6 health points." +
                         "The healing power depends on the result of a six-face die roll.", DisplayTargetsMode.SHOW_OPTIONS);
     }
