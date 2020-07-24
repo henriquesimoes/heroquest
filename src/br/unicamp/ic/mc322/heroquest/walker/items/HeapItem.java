@@ -3,8 +3,8 @@ package br.unicamp.ic.mc322.heroquest.walker.items;
 import java.util.Objects;
 
 public abstract class HeapItem extends Item {
-    protected HeapItem(String itemName, String itemDescription, int goldCoinsValue, ItemClass itemClass) {
-        super(itemName, itemDescription, goldCoinsValue, itemClass);
+    protected HeapItem(String itemName, String itemDescription, int goldCoinsValue) {
+        super(itemName, itemDescription, goldCoinsValue);
     }
 
     @Override

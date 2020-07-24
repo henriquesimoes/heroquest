@@ -20,10 +20,6 @@ public abstract class Region implements Iterable<Coordinate> {
         positionValidator = validator;
     }
 
-    public Coordinate getReference() {
-        return reference;
-    }
-
     public ArrayList<Coordinate> toArrayList() {
         return new ArrayList<>(coordinates);
     }
