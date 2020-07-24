@@ -53,6 +53,9 @@ public class BoxFreeText implements Clickable {
     public void executeAction() {
         String nickName = JOptionPane.showInputDialog("Choose nickname");
 
+        if (nickName == null)
+            nickName = "Player";
+
         try {
             SETTINGS.setMap(new MapManager().load(text));
             SETTINGS.setNickname(nickName);

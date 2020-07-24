@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.walker.heroes;
 import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
-public enum Heroes {
+public enum HeroesKind {
     BARBARIAN {
         @Override
         Walker getHeroInstance(String name, IOInterface io) {
@@ -36,10 +36,10 @@ public enum Heroes {
     }
 
     public static String[] getHeroesList() {
-        String[] heroesList = new String[Heroes.values().length];
+        String[] heroesList = new String[HeroesKind.values().length];
 
         int i = 0;
-        for (Heroes heroType : Heroes.values()) {
+        for (HeroesKind heroType : HeroesKind.values()) {
             heroesList[i] = heroType.toString().toLowerCase();
 
             i++;

@@ -28,6 +28,9 @@ public class RandomMapButton extends MenuButton {
     public void executeAction() {
         String nickName = JOptionPane.showInputDialog("Choose nickname");
 
+        if (nickName == null)
+            nickName = "Player";
+
         SETTINGS.setMap(new MapManager().generate());
         SETTINGS.setNickname(nickName);
         getScreenStateManager().setState(ScreenStates.CHOOSE_CHARACTER);
