@@ -16,8 +16,8 @@ public class StandardMapSelection implements Renderable {
     private final GameTitle GAME_TITLE;
     private final BoxedList LIST_OF_MAPS;
     private final BackButton BACK_BUTTON;
-    private MapManager mapManager;
     private final Settings SETTINGS;
+    private MapManager mapManager;
     private ScreenStateManager screenStateManager;
 
     public StandardMapSelection(Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager) {

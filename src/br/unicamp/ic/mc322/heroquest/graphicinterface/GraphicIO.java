@@ -127,13 +127,13 @@ public class GraphicIO implements IOInterface {
     @Override
     public Coordinate getCoordinate(Coordinate[] coordinates) {
         Coordinate coordinate;
-        while (true){
+        while (true) {
             appendMessage("Click on a coordinate\n");
             coordinate = graphicMapViewer.getClickedCoordinate();
             clear();
-            for(int i = 0; i < coordinates.length; i++){
-                if(coordinates[i].equals(coordinate))
-                    return  coordinate;
+            for (int i = 0; i < coordinates.length; i++) {
+                if (coordinates[i].equals(coordinate))
+                    return coordinate;
             }
             appendMessage("Invalid Coordinate\n");
         }

@@ -13,7 +13,8 @@ public class ImageLoader {
     private static final String BASE_PATH = "resources/gameImages";
     private HashMap<Character, Image> images;
 
-    public ImageLoader() {}
+    public ImageLoader() {
+    }
 
     public static BufferedImage readImage(String fileLocation) {
         String path = getFullName(fileLocation);

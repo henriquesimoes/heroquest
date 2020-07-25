@@ -12,8 +12,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class CharacterCard extends Card {
-    private HeroesKind heroKind;
     private final Settings SETTINGS;
+    private HeroesKind heroKind;
     private ScreenStateManager screenStateManager;
 
     public CharacterCard(HeroesKind heroKind, String name, String description, Settings settings, Graphics2D graphics, ScreenStateManager screenStateManager) {
@@ -23,9 +23,9 @@ public class CharacterCard extends Card {
         this.heroKind = heroKind;
     }
 
-    protected void setImage(String spriteSheetName){
-         BufferedImage image = ImageLoader.readImage(spriteSheetName);
-         setImageContent(ImageEditor.scaleImage(image, 2, 2));
+    protected void setImage(String spriteSheetName) {
+        BufferedImage image = ImageLoader.readImage(spriteSheetName);
+        setImageContent(ImageEditor.scaleImage(image, 2, 2));
     }
 
     @Override

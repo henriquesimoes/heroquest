@@ -1,9 +1,13 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
+import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
+import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
+import br.unicamp.ic.mc322.heroquest.engine.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.engine.MapViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
+import br.unicamp.ic.mc322.heroquest.map.MapPopulator;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
@@ -31,38 +35,30 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class GraphicMapViewer implements Renderable, MapViewer {
-    private final ArrayList<Clickable> options;
     private final Settings SETTINGS;
     private final Graphics2D graphics;
-    private final char[][] output;
     HashMap<Character, ArrayList<BufferedImage>> images;
     int cellHeight, cellWidth;
     int frame = 0;
     volatile String messages = "";
     volatile String status = "";
     Map map;
-    Coordinate reference;
+    volatile Coordinate reference;
     JTextArea textMenu;
     JTextArea textStatus;
     volatile boolean waitingCoordinate = false;
     volatile Coordinate clickedCoordinate;
-
+    private ArrayList<Clickable> options;
+    private char[][] output;
     private volatile boolean needUpdateMap;
 
-    public GraphicMapViewer(Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager, Map map) {
+    public GraphicMapViewer(Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager) {
         this.SETTINGS = settings;
-        this.options = new ArrayList<>();
         this.graphics = graphics;
-        this.map = map;
         this.needUpdateMap = false;
+
         LoaderImages loaderImages = new LoaderImages();
         images = loaderImages.getImages();
-        cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / (map.getWidth()), GameWindow.WINDOW_HEIGHT / (map.getHeight()));
-
-        output = new char[map.getHeight()][map.getWidth()];
-        for (int i = 0; i < output.length; i++)
-            for (int j = 0; j < output[i].length; j++)
-                options.add(new CellMap(this, i, j, cellHeight, cellWidth));
 
         textStatus = new JTextArea();
         textStatus.setSize(180, GameWindow.WINDOW_HEIGHT / 7);
@@ -77,15 +73,15 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     }
 
     void changeState(int x, int y) {
-        if(waitingCoordinate){
+        if (waitingCoordinate) {
             waitingCoordinate = false;
             clickedCoordinate = new Coordinate(x, y);
         }
     }
 
-    public Coordinate getClickedCoordinate(){
+    public Coordinate getClickedCoordinate() {
         waitingCoordinate = true;
-        while(waitingCoordinate);
+        while (waitingCoordinate) ;
         try {
             Thread.sleep(100);
         } catch (InterruptedException ex) {
@@ -103,8 +99,9 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     }
 
     public void render() {
+        create();
         frame++;
-        if(frame >= 20)
+        if (frame >= 20)
             frame = 0;
         renderBackGround();
         display(new Coordinate(0, 0));
@@ -130,6 +127,28 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         graphics.translate(-GameWindow.WINDOW_WIDTH + 180, -GameWindow.WINDOW_HEIGHT / 7);
     }
 
+    private void create() {
+        if (SETTINGS.getMap().equals(map))
+            return;
+        map = SETTINGS.getMap();
+        output = new char[map.getHeight()][map.getWidth()];
+        cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / (map.getWidth()), GameWindow.WINDOW_HEIGHT / (map.getHeight()));
+
+        this.options = new ArrayList<>();
+
+        for (int i = 0; i < output.length; i++)
+            for (int j = 0; j < output[i].length; j++)
+                options.add(new CellMap(this, i, j, cellHeight, cellWidth));
+
+        map.add(SETTINGS.getWalker());
+        MapPopulator populator = new MapPopulator(GameLevel.EASY);
+        populator.populate(map);
+        GameMonitor.getInstance().subscribe(map);
+        Thread loop = new Thread(new GameLoop(map));
+        loop.start();
+
+    }
+
     public void updateMap() {
         if (needUpdateMap) {
             for (int i = 0; i < output.length; i++)
@@ -152,8 +171,8 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     }
 
 
-    boolean upImage(char c){
-        return c == 'W' || c == 'B' || c == 'E' || c == 'F'|| c == 'S' || c == 'Ŝ' || c == 'G' || c == 'c' || c == 'C';
+    boolean upImage(char c) {
+        return c == 'W' || c == 'B' || c == 'E' || c == 'F' || c == 'S' || c == 'Ŝ' || c == 'G' || c == 'c' || c == 'C';
     }
 
     @Override
@@ -162,17 +181,16 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         for (int i = 0; i < output.length; i++)
             for (int j = 0; j < output[i].length; j++) {
                 if (images.containsKey(output[i][j])) {
-                    if(upImage(output[i][j])){
+                    if (upImage(output[i][j])) {
                         BufferedImage floor = images.get(' ').get(0);
                         BufferedImage copyOfImage = new BufferedImage(cellWidth, cellHeight, BufferedImage.TYPE_INT_RGB);
                         Graphics g = copyOfImage.createGraphics();
                         g.drawImage(floor, 0, 0, cellWidth, cellHeight, null);
-                        g.drawImage((images.get(output[i][j])).get(frame/5), 0, cellHeight * -1/10, cellWidth, cellHeight, null);
+                        g.drawImage((images.get(output[i][j])).get(frame / 5), 0, cellHeight * -1 / 10, cellWidth, cellHeight, null);
                         g.dispose();
                         graphics.drawImage(copyOfImage, getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
-                    }
-                    else
-                        graphics.drawImage((images.get(output[i][j])).get(frame/5), getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
+                    } else
+                        graphics.drawImage((images.get(output[i][j])).get(frame / 5), getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
                 } else {
                     switch (output[i][j]) {
                         case ' ':

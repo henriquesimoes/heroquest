@@ -1,10 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.engine.terminal;
 
 import br.unicamp.ic.mc322.heroquest.engine.*;
-import br.unicamp.ic.mc322.heroquest.engine.Command;
-import br.unicamp.ic.mc322.heroquest.engine.GameEngine;
-import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
-import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.MapPopulator;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;

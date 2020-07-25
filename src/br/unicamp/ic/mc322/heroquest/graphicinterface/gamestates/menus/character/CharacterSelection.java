@@ -17,16 +17,16 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CharacterSelection implements Renderable {
-    Graphics2D graphics;
-    ArrayList<Card> options;
     private final GameTitle GAME_TITLE;
     private final BackButton BACK_BUTTON;
+    Graphics2D graphics;
+    ArrayList<Card> options;
 
     public CharacterSelection(Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager) {
         this.graphics = graphics;
         this.options = new ArrayList<>();
         this.GAME_TITLE = new GameTitle(graphics, 200);
-        this.BACK_BUTTON = new BackButton(graphics,screenStateManager);
+        this.BACK_BUTTON = new BackButton(graphics, screenStateManager);
         options.add(new BarbarianChar(settings, graphics, screenStateManager));
         options.add(new DwarfChar(settings, graphics, screenStateManager));
         options.add(new ElfChar(settings, graphics, screenStateManager));
@@ -50,9 +50,9 @@ public class CharacterSelection implements Renderable {
 
     private void renderCards() {
         /* We can choose any index in box options, so we can calculate the x coord that will put
-        *   all cards aligned in center */
+         *   all cards aligned in center */
         int boxWidth = (int) options.get(0).getBounds().getWidth();
-        int nextXCoord = (GameWindow.WINDOW_WIDTH - (boxWidth + 10) * options.size() ) / 2;
+        int nextXCoord = (GameWindow.WINDOW_WIDTH - (boxWidth + 10) * options.size()) / 2;
 
         for (Card card : options) {
             card.render(nextXCoord, 350);

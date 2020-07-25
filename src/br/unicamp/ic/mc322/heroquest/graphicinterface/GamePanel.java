@@ -1,7 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
-import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
-import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
@@ -10,11 +8,7 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.character
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.MapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.StandardMapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.startmenu.StartMenu;
-import br.unicamp.ic.mc322.heroquest.map.MapManager;
-import br.unicamp.ic.mc322.heroquest.map.MapPopulator;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
-import br.unicamp.ic.mc322.heroquest.walker.Walker;
-import br.unicamp.ic.mc322.heroquest.walker.heroes.Wizard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,29 +50,13 @@ public class GamePanel extends JPanel implements Runnable {
         screenStateManager.addState(new StandardMapSelection(graphics, SETTINGS, screenStateManager), ScreenStates.LIST_OF_MAPS);
         screenStateManager.addState(new CharacterSelection(graphics, SETTINGS, screenStateManager), ScreenStates.CHOOSE_CHARACTER);
 
-        screenStateManager.setState(ScreenStates.MAP_SELECTION);
-        /*
-        MapManager mapManager = new MapManager();
-
-        try {
-            map = mapManager.load("small_02.map");
-        } catch (Exception e) {
-        }
-
-        GraphicMapViewer graphicMapViewer = new GraphicMapViewer(graphics, SETTINGS, screenStateManager, map);
+        GraphicMapViewer graphicMapViewer = new GraphicMapViewer(graphics, SETTINGS, screenStateManager);
         this.graphicIO = new GraphicIO(mouseInput, keyboardInput, graphicMapViewer);
-
-        Walker walker = new Wizard("G", graphicIO);;
-        map.add(walker);
-        MapPopulator populator = new MapPopulator(GameLevel.EASY);
-        populator.populate(map);
-        Thread loop = new Thread(new GameLoop(map));
-        loop.start();
-
+        SETTINGS.setIO(graphicIO);
 
         screenStateManager.addState(graphicMapViewer, ScreenStates.GAME_RUNNING);
 
-        screenStateManager.setState(ScreenStates.GAME_RUNNING);*/
+        screenStateManager.setState(ScreenStates.MAP_SELECTION);
     }
 
     @Override

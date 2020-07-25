@@ -8,6 +8,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Card implements Clickable {
+    Font titleFont;
+    Font descriptionFont;
     private Graphics2D graphics;
     private BufferedImage imageContent;
     private Rectangle2D boxBounds;
@@ -16,8 +18,6 @@ public class Card implements Clickable {
     private int boxWidth;
     private Coordinate boxPosition;
     private Color boxColor;
-    Font titleFont;
-    Font descriptionFont;
     private String title;
     private String description;
 
@@ -92,11 +92,13 @@ public class Card implements Clickable {
     }
 
     private void renderContentImage() {
-        int xCoord =  (int) (boxPosition.getX() + (boxBounds.getWidth() - imageContent.getWidth()) / 2);
+        int xCoord = (int) (boxPosition.getX() + (boxBounds.getWidth() - imageContent.getWidth()) / 2);
         graphics.drawImage(imageContent, xCoord, boxPosition.getY() + 30, null);
     }
 
-    /** If the component wasn't rendered, the card will be positioned in coord (0,0)*/
+    /**
+     * If the component wasn't rendered, the card will be positioned in coord (0,0)
+     */
     @Override
     public Rectangle2D getBounds() {
         if (boxBounds == null) {
@@ -107,5 +109,6 @@ public class Card implements Clickable {
     }
 
     @Override
-    public void executeAction() {}
+    public void executeAction() {
+    }
 }

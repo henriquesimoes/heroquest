@@ -1,7 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -103,7 +102,7 @@ public class LoaderImages {
             img = ImageIO.read(new File(fileLocation));
         } catch (IOException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Not found " + fileLocation);
         }
         return img;
