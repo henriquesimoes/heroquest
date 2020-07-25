@@ -95,7 +95,15 @@ public abstract class Walker implements MapObject {
         decreaseBodyPoints(damage);
     }
 
-    protected abstract int getDefenseIntensity(int numberOfDices);
+    private int getDefenseIntensity(int numberOfDices) {
+        int intensity = 0;
+
+        for (int times = 0; times < numberOfDices; times++)
+            if (combatDice.roll() == getTeam().getFavorableDiceFace())
+                intensity++;
+
+        return intensity;
+    }
 
     public void defendFromMagicSkill(int attackIntensity) {
         int defenseIntensity = getDefenseIntensity(mindPoints);

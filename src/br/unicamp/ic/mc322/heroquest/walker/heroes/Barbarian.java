@@ -2,15 +2,18 @@ package br.unicamp.ic.mc322.heroquest.walker.heroes;
 
 import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.walker.Hero;
+import br.unicamp.ic.mc322.heroquest.walker.Team;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.items.DurableItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
 import br.unicamp.ic.mc322.heroquest.walker.items.weapons.LongSword;
+import br.unicamp.ic.mc322.heroquest.walker.managers.player.WalkerPlayer;
 
-public class Barbarian extends Hero {
+public class Barbarian extends Walker {
     public Barbarian(String name, IOInterface ioInterface) {
-        super(name, ioInterface);
+        super(new WalkerPlayer(ioInterface), name);
 
+        team = Team.HEROES;
         attackDice = 3;
         defenseDice = 2;
         maximumBodyPoints = currentBodyPoints = 40;

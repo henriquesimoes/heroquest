@@ -21,15 +21,15 @@ public class MonsterGenerator {
         setNumberOfTypes();
     }
 
-    public static Monster getRandomMonster() {
-        Monster[] monsters = generateMonsters();
+    public static Walker getRandomMonster() {
+        Walker[] monsters = generateMonsters();
 
         return monsters[Randomizer.nextInt(monsters.length)];
     }
 
-    private static Monster[] generateMonsters() {
+    private static Walker[] generateMonsters() {
 
-        return new Monster[]{
+        return new Walker[]{
                 new CommonSkeleton(),
                 new WizardSkeleton(),
                 new Goblin()
@@ -50,7 +50,7 @@ public class MonsterGenerator {
         ArrayList<Walker> targets = new ArrayList<>(Arrays.asList(reference));
         Coordinate position = walkerManager.getCoordinateCloserToWalkers(possiblePositions, targets);
 
-        Monster monster = getRandomMonster();
+        Walker monster = getRandomMonster();
         monster.setPosition(position);
 
         GameMonitor gameMonitor = GameMonitor.getInstance();
@@ -59,11 +59,11 @@ public class MonsterGenerator {
         return true;
     }
 
-    public Monster[] generate(int quantity) {
+    public Walker[] generate(int quantity) {
         if (quantity <= 0)
             throw new IllegalArgumentException("Invalid non-positive number of monsters provided...");
 
-        Monster[] monsters = new Monster[quantity];
+        Walker[] monsters = new Walker[quantity];
         int generated = 0;
 
         for (int monsterType = 0; monsterType < numberOfTypes; monsterType++)
@@ -83,7 +83,7 @@ public class MonsterGenerator {
     }
 
     private void setNumberOfTypes() {
-        Monster[] monsters = generateMonsters();
+        Walker[] monsters = generateMonsters();
 
         numberOfTypes = monsters.length;
     }
