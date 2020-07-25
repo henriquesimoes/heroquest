@@ -28,9 +28,10 @@ public class Chest extends FixedObject {
     private GoldCoin coins;
 
     public Chest(Coordinate position) {
+        super(position);
+
         opened = false;
         items = new ArrayList<>();
-        setPosition(position);
 
         addRandomQuantityOfGold();
         addRandomWeapons();

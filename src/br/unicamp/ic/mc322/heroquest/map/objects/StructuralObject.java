@@ -7,29 +7,17 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 public abstract class StructuralObject implements MapObject {
     private Coordinate position;
 
-    public StructuralObject() {
-        position = new Coordinate();
-    }
-
     public StructuralObject(Coordinate coordinate) {
-        this();
-        setPosition(coordinate);
-    }
-
-    public int getX() {
-        return position.getX();
-    }
-
-    public int getY() {
-        return position.getY();
+        this.position = coordinate;
     }
 
     public Coordinate getPosition() {
         return position;
     }
 
+    @Override
     public void setPosition(Coordinate position) {
-        this.position.copyValue(position);
+        this.position.copy(position);
     }
 
     @Override
