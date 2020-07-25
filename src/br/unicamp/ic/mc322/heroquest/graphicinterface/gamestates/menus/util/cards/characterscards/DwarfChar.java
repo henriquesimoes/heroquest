@@ -2,12 +2,12 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.car
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Settings;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
-import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroesKind;
+import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroKind;
 
 import java.awt.*;
 
 public class DwarfChar extends CharacterCard {
-    private final static HeroesKind HERO_KIND = HeroesKind.DWARF;
+    private final static HeroKind HERO_KIND = HeroKind.DWARF;
     private final static String DESCRIPTION = "A powerful small guy";
     private final String SPRITESHEET_NAME = "dwarf_front.png";
 

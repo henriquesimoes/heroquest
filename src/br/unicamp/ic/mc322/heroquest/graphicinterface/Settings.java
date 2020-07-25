@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GraphicIO;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
-import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroesKind;
+import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroKind;
 
 public class Settings {
     /**
@@ -38,7 +38,7 @@ public class Settings {
         return walker;
     }
 
-    public void setWalker(HeroesKind heroKind) {
+    public void setWalker(HeroKind heroKind) {
         walker = heroKind.getHero(nickname, ioInterface);
     }
 }

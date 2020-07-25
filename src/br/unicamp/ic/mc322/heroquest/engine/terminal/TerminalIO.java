@@ -91,6 +91,15 @@ public class TerminalIO implements IOInterface {
     }
 
     @Override
+    public boolean getBooleanAnswer(String question) {
+        String[] positiveAnswers = {"yes", "y", "yep"};
+
+        String answer = getStringAnswer(question + " (yes / no) ");
+
+        return Arrays.asList(positiveAnswers).contains(answer);
+    }
+
+    @Override
     public void showMap(Coordinate position) {
         viewer.display(position);
     }

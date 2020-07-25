@@ -1,22 +1,22 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characterscards;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageEditor;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageLoader;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Settings;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStates;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.Card;
-import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroesKind;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageEditor;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageLoader;
+import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroKind;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class CharacterCard extends Card {
     private final Settings SETTINGS;
-    private HeroesKind heroKind;
+    private HeroKind heroKind;
     private ScreenStateManager screenStateManager;
 
-    public CharacterCard(HeroesKind heroKind, String name, String description, Settings settings, Graphics2D graphics, ScreenStateManager screenStateManager) {
+    public CharacterCard(HeroKind heroKind, String name, String description, Settings settings, Graphics2D graphics, ScreenStateManager screenStateManager) {
         super(name, description, graphics);
         this.screenStateManager = screenStateManager;
         this.SETTINGS = settings;

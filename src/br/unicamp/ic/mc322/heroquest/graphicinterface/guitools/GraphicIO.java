@@ -77,6 +77,11 @@ public class GraphicIO implements IOInterface {
     }
 
     @Override
+    public boolean getBooleanAnswer(String question) {
+        return false;
+    }
+
+    @Override
     public void showMap(Coordinate position) {
         graphicMapViewer.setNeedUpdateMap(position);
     }

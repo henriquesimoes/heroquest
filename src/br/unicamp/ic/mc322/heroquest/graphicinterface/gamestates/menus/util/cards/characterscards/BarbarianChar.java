@@ -2,12 +2,12 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.car
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Settings;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
-import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroesKind;
+import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroKind;
 
 import java.awt.*;
 
 public class BarbarianChar extends CharacterCard {
-    private final static HeroesKind HERO_KIND = HeroesKind.BARBARIAN;
+    private final static HeroKind HERO_KIND = HeroKind.BARBARIAN;
     private final static String DESCRIPTION = "A huge warrior, \nalways looking for \na good fight.";
     private final String SPRITESHEET_NAME = "barbarian_front.png";
 

@@ -2,24 +2,27 @@ package br.unicamp.ic.mc322.heroquest.walker.heroes;
 
 import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
-import br.unicamp.ic.mc322.heroquest.walker.Hero;
+import br.unicamp.ic.mc322.heroquest.walker.Team;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.items.DurableItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.Weapon;
 import br.unicamp.ic.mc322.heroquest.walker.items.cards.SpellElement;
 import br.unicamp.ic.mc322.heroquest.walker.items.weapons.Dagger;
+import br.unicamp.ic.mc322.heroquest.walker.managers.player.WalkerPlayer;
 import br.unicamp.ic.mc322.heroquest.walker.skills.magic.FireBall;
 import br.unicamp.ic.mc322.heroquest.walker.skills.magic.MagicMissile;
 import br.unicamp.ic.mc322.heroquest.walker.skills.magic.Teleport;
 
 import java.util.Arrays;
 
-public class Wizard extends Hero {
+public class Wizard extends Walker {
     private final int initialNumberOfDaggers = 3;
     private final int initialNumberOfMagicMissiles = 3;
 
     public Wizard(String name, IOInterface ioInterface) {
-        super(name, ioInterface);
+        super(new WalkerPlayer(ioInterface), name);
 
+        team = Team.HEROES;
         attackDice = 1;
         defenseDice = 2;
         maximumBodyPoints = currentBodyPoints = 20;
