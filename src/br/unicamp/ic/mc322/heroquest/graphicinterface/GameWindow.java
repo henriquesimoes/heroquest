@@ -1,7 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
-import br.unicamp.ic.mc322.heroquest.map.core.Map;
-
 import javax.swing.*;
 
 public class GameWindow extends JFrame {

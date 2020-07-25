@@ -29,7 +29,7 @@ public class Elf extends Hero {
 
     @Override
     public String getRepresentationOnMenu() {
-        return "Elf: " + getName();
+        return "ElfChar: " + getName();
     }
 
 

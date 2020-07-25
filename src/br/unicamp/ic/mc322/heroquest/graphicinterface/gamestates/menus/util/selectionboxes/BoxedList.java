@@ -10,7 +10,6 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class BoxedList {
     private final int STANDARD_BOX_WIDTH = 400;

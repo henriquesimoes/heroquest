@@ -7,15 +7,17 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class ScreenStateManager {
     private final Map<ScreenStates, Renderable> states;
-    private Renderable prevState;
+    private Stack<Renderable> prevState;
     private Renderable currentState;
     private final MouseInput mouseInput;
 
     public ScreenStateManager(MouseInput mouseInput) {
         states = new HashMap<>();
+        this.prevState = new Stack<>();
         this.mouseInput = mouseInput;
     }
 
@@ -42,8 +44,15 @@ public class ScreenStateManager {
     }
 
     public void setState(ScreenStates state) {
-        prevState = getCurrentState();
+        prevState.push(getCurrentState());
         currentState = states.get(state);
+    }
+
+    public void setState(Renderable state) {
+        currentState = state;
+
+        if (getPrevState().equals(state))
+            prevState.pop();
     }
 
     public Renderable getCurrentState() {
@@ -51,6 +60,6 @@ public class ScreenStateManager {
     }
 
     public Renderable getPrevState() {
-        return prevState;
+        return prevState.peek();
     }
 }

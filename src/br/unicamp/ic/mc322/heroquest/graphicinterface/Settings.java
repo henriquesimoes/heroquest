@@ -4,7 +4,6 @@ import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroesKind;
-import br.unicamp.ic.mc322.heroquest.walker.managers.player.WalkerPlayer;
 
 public class Settings {
     /**TODO: teste de ioInterface*/

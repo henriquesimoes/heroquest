@@ -7,7 +7,6 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.character
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.MapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.StandardMapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.startmenu.StartMenu;
-import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 
 import javax.swing.*;
@@ -44,9 +43,9 @@ public class GamePanel extends JPanel implements Runnable {
         screenStateManager.addState(new StartMenu(graphics, screenStateManager), ScreenStates.START_MENU);
         screenStateManager.addState(new MapSelection(graphics, SETTINGS, screenStateManager), ScreenStates.MAP_SELECTION);
         screenStateManager.addState(new StandardMapSelection(graphics, SETTINGS, screenStateManager), ScreenStates.LIST_OF_MAPS);
-        screenStateManager.addState(new CharacterSelection(graphics), ScreenStates.CHOOSE_CHARACTER);
+        screenStateManager.addState(new CharacterSelection(graphics, SETTINGS, screenStateManager), ScreenStates.CHOOSE_CHARACTER);
 
-        screenStateManager.setState(ScreenStates.CHOOSE_CHARACTER);
+        screenStateManager.setState(ScreenStates.MAP_SELECTION);
     }
 
     @Override

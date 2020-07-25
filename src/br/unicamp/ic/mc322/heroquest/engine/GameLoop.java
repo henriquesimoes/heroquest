@@ -1,6 +1,5 @@
 package br.unicamp.ic.mc322.heroquest.engine;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.map.core.AbstractMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
