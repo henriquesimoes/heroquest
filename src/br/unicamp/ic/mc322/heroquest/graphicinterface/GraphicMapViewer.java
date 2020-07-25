@@ -25,6 +25,7 @@ import br.unicamp.ic.mc322.heroquest.walker.monsters.WizardSkeleton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,8 +35,9 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     private final Settings SETTINGS;
     private final Graphics2D graphics;
     private final char[][] output;
-    HashMap<Character, Image> images;
+    HashMap<Character, ArrayList<BufferedImage>> images;
     int cellHeight, cellWidth;
+    int frame = 0;
     volatile String messages = "";
     volatile String status = "";
     Map map;
@@ -84,6 +86,9 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     }
 
     public void render() {
+        frame++;
+        if(frame >= 20)
+            frame = 0;
         renderBackGround();
         display(new Coordinate(0, 0));
         graphics.translate(GameWindow.WINDOW_WIDTH - 200, 0);
@@ -124,7 +129,7 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         for (int i = 0; i < output.length; i++)
             for (int j = 0; j < output[i].length; j++) {
                 if (images.containsKey(output[i][j])) {
-                    graphics.drawImage(images.get(output[i][j]), getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
+                    graphics.drawImage(images.get(output[i][j]).get(frame/5), getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
                 } else {
                     switch (output[i][j]) {
                         case ' ':
