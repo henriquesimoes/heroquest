@@ -2,6 +2,7 @@ package br.unicamp.ic.mc322.heroquest.walker.skills.magic;
 
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.skills.DisplayTargetsMode;
@@ -32,5 +33,11 @@ public class Teleport extends MagicSkill {
     @Override
     public void visit(StructuralObject structuralObject) {
         targets.add(structuralObject);
+    }
+
+    @Override
+    public void visit(FixedObject fixedObject) {
+        if (fixedObject.isAllowedToWalkOver())
+            targets.add(fixedObject);
     }
 }
