@@ -15,6 +15,14 @@ public interface IOInterface {
 
     String getStringAnswer(String question);
 
+    /**
+     * Displays the question to the player and returns their answer.
+     *
+     * @param question - boolean answerable question
+     * @return answer
+     */
+    boolean getBooleanAnswer(String question);
+
     void showMap(Coordinate position);
 
     void setMap(Map map);

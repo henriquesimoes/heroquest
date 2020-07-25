@@ -13,8 +13,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TerminalIO implements IOInterface {
-    private PrintStream writer;
-    private Scanner reader;
+    private final PrintStream writer;
+    private final Scanner reader;
     private MapViewer viewer;
 
     public TerminalIO() {
@@ -88,6 +88,15 @@ public class TerminalIO implements IOInterface {
         showSpan();
 
         return answer;
+    }
+
+    @Override
+    public boolean getBooleanAnswer(String question) {
+        String[] positiveAnswers = {"yes", "y", "yep"};
+
+        String answer = getStringAnswer(question + " (yes / no) ");
+
+        return Arrays.asList(positiveAnswers).contains(answer);
     }
 
     @Override

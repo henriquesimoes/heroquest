@@ -17,7 +17,7 @@ public class SeeStatusPlayerAction implements Action {
 
     @Override
     public String getDescription() {
-        return "See Status";
+        return "See status";
     }
 
     @Override
