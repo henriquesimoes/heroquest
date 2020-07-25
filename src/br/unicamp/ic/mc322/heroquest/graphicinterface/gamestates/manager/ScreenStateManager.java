@@ -12,8 +12,8 @@ import java.util.Stack;
 public class ScreenStateManager {
     private final Map<ScreenStates, Renderable> states;
     private Stack<Renderable> prevState;
-    private Renderable currentState;
     private final MouseInput mouseInput;
+    private Renderable currentState;
 
     public ScreenStateManager(MouseInput mouseInput) {
         states = new HashMap<>();

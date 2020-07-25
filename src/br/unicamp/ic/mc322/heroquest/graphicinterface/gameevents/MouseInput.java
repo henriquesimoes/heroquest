@@ -25,8 +25,7 @@ public class MouseInput extends MouseAdapter {
 
         if (coords.getX() == previousCoords.getX() && coords.getY() == previousCoords.getY()) {
             previousCoords = new Coordinate(-1, -1);
-        }
-        else
+        } else
             previousCoords = coords;
 
         return coords;

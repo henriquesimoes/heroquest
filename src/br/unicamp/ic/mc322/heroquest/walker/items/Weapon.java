@@ -8,10 +8,10 @@ import br.unicamp.ic.mc322.heroquest.walker.skills.PhysicalSkill;
 import java.util.ArrayList;
 
 public abstract class Weapon extends DurableItem {
+    private final ArrayList<PhysicalSkill> itemSkills = new ArrayList<>();
     private int attackBonus;
     private boolean attackDiagonally;
     private boolean twoHanded;
-    private final ArrayList<PhysicalSkill> itemSkills = new ArrayList<>();
 
     protected Weapon(String name, String description, int weaponDurability, int goldCoinsValue, DurableItemClass durableItemClass) {
         super(name, description, weaponDurability, goldCoinsValue, durableItemClass);

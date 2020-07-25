@@ -17,6 +17,8 @@ public interface IOInterface {
 
     void showMap(Coordinate position);
 
+    void showStatus(String message);
+
     void setMap(Map map);
 
     Direction getMoveDirection();

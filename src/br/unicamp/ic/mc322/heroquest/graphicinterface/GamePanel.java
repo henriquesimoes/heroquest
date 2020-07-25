@@ -1,5 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
+import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
+import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStates;
@@ -7,22 +10,27 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.character
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.MapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.StandardMapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.startmenu.StartMenu;
+import br.unicamp.ic.mc322.heroquest.map.MapManager;
+import br.unicamp.ic.mc322.heroquest.map.MapPopulator;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.walker.Walker;
+import br.unicamp.ic.mc322.heroquest.walker.heroes.Wizard;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable {
-    private boolean running;
-    private Thread gameThread;
-
     private final BufferedImage image;
     private final Graphics2D graphics;
     private final Settings SETTINGS;
     private final ScreenStateManager screenStateManager;
     private final MouseInput mouseInput;
-    public Map map;
+    private final KeyboardInput keyboardInput;
+    private GraphicIO graphicIO;
+    private Map map;
+    private boolean running;
+    private Thread gameThread;
 
     public GamePanel() {
         Dimension preferredSize = new Dimension(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
@@ -32,7 +40,10 @@ public class GamePanel extends JPanel implements Runnable {
         requestFocus();
 
         this.mouseInput = new MouseInput();
+        this.keyboardInput = new KeyboardInput();
+
         addMouseListener(mouseInput);
+        addKeyListener(keyboardInput);
 
         image = new BufferedImage(GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         graphics = image.createGraphics();
@@ -46,6 +57,28 @@ public class GamePanel extends JPanel implements Runnable {
         screenStateManager.addState(new CharacterSelection(graphics, SETTINGS, screenStateManager), ScreenStates.CHOOSE_CHARACTER);
 
         screenStateManager.setState(ScreenStates.MAP_SELECTION);
+        /*
+        MapManager mapManager = new MapManager();
+
+        try {
+            map = mapManager.load("small_02.map");
+        } catch (Exception e) {
+        }
+
+        GraphicMapViewer graphicMapViewer = new GraphicMapViewer(graphics, SETTINGS, screenStateManager, map);
+        this.graphicIO = new GraphicIO(mouseInput, keyboardInput, graphicMapViewer);
+
+        Walker walker = new Wizard("G", graphicIO);;
+        map.add(walker);
+        MapPopulator populator = new MapPopulator(GameLevel.EASY);
+        populator.populate(map);
+        Thread loop = new Thread(new GameLoop(map));
+        loop.start();
+
+
+        screenStateManager.addState(graphicMapViewer, ScreenStates.GAME_RUNNING);
+
+        screenStateManager.setState(ScreenStates.GAME_RUNNING);*/
     }
 
     @Override
@@ -86,8 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (graphics != null) {
             graphics.setColor(new Color(41, 43, 46));
             graphics.fillRect(0, 0, GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
-        }
-        else {
+        } else {
             throw new NullPointerException();
         }
     }

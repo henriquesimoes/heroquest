@@ -8,16 +8,16 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class GenericButton {
+    private final BasicStroke boxStroke;
+    private final String innerText;
+    private final Graphics2D graphics;
     private int selectionBoxWidth;
     private int selectionBoxHeight;
     private Color boxColor;
-    private final BasicStroke boxStroke;
     private Coordinate boxPosition;
     private Rectangle2D boxBounds;
     private Coordinate innerTextPosition;
-    private final String innerText;
     private Font font;
-    private final Graphics2D graphics;
 
     public GenericButton(String text, Graphics2D graphics) {
         this.graphics = graphics;
@@ -66,7 +66,9 @@ public class GenericButton {
         font = new Font("Helvetica", Font.BOLD, fontSize);
     }
 
-    /**Positioned with horizontal alignment in center*/
+    /**
+     * Positioned with horizontal alignment in center
+     */
     public void setPosition(int y) {
         int x = (GameWindow.WINDOW_WIDTH - selectionBoxWidth) / 2;
         boxPosition = new Coordinate(x, y);

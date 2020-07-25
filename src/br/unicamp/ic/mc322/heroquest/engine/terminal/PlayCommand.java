@@ -32,7 +32,7 @@ public class PlayCommand implements Command {
         String name = io.getStringAnswer("What's your character name? ");
 
         /* It is needed to use `choice - 1` because the choice index starts in index 1, while
-        *  the array of options starts in 0 */
+         *  the array of options starts in 0 */
         String selectedOption = options[choice - 1].toUpperCase();
         HeroesKind hero = HeroesKind.valueOf(selectedOption);
 

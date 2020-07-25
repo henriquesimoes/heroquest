@@ -96,6 +96,11 @@ public class TerminalIO implements IOInterface {
     }
 
     @Override
+    public void showStatus(String messsage) {
+        showMessage(messsage);
+    }
+
+    @Override
     public void setMap(Map map) {
         viewer = new TerminalMapViewer(map);
     }

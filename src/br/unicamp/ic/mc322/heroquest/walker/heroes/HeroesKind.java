@@ -29,12 +29,6 @@ public enum HeroesKind {
         }
     };
 
-    abstract Walker getHeroInstance(String name, IOInterface io);
-
-    public Walker getHero(String name, IOInterface io) {
-        return this.getHeroInstance(name, io);
-    }
-
     public static String[] getHeroesList() {
         String[] heroesList = new String[HeroesKind.values().length];
 
@@ -46,5 +40,11 @@ public enum HeroesKind {
         }
 
         return heroesList;
+    }
+
+    abstract Walker getHeroInstance(String name, IOInterface io);
+
+    public Walker getHero(String name, IOInterface io) {
+        return this.getHeroInstance(name, io);
     }
 }

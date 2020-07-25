@@ -12,7 +12,8 @@ public class Settings {
     private String nickname;
     private Walker walker;
 
-    public Settings() {}
+    public Settings() {
+    }
 
     public void setMap(Map map) {
         this.map = map;
