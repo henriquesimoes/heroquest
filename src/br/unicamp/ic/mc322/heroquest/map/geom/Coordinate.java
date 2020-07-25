@@ -1,17 +1,14 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
-import java.awt.*;
 import java.util.Objects;
 
 public class Coordinate {
-    private Point coordinate;
-
-    public Coordinate() {
-        this.coordinate = null;
-    }
+    private int x;
+    private int y;
 
     public Coordinate(int x, int y) {
-        this.coordinate = new Point(x, y);
+        this.x = x;
+        this.y = y;
     }
 
     public static Coordinate getOrigin() {
@@ -23,11 +20,11 @@ public class Coordinate {
     }
 
     public int getX() {
-        return coordinate.x;
+        return x;
     }
 
     public int getY() {
-        return coordinate.y;
+        return y;
     }
 
     public Coordinate shift(Direction direction) {
@@ -68,8 +65,9 @@ public class Coordinate {
         return getNeighborCoordinates(dx, dy);
     }
 
-    public void copyValue(Coordinate coordinate) {
-        this.coordinate = new Point(coordinate.getX(), coordinate.getY());
+    public void copy(Coordinate coordinate) {
+        this.x = coordinate.getX();
+        this.y = coordinate.getY();
     }
 
     public Coordinate toRelative() {
@@ -85,12 +83,13 @@ public class Coordinate {
                 && origin.getY() <= this.getY() && this.getY() < dimension.getHeight();
     }
 
+
     @Override
     public boolean equals(Object o) {
-        if (this == o || (o == null && coordinate == null)) return true;
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coordinate that = (Coordinate) o;
-        return coordinate != null && coordinate.equals(that.coordinate);
+        return x == that.x && y == that.y;
     }
 
     @Override

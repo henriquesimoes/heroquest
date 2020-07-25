@@ -27,8 +27,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
         map.accept(this);
 
         GameMonitor gameMonitor = GameMonitor.getInstance();
-        gameMonitor.addListener(this);
-        gameMonitor.addListener(map);
+        gameMonitor.subscribe(this);
     }
 
     public void run() {
@@ -39,6 +38,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
                 running = false;
         }
         notifyEndGame();
+        unsubscribeFromMonitor();
     }
 
     @Override
@@ -125,5 +125,11 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
                 teamsWithWalkersAlive++;
 
         return teamsWithWalkersAlive <= 1;
+    }
+
+    private void unsubscribeFromMonitor() {
+        GameMonitor monitor = GameMonitor.getInstance();
+
+        monitor.unsubscribe(this);
     }
 }

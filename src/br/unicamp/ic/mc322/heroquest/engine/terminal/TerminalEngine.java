@@ -1,10 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.engine.terminal;
 
-import br.unicamp.ic.mc322.heroquest.engine.Command;
-import br.unicamp.ic.mc322.heroquest.engine.GameEngine;
-import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
-import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
+import br.unicamp.ic.mc322.heroquest.engine.*;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.MapPopulator;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
@@ -26,7 +22,6 @@ public class TerminalEngine implements GameEngine {
 
     @Override
     public void run() {
-        new GameWindow();
         Command[] commands = {
                 new ChooseLevelCommand(this, io),
                 new GenerateMapCommand(this, io),
@@ -57,8 +52,15 @@ public class TerminalEngine implements GameEngine {
     }
 
     protected void runLoop() {
+        GameMonitor monitor = GameMonitor.getInstance();
+
         MapPopulator populator = new MapPopulator(level);
-        new GameLoop(populator.populate(map)).run();
+        map = populator.populate(map);
+
+        monitor.subscribe(map);
+        new GameLoop(map).run();
+
+        monitor.unsubscribe(map);
         map = manager.generate();
     }
 

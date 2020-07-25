@@ -54,7 +54,7 @@ public class MonsterGenerator {
         monster.setPosition(position);
 
         GameMonitor gameMonitor = GameMonitor.getInstance();
-        gameMonitor.add(monster);
+        gameMonitor.notifyUpcoming(monster);
 
         return true;
     }
