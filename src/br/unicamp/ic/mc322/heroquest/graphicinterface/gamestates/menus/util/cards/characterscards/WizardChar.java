@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characters;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characterscards;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Settings;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
@@ -8,11 +8,11 @@ import java.awt.*;
 
 public class WizardChar extends CharacterCard {
     private final String SPRITESHEET_NAME = "wizard_front.png";
-    private final static String NAME = "Wizard";
+    private final static HeroesKind HERO_KIND = HeroesKind.WIZARD;
     private final static String DESCRIPTION = "A powerful wizard \nwith powerful spells.";
 
     public WizardChar(Settings settings, Graphics2D graphics, ScreenStateManager screenStateManager) {
-        super(HeroesKind.WIZARD, NAME, DESCRIPTION, settings, graphics, screenStateManager);
+        super(HERO_KIND, HERO_KIND.toString(), DESCRIPTION, settings, graphics, screenStateManager);
         setImage(SPRITESHEET_NAME);
     }
 }

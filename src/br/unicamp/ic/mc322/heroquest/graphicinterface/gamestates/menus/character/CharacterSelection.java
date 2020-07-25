@@ -7,10 +7,10 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Rendera
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.buttons.definedbuttons.BackButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.Card;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characters.BarbarianChar;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characters.DwarfChar;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characters.ElfChar;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characters.WizardChar;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characterscards.BarbarianChar;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characterscards.DwarfChar;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characterscards.ElfChar;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characterscards.WizardChar;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.gametitle.GameTitle;
 
 import java.awt.*;

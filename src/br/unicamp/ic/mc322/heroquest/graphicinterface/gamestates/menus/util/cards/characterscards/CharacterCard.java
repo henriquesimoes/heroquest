@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characters;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.util.cards.characterscards;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.ImageEditor;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.ImageLoader;
