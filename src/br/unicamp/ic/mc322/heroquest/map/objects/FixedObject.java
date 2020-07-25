@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
 public abstract class FixedObject implements MapObject {
-    private final Coordinate position;
+    private Coordinate position;
 
     public FixedObject() {
     }
