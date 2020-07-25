@@ -8,20 +8,10 @@ public abstract class FixedObject implements MapObject {
     private Coordinate position;
 
     public FixedObject() {
-        position = new Coordinate();
     }
 
     public FixedObject(Coordinate coordinate) {
-        this();
-        setPosition(coordinate);
-    }
-
-    public int getX() {
-        return position.getX();
-    }
-
-    public int getY() {
-        return position.getY();
+        this.position = coordinate;
     }
 
     @Override
@@ -31,7 +21,10 @@ public abstract class FixedObject implements MapObject {
 
     @Override
     public void setPosition(Coordinate position) {
-        this.position.copyValue(position);
+        if (this.position == null)
+            this.position = new Coordinate(position.getX(), position.getY());
+        else
+            this.position.copy(position);
     }
 
     @Override

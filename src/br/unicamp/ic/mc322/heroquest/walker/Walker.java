@@ -42,7 +42,7 @@ public abstract class Walker implements MapObject {
         this.walkerManager.setWalker(this);
         this.balance = 1000;
 
-        position = new Coordinate();
+        position = null;
         redDice = new RedDice();
         combatDice = new CombatDice();
         knapsack = new Knapsack();
@@ -310,20 +310,17 @@ public abstract class Walker implements MapObject {
         walkerManager.setMap(map);
     }
 
-    public int getX() {
-        return position.getX();
-    }
-
-    public int getY() {
-        return position.getY();
-    }
-
+    @Override
     public Coordinate getPosition() {
         return position;
     }
 
+    @Override
     public void setPosition(Coordinate position) {
-        this.position.copyValue(position);
+        if (this.position == null)
+            this.position = new Coordinate(position.getX(), position.getY());
+        else
+            this.position.copy(position);
     }
 
     public String getAttributeList() {

@@ -73,7 +73,8 @@ public class TerminalMapViewer implements MapViewer {
     }
 
     private void setSymbol(MapObject object, char representation) {
-        output[object.getY()][object.getX()] = representation;
+        Coordinate coordinate = object.getPosition();
+        output[coordinate.getY()][coordinate.getX()] = representation;
     }
 
     @Override
