@@ -32,6 +32,7 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
     private IOInterface ioInterface;
     private Set<MapObject> objectsAdjacent;
     private Set<HiddenObject> hiddenObjectsDetected;
+    private boolean playingTurn;
 
     public WalkerPlayer(IOInterface ioInterface) {
         this.ioInterface = ioInterface;
@@ -56,17 +57,20 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
                 new UseSkillPlayerAction(this),
                 new InteractPlayerAction(this),
                 new SearchPlayerAction(this),
-                new SeeStatusPlayerAction(this)
+                new SeeStatusPlayerAction(this),
+                new FinishTurnPlayerAction(this),
+                new QuitPlayerAction(this)
         ));
 
-        while (true) {
+        playingTurn = true;
+        while (playingTurn) {
             updateScreen();
             String[] messages = new String[options.size()];
             for (int i = 0; i < options.size(); i++)
                 messages[i] = (options.get(i).getDescription());
 
             ioInterface.showMessage("Choose an action:");
-            int choice = ioInterface.showOptionsAndGetAnswer(messages, true) - 1;
+            int choice = ioInterface.showOptionsAndGetAnswer(messages, false) - 1;
 
             if (choice == -1)
                 return;
@@ -212,5 +216,9 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
 
     IOInterface getIOInterface() {
         return ioInterface;
+    }
+
+    void finishTurn() {
+        playingTurn = false;
     }
 }
