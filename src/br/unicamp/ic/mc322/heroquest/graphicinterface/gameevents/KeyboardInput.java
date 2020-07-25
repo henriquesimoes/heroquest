@@ -29,6 +29,11 @@ public class KeyboardInput implements KeyListener {
     public char getKey() {
         waiting = true;
         while (waiting) ;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
         System.out.printf("Pressed %c\n", key);
         return key;
     }

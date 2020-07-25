@@ -10,11 +10,11 @@ public class CellMap implements Clickable {
     Rectangle2D rectangle2D;
     GraphicMapViewer graphicMapViewer;
 
-    CellMap(GraphicMapViewer graphicMapViewer, int x, int y, int width, int height) {
+    CellMap(GraphicMapViewer graphicMapViewer, int i, int j, int width, int height) {
         this.graphicMapViewer = graphicMapViewer;
-        rectangle2D = new Rectangle(graphicMapViewer.getX(x), graphicMapViewer.getY(y), width, height);
-        this.x = x;
-        this.y = y;
+        rectangle2D = new Rectangle(graphicMapViewer.getX(j), graphicMapViewer.getY(i), width, height);
+        this.x = j;
+        this.y = i;
     }
 
     @Override

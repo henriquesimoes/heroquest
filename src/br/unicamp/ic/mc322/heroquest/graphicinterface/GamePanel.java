@@ -64,10 +64,10 @@ public class GamePanel extends JPanel implements Runnable {
         GraphicMapViewer graphicMapViewer = new GraphicMapViewer(graphics, SETTINGS, screenStateManager, map);
         this.graphicIO = new GraphicIO(mouseInput, keyboardInput, graphicMapViewer);
 
-        Walker walker = new Wizard("G", graphicIO);
+        Walker walker = new Wizard("G", graphicIO);;
+        map.add(walker);
         MapPopulator populator = new MapPopulator(GameLevel.EASY);
         populator.populate(map);
-        map.add(walker);
         Thread loop = new Thread(new GameLoop(map));
         loop.start();
 

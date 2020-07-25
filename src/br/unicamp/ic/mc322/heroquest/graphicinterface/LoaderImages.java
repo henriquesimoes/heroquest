@@ -47,10 +47,10 @@ public class LoaderImages {
 
 
         temp = new ArrayList<>();
-        readImage(getFullName("goblin_idle_anim_f0.png"));
-        readImage(getFullName("goblin_idle_anim_f1.png"));
-        readImage(getFullName("goblin_idle_anim_f2.png"));
-        readImage(getFullName("goblin_idle_anim_f3.png"));
+        temp.add(readImage(getFullName("goblin_idle_anim_f0.png")));
+        temp.add(readImage(getFullName("goblin_idle_anim_f1.png")));
+        temp.add(readImage(getFullName("goblin_idle_anim_f2.png")));
+        temp.add(readImage(getFullName("goblin_idle_anim_f3.png")));
         images.put('G', temp);
 
 
@@ -103,6 +103,8 @@ public class LoaderImages {
             img = ImageIO.read(new File(fileLocation));
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception e){
+            System.out.println("Not found " + fileLocation);
         }
         return img;
     }

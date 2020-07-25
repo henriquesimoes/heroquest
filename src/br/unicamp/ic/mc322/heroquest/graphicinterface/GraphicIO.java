@@ -121,12 +121,21 @@ public class GraphicIO implements IOInterface {
                     appendMessage("Invalid direction.\nType the direction of movement or Q to quit\n");
             }
         } while (!validAnswer);
-
         return direction;
     }
 
     @Override
     public Coordinate getCoordinate(Coordinate[] coordinates) {
-        return null;
+        Coordinate coordinate;
+        while (true){
+            appendMessage("Click on a coordinate\n");
+            coordinate = graphicMapViewer.getClickedCoordinate();
+            clear();
+            for(int i = 0; i < coordinates.length; i++){
+                if(coordinates[i].equals(coordinate))
+                    return  coordinate;
+            }
+            appendMessage("Invalid Coordinate\n");
+        }
     }
 }
