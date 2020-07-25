@@ -30,7 +30,7 @@ public class Map implements GameListener {
      */
     public void add(Walker walker) {
         Coordinate coordinate = walker.getPosition();
-        MapUnit unit = coordinate == null ? getRandomValidUnit(new WalkableValidator(this)) : units.get(coordinate);
+        MapUnit unit = coordinate.equals(null) ? getRandomValidUnit(new WalkableValidator(this)) : units.get(coordinate);
         unit.add(walker);
         walker.setMap(this);
     }
