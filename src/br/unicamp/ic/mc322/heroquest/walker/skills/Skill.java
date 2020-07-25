@@ -32,7 +32,7 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable, Co
         this.skillUser = walkerManager.getWalker();
     }
 
-    public abstract void useSkill(Walker summoner, MapObject targetObject);
+    public abstract void useSkill(MapObject targetObject);
 
     public String getName() {
         return skillName;

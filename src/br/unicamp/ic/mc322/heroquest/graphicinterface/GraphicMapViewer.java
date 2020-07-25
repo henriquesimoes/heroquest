@@ -1,18 +1,20 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
+import br.unicamp.ic.mc322.heroquest.engine.MapViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
+import br.unicamp.ic.mc322.heroquest.map.geom.Region;
+import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Trap;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Floor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.SecretDoor;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Wall;
-import br.unicamp.ic.mc322.heroquest.view.MapViewer;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.Barbarian;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.Dwarf;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.Elf;
@@ -21,8 +23,10 @@ import br.unicamp.ic.mc322.heroquest.walker.monsters.CommonSkeleton;
 import br.unicamp.ic.mc322.heroquest.walker.monsters.Goblin;
 import br.unicamp.ic.mc322.heroquest.walker.monsters.WizardSkeleton;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class GraphicMapViewer implements Renderable, MapViewer {
@@ -31,8 +35,14 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     private final Graphics2D graphics;
     private final char[][] output;
     HashMap<Character, Image> images;
-    int cellHeight = 20, cellWidth = 20;
+    int cellHeight, cellWidth;
+    volatile String messages = "";
+    volatile String status = "";
     Map map;
+    Coordinate reference;
+    JTextArea textMenu;
+    JTextArea textStatus;
+
     private volatile boolean needUpdateMap;
 
     public GraphicMapViewer(Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager, Map map) {
@@ -40,14 +50,25 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         this.options = new ArrayList<>();
         this.graphics = graphics;
         this.map = map;
-        this.needUpdateMap = true;
+        this.needUpdateMap = false;
         LoaderImages loaderImages = new LoaderImages();
         images = loaderImages.getImages();
+        cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / (map.getWidth()), GameWindow.WINDOW_HEIGHT / (map.getHeight()));
 
         output = new char[map.getHeight()][map.getWidth()];
         for (int i = 0; i < output.length; i++)
             for (int j = 0; j < output[i].length; j++)
                 options.add(new CellMap(this, j, i, cellHeight, cellWidth));
+
+        textMenu = new JTextArea();
+        textMenu.setSize(200, GameWindow.WINDOW_HEIGHT / 2);
+        textMenu.setLineWrap(true);
+        textMenu.setWrapStyleWord(true);
+
+        textStatus = new JTextArea();
+        textStatus.setSize(200, GameWindow.WINDOW_HEIGHT / 8);
+        textStatus.setLineWrap(true);
+        textStatus.setWrapStyleWord(true);
     }
 
     void changeState(int i, int j) {
@@ -55,26 +76,40 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     }
 
     int getY(int i) {
-        return cellHeight * i + cellHeight;
+        return cellHeight * i;
     }
 
     int getX(int i) {
-        return cellWidth * i + cellWidth;
+        return cellWidth * i;
     }
 
     public void render() {
         renderBackGround();
         display(new Coordinate(0, 0));
+        graphics.translate(GameWindow.WINDOW_WIDTH - 200, 0);
+        textStatus.setText(status);
+        textStatus.print(graphics);
+        graphics.translate(-GameWindow.WINDOW_WIDTH + 200, 0);
+
+        graphics.translate(GameWindow.WINDOW_WIDTH - 200, GameWindow.WINDOW_HEIGHT / 8);
+        textMenu.setText(messages);
+        textMenu.print(graphics);
+        graphics.translate(-GameWindow.WINDOW_WIDTH + 200, -GameWindow.WINDOW_HEIGHT / 8);
     }
 
     public void updateMap() {
         if (needUpdateMap) {
-            map.accept(this);
+            for (int i = 0; i < output.length; i++)
+                Arrays.fill(output[i], '?');
+            RegionSelector regionSelector = map.getRegionSelector();
+            Region region = regionSelector.getVisibleRegion(reference, false);
+            map.accept(this, region);
             needUpdateMap = false;
         }
     }
 
-    public void setNeedUpdateMap() {
+    public void setNeedUpdateMap(Coordinate reference) {
+        this.reference = reference;
         needUpdateMap = true;
     }
 
@@ -94,6 +129,9 @@ public class GraphicMapViewer implements Renderable, MapViewer {
                     switch (output[i][j]) {
                         case ' ':
                             graphics.setColor(new Color(72, 59, 58));
+                            break;
+                        case '?':
+                            graphics.setColor(new Color(0, 0, 0));
                             break;
                         default:
                             graphics.setColor(new Color(255, 255, 255));
@@ -183,5 +221,17 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     @Override
     public void visit(Trap trap) {
         setSymbol(trap, trap.isDiscovered() ? (trap.isArmed() ? 'T' : 't') : ' ');
+    }
+
+    public void appendMessage(String s) {
+        messages += s;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void clear() {
+        messages = "";
     }
 }

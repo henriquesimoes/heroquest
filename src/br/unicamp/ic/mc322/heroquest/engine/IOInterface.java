@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.view;
+package br.unicamp.ic.mc322.heroquest.engine;
 
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
@@ -16,6 +16,8 @@ public interface IOInterface {
     String getStringAnswer(String question);
 
     void showMap(Coordinate position);
+
+    void showStatus(String message);
 
     void setMap(Map map);
 

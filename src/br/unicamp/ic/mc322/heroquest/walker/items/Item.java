@@ -4,17 +4,14 @@ import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.managers.player.Describable;
 
 public abstract class Item implements Describable, Comparable {
-    protected ItemClass itemClass;
-    private String itemName, itemDescription;
+    protected String itemDescription;
+    private String itemName;
     private int goldCoinsValue;
 
-    protected Item(String itemName, String itemDescription, int goldCoinsValue, ItemClass itemClass) {
+    protected Item(String itemName, String itemDescription, int goldCoinsValue) {
         this.itemName = itemName;
         this.itemDescription = itemDescription;
         this.goldCoinsValue = goldCoinsValue;
-        this.itemClass = itemClass;
-        if (itemClass != ItemClass.NEUTRAL)
-            this.itemDescription += "\nItem Class: " + itemClass.toString();
     }
 
     public String getName() {

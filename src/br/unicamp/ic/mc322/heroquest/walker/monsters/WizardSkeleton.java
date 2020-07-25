@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.walker.monsters;
 
 import br.unicamp.ic.mc322.heroquest.map.core.ConcreteMapObjectVisitor;
 import br.unicamp.ic.mc322.heroquest.walker.Monster;
-import br.unicamp.ic.mc322.heroquest.walker.items.ItemClass;
+import br.unicamp.ic.mc322.heroquest.walker.items.DurableItemClass;
 import br.unicamp.ic.mc322.heroquest.walker.items.cards.SpellElement;
 import br.unicamp.ic.mc322.heroquest.walker.managers.ai.WalkerAI;
 import br.unicamp.ic.mc322.heroquest.walker.managers.ai.attack.Bloodthirsty;
@@ -19,7 +19,7 @@ public class WizardSkeleton extends Monster {
         defenseDice = 1;
         maximumBodyPoints = currentBodyPoints = 2;
         mindPoints = 3;
-        itemsAbleToUse.add(ItemClass.MAGICIAN);
+        durableItemsAbleToUse.add(DurableItemClass.MAGICIAN);
         spellsAbleToLearn.add(SpellElement.AIR);
 
         for (int i = 0; i < initialNumberOfMagicMissiles; i++)

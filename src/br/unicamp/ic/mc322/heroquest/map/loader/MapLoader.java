@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.loader;
 
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 
 import java.io.File;
@@ -23,7 +24,7 @@ public class MapLoader {
         readAvailableMapFiles();
     }
 
-    public MapBuilder load(String filename) throws FileNotFoundException {
+    public Map load(String filename) throws FileNotFoundException {
         File file = getFile(filename);
 
         return load(file);
@@ -41,11 +42,11 @@ public class MapLoader {
         return result;
     }
 
-    private MapBuilder load(File file) throws FileNotFoundException {
+    private Map load(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         scanner.useDelimiter("\n");
 
-        return readStructure(scanner);
+        return readMap(scanner);
     }
 
     private void readAvailableMapFiles() {
@@ -64,7 +65,7 @@ public class MapLoader {
         return file;
     }
 
-    private MapBuilder readStructure(Scanner scanner) {
+    private Map readMap(Scanner scanner) {
         ArrayList<String> rows = new ArrayList<>();
         while (scanner.hasNext())
             rows.add(scanner.nextLine());
@@ -74,7 +75,9 @@ public class MapLoader {
             matrix[i] = rows.get(i).toCharArray();
 
         MapParser parser = new MapParser();
+        MapBuilder builder = parser.parse(matrix);
+        builder.buildMap();
 
-        return parser.parse(matrix);
+        return builder.getResult();
     }
 }

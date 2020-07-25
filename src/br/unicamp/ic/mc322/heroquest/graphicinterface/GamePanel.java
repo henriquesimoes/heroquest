@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
+import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
 import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
@@ -9,6 +10,7 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselect
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.StandardMapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.startmenu.StartMenu;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
+import br.unicamp.ic.mc322.heroquest.map.MapPopulator;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.Wizard;
@@ -63,6 +65,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.graphicIO = new GraphicIO(mouseInput, keyboardInput, graphicMapViewer);
 
         Walker walker = new Wizard("G", graphicIO);
+        MapPopulator populator = new MapPopulator(GameLevel.EASY);
+        populator.populate(map);
         map.add(walker);
         Thread loop = new Thread(new GameLoop(map));
         loop.start();

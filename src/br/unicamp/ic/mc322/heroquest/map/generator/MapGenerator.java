@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.map.generator;
 
+import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 import br.unicamp.ic.mc322.heroquest.map.core.RoomStructure;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
@@ -32,7 +33,7 @@ public class MapGenerator {
         rooms = new ArrayList<>();
     }
 
-    public MapBuilder generate() {
+    public Map generate() {
         createGrid();
         createRandomRooms();
         createMatrixGrid();
@@ -45,7 +46,9 @@ public class MapGenerator {
         for (Chest chest : chests)
             builder.add(chest);
 
-        return builder;
+        builder.buildMap();
+
+        return builder.getResult();
     }
 
     private void createGrid() {

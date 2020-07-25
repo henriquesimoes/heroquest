@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.character;
 
-import br.unicamp.ic.mc322.heroquest.view.IOInterface;
+import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.Barbarian;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.Dwarf;
