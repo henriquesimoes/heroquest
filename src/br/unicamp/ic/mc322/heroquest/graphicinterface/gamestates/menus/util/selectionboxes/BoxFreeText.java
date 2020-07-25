@@ -20,8 +20,8 @@ public class BoxFreeText implements Clickable {
     private final Settings SETTINGS;
     private ScreenStateManager screenStateManager;
 
-    private int boxBoundYCoordFix;
-    private int boxBoundXCoordFix;
+    private int boxBoundCoordFixY;
+    private int boxBoundCoordFixX;
 
     public BoxFreeText(String text, Graphics2D graphics, Settings settings, ScreenStateManager screenStateManager) {
         this.SETTINGS = settings;
@@ -38,15 +38,15 @@ public class BoxFreeText implements Clickable {
         Rectangle2D textBounds = getBounds();
         int xCoord = (GameWindow.WINDOW_WIDTH - (int) textBounds.getWidth()) / 2;
 
-        boxBoundYCoordFix = 20 + y;
+        boxBoundCoordFixY = y - (int) textBounds.getHeight();
         graphics.drawString(text, xCoord, y);
     }
 
     @Override
     public Rectangle2D getBounds() {
         Rectangle2D textBounds = boxFont.getStringBounds(text, graphics.getFontRenderContext());
-        boxBoundXCoordFix = (GameWindow.WINDOW_WIDTH - (int) textBounds.getWidth()) / 2;
-        return new Rectangle2D.Double(boxBoundXCoordFix, boxBoundYCoordFix, textBounds.getWidth(), textBounds.getHeight());
+        boxBoundCoordFixX = (GameWindow.WINDOW_WIDTH - (int) textBounds.getWidth()) / 2;
+        return new Rectangle2D.Double(boxBoundCoordFixX, boxBoundCoordFixY, textBounds.getWidth(), textBounds.getHeight());
     }
 
     @Override

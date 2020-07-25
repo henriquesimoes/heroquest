@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.guitools;
 
 public class GameFPSManager {
     final double ONE_SECOND_IN_NANOSECONDS = 1000000000;

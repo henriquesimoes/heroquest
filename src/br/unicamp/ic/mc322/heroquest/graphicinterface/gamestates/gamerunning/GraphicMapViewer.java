@@ -1,9 +1,12 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning;
 
 import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
 import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.engine.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.engine.MapViewer;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameImagesLoader;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.Settings;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
@@ -57,8 +60,8 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         this.graphics = graphics;
         this.needUpdateMap = false;
 
-        LoaderImages loaderImages = new LoaderImages();
-        images = loaderImages.getImages();
+        GameImagesLoader gameImagesLoader = new GameImagesLoader();
+        images = gameImagesLoader.getImages();
 
         textStatus = new JTextArea();
         textStatus.setSize(180, GameWindow.WINDOW_HEIGHT / 7);
@@ -81,7 +84,8 @@ public class GraphicMapViewer implements Renderable, MapViewer {
 
     public Coordinate getClickedCoordinate() {
         waitingCoordinate = true;
-        while (waitingCoordinate) ;
+        while (waitingCoordinate) Thread.onSpinWait();
+
         try {
             Thread.sleep(100);
         } catch (InterruptedException ex) {
@@ -130,6 +134,7 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     private void create() {
         if (SETTINGS.getMap().equals(map))
             return;
+
         map = SETTINGS.getMap();
         output = new char[map.getHeight()][map.getWidth()];
         cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / (map.getWidth()), GameWindow.WINDOW_HEIGHT / (map.getHeight()));
@@ -146,13 +151,13 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         GameMonitor.getInstance().subscribe(map);
         Thread loop = new Thread(new GameLoop(map));
         loop.start();
-
     }
 
     public void updateMap() {
         if (needUpdateMap) {
-            for (int i = 0; i < output.length; i++)
-                Arrays.fill(output[i], '?');
+            for (char[] chars : output)
+                Arrays.fill(chars, '?');
+
             RegionSelector regionSelector = map.getRegionSelector();
             Region region = regionSelector.getVisibleRegion(reference, false);
             map.accept(this, region);

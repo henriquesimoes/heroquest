@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.guitools;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -24,7 +24,10 @@ public class ImageLoader {
             img = ImageIO.read(new File(path));
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Not found " + fileLocation);
         }
+
         return img;
     }
 

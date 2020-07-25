@@ -2,13 +2,15 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning.GraphicMapViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.manager.ScreenStates;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.character.CharacterSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.MapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.mapselectionmenu.StandardMapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.menus.startmenu.StartMenu;
-import br.unicamp.ic.mc322.heroquest.map.core.Map;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameFPSManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GraphicIO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +24,6 @@ public class GamePanel extends JPanel implements Runnable {
     private final MouseInput mouseInput;
     private final KeyboardInput keyboardInput;
     private GraphicIO graphicIO;
-    private Map map;
     private boolean running;
     private Thread gameThread;
 
@@ -56,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         screenStateManager.addState(graphicMapViewer, ScreenStates.GAME_RUNNING);
 
-        screenStateManager.setState(ScreenStates.MAP_SELECTION);
+        screenStateManager.setState(ScreenStates.LIST_OF_MAPS);
     }
 
     @Override

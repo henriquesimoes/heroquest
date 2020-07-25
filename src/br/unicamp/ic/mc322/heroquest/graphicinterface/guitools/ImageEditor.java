@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.guitools;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

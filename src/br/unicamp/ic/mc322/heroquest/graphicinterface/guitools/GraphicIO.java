@@ -1,9 +1,10 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.guitools;
 
 import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning.GraphicMapViewer;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
