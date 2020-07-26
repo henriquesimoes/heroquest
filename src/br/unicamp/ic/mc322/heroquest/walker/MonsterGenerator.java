@@ -36,6 +36,7 @@ public class MonsterGenerator {
         };
     }
 
+    // Makes a monster appear as close to the walker as possible
     public static boolean appearMonsterClose(Walker reference, Coordinate source) {
         WalkerManager walkerManager = reference.getManager();
 

@@ -25,6 +25,7 @@ public class GameRunning implements Renderable {
     private ArrayList<Clickable> clickableZones;
     private Map map;
     private boolean isRunning;
+    private Walker player;
 
     public GameRunning(Graphics2D graphics, GraphicEngine graphicEngine, StateManager stateManager) {
         this.clickableZones = new ArrayList<>();
@@ -32,7 +33,6 @@ public class GameRunning implements Renderable {
         this.graphicEngine = graphicEngine;
         this.stateManager = stateManager;
         this.isRunning = false;
-
     }
 
     void create() {
@@ -44,7 +44,7 @@ public class GameRunning implements Renderable {
         GraphicIO graphicIO = graphicGameViewer.getGraphicIO();
         clickableZones = graphicGameViewer.getClickableZones();
 
-        Walker player = heroKind.getHero(name, graphicIO);
+        this.player = heroKind.getHero(name, graphicIO);
         map.add(player);
 
         MapPopulator populator = new MapPopulator(GameLevel.EASY);

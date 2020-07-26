@@ -90,47 +90,38 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
 
     @Override
     public void visit(Barbarian barbarian) {
-
     }
 
     @Override
     public void visit(Dwarf dwarf) {
-
     }
 
     @Override
     public void visit(Elf elf) {
-
     }
 
     @Override
     public void visit(Wizard wizard) {
-
     }
 
     @Override
     public void visit(WizardSkeleton wizardSkeleton) {
-
     }
 
     @Override
     public void visit(CommonSkeleton commonSkeleton) {
-
     }
 
     @Override
     public void visit(Goblin goblin) {
-
     }
 
     @Override
     public void visit(Floor floor) {
-
     }
 
     @Override
     public void visit(Wall wall) {
-
     }
 
     @Override

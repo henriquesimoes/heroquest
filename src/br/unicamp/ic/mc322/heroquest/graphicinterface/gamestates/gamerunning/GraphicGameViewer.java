@@ -8,9 +8,7 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameImagesLoader;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.geom.Region;
-import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
+import br.unicamp.ic.mc322.heroquest.map.geom.*;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Trap;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
@@ -34,9 +32,11 @@ import java.util.HashMap;
 
 public class GraphicGameViewer implements Renderable, MapViewer {
     private final Graphics2D graphics;
-    private final char[][] output;
+    private final char[][] mapMatrix;
     private final int textWidth = 200;
     private final int textSpacing = 20;
+    private final int RADIUS;
+    private char[][] matrixOut;
     private HashMap<Character, ArrayList<BufferedImage>> images;
     private int cellHeight, cellWidth;
     private int frameImageCurrent, frameCounter, intervalChangeFrame;
@@ -51,6 +51,8 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     private GraphicIO graphicIO;
 
     public GraphicGameViewer(Graphics2D graphics, GraphicEngine graphicEngine, Map map) {
+        this.RADIUS = VisibleRegion.getMaximumVisibilityRadius();
+        this.reference = new Coordinate(RADIUS, RADIUS);
         this.graphics = graphics;
         this.needUpdateMap = false;
         this.map = map;
@@ -62,12 +64,13 @@ public class GraphicGameViewer implements Renderable, MapViewer {
         GameImagesLoader gameImagesLoader = new GameImagesLoader();
         images = gameImagesLoader.getImages();
 
-        output = new char[map.getHeight()][map.getWidth()];
-        cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / (map.getWidth()), GameWindow.WINDOW_HEIGHT / (map.getHeight()));
+        mapMatrix = new char[map.getHeight()][map.getWidth()];
+        matrixOut = new char[2 * RADIUS + 1][2 * RADIUS + 1];
+        cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / matrixOut.length, GameWindow.WINDOW_HEIGHT / matrixOut.length);
 
 
-        for (int i = 0; i < output.length; i++)
-            for (int j = 0; j < output[i].length; j++)
+        for (int i = 0; i < matrixOut.length; i++)
+            for (int j = 0; j < matrixOut[i].length; j++)
                 options.add(new ClickableCell(this, graphicEngine, i, j, cellHeight, cellWidth));
 
         textStatus = new JTextArea();
@@ -104,7 +107,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
         updateImageFrame();
         renderBackGround();
         renderText();
-        display(new Coordinate(0, 0));
+        display(reference);
     }
 
     private void renderText() {
@@ -123,7 +126,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
 
     public void updateMap() {
         if (needUpdateMap) {
-            for (char[] chars : output)
+            for (char[] chars : mapMatrix)
                 Arrays.fill(chars, '?');
 
             RegionSelector regionSelector = map.getRegionSelector();
@@ -166,13 +169,14 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     @Override
     public void display(Coordinate coordinate) {
         updateMap();
-        for (int i = 0; i < output.length; i++)
-            for (int j = 0; j < output[i].length; j++) {
-                if (images.containsKey(output[i][j])) {
-                    BufferedImage image = getFrame(output[i][j]);
-                    graphics.drawImage(needUpImage(output[i][j]) ? upImage(image) : image, getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
+        matrixOut = Centralizer.getCentralizeMatrix(mapMatrix, RADIUS, coordinate.getX(), coordinate.getY(), '?');
+        for (int i = 0; i < matrixOut.length; i++)
+            for (int j = 0; j < matrixOut[i].length; j++) {
+                if (images.containsKey(matrixOut[i][j])) {
+                    BufferedImage image = getFrame(matrixOut[i][j]);
+                    graphics.drawImage(needUpImage(matrixOut[i][j]) ? upImage(image) : image, getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
                 } else {
-                    switch (output[i][j]) {
+                    switch (matrixOut[i][j]) {
                         case ' ':
                             graphics.setColor(new Color(72, 59, 58));
                             break;
@@ -201,7 +205,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
 
     private void setSymbol(MapObject object, char representation) {
         Coordinate coordinate = object.getPosition();
-        output[coordinate.getY()][coordinate.getX()] = representation;
+        mapMatrix[coordinate.getY()][coordinate.getX()] = representation;
     }
 
     @Override
@@ -286,5 +290,9 @@ public class GraphicGameViewer implements Renderable, MapViewer {
 
     public GraphicIO getGraphicIO() {
         return graphicIO;
+    }
+
+    Coordinate shiftClickedCoordinate(Coordinate clickedCoordinate) {
+        return new Coordinate(reference.getX() - RADIUS + clickedCoordinate.getX(), reference.getY() - RADIUS + clickedCoordinate.getY());
     }
 }

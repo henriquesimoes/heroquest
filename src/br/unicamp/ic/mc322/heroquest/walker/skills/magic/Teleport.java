@@ -4,7 +4,6 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Region;
 import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
-import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.skills.DisplayTargetsMode;
 import br.unicamp.ic.mc322.heroquest.walker.skills.MagicSkill;
 
@@ -16,9 +15,8 @@ public class Teleport extends MagicSkill {
 
     @Override
     public void useSkill(MapObject targetObject) {
-        WalkerManager summonerManager = skillUser.getManager();
-        if (skillUser.attemptMagicalMovement())
-            summonerManager.moveWalker(targetObject.getPosition());
+        if (tryUseMagicSkill())
+            walkerManager.moveWalker(targetObject.getPosition());
 
         skillUser.removeSkill(this);
     }
@@ -27,7 +25,8 @@ public class Teleport extends MagicSkill {
     public void updateTargets() {
         Region region = getUserRegionSelector().getVisibleRegion();
 
-        accept(this, region);
+        // Request to the map to visit the region, and if the visited unit is a walkable, then it is a possible target
+        use(region);
     }
 
     @Override

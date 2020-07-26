@@ -25,6 +25,8 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor, Runnabl
             managersAliveByTeam.put(team, new HashSet<>());
         }
 
+        // Request to the map to visit all units,
+        // if the visited unit has a walker, then it is added in the LinkedHashMap
         map.accept(this);
 
         GameMonitor gameMonitor = GameMonitor.getInstance();
@@ -52,14 +54,14 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor, Runnabl
     }
 
     @Override
-    public void notifyWalkerDamage(Walker targetWalker, int damage) {
+    public void notifyWalkerDamage(Walker targetWalker, String causer, int damage) {
         WalkerManager targetWalkerManager = targetWalker.getManager();
         String message;
 
         if (damage == 0)
-            message = String.format("%s defended with success", targetWalkerManager.getWalkerName());
+            message = String.format("%s successfully defended from the damage caused by %s", targetWalkerManager.getWalkerName(), causer);
         else
-            message = String.format("%s suffered %d of damage", targetWalkerManager.getWalkerName(), damage);
+            message = String.format("%s suffered %d of damage due to %s", targetWalkerManager.getWalkerName(), damage, causer);
 
         notifyAllWalkers(message);
     }

@@ -20,4 +20,11 @@ public abstract class MagicSkill extends Skill {
         Skill that = (Skill) o;
         return getName().compareTo(that.getName());
     }
+
+    public boolean tryUseMagicSkill() {
+        if (skillUser.attemptMagicalMovement())
+            return true;
+        walkerManager.showMessage(String.format("%s failed to cast %s", skillUser.getName(), skillName));
+        return false;
+    }
 }

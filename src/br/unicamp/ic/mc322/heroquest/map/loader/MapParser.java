@@ -15,6 +15,11 @@ import br.unicamp.ic.mc322.heroquest.map.objects.structural.Wall;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Defines the map object representation to be used on the map generation and
+ * on the maps stored on the disk. Moreover, it is allows parsing a matrix of
+ * characters into a Map object.
+ */
 public class MapParser {
     public static final char FLOOR = ' ';
     public static final char DOOR = 'D';
@@ -22,6 +27,13 @@ public class MapParser {
     public static final char CHEST = 'C';
     public static final char SECRET_DOOR = 'P';
 
+    /**
+     * Parses the given matrix to a map. The chars used must follow the constant
+     * values defined in this class.
+     *
+     * @param matrix - map matrix
+     * @return map object
+     */
     public MapBuilder parse(char[][] matrix) {
         MapBuilder builder = new MapBuilder();
         Dimension dimension = new Dimension(matrix[0].length, matrix.length);

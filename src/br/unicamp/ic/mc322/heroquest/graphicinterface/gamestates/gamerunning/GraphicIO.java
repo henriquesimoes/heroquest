@@ -155,6 +155,7 @@ public class GraphicIO implements IOInterface {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-        return clickedCoordinate;
+
+        return graphicGameViewer.shiftClickedCoordinate(clickedCoordinate);
     }
 }

@@ -2,6 +2,11 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 
 import java.util.ArrayList;
 
+/**
+ * It is used a GridContainer class that is partitioned by a BSPTree class,
+ * generating an array of GridContainers with different dimensions and positions based on the
+ * original GridContainer shape.
+ */
 class BSPGrid {
     private final int gridHeight;
     private final int gridWidth;
@@ -17,6 +22,10 @@ class BSPGrid {
         return getBestGrid();
     }
 
+    /**
+     * @return the grid with more zones inside after 20 attempts using a BSPTree,
+     * each time using a new instance of this tree kind.
+     */
     private ArrayList<GridContainer> getBestGrid() {
         ArrayList<GridContainer> bestGrid = null;
 

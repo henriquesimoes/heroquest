@@ -5,6 +5,10 @@ import br.unicamp.ic.mc322.heroquest.map.objects.FixedObject;
 import br.unicamp.ic.mc322.heroquest.map.objects.StructuralObject;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 
+/**
+ * Basic unit of a map. Each unit occupies a given position on the map, defined
+ * by its structural object.
+ */
 public class MapUnit {
     private final StructuralObject structure;
     private Walker walker;
@@ -60,6 +64,12 @@ public class MapUnit {
         return walker == null;
     }
 
+    /**
+     * Defines which object has the preference to be interacted
+     * or visited by other modules.
+     *
+     * @return this unit preferential object
+     */
     private MapObject getPreferential() {
         if (walker != null)
             return walker;

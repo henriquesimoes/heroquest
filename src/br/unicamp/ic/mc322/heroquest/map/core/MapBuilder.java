@@ -9,6 +9,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ * Handles the creation of a map.
+ * <p>
+ * In order to build a map, first structural objects should be given to the map.
+ * <p>
+ * Afterward, the structure must be built through the `buildStructure` map to
+ * continue the map construction. After doing so, the builder is prepared to
+ * place fixed objects onto the structural objects.
+ * <p>
+ * Then, a map itself can be built through the `buildMap` method, and the resulting
+ * map can be obtained through the `getResult` method.
+ * <p>
+ * Any attempt to perform an operation in an invalid state will throw an
+ * `IllegalStateException`.
+ */
 public class MapBuilder {
     private Collection<StructuralObject> objects;
     private java.util.Map<Coordinate, MapUnit> units;

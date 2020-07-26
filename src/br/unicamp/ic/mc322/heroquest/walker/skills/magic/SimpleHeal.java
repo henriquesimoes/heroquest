@@ -16,8 +16,12 @@ public class SimpleHeal extends MagicSkill {
     @Override
     public void useSkill(MapObject targetObject) {
         Walker walkerTarget = (Walker) targetObject;
-        if (skillUser.attemptMagicalMovement())
-            walkerTarget.restoreBodyPoints(skillUser.rollRedDice());
+        if (tryUseMagicSkill()) {
+            int healedPoints = skillUser.rollRedDice();
+            walkerTarget.restoreBodyPoints(healedPoints);
+            String message = String.format("%s cast %s with power of heal of %d", skillUser.getName(), skillName, healedPoints);
+            walkerManager.showMessage(message);
+        }
 
         skillUser.removeSkill(this);
     }
@@ -25,7 +29,9 @@ public class SimpleHeal extends MagicSkill {
     @Override
     public void updateTargets() {
         Region region = getUserRegionSelector().getVisibleRegion();
-        accept(this, region);
+
+        // Request to the map to visit the region, and if visited unit has a walker, then he is a possible target
+        use(region);
     }
 
     @Override
