@@ -42,8 +42,7 @@ public class MapGenerator {
 
         Collection<Chest> chests = generateChests();
 
-        for (Chest chest : chests)character
-
+        for (Chest chest : chests)
             builder.add(chest);
 
         return builder;
