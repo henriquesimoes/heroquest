@@ -6,7 +6,8 @@ import br.unicamp.ic.mc322.heroquest.engine.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GraphicIO;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
 import br.unicamp.ic.mc322.heroquest.map.MapPopulator;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
@@ -20,14 +21,16 @@ public class GameRunning implements Renderable {
     private GraphicEngine graphicEngine;
     private GraphicMapViewer graphicMapViewer;
     private GameLoop gameLoop;
+    private StateManager stateManager;
     private ArrayList<Clickable> clickableZones;
     private Map map;
     private boolean isRunning;
 
-    public GameRunning(Graphics2D graphics, GraphicEngine graphicEngine) {
+    public GameRunning(Graphics2D graphics, GraphicEngine graphicEngine, StateManager stateManager) {
         this.clickableZones = new ArrayList<>();
         this.graphics = graphics;
         this.graphicEngine = graphicEngine;
+        this.stateManager = stateManager;
         this.isRunning = false;
 
     }
@@ -57,7 +60,7 @@ public class GameRunning implements Renderable {
     public void render() {
         if (isRunning) {
             if (!gameLoop.isRunning()) {
-                graphicEngine.goFirstState();
+                stateManager.changeState(States.GO_TO_FIRST);
                 GameMonitor.getInstance().unsubscribe(map);
                 isRunning = false;
                 return;

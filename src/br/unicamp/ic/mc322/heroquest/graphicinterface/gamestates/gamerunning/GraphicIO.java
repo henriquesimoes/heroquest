@@ -1,10 +1,9 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface.guitools;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning;
 
 import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning.GraphicMapViewer;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
@@ -78,7 +77,9 @@ public class GraphicIO implements IOInterface {
 
     @Override
     public boolean getBooleanAnswer(String question) {
-        return false;
+        appendMessage(question + " (yes / no)\n");
+        String answer = (keyboardInput.getKey() + "").toUpperCase();
+        return answer.equals("Y");
     }
 
     @Override

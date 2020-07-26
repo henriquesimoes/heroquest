@@ -4,7 +4,6 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameFPSManager;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GraphicIO;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroKind;
@@ -21,7 +20,6 @@ public class GraphicEngine extends JPanel implements Runnable {
     private final MouseInput mouseInput;
     private final KeyboardInput keyboardInput;
     final private StateManager stateManager;
-    private GraphicIO graphicIO;
     private boolean running;
     private Thread gameThread;
     private Map map;
@@ -60,16 +58,12 @@ public class GraphicEngine extends JPanel implements Runnable {
     public void update() {
         ArrayList<Clickable> clickableZones = getCurrentState().getClickableZones();
         Coordinate mouseCoords = mouseInput.getMouseCoordsOnClick();
-        boolean hasChange = false;
-
         for (Clickable clickable : clickableZones) {
             Rectangle2D bounds = clickable.getBounds();
 
             if (bounds.contains(mouseCoords.getX(), mouseCoords.getY())) {
                 mouseInput.clear();
-                hasChange = stateManager.changeState(clickable.executeAction());
-                if (hasChange)
-                    break;
+                stateManager.changeState(clickable.executeAction());
             }
         }
     }
@@ -141,10 +135,6 @@ public class GraphicEngine extends JPanel implements Runnable {
 
     public void setHeroKid(HeroKind heroKind) {
         this.heroKind = heroKind;
-    }
-
-    public void goFirstState() {
-        stateManager.goToFirst();
     }
 
     public String getHeroName() {
