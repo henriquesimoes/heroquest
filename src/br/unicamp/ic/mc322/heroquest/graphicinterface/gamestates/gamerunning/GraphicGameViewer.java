@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.engine.MapViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameImagesLoader;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class GraphicGameViewer implements Renderable, MapViewer {
+public class GraphicGameViewer implements StateViewer, MapViewer {
     private final Graphics2D graphics;
     private final char[][] mapMatrix;
     private final int textWidth = 200;

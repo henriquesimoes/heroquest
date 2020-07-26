@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
 
 import java.awt.*;
@@ -20,7 +20,7 @@ public class ListOfExistentMapsButton extends MenuButton {
     }
 
     @Override
-    public States executeAction() {
-        return States.LIST_OF_MAPS;
+    public State executeAction() {
+        return State.LIST_OF_MAPS;
     }
 }

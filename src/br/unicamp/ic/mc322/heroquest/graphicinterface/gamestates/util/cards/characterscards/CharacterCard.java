@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.characterscards;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.Card;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageEditor;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageLoader;
@@ -26,8 +26,8 @@ public class CharacterCard extends Card {
     }
 
     @Override
-    public States executeAction() {
+    public State executeAction() {
         gamePanel.setHeroKind(heroKind);
-        return States.GAME_RUNNING;
+        return State.GAME_RUNNING;
     }
 }

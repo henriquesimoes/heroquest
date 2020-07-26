@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.mapselectionme
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.ListOfExistentMapsButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.QuitButton;
@@ -12,7 +12,7 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.gametitle.
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MapSelection implements Renderable {
+public class MapSelection implements StateViewer {
     private final GameTitle GAME_TITLE;
     private final ArrayList<MenuButton> options;
 

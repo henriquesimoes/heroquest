@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.selection
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 
 import javax.swing.*;
@@ -47,7 +47,7 @@ public class BoxFreeText implements Clickable {
     }
 
     @Override
-    public States executeAction() {
+    public State executeAction() {
         String nickName = JOptionPane.showInputDialog("Choose nickname");
 
         if (nickName == null)
@@ -59,6 +59,6 @@ public class BoxFreeText implements Clickable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return States.CHOOSE_CHARACTER;
+        return State.CHOOSE_CHARACTER;
     }
 }

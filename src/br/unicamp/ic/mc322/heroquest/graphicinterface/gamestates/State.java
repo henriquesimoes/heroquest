@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates;
 
-public enum States {
+public enum State {
     START_MENU,
     MAP_SELECTION,
     LIST_OF_MAPS,

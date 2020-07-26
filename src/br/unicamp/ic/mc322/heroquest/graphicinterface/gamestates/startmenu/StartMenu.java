@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.startmenu;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.NewGameButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.QuitButton;
@@ -11,7 +11,7 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.gametitle.
 import java.awt.*;
 import java.util.ArrayList;
 
-public class StartMenu implements Renderable {
+public class StartMenu implements StateViewer {
     private final GameTitle GAME_TITLE;
     private final ArrayList<MenuButton> options;
 

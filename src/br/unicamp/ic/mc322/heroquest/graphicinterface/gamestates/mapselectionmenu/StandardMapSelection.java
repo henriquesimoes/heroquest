@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.mapselectionme
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.BackButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.gametitle.GameTitle;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.selectionboxes.BoxedList;
@@ -11,7 +11,7 @@ import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class StandardMapSelection implements Renderable {
+public class StandardMapSelection implements StateViewer {
     private final GameTitle GAME_TITLE;
     private final BoxedList LIST_OF_MAPS;
     private final BackButton BACK_BUTTON;

@@ -5,9 +5,9 @@ import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.engine.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateManager;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
 import br.unicamp.ic.mc322.heroquest.map.MapPopulator;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
@@ -16,7 +16,7 @@ import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroKind;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GameRunning implements Renderable {
+public class GameRunning implements StateViewer {
     private Graphics2D graphics;
     private GamePanel gamePanel;
     private GraphicGameViewer graphicGameViewer;
@@ -63,7 +63,7 @@ public class GameRunning implements Renderable {
             if (gameLoop.isRunning()) {
                 graphicGameViewer.render();
             } else {
-                stateManager.changeState(States.GO_TO_FIRST);
+                stateManager.changeState(State.GO_TO_FIRST);
                 GameMonitor.getInstance().unsubscribe(map);
                 isRunning = false;
             }

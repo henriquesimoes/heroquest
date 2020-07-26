@@ -3,6 +3,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameFPSManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
@@ -46,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.stateManager = new StateManager(graphics, this);
     }
 
-    private Renderable getCurrentState() {
+    private StateViewer getCurrentState() {
         return stateManager.getCurrentState();
     }
 
