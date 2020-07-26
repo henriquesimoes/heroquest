@@ -18,10 +18,12 @@ public class GameImagesLoader {
         nameSize.put('W', new Pair<>("wizard_f", 4));
         nameSize.put('E', new Pair<>("elf_f", 4));
         nameSize.put('B', new Pair<>("knight_f", 4));
+        nameSize.put('F', new Pair<>("dwarf_f", 4));
         nameSize.put('S', new Pair<>("skeleton_f", 4));
         nameSize.put('Ŝ', new Pair<>("skeleton_wizard_f", 4));
         nameSize.put('G', new Pair<>("goblin_f", 4));
         nameSize.put('#', new Pair<>("wall_f", 1));
+        nameSize.put('D', new Pair<>("door_f", 1));
         nameSize.put('C', new Pair<>("chest_close_f", 1));
         nameSize.put('c', new Pair<>("chest_open_f", 1));
         nameSize.put('T', new Pair<>("trap_armed_f", 1));
