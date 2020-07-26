@@ -19,7 +19,7 @@ public class SimpleHeal extends MagicSkill {
         if (tryUseMagicSkill()) {
             int healedPoints = skillUser.rollRedDice();
             walkerTarget.restoreBodyPoints(healedPoints);
-            String message = String.format("%s cast %s with power of heal of %d", skillUser.getName(), skillName, healedPoints);
+            String message = String.format("%s cast %s with healing power of %d", skillUser.getName(), skillName, healedPoints);
             walkerManager.showMessage(message);
         }
 
