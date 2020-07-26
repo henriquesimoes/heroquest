@@ -32,7 +32,7 @@ public class Elf extends Walker {
 
     @Override
     public String getRepresentationOnMenu() {
-        return "ElfChar: " + getName();
+        return "Elf: " + getName();
     }
 
 
