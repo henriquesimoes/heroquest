@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface;
 
+import br.unicamp.ic.mc322.heroquest.engine.GameEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateManager;
@@ -14,7 +15,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class GraphicEngine extends JPanel implements Runnable {
+public class GraphicEngine extends JPanel implements Runnable, GameEngine {
     private final BufferedImage image;
     private final Graphics2D graphics;
     private final MouseInput mouseInput;

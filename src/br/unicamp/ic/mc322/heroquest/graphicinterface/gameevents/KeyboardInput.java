@@ -26,7 +26,7 @@ public class KeyboardInput implements KeyListener {
         waiting = false;
     }
 
-    public char getKey() {
+    public String getKey() {
         waiting = true;
         while (waiting) ;
         try {
@@ -34,6 +34,6 @@ public class KeyboardInput implements KeyListener {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-        return key;
+        return Character.toString(key).toUpperCase();
     }
 }

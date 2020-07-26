@@ -37,10 +37,8 @@ public class GraphicIO implements IOInterface {
             if (allowBack)
                 appendMessage(String.format("%2d - Return\n", 0));
 
-            appendMessage(String.format("Selected option\n"));
-
             try {
-                answer = Integer.parseInt("" + keyboardInput.getKey());
+                answer = Integer.parseInt(keyboardInput.getKey());
                 clear();
                 if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
                     invalidAnswer = false;
@@ -72,7 +70,7 @@ public class GraphicIO implements IOInterface {
     @Override
     public boolean getBooleanAnswer(String question) {
         appendMessage(question + " (N / y)\n");
-        String answer = (keyboardInput.getKey() + "").toUpperCase();
+        String answer = keyboardInput.getKey();
         return answer.equals("Y");
     }
 
@@ -98,7 +96,7 @@ public class GraphicIO implements IOInterface {
         boolean validAnswer;
 
         do {
-            String answer = ("" + keyboardInput.getKey()).toUpperCase();
+            String answer = keyboardInput.getKey();
             clear();
             validAnswer = true;
             switch (answer) {

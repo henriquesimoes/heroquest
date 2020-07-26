@@ -59,13 +59,13 @@ public class GameRunning implements Renderable {
     @Override
     public void render() {
         if (isRunning) {
-            if (!gameLoop.isRunning()) {
+            if (gameLoop.isRunning()) {
+                graphicGameViewer.render();
+            } else {
                 stateManager.changeState(States.GO_TO_FIRST);
                 GameMonitor.getInstance().unsubscribe(map);
                 isRunning = false;
-                return;
             }
-            graphicGameViewer.render();
         } else {
             isRunning = true;
             create();
