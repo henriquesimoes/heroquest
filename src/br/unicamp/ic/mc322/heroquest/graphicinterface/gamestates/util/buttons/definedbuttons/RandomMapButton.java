@@ -1,8 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons;
 
+import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.commands.RandomMapGeneratorCommand;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 
 import javax.swing.*;
@@ -16,22 +18,7 @@ public class RandomMapButton extends MenuButton {
     public RandomMapButton(Graphics2D graphics, GraphicEngine graphicEngine) {
         super(BUTTON_TEXT, graphics, graphicEngine);
         this.graphicEngine = graphicEngine;
-    }
 
-    @Override
-    public Rectangle2D getBounds() {
-        return getBoxBounds();
-    }
-
-    @Override
-    public States executeAction() {
-        String nickName = JOptionPane.showInputDialog("Choose nickname");
-
-        if (nickName == null)
-            nickName = "Player";
-
-        graphicEngine.setMap(new MapManager().generate());
-        graphicEngine.setName(nickName);
-        return States.CHOOSE_CHARACTER;
+        setCommand(new RandomMapGeneratorCommand(graphicEngine));
     }
 }

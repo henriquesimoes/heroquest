@@ -7,5 +7,5 @@ import java.awt.geom.Rectangle2D;
 public interface Clickable {
     Rectangle2D getBounds();
 
-    States executeAction();
+    void executeAction();
 }

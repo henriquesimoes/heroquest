@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-public class BoxedList {
+public class BoxedMapList {
     private final int STANDARD_BOX_WIDTH = 400;
     private final String[] dataCells;
     private final ArrayList<Clickable> options;
@@ -22,7 +22,7 @@ public class BoxedList {
     private Coordinate boxPosition;
     private Dimension boxDimension;
 
-    public BoxedList(String[] dataCells, Graphics2D graphics, GraphicEngine graphicEngine) {
+    public BoxedMapList(String[] dataCells, Graphics2D graphics, GraphicEngine graphicEngine) {
         this.graphicEngine = graphicEngine;
         this.graphics = graphics;
         this.options = new ArrayList<>();
@@ -52,7 +52,7 @@ public class BoxedList {
         int nextItemPosition = boxPosition.getY() + 30;
 
         for (Clickable listItem : options) {
-            BoxFreeText item = (BoxFreeText) listItem;
+            MapListItem item = (MapListItem) listItem;
 
             item.render(nextItemPosition);
             nextItemPosition += listItem.getBounds().getHeight() + 20;
@@ -69,7 +69,7 @@ public class BoxedList {
         Rectangle2D itemBounds;
 
         for (String item : dataCells) {
-            BoxFreeText toGraphics = new BoxFreeText(item, graphics, graphicEngine);
+            MapListItem toGraphics = new MapListItem(item, graphics, graphicEngine);
             itemBounds = toGraphics.getBounds();
             boxHeightBasedInQuantityOfItems += itemBounds.getHeight();
 

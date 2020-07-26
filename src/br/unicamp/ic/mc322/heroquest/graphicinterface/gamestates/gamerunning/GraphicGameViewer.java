@@ -68,7 +68,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
 
         for (int i = 0; i < output.length; i++)
             for (int j = 0; j < output[i].length; j++)
-                options.add(new ClickableCell(this, i, j, cellHeight, cellWidth));
+                options.add(new ClickableCell(this, graphicEngine, i, j, cellHeight, cellWidth));
 
         textStatus = new JTextArea();
         textStatus.setSize(textWidth - textSpacing, GameWindow.WINDOW_HEIGHT / 7);

@@ -20,7 +20,7 @@ public class GraphicEngine extends JPanel implements Runnable, GameEngine {
     private final Graphics2D graphics;
     private final MouseInput mouseInput;
     private final KeyboardInput keyboardInput;
-    final private StateManager stateManager;
+    private StateManager stateManager;
     private boolean running;
     private Thread gameThread;
     private Map map;
@@ -46,6 +46,8 @@ public class GraphicEngine extends JPanel implements Runnable, GameEngine {
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         this.stateManager = new StateManager(graphics, this);
+
+        this.stateManager.createStates();
     }
 
     private Renderable getCurrentState() {
@@ -64,7 +66,7 @@ public class GraphicEngine extends JPanel implements Runnable, GameEngine {
 
             if (bounds.contains(mouseCoords.getX(), mouseCoords.getY())) {
                 mouseInput.clear();
-                stateManager.changeState(clickable.executeAction());
+                clickable.executeAction();
             }
         }
     }
@@ -114,6 +116,10 @@ public class GraphicEngine extends JPanel implements Runnable, GameEngine {
         showInTheScreen.dispose();
     }
 
+    public StateManager getStateManager() {
+        return stateManager;
+    }
+
     public KeyboardInput getKeyboardInput() {
         return keyboardInput;
     }
@@ -126,7 +132,7 @@ public class GraphicEngine extends JPanel implements Runnable, GameEngine {
         this.map = map;
     }
 
-    public HeroKind getHeroKid() {
+    public HeroKind getHeroKind() {
         return heroKind;
     }
 

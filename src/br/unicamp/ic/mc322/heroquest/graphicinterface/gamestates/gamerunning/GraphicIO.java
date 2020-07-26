@@ -139,7 +139,7 @@ public class GraphicIO implements IOInterface {
     }
 
 
-    void changeState(int x, int y) {
+    public void changeState(int x, int y) {
         if (waitingCoordinate) {
             waitingCoordinate = false;
             clickedCoordinate = new Coordinate(x, y);

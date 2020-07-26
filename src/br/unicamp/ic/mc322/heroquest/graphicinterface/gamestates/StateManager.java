@@ -15,11 +15,17 @@ import java.util.Stack;
 public class StateManager {
     private final HashMap<States, Renderable> states;
     private Stack<Renderable> stack;
+    private Graphics2D graphics;
+    private GraphicEngine graphicEngine;
 
     public StateManager(Graphics2D graphics, GraphicEngine graphicEngine) {
         stack = new Stack<>();
         states = new HashMap<>();
+        this.graphics = graphics;
+        this.graphicEngine = graphicEngine;
+    }
 
+    public void createStates() {
         states.put(States.START_MENU, new StartMenu(graphics, graphicEngine));
         states.put(States.MAP_SELECTION, new MapSelection(graphics, graphicEngine));
         states.put(States.LIST_OF_MAPS, new StandardMapSelection(graphics, graphicEngine));
