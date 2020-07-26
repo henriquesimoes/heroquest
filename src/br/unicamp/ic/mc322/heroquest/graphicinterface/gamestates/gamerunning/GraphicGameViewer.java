@@ -32,12 +32,12 @@ import java.util.HashMap;
 
 public class GraphicGameViewer implements StateViewer, MapViewer {
     private final Graphics2D graphics;
-    private final char[][] mapMatrix;
+    private final RenderableObject[][] mapMatrix;
     private final int textWidth = 200;
     private final int textSpacing = 20;
     private final int RADIUS;
-    private final HashMap<Character, ArrayList<BufferedImage>> images;
-    private char[][] matrixOut;
+    private final HashMap<RenderableObject, ArrayList<BufferedImage>> images;
+    private RenderableObject[][] matrixOut;
     private int cellHeight, cellWidth;
     private int frameCounter;
     private Map map;
@@ -52,7 +52,7 @@ public class GraphicGameViewer implements StateViewer, MapViewer {
         this.RADIUS = VisibleRegion.MAXIMUM_VISIBILITY_RADIUS;
         this.reference = new Coordinate(RADIUS, RADIUS);
         this.graphics = graphics;
-        this.needUpdateMap = false;
+        this.needUpdateMap = true;
         this.map = map;
         this.options = new ArrayList<>();
         this.graphicIO = new GraphicIO(gamePanel.getKeyboardInput(), this);
@@ -62,8 +62,9 @@ public class GraphicGameViewer implements StateViewer, MapViewer {
         GameImagesLoader gameImagesLoader = new GameImagesLoader();
         images = gameImagesLoader.getImages();
 
-        mapMatrix = new char[map.getHeight()][map.getWidth()];
-        matrixOut = new char[2 * RADIUS + 1][2 * RADIUS + 1];
+        mapMatrix = new RenderableObject[map.getHeight()][map.getWidth()];
+
+        matrixOut = new RenderableObject[2 * RADIUS + 1][2 * RADIUS + 1];
         cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / matrixOut.length, GameWindow.WINDOW_HEIGHT / matrixOut.length);
 
 
@@ -120,8 +121,8 @@ public class GraphicGameViewer implements StateViewer, MapViewer {
 
     public void updateMap() {
         if (needUpdateMap) {
-            for (char[] chars : mapMatrix)
-                Arrays.fill(chars, '?');
+            for (RenderableObject[] objects : mapMatrix)
+                Arrays.fill(objects, RenderableObject.UNKNOWN);
 
             RegionSelector regionSelector = map.getRegionSelector();
             Region region = regionSelector.getVisibleRegion(reference);
@@ -140,12 +141,8 @@ public class GraphicGameViewer implements StateViewer, MapViewer {
         return new ArrayList<>(options);
     }
 
-    private boolean needUpImage(char c) {
-        return c == 'W' || c == 'B' || c == 'E' || c == 'F' || c == 'S' || c == 'Ŝ' || c == 'G' || c == 'c' || c == 'C';
-    }
-
-    public BufferedImage upImage(BufferedImage image) {
-        BufferedImage floor = images.get(' ').get(0);
+    public BufferedImage shiftImageUp(BufferedImage image) {
+        BufferedImage floor = images.get(RenderableObject.FLOOR).get(0);
         BufferedImage copyOfImage = new BufferedImage(cellWidth, cellHeight, BufferedImage.TYPE_INT_RGB);
         Graphics g = copyOfImage.createGraphics();
         g.drawImage(floor, 0, 0, cellWidth, cellHeight, null);
@@ -154,98 +151,106 @@ public class GraphicGameViewer implements StateViewer, MapViewer {
         return copyOfImage;
     }
 
-    public BufferedImage getFrame(char c) {
-        ArrayList<BufferedImage> frames = images.get(c);
+    public BufferedImage getFrame(RenderableObject object) {
+        ArrayList<BufferedImage> frames = images.get(object);
         return frames.get(frameCounter % frames.size());
     }
 
     @Override
     public void display(Coordinate coordinate) {
         updateMap();
-        matrixOut = Centralizer.getCentralizedMatrix(mapMatrix, RADIUS, coordinate, '?');
+        matrixOut = getCentralizedMatrix(coordinate);
+
         for (int i = 0; i < matrixOut.length; i++)
             for (int j = 0; j < matrixOut[i].length; j++) {
-                if (images.containsKey(matrixOut[i][j])) {
-                    BufferedImage image = getFrame(matrixOut[i][j]);
-                    graphics.drawImage(needUpImage(matrixOut[i][j]) ? upImage(image) : image, getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
-                } else {
-                    switch (matrixOut[i][j]) {
-                        case '?':
-                            graphics.setColor(new Color(0, 0, 0));
-                            break;
-                        default:
-                            graphics.setColor(new Color(255, 255, 255));
-                            break;
-                    }
-                    graphics.fillRect(getX(j), getY(i), cellWidth, cellHeight);
-                }
+                BufferedImage image = getFrame(matrixOut[i][j]);
+                graphics.drawImage(matrixOut[i][j].needsToShiftImageUp() ? shiftImageUp(image) : image,
+                            getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
             }
     }
 
     private void renderBackGround() {
-        if (graphics != null) {
-            graphics.setColor(new Color(0, 0, 0));
-            graphics.fillRect(0, 0, GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
-            graphics.setColor(new Color(255, 255, 255));
-            graphics.fillRect(GameWindow.WINDOW_WIDTH - textWidth, 0, textWidth, GameWindow.WINDOW_HEIGHT);
-        } else {
-            throw new NullPointerException();
-        }
+        graphics.setColor(new Color(0, 0, 0));
+        graphics.fillRect(0, 0, GameWindow.WINDOW_WIDTH, GameWindow.WINDOW_HEIGHT);
+        graphics.setColor(new Color(255, 255, 255));
+        graphics.fillRect(GameWindow.WINDOW_WIDTH - textWidth, 0, textWidth, GameWindow.WINDOW_HEIGHT);
     }
 
-    private void setSymbol(MapObject object, char representation) {
+    private void setSymbol(MapObject object, RenderableObject render) {
         Coordinate coordinate = object.getPosition();
-        mapMatrix[coordinate.getY()][coordinate.getX()] = representation;
+        mapMatrix[coordinate.getY()][coordinate.getX()] = render;
+    }
+
+    /**
+     * Returns a map representation centralized on the given reference point.
+     *
+     * @param reference center point
+     * @return
+     */
+    private RenderableObject[][] getCentralizedMatrix(Coordinate reference) {
+        RenderableObject[][] result = new RenderableObject[2 * RADIUS + 1][2 * RADIUS + 1];
+
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[i].length; j++) {
+                int x = reference.getX() - RADIUS + j;
+                int y = reference.getY() - RADIUS + i;
+                if (x >= 0 && y >= 0 && x < mapMatrix[0].length && y < mapMatrix.length)
+                    result[i][j] = mapMatrix[y][x];
+                else
+                    result[i][j] = RenderableObject.UNKNOWN;
+            }
+        }
+        return result;
     }
 
     @Override
     public void visit(Barbarian barbarian) {
-        setSymbol(barbarian, 'B');
+        setSymbol(barbarian, RenderableObject.BARBARIAN);
     }
 
     @Override
     public void visit(Dwarf dwarf) {
-        setSymbol(dwarf, 'F');
+        setSymbol(dwarf, RenderableObject.DWARF);
     }
 
     @Override
     public void visit(Elf elf) {
-        setSymbol(elf, 'E');
+        setSymbol(elf, RenderableObject.ELF);
     }
 
     @Override
     public void visit(Wizard wizard) {
-        setSymbol(wizard, 'W');
+        setSymbol(wizard, RenderableObject.WIZARD);
     }
 
     @Override
     public void visit(WizardSkeleton wizardSkeleton) {
-        setSymbol(wizardSkeleton, 'Ŝ');
+        setSymbol(wizardSkeleton, RenderableObject.WIZARD_SKELETON);
     }
 
     @Override
     public void visit(CommonSkeleton commonSkeleton) {
-        setSymbol(commonSkeleton, 'S');
+        setSymbol(commonSkeleton, RenderableObject.COMMON_SKELETON);
     }
 
     @Override
     public void visit(Goblin goblin) {
-        setSymbol(goblin, 'G');
+        setSymbol(goblin, RenderableObject.GOBLIN);
     }
 
     @Override
     public void visit(Floor floor) {
-        setSymbol(floor, ' ');
+        setSymbol(floor, RenderableObject.FLOOR);
     }
 
     @Override
     public void visit(Wall wall) {
-        setSymbol(wall, '#');
+        setSymbol(wall, RenderableObject.WALL);
     }
 
     @Override
     public void visit(Door door) {
-        setSymbol(door, door.isOpen() ? ' ' : 'D');
+        setSymbol(door, door.isOpen() ? RenderableObject.FLOOR : RenderableObject.DOOR);
     }
 
     @Override
@@ -253,17 +258,18 @@ public class GraphicGameViewer implements StateViewer, MapViewer {
         if (secretDoor.isDiscovered())
             visit((Door) secretDoor);
         else
-            setSymbol(secretDoor, '#');
+            setSymbol(secretDoor, RenderableObject.WALL);
     }
 
     @Override
     public void visit(Chest chest) {
-        setSymbol(chest, chest.isOpened() ? 'c' : 'C');
+        setSymbol(chest, chest.isOpened() ? RenderableObject.CHEST_OPEN : RenderableObject.CHEST_CLOSE);
     }
 
     @Override
     public void visit(Trap trap) {
-        setSymbol(trap, trap.isDiscovered() ? (trap.isArmed() ? 'T' : 't') : ' ');
+        setSymbol(trap, trap.isDiscovered() ? (
+                trap.isArmed() ? RenderableObject.TRAP_ARMED : RenderableObject.TRAP_UNARMED) : RenderableObject.FLOOR);
     }
 
     public void appendMessage(String s) {

@@ -23,11 +23,11 @@ import java.util.Arrays;
 public class TerminalMapViewer implements MapViewer {
     private final Map map;
     private final char[][] visibleMap;
-    private final int radiusVisibility;
+    private final int visibilityRadius;
 
     public TerminalMapViewer(Map map) {
         this.map = map;
-        this.radiusVisibility = VisibleRegion.MAXIMUM_VISIBILITY_RADIUS;
+        this.visibilityRadius = VisibleRegion.MAXIMUM_VISIBILITY_RADIUS;
 
         visibleMap = new char[map.getHeight()][map.getWidth()];
     }
@@ -52,16 +52,16 @@ public class TerminalMapViewer implements MapViewer {
 
     private void print(Coordinate reference) {
         StringBuilder builder = new StringBuilder();
-        char[][] output = Centralizer.getCentralizedMatrix(visibleMap, radiusVisibility, reference, '?');
+        char[][] output = getCentralizedMatrix(reference);
         builder.append("  ");
 
         for (int dx = 0; dx < output[0].length; dx++)
-            builder.append(String.format("%3d", dx + reference.getX() - radiusVisibility));
+            builder.append(String.format("%3d", dx + reference.getX() - visibilityRadius));
 
         builder.append("\n");
 
         for (int dy = 0; dy < output.length; dy++) {
-            builder.append(String.format("%2d ", dy + reference.getY() - radiusVisibility));
+            builder.append(String.format("%2d ", dy + reference.getY() - visibilityRadius));
 
             for (int dx = 0; dx < output[dy].length; dx++)
                 builder.append(" " + output[dy][dx] + " ");
@@ -77,6 +77,28 @@ public class TerminalMapViewer implements MapViewer {
     private void setSymbol(MapObject object, char representation) {
         Coordinate coordinate = object.getPosition();
         visibleMap[coordinate.getY()][coordinate.getX()] = representation;
+    }
+
+    /**
+     * Returns a map representation centralized on the given reference point.
+     *
+     * @param reference center point
+     * @return
+     */
+    private char[][] getCentralizedMatrix(Coordinate reference) {
+        char[][] result = new char[2 * visibilityRadius + 1][2 * visibilityRadius + 1];
+
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[i].length; j++) {
+                int x = reference.getX() - visibilityRadius + j;
+                int y = reference.getY() - visibilityRadius + i;
+                if (x >= 0 && y >= 0 && x < visibleMap[0].length && y < visibleMap.length)
+                    result[i][j] = visibleMap[y][x];
+                else
+                    result[i][j] = '?';
+            }
+        }
+        return result;
     }
 
     @Override
