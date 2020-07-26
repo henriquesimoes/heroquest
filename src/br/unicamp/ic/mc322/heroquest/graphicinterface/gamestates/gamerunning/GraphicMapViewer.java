@@ -34,6 +34,7 @@ import java.util.HashMap;
 
 public class GraphicMapViewer implements Renderable, MapViewer {
     private final Graphics2D graphics;
+    private final char[][] output;
     HashMap<Character, ArrayList<BufferedImage>> images;
     int cellHeight, cellWidth;
     int frame = 0;
@@ -46,15 +47,24 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     volatile boolean waitingCoordinate = false;
     volatile Coordinate clickedCoordinate;
     private ArrayList<Clickable> options;
-    private char[][] output;
     private volatile boolean needUpdateMap;
 
-    public GraphicMapViewer(Graphics2D graphics, GraphicEngine graphicEngine) {
+    public GraphicMapViewer(Graphics2D graphics, GraphicEngine graphicEngine, Map map) {
         this.graphics = graphics;
         this.needUpdateMap = false;
+        this.map = map;
 
         GameImagesLoader gameImagesLoader = new GameImagesLoader();
         images = gameImagesLoader.getImages();
+
+        output = new char[map.getHeight()][map.getWidth()];
+        cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / (map.getWidth()), GameWindow.WINDOW_HEIGHT / (map.getHeight()));
+
+        this.options = new ArrayList<>();
+
+        for (int i = 0; i < output.length; i++)
+            for (int j = 0; j < output[i].length; j++)
+                options.add(new CellMap(this, i, j, cellHeight, cellWidth));
 
         textStatus = new JTextArea();
         textStatus.setSize(180, GameWindow.WINDOW_HEIGHT / 7);
@@ -96,7 +106,6 @@ public class GraphicMapViewer implements Renderable, MapViewer {
     }
 
     public void render() {
-        //create();
         frame++;
         if (frame >= 20)
             frame = 0;
@@ -123,29 +132,6 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         textMenu.print(graphics);
         graphics.translate(-GameWindow.WINDOW_WIDTH + 180, -GameWindow.WINDOW_HEIGHT / 7);
     }
-
-    /*
-    private void create() {
-        if (SETTINGS.getMap().equals(map))
-            return;
-
-        map = SETTINGS.getMap();
-        output = new char[map.getHeight()][map.getWidth()];
-        cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / (map.getWidth()), GameWindow.WINDOW_HEIGHT / (map.getHeight()));
-
-        this.options = new ArrayList<>();
-
-        for (int i = 0; i < output.length; i++)
-            for (int j = 0; j < output[i].length; j++)
-                options.add(new CellMap(this, i, j, cellHeight, cellWidth));
-
-        map.add(SETTINGS.getWalker());
-        MapPopulator populator = new MapPopulator(GameLevel.EASY);
-        populator.populate(map);
-        GameMonitor.getInstance().subscribe(map);
-        Thread loop = new Thread(new GameLoop(map));
-        loop.start();
-    }*/
 
     public void updateMap() {
         if (needUpdateMap) {

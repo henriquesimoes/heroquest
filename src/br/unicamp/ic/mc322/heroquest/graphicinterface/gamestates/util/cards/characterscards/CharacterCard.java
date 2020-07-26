@@ -27,7 +27,7 @@ public class CharacterCard extends Card {
 
     @Override
     public States executeAction() {
-        graphicEngine.setWalker(heroKind);
+        graphicEngine.setHeroKid(heroKind);
         return States.GAME_RUNNING;
     }
 }

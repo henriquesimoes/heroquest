@@ -21,6 +21,6 @@ public class ListOfExistentMapsButton extends MenuButton {
 
     @Override
     public States executeAction() {
-        return States.CHOOSE_CHARACTER;
+        return States.LIST_OF_MAPS;
     }
 }

@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 public class GameLoop implements GameListener, AbstractMapObjectVisitor, Runnable {
     private final LinkedHashMap<Team, HashSet<WalkerManager>> managersByTeam;
     private final LinkedHashMap<Team, HashSet<WalkerManager>> managersAliveByTeam;
+    private volatile boolean running = false;
 
     public GameLoop(Map map) {
         this.managersByTeam = new LinkedHashMap<>();
@@ -31,7 +32,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor, Runnabl
     }
 
     public void run() {
-        boolean running = true;
+        running = true;
         while (running) {
             playTurn();
             if (isEndGame())
@@ -131,5 +132,9 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor, Runnabl
         GameMonitor monitor = GameMonitor.getInstance();
 
         monitor.unsubscribe(this);
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

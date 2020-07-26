@@ -3,7 +3,6 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateManager;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning.GraphicMapViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameFPSManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GraphicIO;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
@@ -26,7 +25,7 @@ public class GraphicEngine extends JPanel implements Runnable {
     private boolean running;
     private Thread gameThread;
     private Map map;
-    private String name;
+    private String heroName;
     private HeroKind heroKind;
 
     public GraphicEngine() {
@@ -47,19 +46,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         graphics = image.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        GraphicMapViewer graphicMapViewer = new GraphicMapViewer(graphics, this);
-        this.graphicIO = new GraphicIO(mouseInput, keyboardInput, graphicMapViewer);
-
         this.stateManager = new StateManager(graphics, this);
-
-    }
-
-    public void setMap(Map map) {
-        this.map = map;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     private Renderable getCurrentState() {
@@ -72,11 +59,11 @@ public class GraphicEngine extends JPanel implements Runnable {
 
     public void update() {
         ArrayList<Clickable> clickableZones = getCurrentState().getClickableZones();
+        Coordinate mouseCoords = mouseInput.getMouseCoordsOnClick();
         boolean hasChange = false;
 
         for (Clickable clickable : clickableZones) {
             Rectangle2D bounds = clickable.getBounds();
-            Coordinate mouseCoords = mouseInput.getMouseCoordsOnClick();
 
             if (bounds.contains(mouseCoords.getX(), mouseCoords.getY())) {
                 mouseInput.clear();
@@ -111,10 +98,6 @@ public class GraphicEngine extends JPanel implements Runnable {
         }
     }
 
-    public void setWalker(HeroKind heroKind) {
-        this.heroKind = heroKind;
-    }
-
     private void renderGraphics() {
         renderBackGround();
         getCurrentState().render();
@@ -134,5 +117,41 @@ public class GraphicEngine extends JPanel implements Runnable {
         Graphics showInTheScreen = this.getGraphics();
         showInTheScreen.drawImage(image, 0, 0, null);
         showInTheScreen.dispose();
+    }
+
+    public KeyboardInput getKeyboardInput() {
+        return keyboardInput;
+    }
+
+    public MouseInput getMouseInput() {
+        return mouseInput;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public HeroKind getHeroKid() {
+        return heroKind;
+    }
+
+    public void setHeroKid(HeroKind heroKind) {
+        this.heroKind = heroKind;
+    }
+
+    public void goFirstState() {
+        stateManager.goToFirst();
+    }
+
+    public String getHeroName() {
+        return heroName;
+    }
+
+    public void setHeroName(String heroName) {
+        this.heroName = heroName;
     }
 }

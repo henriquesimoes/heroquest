@@ -4,6 +4,7 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.States;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.character.CharacterSelection;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning.GameRunning;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.mapselectionmenu.MapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.mapselectionmenu.StandardMapSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.startmenu.StartMenu;
@@ -24,6 +25,7 @@ public class StateManager {
         states.put(States.MAP_SELECTION, new MapSelection(graphics, graphicEngine));
         states.put(States.LIST_OF_MAPS, new StandardMapSelection(graphics, graphicEngine));
         states.put(States.CHOOSE_CHARACTER, new CharacterSelection(graphics, graphicEngine));
+        states.put(States.GAME_RUNNING, new GameRunning(graphics, graphicEngine));
 
         stack.push(states.get(States.START_MENU));
     }
@@ -40,7 +42,7 @@ public class StateManager {
         stack.pop();
     }
 
-    private void goToFirst() {
+    public void goToFirst() {
         while (stack.size() > 1)
             stack.pop();
     }

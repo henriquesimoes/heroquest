@@ -55,7 +55,7 @@ public class BoxFreeText implements Clickable {
 
         try {
             graphicEngine.setMap(new MapManager().load(text));
-            graphicEngine.setName(nickName);
+            graphicEngine.setHeroName(nickName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
