@@ -59,7 +59,7 @@ public class MapGenerator {
     }
 
     /**
-     * Uses the GridContainer and its inside zones to create map of characters that represents
+     * Uses the GridContainer and its inside zones to create a matrix made of characters that represents
      * structures of the map, like walls and doors.
      * */
     private void createMatrixGrid() {
