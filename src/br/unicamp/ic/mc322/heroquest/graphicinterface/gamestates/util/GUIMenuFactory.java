@@ -9,11 +9,11 @@ import br.unicamp.ic.mc322.heroquest.map.MapManager;
 
 import java.awt.*;
 
-public class MenuGUIManager {
+public class GUIMenuFactory {
     Graphics2D graphics;
     GraphicEngine graphicEngine;
 
-    public MenuGUIManager(Graphics2D graphics, GraphicEngine graphicEngine) {
+    public GUIMenuFactory(Graphics2D graphics, GraphicEngine graphicEngine) {
         this.graphics = graphics;
         this.graphicEngine = graphicEngine;
     }

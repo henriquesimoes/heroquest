@@ -38,10 +38,6 @@ public class GenericButton implements Clickable {
         this.command = command;
     }
 
-    public void executeCommand() {
-        command.execute();
-    }
-
     public void render() {
         renderText();
         renderSelectionBox();
@@ -101,6 +97,6 @@ public class GenericButton implements Clickable {
 
     @Override
     public void executeAction() {
-        executeCommand();
+        command.execute();
     }
 }

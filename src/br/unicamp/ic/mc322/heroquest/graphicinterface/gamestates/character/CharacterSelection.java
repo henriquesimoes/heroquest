@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.MenuGUIManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.GUIMenuFactory;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.Card;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.characterscards.BarbarianChar;
@@ -19,12 +19,12 @@ import java.util.ArrayList;
 public class CharacterSelection implements Renderable {
     private final GameTitle GAME_TITLE;
     private final MenuButton BACK_BUTTON;
-    private MenuGUIManager guiManager;
+    private GUIMenuFactory guiManager;
     private ArrayList<Card> options;
 
     public CharacterSelection(Graphics2D graphics, GraphicEngine graphicEngine) {
         this.options = new ArrayList<>();
-        this.guiManager = new MenuGUIManager(graphics, graphicEngine);
+        this.guiManager = new GUIMenuFactory(graphics, graphicEngine);
         this.GAME_TITLE = guiManager.getGameTitle(200);
         this.BACK_BUTTON = guiManager.getBackButton();
 

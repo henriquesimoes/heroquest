@@ -19,12 +19,8 @@ public class MapListItem extends BoxFreeText implements Clickable {
         this.command = command;
     }
 
-    public void executeCommand() {
-        command.execute();
-    }
-
     @Override
     public void executeAction() {
-        executeCommand();
+        command.execute();
     }
 }
