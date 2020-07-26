@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class ImageLoader {
@@ -17,11 +19,11 @@ public class ImageLoader {
     }
 
     public static BufferedImage readImage(String fileLocation) {
-        String path = getFullName(fileLocation);
+        Path path = getFullName(fileLocation);
         BufferedImage img = null;
 
         try {
-            img = ImageIO.read(new File(path));
+            img = ImageIO.read(new File(path.toUri()));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -31,7 +33,7 @@ public class ImageLoader {
         return img;
     }
 
-    private static String getFullName(String filename) {
-        return BASE_PATH + "/" + filename;
+    private static Path getFullName(String filename) {
+        return Paths.get(BASE_PATH).toAbsolutePath().resolve(filename);
     }
 }
