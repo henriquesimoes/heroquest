@@ -48,7 +48,7 @@ public class BoxFreeText implements Clickable {
 
     @Override
     public State executeAction() {
-        String nickName = JOptionPane.showInputDialog("Choose nickname");
+        String nickName = JOptionPane.showInputDialog("What's your character's name?");
 
         if (nickName == null || nickName.isBlank())
             nickName = "Player";

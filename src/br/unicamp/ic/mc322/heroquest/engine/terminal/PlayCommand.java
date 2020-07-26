@@ -32,7 +32,7 @@ public class PlayCommand implements Command {
         if (choice == 0)
             return;
 
-        String name = io.getStringAnswer("What's your character name? ");
+        String name = io.getStringAnswer("What's your character's name? ");
 
         /*
          * It is needed to use `choice - 1` because the choice index starts in index 1, while
