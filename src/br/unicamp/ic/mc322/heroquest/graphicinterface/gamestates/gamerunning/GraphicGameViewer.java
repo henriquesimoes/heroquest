@@ -32,27 +32,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class GraphicMapViewer implements Renderable, MapViewer {
+public class GraphicGameViewer implements Renderable, MapViewer {
     private final Graphics2D graphics;
     private final char[][] output;
-    HashMap<Character, ArrayList<BufferedImage>> images;
-    int cellHeight, cellWidth;
-    int frame = 0;
-    volatile String messages = "";
-    volatile String status = "";
-    Map map;
-    volatile Coordinate reference;
-    JTextArea textMenu;
-    JTextArea textStatus;
-    volatile boolean waitingCoordinate = false;
-    volatile Coordinate clickedCoordinate;
+    private HashMap<Character, ArrayList<BufferedImage>> images;
+    private int cellHeight, cellWidth;
+    private int frame = 0;
+    private volatile String messages = "";
+    private volatile String status = "";
+    private Map map;
+    private volatile Coordinate reference;
+    private JTextArea textMenu;
+    private JTextArea textStatus;
     private ArrayList<Clickable> options;
     private volatile boolean needUpdateMap;
+    private GraphicIO graphicIO;
 
-    public GraphicMapViewer(Graphics2D graphics, GraphicEngine graphicEngine, Map map) {
+    public GraphicGameViewer(Graphics2D graphics, GraphicEngine graphicEngine, Map map) {
         this.graphics = graphics;
         this.needUpdateMap = false;
         this.map = map;
+        this.options = new ArrayList<>();
+        this.graphicIO = new GraphicIO(graphicEngine.getKeyboardInput(), this);
 
         GameImagesLoader gameImagesLoader = new GameImagesLoader();
         images = gameImagesLoader.getImages();
@@ -60,7 +61,6 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         output = new char[map.getHeight()][map.getWidth()];
         cellHeight = cellWidth = Math.min((GameWindow.WINDOW_WIDTH - 200) / (map.getWidth()), GameWindow.WINDOW_HEIGHT / (map.getHeight()));
 
-        this.options = new ArrayList<>();
 
         for (int i = 0; i < output.length; i++)
             for (int j = 0; j < output[i].length; j++)
@@ -76,25 +76,6 @@ public class GraphicMapViewer implements Renderable, MapViewer {
         textMenu.setLineWrap(true);
         textMenu.setWrapStyleWord(true);
 
-    }
-
-    void changeState(int x, int y) {
-        if (waitingCoordinate) {
-            waitingCoordinate = false;
-            clickedCoordinate = new Coordinate(x, y);
-        }
-    }
-
-    public Coordinate getClickedCoordinate() {
-        waitingCoordinate = true;
-        while (waitingCoordinate) Thread.onSpinWait();
-
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-        return clickedCoordinate;
     }
 
     int getY(int i) {
@@ -285,5 +266,9 @@ public class GraphicMapViewer implements Renderable, MapViewer {
 
     public void clear() {
         messages = "";
+    }
+
+    public GraphicIO getGraphicIO() {
+        return graphicIO;
     }
 }

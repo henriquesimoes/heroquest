@@ -9,11 +9,14 @@ import java.awt.geom.Rectangle2D;
 public class CellMap implements Clickable {
     int x, y;
     Rectangle2D rectangle2D;
-    GraphicMapViewer graphicMapViewer;
+    GraphicGameViewer graphicGameViewer;
+    GraphicIO graphicIO;
 
-    CellMap(GraphicMapViewer graphicMapViewer, int i, int j, int width, int height) {
-        this.graphicMapViewer = graphicMapViewer;
-        rectangle2D = new Rectangle(graphicMapViewer.getX(j), graphicMapViewer.getY(i), width, height);
+    CellMap(GraphicGameViewer graphicGameViewer, int i, int j, int width, int height) {
+        this.graphicGameViewer = graphicGameViewer;
+        this.graphicIO = graphicGameViewer.getGraphicIO();
+
+        rectangle2D = new Rectangle(graphicGameViewer.getX(j), graphicGameViewer.getY(i), width, height);
         this.x = j;
         this.y = i;
     }
@@ -25,7 +28,7 @@ public class CellMap implements Clickable {
 
     @Override
     public States executeAction() {
-        graphicMapViewer.changeState(x, y);
+        graphicIO.changeState(x, y);
         return States.STABLE;
     }
 }

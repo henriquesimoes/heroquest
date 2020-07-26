@@ -3,28 +3,27 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning;
 import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.KeyboardInput;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gameevents.MouseInput;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Direction;
 
 public class GraphicIO implements IOInterface {
-    private final MouseInput mouseInput;
     private final KeyboardInput keyboardInput;
-    private GraphicMapViewer graphicMapViewer;
+    private GraphicGameViewer graphicGameViewer;
+    private volatile boolean waitingCoordinate;
+    private volatile Coordinate clickedCoordinate;
 
-    public GraphicIO(MouseInput mouseInput, KeyboardInput keyboardInput, GraphicMapViewer graphicMapViewer) {
-        this.mouseInput = mouseInput;
+    public GraphicIO(KeyboardInput keyboardInput, GraphicGameViewer graphicGameViewer) {
         this.keyboardInput = keyboardInput;
-        this.graphicMapViewer = graphicMapViewer;
+        this.graphicGameViewer = graphicGameViewer;
     }
 
     void clear() {
-        graphicMapViewer.clear();
+        graphicGameViewer.clear();
     }
 
     void appendMessage(String message) {
-        graphicMapViewer.appendMessage(message);
+        graphicGameViewer.appendMessage(message);
     }
 
     @Override
@@ -71,25 +70,20 @@ public class GraphicIO implements IOInterface {
     }
 
     @Override
-    public String getStringAnswer(String question) {
-        return null;
-    }
-
-    @Override
     public boolean getBooleanAnswer(String question) {
-        appendMessage(question + " (yes / no)\n");
+        appendMessage(question + " (N / y)\n");
         String answer = (keyboardInput.getKey() + "").toUpperCase();
         return answer.equals("Y");
     }
 
     @Override
     public void showMap(Coordinate position) {
-        graphicMapViewer.setNeedUpdateMap(position);
+        graphicGameViewer.setNeedUpdateMap(position);
     }
 
     @Override
     public void showStatus(String message) {
-        graphicMapViewer.setStatus(message);
+        graphicGameViewer.setStatus(message);
     }
 
     @Override
@@ -136,7 +130,7 @@ public class GraphicIO implements IOInterface {
         Coordinate coordinate;
         while (true) {
             appendMessage("Click on a coordinate\n");
-            coordinate = graphicMapViewer.getClickedCoordinate();
+            coordinate = getClickedCoordinate();
             clear();
             for (int i = 0; i < coordinates.length; i++) {
                 if (coordinates[i].equals(coordinate))
@@ -144,5 +138,25 @@ public class GraphicIO implements IOInterface {
             }
             appendMessage("Invalid Coordinate\n");
         }
+    }
+
+
+    void changeState(int x, int y) {
+        if (waitingCoordinate) {
+            waitingCoordinate = false;
+            clickedCoordinate = new Coordinate(x, y);
+        }
+    }
+
+    public Coordinate getClickedCoordinate() {
+        waitingCoordinate = true;
+        while (waitingCoordinate) Thread.onSpinWait();
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        return clickedCoordinate;
     }
 }

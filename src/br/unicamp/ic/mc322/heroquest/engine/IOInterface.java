@@ -13,8 +13,6 @@ public interface IOInterface {
 
     void showError(String message);
 
-    String getStringAnswer(String question);
-
     /**
      * Displays the question to the player and returns their answer.
      *

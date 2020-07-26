@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class GameRunning implements Renderable {
     private Graphics2D graphics;
     private GraphicEngine graphicEngine;
-    private GraphicMapViewer graphicMapViewer;
+    private GraphicGameViewer graphicGameViewer;
     private GameLoop gameLoop;
     private StateManager stateManager;
     private ArrayList<Clickable> clickableZones;
@@ -40,9 +40,9 @@ public class GameRunning implements Renderable {
         HeroKind heroKind = graphicEngine.getHeroKid();
         String name = graphicEngine.getHeroName();
 
-        this.graphicMapViewer = new GraphicMapViewer(graphics, graphicEngine, map);
-        GraphicIO graphicIO = new GraphicIO(graphicEngine.getMouseInput(), graphicEngine.getKeyboardInput(), graphicMapViewer);
-        clickableZones = graphicMapViewer.getClickableZones();
+        this.graphicGameViewer = new GraphicGameViewer(graphics, graphicEngine, map);
+        GraphicIO graphicIO = graphicGameViewer.getGraphicIO();
+        clickableZones = graphicGameViewer.getClickableZones();
 
         Walker player = heroKind.getHero(name, graphicIO);
         map.add(player);
@@ -65,7 +65,7 @@ public class GameRunning implements Renderable {
                 isRunning = false;
                 return;
             }
-            graphicMapViewer.render();
+            graphicGameViewer.render();
         } else {
             isRunning = true;
             create();
