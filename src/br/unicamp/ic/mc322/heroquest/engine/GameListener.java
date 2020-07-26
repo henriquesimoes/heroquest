@@ -6,7 +6,7 @@ public interface GameListener {
 
     void notifyWalkerDeath(Walker walker);
 
-    void notifyWalkerDamage(Walker walker, int damage);
+    void notifyWalkerDamage(Walker walker, String causer, int damage);
 
     void add(Walker walker);
 }

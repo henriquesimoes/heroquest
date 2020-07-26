@@ -128,7 +128,7 @@ public class Map implements GameListener {
     }
 
     @Override
-    public void notifyWalkerDamage(Walker walker, int damage) {
+    public void notifyWalkerDamage(Walker walker, String causer, int damage) {
     }
 
     private void remove(Walker walker) {

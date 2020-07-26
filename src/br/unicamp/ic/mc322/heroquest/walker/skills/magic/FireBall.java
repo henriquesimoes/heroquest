@@ -26,13 +26,13 @@ public class FireBall extends MagicSkill {
     public void useSkill(MapObject targetObject) {
         Walker targetWalker = (Walker) targetObject;
 
-        if (skillUser.attemptMagicalMovement()) {
+        if (tryUseMagicSkill()) {
             WalkerManager targetManager = targetWalker.getManager();
             RegionSelector regionSelector = targetManager.getRegionSelector();
 
             Region region = regionSelector.getAdjacentRegion(false);
 
-            targetWalker.defendFromMagicSkill(DAMAGE_TO_PRIMARY_TARGET);
+            targetWalker.defendFromMagicSkill(skillUser.getName(), DAMAGE_TO_PRIMARY_TARGET);
 
             attacking = true;
             accept(this, region);
@@ -52,7 +52,7 @@ public class FireBall extends MagicSkill {
     @Override
     public void visit(Walker walker) {
         if (attacking)
-            walker.defendFromMagicSkill(ADJACENT_DAMAGE);
+            walker.defendFromMagicSkill(skillUser.getName(), ADJACENT_DAMAGE);
         else if (walker.isEnemy(skillUser))
             targets.add(walker);
     }

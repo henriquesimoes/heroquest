@@ -18,7 +18,7 @@ public abstract class PhysicalSkill extends Skill {
     public void useSkill(MapObject targetObject) {
         Walker targetWalker = (Walker) targetObject;
         int attackIntensity = skillUser.getPhysicalAttackPower(skilledWeapon);
-        targetWalker.defendsPhysicalSkill(attackIntensity);
+        targetWalker.defendsPhysicalSkill(skillUser.getName(), attackIntensity);
         degradeWeaponByUse(skillUser);
     }
 

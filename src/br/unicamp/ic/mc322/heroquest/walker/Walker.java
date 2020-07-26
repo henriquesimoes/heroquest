@@ -84,15 +84,15 @@ public abstract class Walker implements MapObject {
         currentBodyPoints = Math.min(currentBodyPoints + delta, maximumBodyPoints);
     }
 
-    public void decreaseBodyPoints(int delta) {
+    public void decreaseBodyPoints(String causer, int delta) {
         currentBodyPoints = Math.max(currentBodyPoints - delta, 0);
-        notifyDamage(delta);
+        notifyDamage(causer, delta);
         notifyIfIsDead();
     }
 
-    private void defendFromSkill(int attackIntensity, int defenseIntensity) {
+    private void defendFromSkill(String causer, int attackIntensity, int defenseIntensity) {
         int damage = Math.max(attackIntensity - defenseIntensity, 0);
-        decreaseBodyPoints(damage);
+        decreaseBodyPoints(causer, damage);
     }
 
     private int getDefenseIntensity(int numberOfDices) {
@@ -105,21 +105,21 @@ public abstract class Walker implements MapObject {
         return intensity;
     }
 
-    public void defendFromMagicSkill(int attackIntensity) {
+    public void defendFromMagicSkill(String causer, int attackIntensity) {
         int defenseIntensity = getDefenseIntensity(mindPoints);
-        defendFromSkill(attackIntensity, defenseIntensity);
+        defendFromSkill(causer, attackIntensity, defenseIntensity);
     }
 
-    public void defendsPhysicalSkill(int attackIntensity) {
+    public void defendsPhysicalSkill(String causer, int attackIntensity) {
         int defenseIntensity = getDefenseIntensity(defenseDice + bonusDefenseDice);
-        defendFromSkill(attackIntensity, defenseIntensity);
+        defendFromSkill(causer, attackIntensity, defenseIntensity);
         if (armor != null)
             armor.degradeByUse(this);
     }
 
-    private void notifyDamage(int damage) {
+    private void notifyDamage(String causer, int damage) {
         GameMonitor gameMonitor = GameMonitor.getInstance();
-        gameMonitor.notifyDamage(this, damage);
+        gameMonitor.notifyDamage(this, causer, damage);
     }
 
     private void notifyIfIsDead() {
@@ -264,7 +264,7 @@ public abstract class Walker implements MapObject {
         return walkerManager;
     }
 
-    protected String getName() {
+    public String getName() {
         return name;
     }
 

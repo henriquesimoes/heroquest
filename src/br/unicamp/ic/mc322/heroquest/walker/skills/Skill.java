@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 public abstract class Skill implements AbstractMapObjectVisitor, Describable, Comparable {
     protected Walker skillUser;
+    protected WalkerManager walkerManager;
     protected ArrayList<MapObject> targets;
     protected String skillName;
     private String skillDescription;
-    private WalkerManager walkerManager;
     private DisplayTargetsMode displayTargetsMode;
 
     public Skill(String skillName, String skillDescription, DisplayTargetsMode displayTargetsMode) {
