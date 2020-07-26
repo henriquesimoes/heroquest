@@ -1,8 +1,11 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.guitools;
 
+import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class GameImagesLoader {
 
@@ -10,67 +13,36 @@ public class GameImagesLoader {
 
     public GameImagesLoader() {
         images = new HashMap<>();
-        ArrayList<BufferedImage> temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("wizzard_m_idle_anim_f0.png"));
-        temp.add(ImageLoader.readImage("wizzard_m_idle_anim_f1.png"));
-        temp.add(ImageLoader.readImage("wizzard_m_idle_anim_f2.png"));
-        temp.add(ImageLoader.readImage("wizzard_m_idle_anim_f3.png"));
+        HashMap<Character, Pair<String, Integer>> nameSize = new HashMap<>();
 
-        images.put('W', temp);
+        nameSize.put('W', new Pair<>("wizard_f", 4));
+        nameSize.put('E', new Pair<>("elf_f", 4));
+        nameSize.put('B', new Pair<>("knight_f", 4));
+        nameSize.put('S', new Pair<>("skeleton_f", 4));
+        nameSize.put('Ŝ', new Pair<>("skeleton_wizard_f", 4));
+        nameSize.put('G', new Pair<>("goblin_f", 4));
+        nameSize.put('#', new Pair<>("wall_f", 1));
+        nameSize.put('C', new Pair<>("chest_close_f", 1));
+        nameSize.put('c', new Pair<>("chest_open_f", 1));
+        nameSize.put('T', new Pair<>("trap_armed_f", 1));
+        nameSize.put('t', new Pair<>("trap_unarmed_f", 1));
+        nameSize.put(' ', new Pair<>("floor_f", 1));
 
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("elf_m_idle_anim_f0.png"));
-        temp.add(ImageLoader.readImage("elf_m_idle_anim_f1.png"));
-        temp.add(ImageLoader.readImage("elf_m_idle_anim_f2.png"));
-        temp.add(ImageLoader.readImage("elf_m_idle_anim_f3.png"));
-        images.put('E', temp);
+        ArrayList<BufferedImage> temp;
 
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("skelet_idle_anim_f0.png"));
-        temp.add(ImageLoader.readImage("skelet_idle_anim_f1.png"));
-        temp.add(ImageLoader.readImage("skelet_idle_anim_f2.png"));
-        temp.add(ImageLoader.readImage("skelet_idle_anim_f3.png"));
-        images.put('S', temp);
+        for (Map.Entry<Character, Pair<String, Integer>> entry : nameSize.entrySet()) {
+            Character character = entry.getKey();
+            String name = entry.getValue().getFirst();
+            int size = entry.getValue().getSecond();
 
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("orc_shaman_idle_anim_f0.png"));
-        temp.add(ImageLoader.readImage("orc_shaman_idle_anim_f1.png"));
-        temp.add(ImageLoader.readImage("orc_shaman_idle_anim_f2.png"));
-        temp.add(ImageLoader.readImage("orc_shaman_idle_anim_f3.png"));
-        images.put('Ŝ', temp);
+            temp = new ArrayList<>();
 
+            for (int i = 0; i < size; i++)
+                temp.add(ImageLoader.readImage(name + i + ".png"));
 
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("goblin_idle_anim_f0.png"));
-        temp.add(ImageLoader.readImage("goblin_idle_anim_f1.png"));
-        temp.add(ImageLoader.readImage("goblin_idle_anim_f2.png"));
-        temp.add(ImageLoader.readImage("goblin_idle_anim_f3.png"));
-        images.put('G', temp);
+            images.put(character, temp);
+        }
 
-
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("wall_mid.png"));
-        images.put('#', temp);
-
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("chest_full_open_anim_f0.png"));
-        images.put('C', temp);
-
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("chest_empty_open_anim_f2.png"));
-        images.put('c', temp);
-
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("floor_spikes_anim_f0.png"));
-        images.put('t', temp);
-
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("floor_spikes_anim_f3.png"));
-        images.put('T', temp);
-
-        temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("floor_1.png"));
-        images.put(' ', temp);
     }
 
     public HashMap<Character, ArrayList<BufferedImage>> getImages() {
