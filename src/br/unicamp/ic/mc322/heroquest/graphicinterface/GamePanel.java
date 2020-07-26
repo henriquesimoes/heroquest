@@ -20,7 +20,8 @@ public class GamePanel extends JPanel implements Runnable {
     private final Graphics2D graphics;
     private final MouseInput mouseInput;
     private final KeyboardInput keyboardInput;
-    final private StateManager stateManager;
+    private StateManager stateManager;
+    private boolean running;
     private Thread gameThread;
     private Map map;
     private String heroName;
@@ -45,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         this.stateManager = new StateManager(graphics, this);
+        this.stateManager.createStates();
     }
 
     private StateViewer getCurrentState() {
@@ -63,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             if (bounds.contains(mouseCoords.getX(), mouseCoords.getY())) {
                 mouseInput.clear();
-                stateManager.changeState(clickable.executeAction());
+                clickable.executeAction();
             }
         }
     }
@@ -80,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        boolean running = true;
+        running = true;
 
         GameFPSManager fpsController = new GameFPSManager();
 
@@ -111,6 +113,10 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics showInTheScreen = this.getGraphics();
         showInTheScreen.drawImage(image, 0, 0, null);
         showInTheScreen.dispose();
+    }
+
+    public StateManager getStateManager() {
+        return stateManager;
     }
 
     public KeyboardInput getKeyboardInput() {

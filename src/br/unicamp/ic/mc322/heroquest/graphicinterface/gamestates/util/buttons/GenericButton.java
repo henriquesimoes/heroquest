@@ -1,5 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons;
 
+import br.unicamp.ic.mc322.heroquest.engine.Command;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
@@ -7,10 +9,11 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class GenericButton {
+public class GenericButton implements Clickable {
     private final BasicStroke boxStroke;
     private final String innerText;
     private final Graphics2D graphics;
+    private Command command;
     private int selectionBoxWidth;
     private int selectionBoxHeight;
     private Color boxColor;
@@ -27,6 +30,12 @@ public class GenericButton {
         this.boxColor = Color.WHITE;
         this.boxStroke = new BasicStroke(3);
         this.font = new Font("Helvetica", Font.BOLD, 16);
+    }
+
+    public GenericButton(String text, Command command, Graphics2D graphics) {
+        this(text, graphics);
+
+        this.command = command;
     }
 
     public void render() {
@@ -49,9 +58,6 @@ public class GenericButton {
         graphics.draw(boxBounds);
     }
 
-    public Rectangle2D getBoxBounds() {
-        return boxBounds;
-    }
 
     public void setBoxColor(Color color) {
         this.boxColor = color;
@@ -82,5 +88,15 @@ public class GenericButton {
         int y = boxPosition.getY() + selectionBoxHeight - (int) innerTextBounds.getHeight() + 5;
 
         innerTextPosition = new Coordinate(x, y);
+    }
+
+    @Override
+    public Rectangle2D getBounds() {
+        return boxBounds;
+    }
+
+    @Override
+    public void executeAction() {
+        command.execute();
     }
 }

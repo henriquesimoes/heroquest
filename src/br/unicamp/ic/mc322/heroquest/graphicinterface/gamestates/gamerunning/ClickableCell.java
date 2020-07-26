@@ -1,7 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.commands.MapCellClickCommand;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -9,14 +10,13 @@ import java.awt.geom.Rectangle2D;
 public class ClickableCell implements Clickable {
     private final int x, y;
     private final Rectangle2D rectangle2D;
-    private final GraphicIO graphicIO;
+    private MapCellClickCommand cellClickCommand;
 
-    ClickableCell(GraphicGameViewer graphicGameViewer, int i, int j, int width, int height) {
-        this.graphicIO = graphicGameViewer.getGraphicIO();
-
+    ClickableCell(GraphicGameViewer graphicGameViewer, GamePanel gamePanel, int i, int j, int width, int height) {
         rectangle2D = new Rectangle(graphicGameViewer.getX(j), graphicGameViewer.getY(i), width, height);
         this.x = j;
         this.y = i;
+        this.cellClickCommand = new MapCellClickCommand(x, y, graphicGameViewer, gamePanel);
     }
 
     @Override
@@ -25,8 +25,7 @@ public class ClickableCell implements Clickable {
     }
 
     @Override
-    public State executeAction() {
-        graphicIO.changeState(x, y);
-        return State.STABLE;
+    public void executeAction() {
+        cellClickCommand.execute();
     }
 }

@@ -1,8 +1,9 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.characterscards;
 
+import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.Card;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.commands.ChooseCharacterCommand;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageEditor;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageLoader;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroKind;
@@ -18,6 +19,7 @@ public class CharacterCard extends Card {
         super(name, description, graphics);
         this.gamePanel = gamePanel;
         this.heroKind = heroKind;
+        setCommand(new ChooseCharacterCommand(heroKind, gamePanel));
     }
 
     protected void setImage(String spriteSheetName) {
@@ -26,8 +28,7 @@ public class CharacterCard extends Card {
     }
 
     @Override
-    public State executeAction() {
-        gamePanel.setHeroKind(heroKind);
-        return State.GAME_RUNNING;
+    public void executeAction() {
+        executeCommand();
     }
 }

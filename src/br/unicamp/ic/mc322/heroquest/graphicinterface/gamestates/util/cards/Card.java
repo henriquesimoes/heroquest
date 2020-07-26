@@ -1,5 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards;
 
+import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 public abstract class Card implements Clickable {
     Font titleFont;
     Font descriptionFont;
+    private Command command;
     private Graphics2D graphics;
     private BufferedImage imageContent;
     private Rectangle2D boxBounds;
@@ -31,6 +33,14 @@ public abstract class Card implements Clickable {
         this.description = description;
         this.titleFont = new Font("Helvetica", Font.BOLD, 16);
         this.descriptionFont = new Font("Helvetica", Font.BOLD, 14);
+    }
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    public void executeCommand() {
+        command.execute();
     }
 
     public void setImageContent(BufferedImage imageContent) {

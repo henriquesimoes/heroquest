@@ -69,7 +69,7 @@ public class GraphicGameViewer implements StateViewer, MapViewer {
 
         for (int i = 0; i < matrixOut.length; i++)
             for (int j = 0; j < matrixOut[i].length; j++)
-                options.add(new ClickableCell(this, i, j, cellHeight, cellWidth));
+                options.add(new ClickableCell(this, gamePanel, i, j, cellHeight, cellWidth));
 
         textStatus = new JTextArea();
         textStatus.setSize(textWidth - textSpacing, GameWindow.WINDOW_HEIGHT / 7);

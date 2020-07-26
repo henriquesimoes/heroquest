@@ -14,11 +14,17 @@ import java.util.Stack;
 public class StateManager {
     private final HashMap<State, StateViewer> states;
     private Stack<StateViewer> stack;
+    private Graphics2D graphics;
+    private GamePanel gamePanel;
 
     public StateManager(Graphics2D graphics, GamePanel gamePanel) {
         stack = new Stack<>();
         states = new HashMap<>();
+        this.graphics = graphics;
+        this.gamePanel = gamePanel;
+    }
 
+    public void createStates() {
         states.put(State.START_MENU, new StartMenu(graphics, gamePanel));
         states.put(State.MAP_SELECTION, new MapSelection(graphics, gamePanel));
         states.put(State.LIST_OF_MAPS, new StandardMapSelection(graphics, gamePanel));
