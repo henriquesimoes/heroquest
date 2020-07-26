@@ -292,7 +292,13 @@ public class GraphicGameViewer implements StateViewer, MapViewer {
         return graphicIO;
     }
 
-    Coordinate shiftClickedCoordinate(Coordinate clickedCoordinate) {
-        return new Coordinate(reference.getX() - RADIUS + clickedCoordinate.getX(), reference.getY() - RADIUS + clickedCoordinate.getY());
+    /**
+     * Converts the screen relative coordinate to an map coordinate.
+     *
+     * @param coordinate - screen relative coordinate
+     * @return map absolute coordinate
+     */
+    Coordinate convertToMapRelative(Coordinate coordinate) {
+        return Coordinate.shift(reference, - RADIUS + coordinate.getX(),  - RADIUS + coordinate.getY());
     }
 }

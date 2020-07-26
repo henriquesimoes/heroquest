@@ -156,6 +156,6 @@ public class GraphicIO implements IOInterface {
             ex.printStackTrace();
         }
 
-        return graphicGameViewer.shiftClickedCoordinate(clickedCoordinate);
+        return graphicGameViewer.convertToMapRelative(clickedCoordinate);
     }
 }
