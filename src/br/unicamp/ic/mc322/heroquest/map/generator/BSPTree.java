@@ -6,7 +6,19 @@ import br.unicamp.ic.mc322.heroquest.util.tree.Node;
 
 import java.util.ArrayList;
 
+/**
+ * This class defines an algorithm logic based on trees that takes a GridContainer with pre-defined dimensions
+ * and make a binary partition of the container in each iteration, either in horizontal or in vertical, in random
+ * coordinates.
+ * In summary, if you execute n iterations of the split algorithm, you will end up with 2^n zones
+ * on the GridContainer, each one being a new GridContainer.
+ * <p>
+ * There is an exception for the number of zones that you will end up with: when you define a minimum width or height.
+ * That is because a zone with any of its dimensions smaller than the minimum that was defined
+ * won't have its container partitioned in that iteration (which may not be the n-th iteration).
+ */
 class BSPTree {
+
     private final int GRID_MIN_WIDTH = 13;
     private final int GRID_MIN_HEIGHT = 11;
 
@@ -32,6 +44,11 @@ class BSPTree {
         if (numberOfIterations > 0) {
             splitGrid();
 
+            /**
+             * Takes the existent zones (that are also GridContainers) on the original GridContainer
+             * that was provied to this class, creating a new tree as it being the root, what allow us
+             * to run again the BSP algorithm recursively.
+             * */
             if (root.getRightChild() != null) {
                 new BSPTree(root.getLeftChild()).runBSP(numberOfIterations - 1);
                 new BSPTree(root.getRightChild()).runBSP(numberOfIterations - 1);
@@ -39,6 +56,9 @@ class BSPTree {
         }
     }
 
+    /**
+     * @return all the zones inside the original GridContainer after running the BSP algorithm
+     */
     public ArrayList<GridContainer> getPartitionedGrid() {
         ArrayList<GridContainer> partitionedGrid = new ArrayList<>();
 
@@ -104,6 +124,9 @@ class BSPTree {
         return Math.max((splitHorizontally ? GRID_MIN_HEIGHT : GRID_MIN_WIDTH), splitPoint);
     }
 
+    /**
+     * Zones inside the original GridContainer are located in the leaves of the tree
+     */
     private void createPartitions(ArrayList<GridContainer> partitions, Node<GridContainer> node) {
         if (node.isLeaf()) {
             partitions.add(node.getData());

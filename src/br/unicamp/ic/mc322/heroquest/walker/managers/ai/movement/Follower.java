@@ -11,11 +11,13 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.ai.MovementBehavior;
 
 import java.util.ArrayList;
 
+// This class chooses the move that makes the walker closest possible to some enemy
 public class Follower extends MovementBehavior implements AbstractMapObjectVisitor {
     @Override
     protected Coordinate chooseMove(ArrayList<Coordinate> possibleMoves) {
         Coordinate walkerPosition = walkerManager.getWalkerPosition();
         possibleMoves.add(walkerPosition); // insert "stay still" as a move
+
         Region region = walkerManager.getRegionSelector().getVisibleRegion();
         walkerManager.accept(this, region);
 

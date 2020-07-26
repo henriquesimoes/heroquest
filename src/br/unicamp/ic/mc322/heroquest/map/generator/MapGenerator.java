@@ -61,6 +61,10 @@ public class MapGenerator {
         rooms = randomRooms.createRandomRooms();
     }
 
+    /**
+     * Uses the GridContainer and its inside zones to create a matrix made of characters that represents
+     * structures of the map, like walls and doors.
+     */
     private void createMatrixGrid() {
         grid = new char[GRID_HEIGHT][GRID_WIDTH];
 

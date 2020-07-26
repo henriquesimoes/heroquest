@@ -44,6 +44,9 @@ public class UseSkillAIAction extends UseSkillAction {
                 skillWithValidTargets.add(skill);
         }
 
-        return skillWithValidTargets.size() == 0 ? null : walkerAI.getAttackBehavior().chooseSkill(skillWithValidTargets.toArray(new Skill[0]));
+        if (skillWithValidTargets.isEmpty())
+            return null;
+
+        return walkerAI.getAttackBehavior().chooseSkill(skillWithValidTargets.toArray(new Skill[0]));
     }
 }

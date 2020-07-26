@@ -76,6 +76,13 @@ public class TerminalIO implements IOInterface {
         writer.println(message);
     }
 
+    /**
+     * Gets a string answer from the user. This string may contain more than one word.
+     * Moreover, an answer is always a non-blank string.
+     *
+     * @param question - message in which the user will answer
+     * @return non-blank answer
+     */
     public String getStringAnswer(String question) {
         writer.print(question);
         String answer;

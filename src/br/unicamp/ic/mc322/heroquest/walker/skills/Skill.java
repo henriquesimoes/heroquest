@@ -13,12 +13,12 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.player.Describable;
 import java.util.ArrayList;
 
 public abstract class Skill implements AbstractMapObjectVisitor, Describable, Comparable {
+    private final String skillDescription;
+    private final DisplayTargetsMode displayTargetsMode;
     protected Walker skillUser;
     protected WalkerManager walkerManager;
     protected ArrayList<MapObject> targets;
     protected String skillName;
-    private String skillDescription;
-    private DisplayTargetsMode displayTargetsMode;
 
     public Skill(String skillName, String skillDescription, DisplayTargetsMode displayTargetsMode) {
         this.skillName = skillName;
@@ -32,6 +32,12 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable, Co
         this.skillUser = walkerManager.getWalker();
     }
 
+    /**
+     * Defines how a skill is used by the `skillUser` and how it impacts
+     * the chosen target.
+     *
+     * @param targetObject - skill target.
+     */
     public abstract void useSkill(MapObject targetObject);
 
     public String getName() {
@@ -47,7 +53,6 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable, Co
         return displayTargetsMode;
     }
 
-    public abstract void updateTargets();
 
     public MapObject[] getTargets() {
         targets.clear();
@@ -55,8 +60,22 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable, Co
         return targets.toArray(new MapObject[0]);
     }
 
-    protected void accept(AbstractMapObjectVisitor visitor, Region region) {
-        walkerManager.accept(visitor, region);
+    /**
+     * Updates the possible targets to be chosen by the user.
+     */
+    protected abstract void updateTargets();
+
+    /**
+     * Propagates the message that the concrete skill will use the given
+     * region to find its targets in the map.
+     * <p>
+     * The region objects are then accessible by the `visit` methods of
+     * the `AbstractMapObjectVisitor` interface.
+     *
+     * @param region - map region to be visited
+     */
+    protected void use(Region region) {
+        walkerManager.accept(this, region);
     }
 
     protected RegionSelector getUserRegionSelector() {

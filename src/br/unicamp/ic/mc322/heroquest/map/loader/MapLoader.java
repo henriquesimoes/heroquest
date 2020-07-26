@@ -12,8 +12,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
+/**
+ * Handles the disk map loading process.
+ */
 public class MapLoader {
-    // TODO: use application general configuration handler to get resources path.
     private static final String MAPS_PATH = "resources/maps";
     private final Path base;
     private Collection<File> files;
@@ -24,12 +26,22 @@ public class MapLoader {
         readAvailableMapFiles();
     }
 
+    /**
+     * Loads a file from the disk with the given name.
+     *
+     * @param filename - map file name, including extension
+     * @return loaded map
+     * @throws FileNotFoundException file does not exist on the resources folder
+     */
     public Map load(String filename) throws FileNotFoundException {
         File file = getFile(filename);
 
         return load(file);
     }
 
+    /**
+     * @return all map file names available to be loaded
+     */
     public String[] getMapNames() {
         Collection<String> names = new ArrayList<>();
 
@@ -65,6 +77,12 @@ public class MapLoader {
         return file;
     }
 
+    /**
+     * Converts the map from the file to a concrete map object.
+     *
+     * @param scanner - wrapped file
+     * @return file map
+     */
     private Map readMap(Scanner scanner) {
         ArrayList<String> rows = new ArrayList<>();
         while (scanner.hasNext())

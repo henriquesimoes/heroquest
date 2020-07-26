@@ -27,7 +27,9 @@ public class MagicMissile extends MagicSkill {
     @Override
     public void updateTargets() {
         Region region = getUserRegionSelector().getVisibleRegion();
-        accept(this, region);
+
+        // Request to the map to visit the region, and if the visited unit has a walker, then it is a possible target
+        use(region);
     }
 
     @Override

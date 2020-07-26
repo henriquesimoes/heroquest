@@ -35,9 +35,13 @@ public class TerminalMapViewer implements MapViewer {
     @Override
     public void display(Coordinate reference) {
         clear();
+
         RegionSelector regionSelector = map.getRegionSelector();
         Region region = regionSelector.getVisibleRegion(reference);
+
+        // update the map objects only on the visible region
         map.accept(this, region);
+
         print();
     }
 
@@ -57,13 +61,11 @@ public class TerminalMapViewer implements MapViewer {
         builder.append("\n");
 
         for (int dy = 0; dy < map.getHeight(); dy++) {
-            // TODO: encapsulate rows creation
             builder.append(String.format("%2d ", dy));
 
             for (int dx = 0; dx < map.getWidth(); dx++)
                 builder.append(" " + output[dy][dx] + " ");
 
-            // TODO: encapsulate row wrap-up
             builder.append("\n");
         }
 
