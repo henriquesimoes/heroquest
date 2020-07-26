@@ -54,7 +54,7 @@ public class GameRunning implements Renderable {
         this.gameLoop = new GameLoop(map);
         Thread loop = new Thread(gameLoop);
         loop.start();
-        while(!gameLoop.isRunning());
+        while (!gameLoop.isRunning()) ;
     }
 
     @Override

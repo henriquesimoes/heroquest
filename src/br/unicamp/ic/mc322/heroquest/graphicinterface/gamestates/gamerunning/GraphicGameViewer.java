@@ -39,7 +39,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     private char[][] matrixOut;
     private HashMap<Character, ArrayList<BufferedImage>> images;
     private int cellHeight, cellWidth;
-    private int frameImageCurrent, frameCounter, intervalChangeFrame;
+    private int frameCounter;
     private volatile String messages = "";
     private volatile String status = "";
     private Map map;
@@ -58,8 +58,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
         this.map = map;
         this.options = new ArrayList<>();
         this.graphicIO = new GraphicIO(graphicEngine.getKeyboardInput(), this);
-        this.frameImageCurrent = this.frameCounter = 0;
-        this.intervalChangeFrame = 20;
+        this.frameCounter = 0;
 
         GameImagesLoader gameImagesLoader = new GameImagesLoader();
         images = gameImagesLoader.getImages();
@@ -97,10 +96,6 @@ public class GraphicGameViewer implements Renderable, MapViewer {
         frameCounter++;
         if (frameCounter == Integer.MAX_VALUE)
             frameCounter = 0;
-        if (frameCounter % intervalChangeFrame == 0)
-            frameImageCurrent++;
-        if (frameImageCurrent == Integer.MAX_VALUE)
-            frameImageCurrent = 0;
     }
 
     public void render() {
@@ -163,7 +158,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
 
     public BufferedImage getFrame(char c) {
         ArrayList<BufferedImage> frames = images.get(c);
-        return frames.get(frameImageCurrent % frames.size());
+        return frames.get(frameCounter % frames.size());
     }
 
     @Override
