@@ -11,19 +11,43 @@ public class GameImagesLoader {
     public GameImagesLoader() {
         images = new HashMap<>();
         ArrayList<BufferedImage> temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("wizzard_m_idle_anim_f0.png"));
-        temp.add(ImageLoader.readImage("wizzard_m_idle_anim_f1.png"));
-        temp.add(ImageLoader.readImage("wizzard_m_idle_anim_f2.png"));
-        temp.add(ImageLoader.readImage("wizzard_m_idle_anim_f3.png"));
+        temp.add(ImageLoader.readImage("wizard_run_anim_f0.png"));
+        temp.add(ImageLoader.readImage("wizard_run_anim_f0.png"));
+        temp.add(ImageLoader.readImage("wizard_run_anim_f1.png"));
+        temp.add(ImageLoader.readImage("wizard_run_anim_f1.png"));
 
         images.put('W', temp);
 
         temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("elf_m_idle_anim_f0.png"));
-        temp.add(ImageLoader.readImage("elf_m_idle_anim_f1.png"));
-        temp.add(ImageLoader.readImage("elf_m_idle_anim_f2.png"));
-        temp.add(ImageLoader.readImage("elf_m_idle_anim_f3.png"));
+        temp.add(ImageLoader.readImage("dwarf_run_anim_f0.png"));
+        temp.add(ImageLoader.readImage("dwarf_run_anim_f0.png"));
+        temp.add(ImageLoader.readImage("dwarf_run_anim_f1.png"));
+        temp.add(ImageLoader.readImage("dwarf_run_anim_f1.png"));
+
+        images.put('F', temp);
+
+        temp = new ArrayList<>();
+        temp.add(ImageLoader.readImage("barbarian_run_anim_f0.png"));
+        temp.add(ImageLoader.readImage("barbarian_run_anim_f0.png"));
+        temp.add(ImageLoader.readImage("barbarian_run_anim_f1.png"));
+        temp.add(ImageLoader.readImage("barbarian_run_anim_f1.png"));
+
+        images.put('B', temp);
+
+        temp = new ArrayList<>();
+        temp.add(ImageLoader.readImage("elf_run_anim_f0.png"));
+        temp.add(ImageLoader.readImage("elf_run_anim_f0.png"));
+        temp.add(ImageLoader.readImage("elf_run_anim_f1.png"));
+        temp.add(ImageLoader.readImage("elf_run_anim_f1.png"));
+
         images.put('E', temp);
+
+//        temp = new ArrayList<>();
+//        temp.add(ImageLoader.readImage("elf_m_idle_anim_f0.png"));
+//        temp.add(ImageLoader.readImage("elf_m_idle_anim_f1.png"));
+//        temp.add(ImageLoader.readImage("elf_m_idle_anim_f2.png"));
+//        temp.add(ImageLoader.readImage("elf_m_idle_anim_f3.png"));
+//        images.put('E', temp);
 
         temp = new ArrayList<>();
         temp.add(ImageLoader.readImage("skelet_idle_anim_f0.png"));
@@ -51,6 +75,10 @@ public class GameImagesLoader {
         temp = new ArrayList<>();
         temp.add(ImageLoader.readImage("wall_mid.png"));
         images.put('#', temp);
+
+        temp = new ArrayList<>();
+        temp.add(ImageLoader.readImage("door.png"));
+        images.put('D', temp);
 
         temp = new ArrayList<>();
         temp.add(ImageLoader.readImage("chest_full_open_anim_f0.png"));
