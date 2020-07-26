@@ -8,9 +8,7 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameImagesLoader;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.geom.Region;
-import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
+import br.unicamp.ic.mc322.heroquest.map.geom.*;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Trap;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
@@ -37,6 +35,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     private final char[][] mapMatrix;
     private final int textWidth = 200;
     private final int textSpacing = 20;
+    private final int RADIUS;
     private char[][] matrixOut;
     private HashMap<Character, ArrayList<BufferedImage>> images;
     private int cellHeight, cellWidth;
@@ -50,9 +49,9 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     private ArrayList<Clickable> options;
     private volatile boolean needUpdateMap;
     private GraphicIO graphicIO;
-    private int RADIUS = 10;
 
     public GraphicGameViewer(Graphics2D graphics, GraphicEngine graphicEngine, Map map) {
+        this.RADIUS = VisibleRegion.getMaximumVisibilityRadius();
         this.reference = new Coordinate(RADIUS, RADIUS);
         this.graphics = graphics;
         this.needUpdateMap = false;
@@ -170,7 +169,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     @Override
     public void display(Coordinate coordinate) {
         updateMap();
-        matrixOut = CentralizeMatrix.getCentralizeMatrix(mapMatrix, RADIUS, coordinate.getX(), coordinate.getY());
+        matrixOut = Centralizer.getCentralizeMatrix(mapMatrix, RADIUS, coordinate.getX(), coordinate.getY(), '?');
         for (int i = 0; i < matrixOut.length; i++)
             for (int j = 0; j < matrixOut[i].length; j++) {
                 if (images.containsKey(matrixOut[i][j])) {

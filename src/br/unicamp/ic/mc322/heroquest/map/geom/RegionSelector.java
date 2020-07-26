@@ -105,7 +105,7 @@ public class RegionSelector {
      * @return visible region
      */
     public Region getVisibleRegion(Coordinate reference) {
-        return build(new VisibleRegion(reference, map.getWidth(), map.getHeight()), false);
+        return build(new VisibleRegion(reference), false);
     }
 
     /**

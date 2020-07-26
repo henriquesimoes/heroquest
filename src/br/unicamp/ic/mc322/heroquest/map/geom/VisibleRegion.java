@@ -8,17 +8,18 @@ import java.util.Collection;
 /**
  * Region that is seen by something on the reference coordinate.
  */
-class VisibleRegion extends LimitedRegion {
+public class VisibleRegion extends LimitedRegion {
+    private static final int MAXIMUM_VISIBILITY_RADIUS = 10;
     private Collection<Coordinate> obstacles;
 
-    VisibleRegion(Coordinate reference, int mapWidth, int mapHeight) {
-        // maximum visibility radius = 10
-        super(reference, 10);
-
-        // Another constructor for the case that limit not exists
-        //super(reference, mapWidth + mapHeight + 1);
+    VisibleRegion(Coordinate reference) {
+        super(reference, MAXIMUM_VISIBILITY_RADIUS);
 
         obstacles = new ArrayList<>();
+    }
+
+    public static int getMaximumVisibilityRadius() {
+        return MAXIMUM_VISIBILITY_RADIUS;
     }
 
     @Override
