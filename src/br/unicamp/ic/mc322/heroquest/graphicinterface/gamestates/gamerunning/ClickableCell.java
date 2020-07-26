@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -25,8 +25,8 @@ public class ClickableCell implements Clickable {
     }
 
     @Override
-    public States executeAction() {
+    public State executeAction() {
         graphicIO.changeState(x, y);
-        return States.STABLE;
+        return State.STABLE;
     }
 }

@@ -3,8 +3,8 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning;
 import br.unicamp.ic.mc322.heroquest.engine.MapViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameImagesLoader;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class GraphicGameViewer implements Renderable, MapViewer {
+public class GraphicGameViewer implements StateViewer, MapViewer {
     private final Graphics2D graphics;
     private final char[][] mapMatrix;
     private final int textWidth = 200;
@@ -50,14 +50,14 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     private volatile boolean needUpdateMap;
     private GraphicIO graphicIO;
 
-    public GraphicGameViewer(Graphics2D graphics, GraphicEngine graphicEngine, Map map) {
-        this.RADIUS = VisibleRegion.getMaximumVisibilityRadius();
+    public GraphicGameViewer(Graphics2D graphics, GamePanel gamePanel, Map map) {
+        this.RADIUS = VisibleRegion.MAXIMUM_VISIBILITY_RADIUS;
         this.reference = new Coordinate(RADIUS, RADIUS);
         this.graphics = graphics;
         this.needUpdateMap = false;
         this.map = map;
         this.options = new ArrayList<>();
-        this.graphicIO = new GraphicIO(graphicEngine.getKeyboardInput(), this);
+        this.graphicIO = new GraphicIO(gamePanel.getKeyboardInput(), this);
         this.frameCounter = 0;
 
         GameImagesLoader gameImagesLoader = new GameImagesLoader();
@@ -164,7 +164,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     @Override
     public void display(Coordinate coordinate) {
         updateMap();
-        matrixOut = Centralizer.getCentralizeMatrix(mapMatrix, RADIUS, coordinate.getX(), coordinate.getY(), '?');
+        matrixOut = Centralizer.getCentralizedMatrix(mapMatrix, RADIUS, coordinate, '?');
         for (int i = 0; i < matrixOut.length; i++)
             for (int j = 0; j < matrixOut[i].length; j++) {
                 if (images.containsKey(matrixOut[i][j])) {
@@ -287,7 +287,13 @@ public class GraphicGameViewer implements Renderable, MapViewer {
         return graphicIO;
     }
 
-    Coordinate shiftClickedCoordinate(Coordinate clickedCoordinate) {
-        return new Coordinate(reference.getX() - RADIUS + clickedCoordinate.getX(), reference.getY() - RADIUS + clickedCoordinate.getY());
+    /**
+     * Converts the screen relative coordinate to an map coordinate.
+     *
+     * @param coordinate - screen relative coordinate
+     * @return map absolute coordinate
+     */
+    Coordinate convertToMapRelative(Coordinate coordinate) {
+        return Coordinate.shift(reference, - RADIUS + coordinate.getX(),  - RADIUS + coordinate.getY());
     }
 }

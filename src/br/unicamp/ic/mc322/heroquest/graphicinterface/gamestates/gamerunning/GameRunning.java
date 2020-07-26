@@ -4,10 +4,10 @@ import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
 import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.engine.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateManager;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
 import br.unicamp.ic.mc322.heroquest.map.MapPopulator;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
@@ -16,9 +16,9 @@ import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroKind;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GameRunning implements Renderable {
+public class GameRunning implements StateViewer {
     private Graphics2D graphics;
-    private GraphicEngine graphicEngine;
+    private GamePanel gamePanel;
     private GraphicGameViewer graphicGameViewer;
     private GameLoop gameLoop;
     private StateManager stateManager;
@@ -27,20 +27,20 @@ public class GameRunning implements Renderable {
     private boolean isRunning;
     private Walker player;
 
-    public GameRunning(Graphics2D graphics, GraphicEngine graphicEngine, StateManager stateManager) {
+    public GameRunning(Graphics2D graphics, GamePanel gamePanel, StateManager stateManager) {
         this.clickableZones = new ArrayList<>();
         this.graphics = graphics;
-        this.graphicEngine = graphicEngine;
+        this.gamePanel = gamePanel;
         this.stateManager = stateManager;
         this.isRunning = false;
     }
 
     void create() {
-        this.map = graphicEngine.getMap();
-        HeroKind heroKind = graphicEngine.getHeroKind();
-        String name = graphicEngine.getHeroName();
+        this.map = gamePanel.getMap();
+        HeroKind heroKind = gamePanel.getHeroKind();
+        String name = gamePanel.getHeroName();
 
-        this.graphicGameViewer = new GraphicGameViewer(graphics, graphicEngine, map);
+        this.graphicGameViewer = new GraphicGameViewer(graphics, gamePanel, map);
         GraphicIO graphicIO = graphicGameViewer.getGraphicIO();
         clickableZones = graphicGameViewer.getClickableZones();
 
@@ -63,7 +63,7 @@ public class GameRunning implements Renderable {
             if (gameLoop.isRunning()) {
                 graphicGameViewer.render();
             } else {
-                stateManager.changeState(States.GO_TO_FIRST);
+                stateManager.changeState(State.GO_TO_FIRST);
                 GameMonitor.getInstance().unsubscribe(map);
                 isRunning = false;
             }

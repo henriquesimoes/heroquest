@@ -2,8 +2,8 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.selection
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 
 import javax.swing.*;
@@ -16,13 +16,13 @@ public class BoxFreeText implements Clickable {
     private final Graphics2D graphics;
     private final String text;
     private final Font boxFont;
-    private GraphicEngine graphicEngine;
+    private GamePanel gamePanel;
 
     private int boxBoundCoordFixY;
     private int boxBoundCoordFixX;
 
-    public BoxFreeText(String text, Graphics2D graphics, GraphicEngine graphicEngine) {
-        this.graphicEngine = graphicEngine;
+    public BoxFreeText(String text, Graphics2D graphics, GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
         this.graphics = graphics;
         this.text = text;
         this.boxFont = new Font("Helvetica", Font.BOLD, 20);
@@ -47,18 +47,18 @@ public class BoxFreeText implements Clickable {
     }
 
     @Override
-    public States executeAction() {
-        String nickName = JOptionPane.showInputDialog("Choose nickname");
+    public State executeAction() {
+        String nickName = JOptionPane.showInputDialog("What's your character's name?");
 
-        if (nickName == null)
+        if (nickName == null || nickName.isBlank())
             nickName = "Player";
 
         try {
-            graphicEngine.setMap(new MapManager().load(text));
-            graphicEngine.setHeroName(nickName);
+            gamePanel.setMap(new MapManager().load(text));
+            gamePanel.setHeroName(nickName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return States.CHOOSE_CHARACTER;
+        return State.CHOOSE_CHARACTER;
     }
 }

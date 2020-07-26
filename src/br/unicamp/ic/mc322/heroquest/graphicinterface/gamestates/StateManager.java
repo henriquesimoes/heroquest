@@ -1,7 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.character.CharacterSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning.GameRunning;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.mapselectionmenu.MapSelection;
@@ -13,28 +12,28 @@ import java.util.HashMap;
 import java.util.Stack;
 
 public class StateManager {
-    private final HashMap<States, Renderable> states;
-    private Stack<Renderable> stack;
+    private final HashMap<State, StateViewer> states;
+    private Stack<StateViewer> stack;
 
-    public StateManager(Graphics2D graphics, GraphicEngine graphicEngine) {
+    public StateManager(Graphics2D graphics, GamePanel gamePanel) {
         stack = new Stack<>();
         states = new HashMap<>();
 
-        states.put(States.START_MENU, new StartMenu(graphics, graphicEngine));
-        states.put(States.MAP_SELECTION, new MapSelection(graphics, graphicEngine));
-        states.put(States.LIST_OF_MAPS, new StandardMapSelection(graphics, graphicEngine));
-        states.put(States.CHOOSE_CHARACTER, new CharacterSelection(graphics, graphicEngine));
-        states.put(States.GAME_RUNNING, new GameRunning(graphics, graphicEngine, this));
+        states.put(State.START_MENU, new StartMenu(graphics, gamePanel));
+        states.put(State.MAP_SELECTION, new MapSelection(graphics, gamePanel));
+        states.put(State.LIST_OF_MAPS, new StandardMapSelection(graphics, gamePanel));
+        states.put(State.CHOOSE_CHARACTER, new CharacterSelection(graphics, gamePanel));
+        states.put(State.GAME_RUNNING, new GameRunning(graphics, gamePanel, this));
 
-        stack.push(states.get(States.START_MENU));
+        stack.push(states.get(State.START_MENU));
     }
 
-    public Renderable getCurrentState() {
+    public StateViewer getCurrentState() {
         return stack.lastElement();
     }
 
-    private void goTo(States states) {
-        stack.add(this.states.get(states));
+    private void goTo(State state) {
+        stack.add(this.states.get(state));
     }
 
     private void goToPrevState() {
@@ -46,8 +45,8 @@ public class StateManager {
             stack.pop();
     }
 
-    public void changeState(States states) {
-        switch (states) {
+    public void changeState(State state) {
+        switch (state) {
             case STABLE:
                 break;
             case GO_TO_PREV:
@@ -59,7 +58,7 @@ public class StateManager {
             case QUIT:
                 System.exit(0);
             default:
-                goTo(states);
+                goTo(state);
         }
     }
 }

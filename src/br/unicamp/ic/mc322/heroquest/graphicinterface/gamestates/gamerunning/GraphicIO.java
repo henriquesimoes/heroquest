@@ -42,7 +42,7 @@ public class GraphicIO implements IOInterface {
                 clear();
                 if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
                     invalidAnswer = false;
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 clear();
                 appendMessage(String.format("Invalid option\n"));
             }
@@ -156,6 +156,6 @@ public class GraphicIO implements IOInterface {
             ex.printStackTrace();
         }
 
-        return graphicGameViewer.shiftClickedCoordinate(clickedCoordinate);
+        return graphicGameViewer.convertToMapRelative(clickedCoordinate);
     }
 }

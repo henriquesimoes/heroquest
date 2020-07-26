@@ -9,17 +9,13 @@ import java.util.Collection;
  * Region that is seen by something on the reference coordinate.
  */
 public class VisibleRegion extends LimitedRegion {
-    private static final int MAXIMUM_VISIBILITY_RADIUS = 10;
+    public static final int MAXIMUM_VISIBILITY_RADIUS = 10;
     private Collection<Coordinate> obstacles;
 
     VisibleRegion(Coordinate reference) {
         super(reference, MAXIMUM_VISIBILITY_RADIUS);
 
         obstacles = new ArrayList<>();
-    }
-
-    public static int getMaximumVisibilityRadius() {
-        return MAXIMUM_VISIBILITY_RADIUS;
     }
 
     @Override

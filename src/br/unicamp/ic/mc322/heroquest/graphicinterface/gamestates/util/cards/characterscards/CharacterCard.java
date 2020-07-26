@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.characterscards;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.State;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.Card;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageEditor;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageLoader;
@@ -12,11 +12,11 @@ import java.awt.image.BufferedImage;
 
 public class CharacterCard extends Card {
     private HeroKind heroKind;
-    private GraphicEngine graphicEngine;
+    private GamePanel gamePanel;
 
-    public CharacterCard(HeroKind heroKind, String name, String description, Graphics2D graphics, GraphicEngine graphicEngine) {
+    public CharacterCard(HeroKind heroKind, String name, String description, Graphics2D graphics, GamePanel gamePanel) {
         super(name, description, graphics);
-        this.graphicEngine = graphicEngine;
+        this.gamePanel = gamePanel;
         this.heroKind = heroKind;
     }
 
@@ -26,8 +26,8 @@ public class CharacterCard extends Card {
     }
 
     @Override
-    public States executeAction() {
-        graphicEngine.setHeroKind(heroKind);
-        return States.GAME_RUNNING;
+    public State executeAction() {
+        gamePanel.setHeroKind(heroKind);
+        return State.GAME_RUNNING;
     }
 }
