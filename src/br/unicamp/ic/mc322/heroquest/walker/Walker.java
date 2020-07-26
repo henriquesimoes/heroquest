@@ -56,6 +56,10 @@ public abstract class Walker implements MapObject {
         addSkill(fists.getSkills().get(0));
     }
 
+    /**
+     * @return the maximum number of movements the walker
+     * can currently do for walking.
+     */
     public int getPositionLimitInMovement() {
         int numPos = 0;
 
@@ -142,7 +146,7 @@ public abstract class Walker implements MapObject {
     /**
      * Erases the given item from the inventory
      *
-     * @param item item to be removed
+     * @param item - item to be removed
      */
     public void destroyItem(Item item) {
         if (leftWeapon != null && leftWeapon.equals(item))

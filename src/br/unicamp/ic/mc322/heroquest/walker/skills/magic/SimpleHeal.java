@@ -24,9 +24,10 @@ public class SimpleHeal extends MagicSkill {
 
     @Override
     public void updateTargets() {
-        // TODO: discover how to set the distance to catch the visible walkers
         Region region = getUserRegionSelector().getVisibleRegion(false);
-        accept(this, region);
+
+        // Request to the map to visit the region, and if visited unit has a walker, then he is a possible target
+        use(region);
     }
 
     @Override

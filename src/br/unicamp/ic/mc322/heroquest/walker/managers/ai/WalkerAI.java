@@ -35,7 +35,6 @@ public class WalkerAI extends WalkerManager {
 
     @Override
     public void showMessage(String message) {
-
     }
 
     MovementBehavior getMovementBehavior() {

@@ -5,6 +5,9 @@ import br.unicamp.ic.mc322.heroquest.util.pair.Pair;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Region that is seen by something on the reference coordinate.
+ */
 class VisibleRegion extends LimitedRegion {
     private Collection<Coordinate> obstacles;
 

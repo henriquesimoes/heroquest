@@ -5,6 +5,7 @@ import br.unicamp.ic.mc322.heroquest.util.randomizer.Randomizer;
 import br.unicamp.ic.mc322.heroquest.walker.managers.ai.AttackBehavior;
 import br.unicamp.ic.mc322.heroquest.walker.skills.Skill;
 
+// This class chooses to attack an enemy whenever possible
 public class Bloodthirsty extends AttackBehavior {
     @Override
     protected MapObject chooseTarget(MapObject[] targets) {

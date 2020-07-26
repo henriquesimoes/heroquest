@@ -25,14 +25,16 @@ public class Teleport extends MagicSkill {
 
     @Override
     public void updateTargets() {
-        Region region = getUserRegionSelector().getVisibleRegion(true);
+        Region region = getUserRegionSelector().getVisibleRegion(false);
 
-        accept(this, region);
+        // Request to the map to visit the region, and if the visited unit is a walkable, then it is a possible target
+        use(region);
     }
 
     @Override
     public void visit(StructuralObject structuralObject) {
-        targets.add(structuralObject);
+        if (structuralObject.isAllowedToWalkOver())
+            targets.add(structuralObject);
     }
 
     @Override

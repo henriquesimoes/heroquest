@@ -21,8 +21,8 @@ public class Dimension {
      * Creates a new dimension which includes the given position, based
      * on this dimension.
      *
-     * @param position Position to be included
-     * @return New dimension
+     * @param position - position to be included
+     * @return new dimension
      */
     public Dimension fit(Coordinate position) {
         return new Dimension(
@@ -30,6 +30,12 @@ public class Dimension {
                 Math.max(position.getY() + 1, this.getHeight()));
     }
 
+    /**
+     * Creates a coordinate that corresponds to the end coordinate
+     * on the plane by using the origin.
+     *
+     * @return coordinate representation of the dimension
+     */
     public Coordinate toCoordinate() {
         return Coordinate.shift(Coordinate.getOrigin(), width, height);
     }

@@ -5,7 +5,4 @@ public abstract class MoveAction implements Action {
     public String getDescription() {
         return "Execute movement";
     }
-
-    @Override
-    public abstract boolean execute();
 }

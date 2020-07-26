@@ -29,9 +29,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisitor {
-    private IOInterface ioInterface;
-    private Set<MapObject> objectsAdjacent;
-    private Set<HiddenObject> hiddenObjectsDetected;
+    private final IOInterface ioInterface;
+    private final Set<MapObject> objectsAdjacent;
+    private final Set<HiddenObject> hiddenObjectsDetected;
     private boolean playingTurn;
 
     public WalkerPlayer(IOInterface ioInterface) {
@@ -90,47 +90,38 @@ public class WalkerPlayer extends WalkerManager implements ConcreteMapObjectVisi
 
     @Override
     public void visit(Barbarian barbarian) {
-
     }
 
     @Override
     public void visit(Dwarf dwarf) {
-
     }
 
     @Override
     public void visit(Elf elf) {
-
     }
 
     @Override
     public void visit(Wizard wizard) {
-
     }
 
     @Override
     public void visit(WizardSkeleton wizardSkeleton) {
-
     }
 
     @Override
     public void visit(CommonSkeleton commonSkeleton) {
-
     }
 
     @Override
     public void visit(Goblin goblin) {
-
     }
 
     @Override
     public void visit(Floor floor) {
-
     }
 
     @Override
     public void visit(Wall wall) {
-
     }
 
     @Override
