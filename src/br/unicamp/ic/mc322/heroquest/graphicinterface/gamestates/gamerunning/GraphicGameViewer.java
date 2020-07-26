@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning;
 import br.unicamp.ic.mc322.heroquest.engine.MapViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.GameImagesLoader;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
@@ -50,14 +50,14 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     private volatile boolean needUpdateMap;
     private GraphicIO graphicIO;
 
-    public GraphicGameViewer(Graphics2D graphics, GraphicEngine graphicEngine, Map map) {
+    public GraphicGameViewer(Graphics2D graphics, GamePanel gamePanel, Map map) {
         this.RADIUS = VisibleRegion.getMaximumVisibilityRadius();
         this.reference = new Coordinate(RADIUS, RADIUS);
         this.graphics = graphics;
         this.needUpdateMap = false;
         this.map = map;
         this.options = new ArrayList<>();
-        this.graphicIO = new GraphicIO(graphicEngine.getKeyboardInput(), this);
+        this.graphicIO = new GraphicIO(gamePanel.getKeyboardInput(), this);
         this.frameImageCurrent = this.frameCounter = 0;
         this.intervalChangeFrame = 20;
 

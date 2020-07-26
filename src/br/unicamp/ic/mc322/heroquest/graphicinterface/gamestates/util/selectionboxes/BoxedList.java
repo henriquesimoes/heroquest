@@ -2,7 +2,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.selection
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 
@@ -17,13 +17,13 @@ public class BoxedList {
     private final Graphics2D graphics;
     private final BasicStroke boxStroke;
     private final Color boxColor;
-    private final GraphicEngine graphicEngine;
+    private final GamePanel gamePanel;
     private int boxHeightBasedInQuantityOfItems = 0;
     private Coordinate boxPosition;
     private Dimension boxDimension;
 
-    public BoxedList(String[] dataCells, Graphics2D graphics, GraphicEngine graphicEngine) {
-        this.graphicEngine = graphicEngine;
+    public BoxedList(String[] dataCells, Graphics2D graphics, GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
         this.graphics = graphics;
         this.options = new ArrayList<>();
         this.dataCells = dataCells;
@@ -69,7 +69,7 @@ public class BoxedList {
         Rectangle2D itemBounds;
 
         for (String item : dataCells) {
-            BoxFreeText toGraphics = new BoxFreeText(item, graphics, graphicEngine);
+            BoxFreeText toGraphics = new BoxFreeText(item, graphics, gamePanel);
             itemBounds = toGraphics.getBounds();
             boxHeightBasedInQuantityOfItems += itemBounds.getHeight();
 

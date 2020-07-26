@@ -4,7 +4,7 @@ import br.unicamp.ic.mc322.heroquest.engine.GameLevel;
 import br.unicamp.ic.mc322.heroquest.engine.GameLoop;
 import br.unicamp.ic.mc322.heroquest.engine.GameMonitor;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class GameRunning implements Renderable {
     private Graphics2D graphics;
-    private GraphicEngine graphicEngine;
+    private GamePanel gamePanel;
     private GraphicGameViewer graphicGameViewer;
     private GameLoop gameLoop;
     private StateManager stateManager;
@@ -27,20 +27,20 @@ public class GameRunning implements Renderable {
     private boolean isRunning;
     private Walker player;
 
-    public GameRunning(Graphics2D graphics, GraphicEngine graphicEngine, StateManager stateManager) {
+    public GameRunning(Graphics2D graphics, GamePanel gamePanel, StateManager stateManager) {
         this.clickableZones = new ArrayList<>();
         this.graphics = graphics;
-        this.graphicEngine = graphicEngine;
+        this.gamePanel = gamePanel;
         this.stateManager = stateManager;
         this.isRunning = false;
     }
 
     void create() {
-        this.map = graphicEngine.getMap();
-        HeroKind heroKind = graphicEngine.getHeroKid();
-        String name = graphicEngine.getHeroName();
+        this.map = gamePanel.getMap();
+        HeroKind heroKind = gamePanel.getHeroKind();
+        String name = gamePanel.getHeroName();
 
-        this.graphicGameViewer = new GraphicGameViewer(graphics, graphicEngine, map);
+        this.graphicGameViewer = new GraphicGameViewer(graphics, gamePanel, map);
         GraphicIO graphicIO = graphicGameViewer.getGraphicIO();
         clickableZones = graphicGameViewer.getClickableZones();
 

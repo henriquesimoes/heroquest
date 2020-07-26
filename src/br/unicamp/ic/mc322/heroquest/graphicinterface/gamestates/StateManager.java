@@ -1,6 +1,6 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.character.CharacterSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning.GameRunning;
@@ -16,15 +16,15 @@ public class StateManager {
     private final HashMap<States, Renderable> states;
     private Stack<Renderable> stack;
 
-    public StateManager(Graphics2D graphics, GraphicEngine graphicEngine) {
+    public StateManager(Graphics2D graphics, GamePanel gamePanel) {
         stack = new Stack<>();
         states = new HashMap<>();
 
-        states.put(States.START_MENU, new StartMenu(graphics, graphicEngine));
-        states.put(States.MAP_SELECTION, new MapSelection(graphics, graphicEngine));
-        states.put(States.LIST_OF_MAPS, new StandardMapSelection(graphics, graphicEngine));
-        states.put(States.CHOOSE_CHARACTER, new CharacterSelection(graphics, graphicEngine));
-        states.put(States.GAME_RUNNING, new GameRunning(graphics, graphicEngine, this));
+        states.put(States.START_MENU, new StartMenu(graphics, gamePanel));
+        states.put(States.MAP_SELECTION, new MapSelection(graphics, gamePanel));
+        states.put(States.LIST_OF_MAPS, new StandardMapSelection(graphics, gamePanel));
+        states.put(States.CHOOSE_CHARACTER, new CharacterSelection(graphics, gamePanel));
+        states.put(States.GAME_RUNNING, new GameRunning(graphics, gamePanel, this));
 
         stack.push(states.get(States.START_MENU));
     }

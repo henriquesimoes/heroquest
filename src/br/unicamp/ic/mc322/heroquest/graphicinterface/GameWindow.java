@@ -10,7 +10,7 @@ public class GameWindow extends JFrame {
         setTitle("HeroQuest");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(400, 80, WINDOW_WIDTH, WINDOW_HEIGHT);
-        setContentPane(new GraphicEngine());
+        setContentPane(new GamePanel());
 
         setResizable(false);
         setVisible(true);

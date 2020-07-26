@@ -1,7 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.startmenu;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.NewGameButton;
@@ -15,12 +15,12 @@ public class StartMenu implements Renderable {
     private final GameTitle GAME_TITLE;
     private final ArrayList<MenuButton> options;
 
-    public StartMenu(Graphics2D graphics2D, GraphicEngine graphicEngine) {
+    public StartMenu(Graphics2D graphics2D, GamePanel gamePanel) {
         this.options = new ArrayList<>();
         this.GAME_TITLE = new GameTitle(graphics2D, 200);
 
-        options.add(new NewGameButton(graphics2D, graphicEngine));
-        options.add(new QuitButton(graphics2D, graphicEngine));
+        options.add(new NewGameButton(graphics2D, gamePanel));
+        options.add(new QuitButton(graphics2D, gamePanel));
     }
 
     @Override
