@@ -34,7 +34,6 @@ public class KeyboardInput implements KeyListener {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-        System.out.printf("Pressed %c\n", key);
         return key;
     }
 }

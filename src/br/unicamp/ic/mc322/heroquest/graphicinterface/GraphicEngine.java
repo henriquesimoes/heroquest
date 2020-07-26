@@ -117,10 +117,6 @@ public class GraphicEngine extends JPanel implements Runnable {
         return keyboardInput;
     }
 
-    public MouseInput getMouseInput() {
-        return mouseInput;
-    }
-
     public Map getMap() {
         return map;
     }

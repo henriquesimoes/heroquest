@@ -6,14 +6,12 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class CellMap implements Clickable {
-    int x, y;
-    Rectangle2D rectangle2D;
-    GraphicGameViewer graphicGameViewer;
-    GraphicIO graphicIO;
+public class ClickableCell implements Clickable {
+    private final int x, y;
+    private final Rectangle2D rectangle2D;
+    private final GraphicIO graphicIO;
 
-    CellMap(GraphicGameViewer graphicGameViewer, int i, int j, int width, int height) {
-        this.graphicGameViewer = graphicGameViewer;
+    ClickableCell(GraphicGameViewer graphicGameViewer, int i, int j, int width, int height) {
         this.graphicIO = graphicGameViewer.getGraphicIO();
 
         rectangle2D = new Rectangle(graphicGameViewer.getX(j), graphicGameViewer.getY(i), width, height);
