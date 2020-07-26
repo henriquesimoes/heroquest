@@ -156,7 +156,7 @@ public class TerminalIO implements IOInterface {
 
         while (chosenCoordinate == null) {
             String answer = "";
-            writer.print("Type the coordinate of destiny as two numbers separated by spaces or Q to exit: ");
+            writer.print("Type the destination coordinate as two numbers separated by spaces or Q to exit: ");
 
             while (answer.isBlank())
                 answer = reader.nextLine();

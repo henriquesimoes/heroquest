@@ -7,7 +7,7 @@ import br.unicamp.ic.mc322.heroquest.walker.skills.DisplayTargetsMode;
 import br.unicamp.ic.mc322.heroquest.walker.skills.PhysicalSkill;
 
 public class ThrowProjectileAttack extends PhysicalSkill {
-    private static final String DESCRIPTION = "Throw a project at the enemy";
+    private static final String DESCRIPTION = "Throws a projectile at the enemy";
 
     public ThrowProjectileAttack(String skillName, Weapon skilledWeapon) {
         super(skillName, DESCRIPTION, DisplayTargetsMode.SHOW_OPTIONS, skilledWeapon);

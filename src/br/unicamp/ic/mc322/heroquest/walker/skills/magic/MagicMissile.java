@@ -10,7 +10,7 @@ public class MagicMissile extends MagicSkill {
     private static final int TOTAL_DAMAGE = 6;
 
     public MagicMissile() {
-        super("Magic Missile",
+        super("Magic missile",
                 "Three magic arrows are thrown against the target," +
                         " with " + TOTAL_DAMAGE / 3 + " damage each", DisplayTargetsMode.SHOW_OPTIONS);
     }

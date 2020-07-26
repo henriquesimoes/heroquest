@@ -11,7 +11,7 @@ import br.unicamp.ic.mc322.heroquest.walker.skills.MagicSkill;
 public class Teleport extends MagicSkill {
     public Teleport() {
         super("Teleport",
-                "The hero or the monster teleports to a visible position", DisplayTargetsMode.GET_COORDINATE);
+                "The character teleports to a visible position", DisplayTargetsMode.GET_COORDINATE);
     }
 
     @Override
