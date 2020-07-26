@@ -29,7 +29,7 @@ public class GenerateRandomMapCommand implements Command {
             nickName = "Player";
 
         gamePanel.setMap(new MapManager().generate());
-        gamePanel.setName(nickName);
+        gamePanel.setHeroName(nickName);
         stateManager.changeState(State.CHOOSE_CHARACTER);
     }
 }
