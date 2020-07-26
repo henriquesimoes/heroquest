@@ -8,10 +8,10 @@ import br.unicamp.ic.mc322.heroquest.map.MapManager;
 
 import javax.swing.*;
 
-public class RandomMapGeneratorCommand implements Command {
+public class GenerateRandomMapCommand implements Command {
     private GraphicEngine graphicEngine;
 
-    public RandomMapGeneratorCommand(GraphicEngine graphicEngine) {
+    public GenerateRandomMapCommand(GraphicEngine graphicEngine) {
         this.graphicEngine = graphicEngine;
     }
 
