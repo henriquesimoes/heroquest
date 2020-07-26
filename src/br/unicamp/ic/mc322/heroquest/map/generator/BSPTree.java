@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * In summary, if you execute n iterations of the split algorithm, you will end up with 2^n zones
  * on the GridContainer, each one being a new GridContainer.
  *
- * There is an exception for the number of zones that you will end up with, case you define a minimum width/height,
- * because if a zone have dimensions smaller then the minimum that was defined, while running the split algorithm,
- * the partition of the container isn't made in that iteration.
+ * There is an exception for the number of zones that you will end up with: when you define a minimum width or height.
+ * That is because a zone with any of its dimensions smaller than the minimum that was defined
+ * won't have its container partitioned in that iteration (which may not be the n-th iteration).
  * */
 class BSPTree {
 
