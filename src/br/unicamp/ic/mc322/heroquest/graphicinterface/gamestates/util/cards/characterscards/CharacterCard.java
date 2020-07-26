@@ -12,13 +12,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class CharacterCard extends Card {
-    private HeroKind heroKind;
-    private GamePanel gamePanel;
 
     public CharacterCard(HeroKind heroKind, String name, String description, Graphics2D graphics, GamePanel gamePanel) {
         super(name, description, graphics);
-        this.gamePanel = gamePanel;
-        this.heroKind = heroKind;
         setCommand(new ChooseCharacterCommand(heroKind, gamePanel));
     }
 

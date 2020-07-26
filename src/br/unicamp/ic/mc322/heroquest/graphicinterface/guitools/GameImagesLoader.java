@@ -14,10 +14,10 @@ public class GameImagesLoader {
         images = new HashMap<>();
         HashMap<Character, Pair<String, Integer>> nameSize = new HashMap<>();
 
-        nameSize.put('W', new Pair<>("wizard_f", 4));
-        nameSize.put('E', new Pair<>("elf_f", 4));
-        nameSize.put('B', new Pair<>("knight_f", 4));
-        nameSize.put('F', new Pair<>("dwarf_f", 4));
+        nameSize.put('W', new Pair<>("wizard_front_f", 3));
+        nameSize.put('E', new Pair<>("elf_front_f", 3));
+        nameSize.put('B', new Pair<>("barbarian_front_f", 3));
+        nameSize.put('F', new Pair<>("dwarf_front_f", 3));
         nameSize.put('S', new Pair<>("skeleton_f", 4));
         nameSize.put('Ŝ', new Pair<>("skeleton_wizard_f", 4));
         nameSize.put('G', new Pair<>("goblin_f", 4));

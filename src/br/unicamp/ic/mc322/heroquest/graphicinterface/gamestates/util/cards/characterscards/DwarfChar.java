@@ -8,7 +8,7 @@ import java.awt.*;
 public class DwarfChar extends CharacterCard {
     private final static HeroKind HERO_KIND = HeroKind.DWARF;
     private final static String DESCRIPTION = "A powerful small guy";
-    private final String SPRITESHEET_NAME = "dwarf_front.png";
+    private final String SPRITESHEET_NAME = "dwarf_front_f0.png";
 
     public DwarfChar(Graphics2D graphics, GamePanel gamePanel) {
         super(HERO_KIND, HERO_KIND.toString(), DESCRIPTION, graphics, gamePanel);
