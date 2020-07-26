@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.map.geom;
 
 public class Dimension {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     public Dimension(int width, int height) {
         this.width = width;

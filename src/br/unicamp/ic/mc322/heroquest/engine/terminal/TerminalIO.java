@@ -42,7 +42,7 @@ public class TerminalIO implements IOInterface {
                     invalidAnswer = false;
             } catch (InputMismatchException e) {
                 reader.nextLine();
-                writer.printf("Invalid option");
+                writer.print("Invalid option");
             }
 
             writer.println();
@@ -76,7 +76,13 @@ public class TerminalIO implements IOInterface {
         writer.println(message);
     }
 
-    @Override
+    /**
+     * Gets a string answer from the user. This string may contain more than one word.
+     * Moreover, an answer is always a non-blank string.
+     *
+     * @param question - message in which the user will answer
+     * @return non-blank answer
+     */
     public String getStringAnswer(String question) {
         writer.print(question);
         String answer;
@@ -102,6 +108,11 @@ public class TerminalIO implements IOInterface {
     @Override
     public void showMap(Coordinate position) {
         viewer.display(position);
+    }
+
+    @Override
+    public void showStatus(String messsage) {
+        showMessage(messsage);
     }
 
     @Override

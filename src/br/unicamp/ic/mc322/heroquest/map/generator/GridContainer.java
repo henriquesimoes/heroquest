@@ -9,8 +9,8 @@ import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
  */
 
 class GridContainer {
-    private Dimension dimension;
-    private Coordinate topLeftCoordinate;
+    private final Dimension dimension;
+    private final Coordinate topLeftCoordinate;
 
     public GridContainer(int dimensionX, int dimensionY, int coordinateX, int coordinateY) {
         this.dimension = new Dimension(dimensionX, dimensionY);

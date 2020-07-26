@@ -18,7 +18,7 @@ public class Trap extends FixedObject implements HiddenObject {
         if (armed) {
             armed = false;
             discovered = true;
-            agent.decreaseBodyPoints(1);
+            agent.decreaseBodyPoints("Trap", 1);
         }
     }
 

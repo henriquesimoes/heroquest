@@ -11,8 +11,10 @@ import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 
-public class GameLoop implements GameListener, AbstractMapObjectVisitor {
-    private LinkedHashMap<Team, HashSet<WalkerManager>> managersByTeam, managersAliveByTeam;
+public class GameLoop implements GameListener, AbstractMapObjectVisitor, Runnable {
+    private final LinkedHashMap<Team, HashSet<WalkerManager>> managersByTeam;
+    private final LinkedHashMap<Team, HashSet<WalkerManager>> managersAliveByTeam;
+    private volatile boolean running = false;
 
     public GameLoop(Map map) {
         this.managersByTeam = new LinkedHashMap<>();
@@ -32,7 +34,7 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
     }
 
     public void run() {
-        boolean running = true;
+        running = true;
         while (running) {
             playTurn();
             if (isEndGame())
@@ -52,14 +54,14 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
     }
 
     @Override
-    public void notifyWalkerDamage(Walker targetWalker, int damage) {
+    public void notifyWalkerDamage(Walker targetWalker, String causer, int damage) {
         WalkerManager targetWalkerManager = targetWalker.getManager();
         String message;
 
         if (damage == 0)
-            message = String.format("%s defended with success", targetWalkerManager.getWalkerName());
+            message = String.format("%s successfully defended from the damage caused by %s", targetWalkerManager.getWalkerName(), causer);
         else
-            message = String.format("%s suffered %d of damage", targetWalkerManager.getWalkerName(), damage);
+            message = String.format("%s suffered %d of damage due to %s", targetWalkerManager.getWalkerName(), damage, causer);
 
         notifyAllWalkers(message);
     }
@@ -132,5 +134,9 @@ public class GameLoop implements GameListener, AbstractMapObjectVisitor {
         GameMonitor monitor = GameMonitor.getInstance();
 
         monitor.unsubscribe(this);
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Set;
 
 // This class discovers hidden objects that are at a (Manhattan) distance of up to three units
 public class SearchPlayerAction implements Action {
-    private WalkerPlayer walkerPlayer;
+    private final WalkerPlayer walkerPlayer;
 
     SearchPlayerAction(WalkerPlayer walkerPlayer) {
         this.walkerPlayer = walkerPlayer;

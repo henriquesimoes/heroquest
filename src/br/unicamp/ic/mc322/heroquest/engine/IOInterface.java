@@ -40,15 +40,6 @@ public interface IOInterface {
     void showError(String message);
 
     /**
-     * Gets a string answer from the user. This string may contain more than one word.
-     * Moreover, an answer is always a non-blank string.
-     *
-     * @param question - message in which the user will answer
-     * @return non-blank answer
-     */
-    String getStringAnswer(String question);
-
-    /**
      * Displays the question to the player and returns their answer.
      *
      * @param question - boolean answerable question
@@ -64,6 +55,8 @@ public interface IOInterface {
      *                 to be displayed.
      */
     void showMap(Coordinate position);
+
+    void showStatus(String message);
 
     /**
      * Defines the map to be display along with the messages

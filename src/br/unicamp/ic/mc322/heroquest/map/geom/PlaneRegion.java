@@ -5,7 +5,7 @@ package br.unicamp.ic.mc322.heroquest.map.geom;
  * over a map, reducing the need of nested loops over coordinates.
  */
 class PlaneRegion extends Region {
-    private Coordinate end;
+    private final Coordinate end;
 
     PlaneRegion(Coordinate start, Coordinate end) {
         super(start);

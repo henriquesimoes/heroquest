@@ -16,9 +16,9 @@ public abstract class Skill implements AbstractMapObjectVisitor, Describable, Co
     private final String skillDescription;
     private final DisplayTargetsMode displayTargetsMode;
     protected Walker skillUser;
+    protected WalkerManager walkerManager;
     protected ArrayList<MapObject> targets;
     protected String skillName;
-    private WalkerManager walkerManager;
 
     public Skill(String skillName, String skillDescription, DisplayTargetsMode displayTargetsMode) {
         this.skillName = skillName;

@@ -6,7 +6,7 @@ import br.unicamp.ic.mc322.heroquest.walker.items.armors.ChainMail;
 import br.unicamp.ic.mc322.heroquest.walker.items.armors.CloakOfProtection;
 
 public abstract class Armor extends DurableItem {
-    private int defenseBonus;
+    private final int defenseBonus;
 
     protected Armor(String itemName, String itemDescription, int defenseBonus, int durability, int goldCoinsValue, DurableItemClass durableItemClass) {
         super(itemName, itemDescription, durability, goldCoinsValue, durableItemClass);

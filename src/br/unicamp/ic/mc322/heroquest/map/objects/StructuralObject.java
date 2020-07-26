@@ -5,7 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
 public abstract class StructuralObject implements MapObject {
-    private Coordinate position;
+    private final Coordinate position;
 
     public StructuralObject(Coordinate coordinate) {
         this.position = coordinate;

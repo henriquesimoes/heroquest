@@ -9,8 +9,8 @@ import br.unicamp.ic.mc322.heroquest.map.loader.CorruptedConfigurationFileExcept
 import java.io.FileNotFoundException;
 
 public class ChooseMapCommand implements Command {
-    private IOInterface io;
-    private TerminalEngine engine;
+    private final IOInterface io;
+    private final TerminalEngine engine;
 
     public ChooseMapCommand(TerminalEngine engine, IOInterface io) {
         this.engine = engine;

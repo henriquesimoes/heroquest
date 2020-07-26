@@ -3,9 +3,7 @@ package br.unicamp.ic.mc322.heroquest.engine.terminal;
 import br.unicamp.ic.mc322.heroquest.engine.MapViewer;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 import br.unicamp.ic.mc322.heroquest.map.core.MapObject;
-import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
-import br.unicamp.ic.mc322.heroquest.map.geom.Region;
-import br.unicamp.ic.mc322.heroquest.map.geom.RegionSelector;
+import br.unicamp.ic.mc322.heroquest.map.geom.*;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Chest;
 import br.unicamp.ic.mc322.heroquest.map.objects.fixed.Trap;
 import br.unicamp.ic.mc322.heroquest.map.objects.structural.Door;
@@ -23,13 +21,15 @@ import br.unicamp.ic.mc322.heroquest.walker.monsters.WizardSkeleton;
 import java.util.Arrays;
 
 public class TerminalMapViewer implements MapViewer {
-    private Map map;
-    private char[][] output;
+    private final Map map;
+    private final char[][] visibleMap;
+    private final int visibilityRadius;
 
     public TerminalMapViewer(Map map) {
         this.map = map;
+        this.visibilityRadius = VisibleRegion.MAXIMUM_VISIBILITY_RADIUS;
 
-        output = new char[map.getHeight()][map.getWidth()];
+        visibleMap = new char[map.getHeight()][map.getWidth()];
     }
 
     @Override
@@ -42,28 +42,28 @@ public class TerminalMapViewer implements MapViewer {
         // update the map objects only on the visible region
         map.accept(this, region);
 
-        print();
+        print(reference);
     }
 
     private void clear() {
-        for (int i = 0; i < output.length; i++)
-            Arrays.fill(output[i], '?');
+        for (char[] chars : visibleMap)
+            Arrays.fill(chars, '?');
     }
 
-    private void print() {
+    private void print(Coordinate reference) {
         StringBuilder builder = new StringBuilder();
-
+        char[][] output = getCentralizedMatrix(reference);
         builder.append("  ");
 
-        for (int dx = 0; dx < map.getWidth(); dx++)
-            builder.append(String.format("%3d", dx));
+        for (int dx = 0; dx < output[0].length; dx++)
+            builder.append(String.format("%3d", dx + reference.getX() - visibilityRadius));
 
         builder.append("\n");
 
-        for (int dy = 0; dy < map.getHeight(); dy++) {
-            builder.append(String.format("%2d ", dy));
+        for (int dy = 0; dy < output.length; dy++) {
+            builder.append(String.format("%2d ", dy + reference.getY() - visibilityRadius));
 
-            for (int dx = 0; dx < map.getWidth(); dx++)
+            for (int dx = 0; dx < output[dy].length; dx++)
                 builder.append(" " + output[dy][dx] + " ");
 
             builder.append("\n");
@@ -76,7 +76,29 @@ public class TerminalMapViewer implements MapViewer {
 
     private void setSymbol(MapObject object, char representation) {
         Coordinate coordinate = object.getPosition();
-        output[coordinate.getY()][coordinate.getX()] = representation;
+        visibleMap[coordinate.getY()][coordinate.getX()] = representation;
+    }
+
+    /**
+     * Returns a map representation centralized on the given reference point.
+     *
+     * @param reference center point
+     * @return
+     */
+    private char[][] getCentralizedMatrix(Coordinate reference) {
+        char[][] result = new char[2 * visibilityRadius + 1][2 * visibilityRadius + 1];
+
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[i].length; j++) {
+                int x = reference.getX() - visibilityRadius + j;
+                int y = reference.getY() - visibilityRadius + i;
+                if (x >= 0 && y >= 0 && x < visibleMap[0].length && y < visibleMap.length)
+                    result[i][j] = visibleMap[y][x];
+                else
+                    result[i][j] = '?';
+            }
+        }
+        return result;
     }
 
     @Override

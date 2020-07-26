@@ -16,9 +16,10 @@ public interface GameListener {
      * Notifies all listeners the damage the walker has suffered.
      *
      * @param walker - walker that suffered the damage
+     * @param causer - causer name
      * @param damage - damage value
      */
-    void notifyWalkerDamage(Walker walker, int damage);
+    void notifyWalkerDamage(Walker walker, String causer, int damage);
 
     /**
      * Adds a new walker into the game.

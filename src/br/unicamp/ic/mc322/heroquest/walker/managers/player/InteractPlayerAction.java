@@ -8,7 +8,7 @@ import java.util.Set;
 
 // This class allows the interaction with fixed objects in adjacent positions
 public class InteractPlayerAction implements Action {
-    private WalkerPlayer walkerPlayer;
+    private final WalkerPlayer walkerPlayer;
 
     InteractPlayerAction(WalkerPlayer walkerPlayer) {
         this.walkerPlayer = walkerPlayer;

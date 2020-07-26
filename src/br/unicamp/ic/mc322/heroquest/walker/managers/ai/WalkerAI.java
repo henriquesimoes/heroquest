@@ -5,8 +5,8 @@ import br.unicamp.ic.mc322.heroquest.walker.WalkerManager;
 import br.unicamp.ic.mc322.heroquest.walker.managers.Action;
 
 public class WalkerAI extends WalkerManager {
-    private MovementBehavior movementBehavior;
-    private AttackBehavior attackBehavior;
+    private final MovementBehavior movementBehavior;
+    private final AttackBehavior attackBehavior;
 
     public WalkerAI(MovementBehavior movementBehavior, AttackBehavior attackBehavior) {
         this.movementBehavior = movementBehavior;

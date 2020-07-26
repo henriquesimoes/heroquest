@@ -8,7 +8,7 @@ import br.unicamp.ic.mc322.heroquest.walker.managers.MoveAction;
 import java.util.ArrayList;
 
 public class MoveAIAction extends MoveAction {
-    private WalkerAI walkerAI;
+    private final WalkerAI walkerAI;
 
     MoveAIAction(WalkerAI walkerAI) {
         this.walkerAI = walkerAI;

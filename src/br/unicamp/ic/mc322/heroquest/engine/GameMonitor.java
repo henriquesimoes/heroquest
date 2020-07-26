@@ -32,9 +32,9 @@ public class GameMonitor {
             listener.notifyWalkerDeath(walker);
     }
 
-    public void notifyDamage(Walker walker, int damage) {
+    public void notifyDamage(Walker walker, String causer, int damage) {
         for (GameListener listener : listeners)
-            listener.notifyWalkerDamage(walker, damage);
+            listener.notifyWalkerDamage(walker, causer, damage);
     }
 
     /**

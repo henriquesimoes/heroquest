@@ -6,8 +6,8 @@ import br.unicamp.ic.mc322.heroquest.map.MapManager;
 import br.unicamp.ic.mc322.heroquest.map.core.Map;
 
 public class GenerateMapCommand implements Command {
-    private TerminalEngine engine;
-    private IOInterface io;
+    private final TerminalEngine engine;
+    private final IOInterface io;
 
     public GenerateMapCommand(TerminalEngine engine, IOInterface io) {
         this.engine = engine;
