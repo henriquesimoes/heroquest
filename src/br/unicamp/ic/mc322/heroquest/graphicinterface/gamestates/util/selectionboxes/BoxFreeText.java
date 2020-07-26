@@ -50,7 +50,7 @@ public class BoxFreeText implements Clickable {
     public State executeAction() {
         String nickName = JOptionPane.showInputDialog("Choose nickname");
 
-        if (nickName == null)
+        if (nickName == null || nickName.isBlank())
             nickName = "Player";
 
         try {
