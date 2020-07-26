@@ -125,7 +125,7 @@ class BSPTree {
     }
 
     /**
-     * Zones inside the original GridContainer is located in the leaves of the tree
+     * Zones inside the original GridContainer are located in the leaves of the tree
      * */
     private void createPartitions(ArrayList<GridContainer> partitions, Node<GridContainer> node) {
         if (node.isLeaf()) {
