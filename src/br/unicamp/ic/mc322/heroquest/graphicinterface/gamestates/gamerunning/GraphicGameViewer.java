@@ -127,7 +127,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
                 Arrays.fill(chars, '?');
 
             RegionSelector regionSelector = map.getRegionSelector();
-            Region region = regionSelector.getVisibleRegion(reference, false);
+            Region region = regionSelector.getVisibleRegion(reference);
             map.accept(this, region);
             needUpdateMap = false;
         }

@@ -36,7 +36,7 @@ public class TerminalMapViewer implements MapViewer {
     public void display(Coordinate reference) {
         clear();
         RegionSelector regionSelector = map.getRegionSelector();
-        Region region = regionSelector.getVisibleRegion(reference, false);
+        Region region = regionSelector.getVisibleRegion(reference);
         map.accept(this, region);
         print();
     }
