@@ -7,7 +7,7 @@ import br.unicamp.ic.mc322.heroquest.util.tree.Node;
 import java.util.ArrayList;
 
 /**
- * An algorithm logic based on trees that takes a GridContainer with pre-defined dimensions
+ * This class defines an algorithm logic based on trees that takes a GridContainer with pre-defined dimensions
  * and make a binary partition of the container in each iteration, either in horizontal or in vertical, in random
  * coordinates.
  * In summary, if you execute n iterations of the split algorithm, you will end up with 2^n zones
