@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards;
 
 import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.GenericButton;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 
 import java.awt.*;

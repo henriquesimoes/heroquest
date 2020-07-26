@@ -3,7 +3,8 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.mapselectionme
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.BackButton;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.MenuGUIManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.gametitle.GameTitle;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.selectionboxes.BoxedMapList;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
@@ -12,18 +13,18 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class StandardMapSelection implements Renderable {
+    private MenuGUIManager guiManager;
+    private MapManager mapManager;
     private final GameTitle GAME_TITLE;
     private final BoxedMapList LIST_OF_MAPS;
-    private final BackButton BACK_BUTTON;
-    private MapManager mapManager;
-    private GraphicEngine graphicEngine;
+    private final MenuButton BACK_BUTTON;
 
     public StandardMapSelection(Graphics2D graphics, GraphicEngine graphicEngine) {
-        this.graphicEngine = graphicEngine;
         this.mapManager = new MapManager();
-        this.LIST_OF_MAPS = new BoxedMapList(mapManager.getExistingMapNames(), graphics, graphicEngine);
-        this.GAME_TITLE = new GameTitle(graphics, 200);
-        this.BACK_BUTTON = new BackButton(graphics, graphicEngine);
+        this.guiManager = new MenuGUIManager(graphics, graphicEngine);
+        this.LIST_OF_MAPS = guiManager.getBoxedMapList(this.mapManager);
+        this.GAME_TITLE = guiManager.getGameTitle(200);
+        this.BACK_BUTTON = guiManager.getBackButton();
     }
 
     @Override

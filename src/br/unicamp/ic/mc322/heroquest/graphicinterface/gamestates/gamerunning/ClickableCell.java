@@ -1,9 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning;
 
-import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.commands.MapCellClickCommand;
 
 import java.awt.*;

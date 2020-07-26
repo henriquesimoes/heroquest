@@ -4,7 +4,8 @@ import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.BackButton;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.MenuGUIManager;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.Card;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.characterscards.BarbarianChar;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.characterscards.DwarfChar;
@@ -17,15 +18,16 @@ import java.util.ArrayList;
 
 public class CharacterSelection implements Renderable {
     private final GameTitle GAME_TITLE;
-    private final BackButton BACK_BUTTON;
-    Graphics2D graphics;
-    ArrayList<Card> options;
+    private final MenuButton BACK_BUTTON;
+    private MenuGUIManager guiManager;
+    private ArrayList<Card> options;
 
     public CharacterSelection(Graphics2D graphics, GraphicEngine graphicEngine) {
-        this.graphics = graphics;
         this.options = new ArrayList<>();
-        this.GAME_TITLE = new GameTitle(graphics, 200);
-        this.BACK_BUTTON = new BackButton(graphics, graphicEngine);
+        this.guiManager = new MenuGUIManager(graphics, graphicEngine);
+        this.GAME_TITLE = guiManager.getGameTitle(200);
+        this.BACK_BUTTON = guiManager.getBackButton();
+
         options.add(new BarbarianChar(graphics, graphicEngine));
         options.add(new DwarfChar(graphics, graphicEngine));
         options.add(new ElfChar(graphics, graphicEngine));

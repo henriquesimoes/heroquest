@@ -32,7 +32,9 @@ public class GenericButton implements Clickable {
         this.font = new Font("Helvetica", Font.BOLD, 16);
     }
 
-    public void setCommand(Command command) {
+    public GenericButton(String text, Command command, Graphics2D graphics) {
+        this(text, graphics);
+
         this.command = command;
     }
 

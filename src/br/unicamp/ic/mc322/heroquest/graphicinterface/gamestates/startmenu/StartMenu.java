@@ -3,9 +3,8 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.startmenu;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.MenuGUIManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.NewGameButton;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.QuitButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.gametitle.GameTitle;
 
 import java.awt.*;
@@ -14,13 +13,16 @@ import java.util.ArrayList;
 public class StartMenu implements Renderable {
     private final GameTitle GAME_TITLE;
     private final ArrayList<MenuButton> options;
+    private MenuGUIManager guiManager;
 
     public StartMenu(Graphics2D graphics2D, GraphicEngine graphicEngine) {
         this.options = new ArrayList<>();
-        this.GAME_TITLE = new GameTitle(graphics2D, 200);
+        this.guiManager = new MenuGUIManager(graphics2D, graphicEngine);
 
-        options.add(new NewGameButton(graphics2D, graphicEngine));
-        options.add(new QuitButton(graphics2D, graphicEngine));
+        this.GAME_TITLE = guiManager.getGameTitle(200);
+
+        options.add(guiManager.getNewGameButton());
+        options.add(guiManager.getQuitButton());
     }
 
     @Override

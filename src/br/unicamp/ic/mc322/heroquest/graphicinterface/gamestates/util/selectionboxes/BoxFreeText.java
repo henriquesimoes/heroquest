@@ -1,15 +1,10 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.selectionboxes;
 
-import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
-import br.unicamp.ic.mc322.heroquest.map.MapManager;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.io.FileNotFoundException;
 
 //** Talvez dê pra herdar um "MapListItem" para separar o comando de setar mapa desta classe genérica*/
 public class BoxFreeText {

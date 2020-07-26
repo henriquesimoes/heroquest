@@ -3,25 +3,26 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.mapselectionme
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.MenuGUIManager;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.MenuButton;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.ShowMapsButton;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.QuitButton;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.RandomMapButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.gametitle.GameTitle;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class MapSelection implements Renderable {
+    private MenuGUIManager guiManager;
     private final GameTitle GAME_TITLE;
     private final ArrayList<MenuButton> options;
 
     public MapSelection(Graphics2D graphics, GraphicEngine graphicEngine) {
         this.options = new ArrayList<>();
+        this.guiManager = new MenuGUIManager(graphics, graphicEngine);
         this.GAME_TITLE = new GameTitle(graphics, 200);
-        options.add(new RandomMapButton(graphics, graphicEngine));
-        options.add(new ShowMapsButton(graphics, graphicEngine));
-        options.add(new QuitButton(graphics, graphicEngine));
+
+        options.add(guiManager.getRandomMapButton());
+        options.add(guiManager.getGoToMapSelectionButton());
+        options.add(guiManager.getQuitButton());
 
     }
 

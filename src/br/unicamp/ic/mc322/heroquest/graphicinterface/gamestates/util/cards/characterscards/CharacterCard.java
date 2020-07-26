@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.cha
 
 import br.unicamp.ic.mc322.heroquest.engine.Command;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.Card;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.commands.ChooseCharacterCommand;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.guitools.ImageEditor;
