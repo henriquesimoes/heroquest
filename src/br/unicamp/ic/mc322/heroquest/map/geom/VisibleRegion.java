@@ -12,7 +12,12 @@ class VisibleRegion extends LimitedRegion {
     private Collection<Coordinate> obstacles;
 
     VisibleRegion(Coordinate reference, int mapWidth, int mapHeight) {
-        super(reference, mapWidth + mapHeight + 1);
+        // maximum visibility radius = 10
+        super(reference, 10);
+
+        // Another constructor for the case that limit not exists
+        //super(reference, mapWidth + mapHeight + 1);
+
         obstacles = new ArrayList<>();
     }
 
