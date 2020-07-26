@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameImagesLoader {
-
     private HashMap<Character, ArrayList<BufferedImage>> images;
 
     public GameImagesLoader() {
