@@ -126,7 +126,7 @@ public class GraphicEngine extends JPanel implements Runnable, GameEngine {
         this.map = map;
     }
 
-    public HeroKind getHeroKid() {
+    public HeroKind getHeroKind() {
         return heroKind;
     }
 

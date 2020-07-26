@@ -37,7 +37,7 @@ public class GameRunning implements Renderable {
 
     void create() {
         this.map = graphicEngine.getMap();
-        HeroKind heroKind = graphicEngine.getHeroKid();
+        HeroKind heroKind = graphicEngine.getHeroKind();
         String name = graphicEngine.getHeroName();
 
         this.graphicGameViewer = new GraphicGameViewer(graphics, graphicEngine, map);
