@@ -86,9 +86,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         while (running) {
             if (fpsController.shouldUpdate()) {
+                renderGraphics();
                 update();
             }
-            renderGraphics();
         }
     }
 

@@ -6,10 +6,9 @@ public class GameFPSManager {
     private final double TIME_PER_FRAME = ONE_SECOND_IN_NANOSECONDS / FRAMES_PER_SECOND;
 
     private double lastUpdateTime = System.nanoTime();
-    private double now = System.nanoTime();
 
     public boolean shouldUpdate() {
-        now = System.nanoTime();
+        double now = System.nanoTime();
 
         if (now - lastUpdateTime >= TIME_PER_FRAME) {
             lastUpdateTime = now;
