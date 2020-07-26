@@ -139,7 +139,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         return heroKind;
     }
 
-    public void setHeroKid(HeroKind heroKind) {
+    public void setHeroKind(HeroKind heroKind) {
         this.heroKind = heroKind;
     }
 
