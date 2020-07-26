@@ -4,10 +4,10 @@ public class Centralizer {
     /**
      * Returns a map representation centralized on the given reference point.
      *
-     * @param m matrix to be centered
-     * @param radius resulting matrix radius
+     * @param m         matrix to be centered
+     * @param radius    resulting matrix radius
      * @param reference center point
-     * @param nullChar character to be filled outside the map
+     * @param nullChar  character to be filled outside the map
      * @return
      */
     public static char[][] getCentralizedMatrix(char[][] m, int radius, Coordinate reference, char nullChar) {

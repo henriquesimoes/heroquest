@@ -1,8 +1,8 @@
 package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.character;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GamePanel;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.StateViewer;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.buttons.definedbuttons.BackButton;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.cards.Card;

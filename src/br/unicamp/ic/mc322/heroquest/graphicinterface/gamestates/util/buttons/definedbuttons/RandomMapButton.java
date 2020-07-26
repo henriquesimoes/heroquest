@@ -31,7 +31,7 @@ public class RandomMapButton extends MenuButton {
             nickName = "Player";
 
         gamePanel.setMap(new MapManager().generate());
-        gamePanel.setName(nickName);
+        gamePanel.setHeroName(nickName);
         return State.CHOOSE_CHARACTER;
     }
 }
