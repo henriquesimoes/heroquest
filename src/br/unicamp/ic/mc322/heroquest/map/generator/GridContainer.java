@@ -3,6 +3,11 @@ package br.unicamp.ic.mc322.heroquest.map.generator;
 import br.unicamp.ic.mc322.heroquest.map.geom.Coordinate;
 import br.unicamp.ic.mc322.heroquest.map.geom.Dimension;
 
+/**
+ * A container used to define a quadrilateral region that can be used to
+ * some applications, e.g to map areas in a matrix or create sub areas on the container
+ * */
+
 class GridContainer {
     private Dimension dimension;
     private Coordinate topLeftCoordinate;
@@ -26,7 +31,7 @@ class GridContainer {
 
     @Override
     public String toString() {
-        return ("Dimensions: " + dimension.getWidth() + " X " + dimension.getHeight() + "  -  Coords:" +
+        return ("Dimensions: " + dimension.getWidth() + " X " + dimension.getHeight() + "  -  " +
                 topLeftCoordinate.toString());
     }
 }

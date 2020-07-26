@@ -42,7 +42,8 @@ public class MapGenerator {
 
         Collection<Chest> chests = generateChests();
 
-        for (Chest chest : chests)
+        for (Chest chest : chests)character
+
             builder.add(chest);
 
         return builder;
@@ -58,6 +59,10 @@ public class MapGenerator {
         rooms = randomRooms.createRandomRooms();
     }
 
+    /**
+     * Uses the GridContainer and its inside zones to create map of characters that represents
+     * structures of the map, like walls and doors.
+     * */
     private void createMatrixGrid() {
         grid = new char[GRID_HEIGHT][GRID_WIDTH];
 
