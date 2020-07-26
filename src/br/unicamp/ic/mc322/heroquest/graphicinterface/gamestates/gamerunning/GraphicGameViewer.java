@@ -51,7 +51,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     private GraphicIO graphicIO;
 
     public GraphicGameViewer(Graphics2D graphics, GamePanel gamePanel, Map map) {
-        this.RADIUS = VisibleRegion.getMaximumVisibilityRadius();
+        this.RADIUS = VisibleRegion.MAXIMUM_VISIBILITY_RADIUS;
         this.reference = new Coordinate(RADIUS, RADIUS);
         this.graphics = graphics;
         this.needUpdateMap = false;
@@ -169,7 +169,7 @@ public class GraphicGameViewer implements Renderable, MapViewer {
     @Override
     public void display(Coordinate coordinate) {
         updateMap();
-        matrixOut = Centralizer.getCentralizeMatrix(mapMatrix, RADIUS, coordinate.getX(), coordinate.getY(), '?');
+        matrixOut = Centralizer.getCentralizedMatrix(mapMatrix, RADIUS, coordinate, '?');
         for (int i = 0; i < matrixOut.length; i++)
             for (int j = 0; j < matrixOut[i].length; j++) {
                 if (images.containsKey(matrixOut[i][j])) {

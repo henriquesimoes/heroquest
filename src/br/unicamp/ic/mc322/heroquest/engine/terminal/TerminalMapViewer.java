@@ -27,7 +27,7 @@ public class TerminalMapViewer implements MapViewer {
 
     public TerminalMapViewer(Map map) {
         this.map = map;
-        this.radiusVisibility = VisibleRegion.getMaximumVisibilityRadius();
+        this.radiusVisibility = VisibleRegion.MAXIMUM_VISIBILITY_RADIUS;
 
         visibleMap = new char[map.getHeight()][map.getWidth()];
     }
@@ -46,13 +46,13 @@ public class TerminalMapViewer implements MapViewer {
     }
 
     private void clear() {
-        for (int i = 0; i < visibleMap.length; i++)
-            Arrays.fill(visibleMap[i], '?');
+        for (char[] chars : visibleMap)
+            Arrays.fill(chars, '?');
     }
 
     private void print(Coordinate reference) {
         StringBuilder builder = new StringBuilder();
-        char[][] output = Centralizer.getCentralizeMatrix(visibleMap, radiusVisibility, reference.getX(), reference.getY(), '?');
+        char[][] output = Centralizer.getCentralizedMatrix(visibleMap, radiusVisibility, reference, '?');
         builder.append("  ");
 
         for (int dx = 0; dx < output[0].length; dx++)
