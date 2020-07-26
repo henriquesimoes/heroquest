@@ -44,7 +44,7 @@ public class RegionSelector {
     }
 
     public Region getVisibleRegion(Coordinate reference, boolean onlyWalkablePositions) {
-        return build(new VisibleRegion(reference), onlyWalkablePositions);
+        return build(new VisibleRegion(reference, map.getWidth(), map.getHeight()), onlyWalkablePositions);
     }
 
     public Region getVisibleRegion(boolean onlyWalkablePositions) {

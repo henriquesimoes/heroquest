@@ -9,8 +9,8 @@ import java.util.Set;
 
 class LimitedRegion extends Region {
     private int limit;
-    private Queue<Pair<Coordinate, Integer>> queue;
-    private Set<Coordinate> visited;
+    protected Queue<Pair<Coordinate, Integer>> queue;
+    protected Set<Coordinate> visited;
 
     LimitedRegion(Coordinate reference, int limit) {
         super(reference);
@@ -33,7 +33,7 @@ class LimitedRegion extends Region {
         }
     }
 
-    private void update(Pair<Coordinate, Integer> lastVisitedPosition) {
+    protected void update(Pair<Coordinate, Integer> lastVisitedPosition) {
         Coordinate lastCoordinate = lastVisitedPosition.getFirst();
         int distance = lastVisitedPosition.getSecond();
 
