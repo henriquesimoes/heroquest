@@ -26,7 +26,7 @@ public class FireBall extends MagicSkill {
     public void useSkill(MapObject targetObject) {
         Walker targetWalker = (Walker) targetObject;
 
-        if (tryUseMagicSkill()) {
+        if (tryToUseMagicSkill()) {
             WalkerManager targetManager = targetWalker.getManager();
             RegionSelector regionSelector = targetManager.getRegionSelector();
 

@@ -21,7 +21,7 @@ public abstract class MagicSkill extends Skill {
         return getName().compareTo(that.getName());
     }
 
-    public boolean tryUseMagicSkill() {
+    public boolean tryToUseMagicSkill() {
         if (skillUser.attemptMagicalMovement())
             return true;
         walkerManager.showMessage(String.format("%s failed to cast %s", skillUser.getName(), skillName));

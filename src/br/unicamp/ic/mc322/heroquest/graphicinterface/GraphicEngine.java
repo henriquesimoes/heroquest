@@ -88,8 +88,8 @@ public class GraphicEngine extends JPanel implements Runnable, GameEngine {
         while (running) {
             if (fpsController.shouldUpdate()) {
                 update();
+                renderGraphics();
             }
-            renderGraphics();
         }
     }
 

@@ -15,7 +15,7 @@ public class Teleport extends MagicSkill {
 
     @Override
     public void useSkill(MapObject targetObject) {
-        if (tryUseMagicSkill())
+        if (tryToUseMagicSkill())
             walkerManager.moveWalker(targetObject.getPosition());
 
         skillUser.removeSkill(this);
