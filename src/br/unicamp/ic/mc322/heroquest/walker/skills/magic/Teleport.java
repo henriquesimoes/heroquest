@@ -25,14 +25,15 @@ public class Teleport extends MagicSkill {
 
     @Override
     public void updateTargets() {
-        Region region = getUserRegionSelector().getVisibleRegion(true);
+        Region region = getUserRegionSelector().getVisibleRegion();
 
         accept(this, region);
     }
 
     @Override
     public void visit(StructuralObject structuralObject) {
-        targets.add(structuralObject);
+        if (structuralObject.isAllowedToWalkOver())
+            targets.add(structuralObject);
     }
 
     @Override

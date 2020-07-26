@@ -26,7 +26,7 @@ public class MagicMissile extends MagicSkill {
 
     @Override
     public void updateTargets() {
-        Region region = getUserRegionSelector().getVisibleRegion(false);
+        Region region = getUserRegionSelector().getVisibleRegion();
         accept(this, region);
     }
 

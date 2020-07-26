@@ -40,7 +40,7 @@ public class MonsterGenerator {
         WalkerManager walkerManager = reference.getManager();
 
         RegionSelector regionSelector = walkerManager.getRegionSelector();
-        Region region = regionSelector.getVisibleRegion(source, true);
+        Region region = regionSelector.getAdjacentRegion(source, true);
         ArrayList<Coordinate> possiblePositions = region.toArrayList();
         possiblePositions.remove(source);
 

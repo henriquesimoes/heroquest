@@ -43,8 +43,7 @@ public class FireBall extends MagicSkill {
 
     @Override
     public void updateTargets() {
-        // TODO: discover how to set the distance to catch the visible walkers
-        Region region = getUserRegionSelector().getVisibleRegion(false);
+        Region region = getUserRegionSelector().getVisibleRegion();
 
         attacking = false;
         accept(this, region);

@@ -35,6 +35,10 @@ public class RegionSelector {
         return build(new AdjacentRegion(reference), onlyWalkablePositions);
     }
 
+    public Region getAdjacentRegion(Coordinate reference, boolean onlyWalkablePositions) {
+        return build(new AdjacentRegion(reference), onlyWalkablePositions);
+    }
+
     public Region getCardinalRegion(boolean onlyWalkablePositions) {
         return build(new CardinalRegion(reference), onlyWalkablePositions);
     }
@@ -43,12 +47,12 @@ public class RegionSelector {
         return build(new LimitedRegion(reference, limit), onlyWalkablePositions);
     }
 
-    public Region getVisibleRegion(Coordinate reference, boolean onlyWalkablePositions) {
-        return build(new VisibleRegion(reference), onlyWalkablePositions);
+    public Region getVisibleRegion(Coordinate reference) {
+        return build(new VisibleRegion(reference), false);
     }
 
-    public Region getVisibleRegion(boolean onlyWalkablePositions) {
-        return getVisibleRegion(reference, onlyWalkablePositions);
+    public Region getVisibleRegion() {
+        return getVisibleRegion(reference);
     }
 
     private Region build(Region region, boolean onlyWalkablePositions) {
