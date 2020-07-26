@@ -12,7 +12,7 @@ public class ChooseMapCommand implements Command {
     private final IOInterface io;
     private final TerminalEngine engine;
 
-    public ChooseMapCommand(TerminalEngine engine, IOInterface io) {
+    public ChooseMapCommand(TerminalEngine engine, TerminalIO io) {
         this.engine = engine;
         this.io = io;
     }

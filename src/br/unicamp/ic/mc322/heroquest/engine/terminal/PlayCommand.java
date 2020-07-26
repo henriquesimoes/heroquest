@@ -1,15 +1,14 @@
 package br.unicamp.ic.mc322.heroquest.engine.terminal;
 
 import br.unicamp.ic.mc322.heroquest.engine.Command;
-import br.unicamp.ic.mc322.heroquest.engine.IOInterface;
 import br.unicamp.ic.mc322.heroquest.walker.Walker;
 import br.unicamp.ic.mc322.heroquest.walker.heroes.HeroKind;
 
 public class PlayCommand implements Command {
     private final TerminalEngine engine;
-    private final IOInterface io;
+    private final TerminalIO io;
 
-    public PlayCommand(TerminalEngine engine, IOInterface io) {
+    public PlayCommand(TerminalEngine engine, TerminalIO io) {
         this.engine = engine;
         this.io = io;
     }

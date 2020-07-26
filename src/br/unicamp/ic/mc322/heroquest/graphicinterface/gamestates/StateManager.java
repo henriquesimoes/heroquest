@@ -2,7 +2,6 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates;
 
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Renderable;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.States;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.character.CharacterSelection;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.gamerunning.GameRunning;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.mapselectionmenu.MapSelection;
@@ -25,7 +24,7 @@ public class StateManager {
         states.put(States.MAP_SELECTION, new MapSelection(graphics, graphicEngine));
         states.put(States.LIST_OF_MAPS, new StandardMapSelection(graphics, graphicEngine));
         states.put(States.CHOOSE_CHARACTER, new CharacterSelection(graphics, graphicEngine));
-        states.put(States.GAME_RUNNING, new GameRunning(graphics, graphicEngine));
+        states.put(States.GAME_RUNNING, new GameRunning(graphics, graphicEngine, this));
 
         stack.push(states.get(States.START_MENU));
     }
@@ -47,21 +46,20 @@ public class StateManager {
             stack.pop();
     }
 
-    public boolean changeState(States states) {
+    public void changeState(States states) {
         switch (states) {
             case STABLE:
-                return false;
+                break;
             case GO_TO_PREV:
                 goToPrevState();
-                return true;
+                break;
             case GO_TO_FIRST:
                 goToFirst();
-                return true;
+                break;
             case QUIT:
                 System.exit(0);
             default:
                 goTo(states);
-                return true;
         }
     }
 }

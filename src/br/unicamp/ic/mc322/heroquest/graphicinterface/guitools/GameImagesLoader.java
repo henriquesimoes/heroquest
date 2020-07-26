@@ -50,43 +50,25 @@ public class GameImagesLoader {
 
         temp = new ArrayList<>();
         temp.add(ImageLoader.readImage("wall_mid.png"));
-        temp.add(ImageLoader.readImage("wall_mid.png"));
-        temp.add(ImageLoader.readImage("wall_mid.png"));
-        temp.add(ImageLoader.readImage("wall_mid.png"));
         images.put('#', temp);
 
         temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("chest_full_open_anim_f0.png"));
-        temp.add(ImageLoader.readImage("chest_full_open_anim_f0.png"));
-        temp.add(ImageLoader.readImage("chest_full_open_anim_f0.png"));
         temp.add(ImageLoader.readImage("chest_full_open_anim_f0.png"));
         images.put('C', temp);
 
         temp = new ArrayList<>();
         temp.add(ImageLoader.readImage("chest_empty_open_anim_f2.png"));
-        temp.add(ImageLoader.readImage("chest_empty_open_anim_f2.png"));
-        temp.add(ImageLoader.readImage("chest_empty_open_anim_f2.png"));
-        temp.add(ImageLoader.readImage("chest_empty_open_anim_f2.png"));
         images.put('c', temp);
 
         temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("floor_spikes_anim_f0.png"));
-        temp.add(ImageLoader.readImage("floor_spikes_anim_f0.png"));
-        temp.add(ImageLoader.readImage("floor_spikes_anim_f0.png"));
         temp.add(ImageLoader.readImage("floor_spikes_anim_f0.png"));
         images.put('t', temp);
 
         temp = new ArrayList<>();
         temp.add(ImageLoader.readImage("floor_spikes_anim_f3.png"));
-        temp.add(ImageLoader.readImage("floor_spikes_anim_f3.png"));
-        temp.add(ImageLoader.readImage("floor_spikes_anim_f3.png"));
-        temp.add(ImageLoader.readImage("floor_spikes_anim_f3.png"));
         images.put('T', temp);
 
         temp = new ArrayList<>();
-        temp.add(ImageLoader.readImage("floor_1.png"));
-        temp.add(ImageLoader.readImage("floor_1.png"));
-        temp.add(ImageLoader.readImage("floor_1.png"));
         temp.add(ImageLoader.readImage("floor_1.png"));
         images.put(' ', temp);
     }

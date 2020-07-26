@@ -3,7 +3,7 @@ package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.util.selection
 import br.unicamp.ic.mc322.heroquest.graphicinterface.Clickable;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GameWindow;
 import br.unicamp.ic.mc322.heroquest.graphicinterface.GraphicEngine;
-import br.unicamp.ic.mc322.heroquest.graphicinterface.States;
+import br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates.States;
 import br.unicamp.ic.mc322.heroquest.map.MapManager;
 
 import javax.swing.*;

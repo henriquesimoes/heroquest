@@ -76,7 +76,6 @@ public class TerminalIO implements IOInterface {
         writer.println(message);
     }
 
-    @Override
     public String getStringAnswer(String question) {
         writer.print(question);
         String answer;

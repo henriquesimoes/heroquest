@@ -1,4 +1,4 @@
-package br.unicamp.ic.mc322.heroquest.graphicinterface;
+package br.unicamp.ic.mc322.heroquest.graphicinterface.gamestates;
 
 public enum States {
     START_MENU,
