@@ -65,6 +65,17 @@ public class RegionSelector {
     }
 
     /**
+     * Selects the region that covers all eight positions around the reference coordinate.
+     *
+     * @param reference             - point of view
+     * @param onlyWalkablePositions - whether to exclude position not possible to walk over
+     * @return adjacent region
+     */
+    public Region getAdjacentRegion(Coordinate reference, boolean onlyWalkablePositions) {
+        return build(new AdjacentRegion(reference), onlyWalkablePositions);
+    }
+
+    /**
      * Selects the region that covers the four cardinal (north, south, east and west) positions
      * around the reference coordinate.
      *
@@ -90,22 +101,20 @@ public class RegionSelector {
     /**
      * Selects the region that is visible on the `reference` point of view.
      *
-     * @param reference             - point of view
-     * @param onlyWalkablePositions - whether to include only positions that are possible to walk to.
+     * @param reference - point of view
      * @return visible region
      */
-    public Region getVisibleRegion(Coordinate reference, boolean onlyWalkablePositions) {
-        return build(new VisibleRegion(reference, map.getWidth(), map.getHeight()), onlyWalkablePositions);
+    public Region getVisibleRegion(Coordinate reference) {
+        return build(new VisibleRegion(reference, map.getWidth(), map.getHeight()), false);
     }
 
     /**
      * Selects the region that is visible on the configured reference point of view.
      *
-     * @param onlyWalkablePositions - whether to include only positions that are possible to walk to.
      * @return visible region
      */
-    public Region getVisibleRegion(boolean onlyWalkablePositions) {
-        return getVisibleRegion(reference, onlyWalkablePositions);
+    public Region getVisibleRegion() {
+        return getVisibleRegion(reference);
     }
 
     private Region build(Region region, boolean onlyWalkablePositions) {

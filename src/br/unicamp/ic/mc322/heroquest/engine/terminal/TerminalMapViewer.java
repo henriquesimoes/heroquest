@@ -37,7 +37,7 @@ public class TerminalMapViewer implements MapViewer {
         clear();
 
         RegionSelector regionSelector = map.getRegionSelector();
-        Region region = regionSelector.getVisibleRegion(reference, false);
+        Region region = regionSelector.getVisibleRegion(reference);
 
         // update the map objects only on the visible region
         map.accept(this, region);

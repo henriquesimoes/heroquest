@@ -45,7 +45,7 @@ public class FireBall extends MagicSkill {
 
     @Override
     public void updateTargets() {
-        Region region = getUserRegionSelector().getVisibleRegion(false);
+        Region region = getUserRegionSelector().getVisibleRegion();
 
         attacking = false;
 

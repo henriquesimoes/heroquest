@@ -18,7 +18,7 @@ public class Follower extends MovementBehavior implements AbstractMapObjectVisit
         Coordinate walkerPosition = walkerManager.getWalkerPosition();
         possibleMoves.add(walkerPosition); // insert "stay still" as a move
 
-        Region region = walkerManager.getRegionSelector().getVisibleRegion(false);
+        Region region = walkerManager.getRegionSelector().getVisibleRegion();
         walkerManager.accept(this, region);
 
         // if there are no visible enemies, make a random move
