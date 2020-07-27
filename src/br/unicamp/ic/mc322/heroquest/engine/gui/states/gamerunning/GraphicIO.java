@@ -28,9 +28,7 @@ public class GraphicIO implements IOInterface {
 
     @Override
     public int showOptionsAndGetAnswer(String[] options, boolean allowBack) {
-        boolean invalidAnswer = true;
-        int answer = 0;
-        while (invalidAnswer) {
+        while (true) {
             for (int i = 0; i < options.length; i++)
                 appendMessage(String.format("%2d - %s\n", i + 1, options[i]));
 
@@ -38,17 +36,14 @@ public class GraphicIO implements IOInterface {
                 appendMessage(String.format("%2d - Return\n", 0));
 
             try {
-                answer = Integer.parseInt(keyboardInput.getKey());
-                clear();
+                int answer = Integer.parseInt(keyboardInput.getKey());
                 if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
-                    invalidAnswer = false;
-            } catch (NumberFormatException e) {
-                clear();
-                appendMessage(String.format("Invalid option\n"));
-            }
-        }
+                    return answer;
+            } catch (NumberFormatException e) {}
 
-        return answer;
+            clear();
+            appendMessage(String.format("Invalid option\n"));
+        }
     }
 
     @Override
