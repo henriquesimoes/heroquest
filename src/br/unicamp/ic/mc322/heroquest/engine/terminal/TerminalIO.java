@@ -24,10 +24,7 @@ public class TerminalIO implements IOInterface {
 
     @Override
     public int showOptionsAndGetAnswer(String[] options, boolean allowBack) {
-        boolean invalidAnswer = true;
-        int answer = 0;
-
-        while (invalidAnswer) {
+        while (true) {
             for (int i = 0; i < options.length; i++)
                 writer.printf("%2d - %s\n", i + 1, options[i]);
 
@@ -37,18 +34,16 @@ public class TerminalIO implements IOInterface {
             writer.print("Selected option: ");
 
             try {
-                answer = reader.nextInt();
+                int answer = reader.nextInt();
                 if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
-                    invalidAnswer = false;
+                    return answer;
             } catch (InputMismatchException e) {
                 reader.nextLine();
-                writer.print("Invalid option");
             }
 
+            writer.print("Invalid option");
             writer.println();
         }
-
-        return answer;
     }
 
     @Override

@@ -126,8 +126,9 @@ class BSPTree {
 
     /**
      * Zones inside the original GridContainer are located in the leaves of the tree
-     * @param node - each node is a new GridContainer created inside the original GridContainer
-     *             and with smaller dimensions
+     *
+     * @param node       - each node is a new GridContainer created inside the original GridContainer
+     *                   and with smaller dimensions
      * @param partitions - An empty arraylist used to store the GridContainer inside zones
      */
     private void createPartitions(ArrayList<GridContainer> partitions, Node<GridContainer> node) {

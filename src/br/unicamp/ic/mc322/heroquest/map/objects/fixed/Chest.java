@@ -51,8 +51,10 @@ public class Chest extends FixedObject {
                 agent.collectItem(item);
             items.clear();
 
-            coins.useItem(agent);
-            coins = null;
+            if (coins != null) {
+                coins.useItem(agent);
+                coins = null;
+            }
         } else {
             opened = true;
             if (PROBABILITY_OF_APPEARING_A_MONSTER >= Randomizer.nextDouble()) {
