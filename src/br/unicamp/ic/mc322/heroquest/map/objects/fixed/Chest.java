@@ -51,7 +51,7 @@ public class Chest extends FixedObject {
                 agent.collectItem(item);
             items.clear();
 
-            if(coins != null){
+            if (coins != null) {
                 coins.useItem(agent);
                 coins = null;
             }

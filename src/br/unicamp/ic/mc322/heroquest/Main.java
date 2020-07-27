@@ -11,7 +11,7 @@ public class Main {
          * In order to execute the graphic interface engine, change the
          * `TerminalEngine` to a `GraphicEngine`.
          */
-        GameEngine engine = new GraphicEngine();
+        GameEngine engine = new TerminalEngine();
 
         /*
          * Starts the configured game engine.

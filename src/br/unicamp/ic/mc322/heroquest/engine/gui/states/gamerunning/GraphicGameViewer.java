@@ -168,7 +168,7 @@ public class GraphicGameViewer implements StateViewer, MapViewer {
             for (int j = 0; j < matrixOut[i].length; j++) {
                 BufferedImage image = getFrame(matrixOut[i][j]);
                 graphics.drawImage(matrixOut[i][j].needsToShiftImageUp() ? shiftImageUp(image) : image,
-                            getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
+                        getX(j), getY(i), cellWidth, cellHeight, new Color(72, 59, 58), null);
             }
     }
 
