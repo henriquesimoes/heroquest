@@ -37,8 +37,10 @@ public class GraphicIO implements IOInterface {
 
             try {
                 int answer = Integer.parseInt(keyboardInput.getKey());
-                if ((allowBack ? 0 : 1) <= answer && answer <= options.length)
+                if ((allowBack ? 0 : 1) <= answer && answer <= options.length){
+                    clear();
                     return answer;
+                }
             } catch (NumberFormatException e) {}
 
             clear();
