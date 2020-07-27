@@ -23,7 +23,7 @@ public class StandardMapSelection implements StateViewer {
         this.mapManager = new MapManager();
         this.guiManager = new GUIMenuFactory(graphics, gamePanel);
         this.LIST_OF_MAPS = guiManager.getBoxedMapList(this.mapManager);
-        this.GAME_TITLE = guiManager.getGameTitle(200);
+        this.GAME_TITLE = guiManager.getGameTitle(100);
         this.BACK_BUTTON = guiManager.getBackButton();
     }
 

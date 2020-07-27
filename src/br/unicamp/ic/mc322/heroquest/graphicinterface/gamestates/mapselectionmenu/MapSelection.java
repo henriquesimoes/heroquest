@@ -18,7 +18,7 @@ public class MapSelection implements StateViewer {
     public MapSelection(Graphics2D graphics, GamePanel gamePanel) {
         this.options = new ArrayList<>();
         this.guiManager = new GUIMenuFactory(graphics, gamePanel);
-        this.GAME_TITLE = new GameTitle(graphics, 200);
+        this.GAME_TITLE = new GameTitle(graphics, 100);
 
         options.add(guiManager.getRandomMapButton());
         options.add(guiManager.getGoToMapSelectionButton());

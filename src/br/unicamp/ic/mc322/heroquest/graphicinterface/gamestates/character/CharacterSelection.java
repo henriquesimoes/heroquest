@@ -26,7 +26,7 @@ public class CharacterSelection implements StateViewer {
     public CharacterSelection(Graphics2D graphics, GamePanel gamePanel) {
         this.options = new ArrayList<>();
         this.guiManager = new GUIMenuFactory(graphics, gamePanel);
-        this.GAME_TITLE = guiManager.getGameTitle(200);
+        this.GAME_TITLE = guiManager.getGameTitle(100);
         this.BACK_BUTTON = guiManager.getBackButton();
         options.add(new BarbarianChar(graphics, gamePanel));
         options.add(new DwarfChar(graphics, gamePanel));

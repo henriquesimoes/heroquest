@@ -18,7 +18,7 @@ public class StartMenu implements StateViewer {
     public StartMenu(Graphics2D graphics2D, GamePanel gamePanel) {
         this.options = new ArrayList<>();
         this.guiManager = new GUIMenuFactory(graphics2D, gamePanel);
-        this.GAME_TITLE = guiManager.getGameTitle(200);
+        this.GAME_TITLE = guiManager.getGameTitle(100);
 
         options.add(guiManager.getNewGameButton());
         options.add(guiManager.getQuitButton());
