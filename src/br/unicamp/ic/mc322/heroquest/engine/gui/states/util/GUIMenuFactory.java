@@ -30,7 +30,7 @@ public class GUIMenuFactory {
     }
 
     public MenuButton getGoToMapSelectionButton() {
-        return new MenuButton("Select Map",
+        return new MenuButton("Select map",
                 new ShowListOfMapsCommand(gamePanel.getStateManager()),
                 graphics,
                 gamePanel);
