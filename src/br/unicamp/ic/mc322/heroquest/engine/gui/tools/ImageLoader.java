@@ -1,5 +1,7 @@
 package br.unicamp.ic.mc322.heroquest.engine.gui.tools;
 
+import br.unicamp.ic.mc322.heroquest.map.loader.InvalidResourcesFolderLocationException;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -24,6 +26,11 @@ public class ImageLoader {
     }
 
     private static Path getFullName(String filename) {
-        return Paths.get(BASE_PATH).toAbsolutePath().resolve(filename);
+        Path folder = Paths.get(BASE_PATH).toAbsolutePath();
+
+        if (!folder.toFile().isDirectory())
+            throw new InvalidResourcesFolderLocationException();
+
+        return folder.resolve(filename);
     }
 }

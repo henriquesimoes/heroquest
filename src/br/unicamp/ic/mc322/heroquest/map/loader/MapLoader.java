@@ -23,6 +23,9 @@ public class MapLoader {
     public MapLoader() {
         this.base = Paths.get(MAPS_PATH).toAbsolutePath();
 
+        if (!base.toFile().isDirectory())
+            throw new InvalidResourcesFolderLocationException();
+
         readAvailableMapFiles();
     }
 
