@@ -5,6 +5,7 @@ import br.unicamp.ic.mc322.heroquest.map.core.MapBuilder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -16,16 +17,12 @@ import java.util.Scanner;
  * Handles the disk map loading process.
  */
 public class MapLoader {
-    private static final String MAPS_PATH = "resources/maps";
+    private static final String MAPS_PATH = "/resources/maps";
     private final Path base;
     private Collection<File> files;
 
     public MapLoader() {
-        this.base = Paths.get(MAPS_PATH).toAbsolutePath();
-
-        if (!base.toFile().isDirectory())
-            throw new InvalidResourcesFolderLocationException();
-
+        this.base = Paths.get(this.getClass().getResource(MAPS_PATH).getPath());
         readAvailableMapFiles();
     }
 
@@ -72,7 +69,8 @@ public class MapLoader {
     }
 
     private File getFile(String filename) throws FileNotFoundException {
-        File file = new File(base.resolve(filename).toUri());
+        URI uri = base.resolve(filename).toUri();
+        File file = new File(uri);
 
         if (!file.exists())
             throw new FileNotFoundException();

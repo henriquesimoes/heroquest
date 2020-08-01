@@ -4,7 +4,6 @@ import br.unicamp.ic.mc322.heroquest.engine.gui.GameWindow;
 import br.unicamp.ic.mc322.heroquest.engine.gui.tools.ImageEditor;
 import br.unicamp.ic.mc322.heroquest.engine.gui.tools.ImageLoader;
 
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
