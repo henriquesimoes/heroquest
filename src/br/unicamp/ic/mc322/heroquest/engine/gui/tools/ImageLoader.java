@@ -2,30 +2,25 @@ package br.unicamp.ic.mc322.heroquest.engine.gui.tools;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.io.InputStream;
 import java.nio.file.Paths;
 
 public class ImageLoader {
     private static final String BASE_PATH = "resources/gameImages";
 
-    public static BufferedImage readImage(String fileLocation) {
-        Path path = getFullName(fileLocation);
+    public static BufferedImage readImage(String filename) {
+        String resourcePath = Paths.get(BASE_PATH).resolve(filename).toString();
         BufferedImage img = null;
 
         try {
-            img = ImageIO.read(new File(path.toUri()));
+            InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream(resourcePath);
+
+            img = ImageIO.read(stream);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return img;
-    }
-
-    private static Path getFullName(String filename) {
-        Path folder = Paths.get(ClassLoader.getSystemClassLoader().getResource(BASE_PATH).getPath());
-
-        return folder.resolve(filename);
     }
 }
