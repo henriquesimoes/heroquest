@@ -1,8 +1,5 @@
 # Ignore IntelliJ output folder
-out/
+/out/
 
-# Ignore IntelliJ configuration files
-.idea/
-
-# Ignore project configuration file
-*.iml
+# Ignore library files
+/lib/
