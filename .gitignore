@@ -1,5 +1,8 @@
 # Ignore IntelliJ output folder
 /out/
 
+# Ignore MAVEN target folder
+/target/
+
 # Ignore library files
 /lib/
