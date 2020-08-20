@@ -19,7 +19,7 @@ import java.util.jar.JarFile;
  * Handles the disk map loading process.
  */
 public class MapLoader {
-    private static final String MAPS_PATH = "resources/maps";
+    private static final String MAPS_PATH = "maps";
     private Collection<String> filenames;
 
     public MapLoader() {

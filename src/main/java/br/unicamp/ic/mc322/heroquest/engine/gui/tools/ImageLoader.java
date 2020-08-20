@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 
 public class ImageLoader {
-    private static final String BASE_PATH = "resources/gameImages";
+    private static final String BASE_PATH = "gameImages";
 
     public static BufferedImage readImage(String filename) {
         String resourcePath = Paths.get(BASE_PATH).resolve(filename).toString();
