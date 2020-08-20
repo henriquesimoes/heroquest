@@ -7,7 +7,7 @@ rules has been used.
 
 ## Game mechanics
 
-In a nutshell, the developed game consists in a hero who finds herself lost on an unknown place and needs to kill all
+In a nutshell, the developed game consists in a hero who finds herself lost on an unknown place, and needs to kill all
 monsters nearby. In order to do so, she might use weapons or spells to attack the enemies, armors to protect herself
 and even use cure potions to restore health points.
 
@@ -87,7 +87,8 @@ location.
 
 ## Installing
 
-In order to run the game, you'll have to first install the [Java Runtime Environment (JRE)][3].
+In order to run the game, you'll have to first install the [Java Runtime Environment (JRE)][3] for Java 14.
+We strongly recommend installing it following the [OpenJDK platform][5] instructions.
 
 The game installation itself is as simple as downloading the latest game version. To do so, use the GitHub release tab
 to find the latest released version, and download its JAR attached file.
@@ -124,19 +125,38 @@ The same happens for monsters. Therefore, only the map structure (wall, doors) a
 arranged on the map when creating your own.
 
 In order to include the created file into an existing JAR game file, just extract the JAR file, include the created map
-on the `resources/maps` folder, and zip it once again (alternatively, it is possible to include the file to the folder
+on the `maps` folder, and zip it once again (alternatively, it is possible to include the file to the folder
 without extracting the files). This will make the game automatically list the map when running.
 
 ### Recompiling
 
-The project currently has the following dependency:
+first you will need to have [Maven][4] installed, which is used for compiling the source code,
+and generating the JAR file. To do so, please refer to the Maven installation guide.
+This step also includes installing the Java Development Kit (JDK). Here we use the Java 14 version,
+provided by [OpenJDK][5].
 
-- [commons-cli:1.4](https://mvnrepository.com/artifact/commons-cli/commons-cli/1.4)
+Once Maven is installed, you just need to run the following command:
+```shell script
+$ mvn clean compile aseembly:single
+```
 
-Before compiling the project, make sure to have it downloaded and extracted. Using IntelliJ,
-this dependency is listed in the project configuration file. Therefore, a download option should be
-available. Moreover, the project artifact creation is configured to use it from the `src/lib` folder, when
-using IntelliJ.
+Here we first clear eventual previous builds with the `clean` routine, then `compile` the source code,
+and finally `assembly` the project into a `jar` file with all dependencies.
+
+#### Troubleshooting
+
+If you get an issue with some of the Maven plugins, you can force them to be updated, and also to install all
+dependencies listed in the [`pom.xml`](pom.xml) file, with the following command:
+```shell script
+$ mvn clean install -U
+```
+
+If this does not work, consider creating an issue.
+
+## Contributing
+
+If you find any improvement you are willing work on, please fork the project,
+and create a pull request with the updates.
 
 ## Contributors
 - [Henrique Simões][10]
@@ -152,6 +172,8 @@ we thank him for the great classes, which made this project possible to be done 
 [1]: https://en.wikipedia.org/wiki/HeroQuest
 [2]: https://www.hasbro.com/common/instruct/HeroQuest.PDF
 [3]: https://www.oracle.com/java/technologies/javase-downloads.html
+[4]: https://maven.apache.org/
+[5]: https://openjdk.java.net/
 
 [10]: https://github.com/henriquesimoes
 [11]: https://github.com/matheuss1
