@@ -82,7 +82,7 @@ itself.
 In the current game version, the graphical interface has the same command interface as the command line.
 In other words, the turn actions are displayed at the side text panel, and have the same input interface
 (numbered choices selected by their index). Some differences still exists, though.
-For instance, in order to select a destination for the teleport spell, a mouse click is used to get the desired
+For instance, in order to select a destination for the teleport spell, a mouse click is used to get to the desired
 location.
 
 ## Installing
@@ -130,14 +130,14 @@ without extracting the files). This will make the game automatically list the ma
 
 ### Recompiling
 
-first you will need to have [Maven][4] installed, which is used for compiling the source code,
+First you will need to have [Maven][4] installed, which is used for compiling the source code,
 and generating the JAR file. To do so, please refer to the Maven installation guide.
 This step also includes installing the Java Development Kit (JDK). Here we use the Java 14 version,
 provided by [OpenJDK][5].
 
 Once Maven is installed, you just need to run the following command:
 ```shell script
-$ mvn clean compile aseembly:single
+$ mvn clean compile assembly:single
 ```
 
 Here we first clear eventual previous builds with the `clean` routine, then `compile` the source code,
@@ -145,8 +145,8 @@ and finally `assembly` the project into a `jar` file with all dependencies.
 
 #### Troubleshooting
 
-If you get an issue with some of the Maven plugins, you can force them to be updated, and also to install all
-dependencies listed in the [`pom.xml`](pom.xml) file, with the following command:
+If you get an issue with some of the Maven plugins, you can force them to be updated, which will also install any
+missing dependencies listed in the [`pom.xml`](pom.xml) file. For doing so, use the following command:
 ```shell script
 $ mvn clean install -U
 ```
